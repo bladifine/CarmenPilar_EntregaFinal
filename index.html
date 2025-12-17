@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Capacitación de Adultos Estadal "Carmen Pilar Fernández"</title>
+    <!-- Fuentes y estilos -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header id="inicio">
+    <div class="logo">
+        <img src="img/logo.png" alt="Logo del Centro" width="200">
+        <h1>📚 Centro de Capacitación de Adultos Estadal "Carmen Pilar Fernández"</h1>
+    </div>
+    <nav class="navbar">
+        <a href="#inicio">Inicio</a>
+        <a href="#cursos">Cursos</a>
+        <a href="#carrito">Carrito</a>
+        <a href="#contacto">Contacto</a>
+        <a href="#login">Login</a>
+        <a href="#comentarios">Comentarios</a>
+    </nav>
+</header>
+
+<main>
+    <!-- SECCIÓN DE CURSOS -->
+    <section id="cursos">
+        <h2>Cursos Disponibles</h2>
+        <div id="lista-cursos">
+            <!-- Los cursos se cargarán aquí dinámicamente -->
+        </div>
+    </section>
+    
+    <!-- SECCIÓN DE CARRITO — versión auto-ejecutable -->
+<section id="carrito">
+    <h2>Carrito de Compras</h2>
+    <div id="contenido-carrito">
+        <p>Cargando inscripciones...</p>
+    </div>
+   
+    <script>
+        // Auto-carga al cargar esta sección
+        (() => {
+            const cont = document.getElementById('contenido-carrito');
+            try {
+                const raw = localStorage.getItem('inscripciones_carmen');
+                const insc = raw ? JSON.parse(raw) : [];
+                
+                if (insc.length === 0) {
+                    cont.innerHTML = `
+                        <p style="text-align:center; color:#666;">
+                            🛒 Carrito vacío.<br>
+                            <small>Inscríbete a un curso para verlo aquí.</small>
+                        </p>
+                    `;
+                } else {
+                    cont.innerHTML = `
+                        <h3>Tus inscripciones (${insc.length})</h3>
+                        <ul style="list-style:none; padding:0;">
+                            ${insc.map(i => `
+                                <li style="border-bottom:1px solid #eee; padding:12px 0;">
+                                    <strong>✅ ${i.nombre_curso}</strong><br>
+                                    <small>👤 ${i.nombre} | 📧 ${i.email}</small>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    `;
+                }
+            } catch (e) {
+                cont.innerHTML = `<p style="color:red">❌ Error: ${e.message}</p>`;
+                console.error("Error en carrito inline:", e);
+            }
+        })();
+    </script>
+</section>
+
+    <section id="login">
+        <h2>Acceso de Usuarios</h2>
+        <form id="form-login">
+            <label for="usuario">Usuario:</label>
+            <input type="text" id="usuario" name="usuario" required>
+            <label for="clave">Contraseña:</label>
+            <input type="password" id="clave" name="clave" required>
+            <button type="submit">Ingresar</button>
+        </form>
+        <p id="respuesta-login"></p>
+    </section>
+
+    <section id="comentarios">
+        <h2>Comentarios</h2>
+        <div id="lista-comentarios"></div>
+        <form id="form-comentarios">
+            <textarea id="nuevo-comentario" name="comentario" rows="3" placeholder="Escribe tu comentario..." required></textarea>
+            <button type="submit">Enviar Comentario</button>
+        </form>
+    </section>
+
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <form id="formulario-contacto" action="contacto.php" method="POST">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" required>
+            <label for="mensaje">Mensaje:</label>
+            <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+            <button type="submit">Enviar Mensaje</button>
+        </form>
+        <p id="respuesta-formulario"></p>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 C.C.A.E CAPIFER — Todos los derechos reservados</p>
+    <p style="margin-top:8px; font-size:0.9em; color:#bbb;">
+        🛠️ Desarrollado por <strong>BLADIMIR SILVA correo: bladifine@gmail.com</strong> — Proyecto Final de Tesis
+    </p>
+</footer>
+
+
+<!-- Scripts -->
+<script src="script.js"></script>
+<script src="cursos.js"></script>
+<script src="carrito.js"></script>
+<script src="login.js"></script>
+<script src="comentarios.js"></script>
+<script src="contacto.js"></script>
+<button id="volver-arriba" onclick="scrollToTop()">↑</button>
+
+</body>
+</html>

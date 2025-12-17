@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Curso | Carmen Pilar Fernández</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        <script>
+    alert("✅ JS funciona en detalle_curso.html");
+</script>
+        body { background-color: #f8f9fa; }
+        .curso-detalle {
+            max-width: 900px; margin: 0 auto; background: white;
+            padding: 25px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .curso-detalle img { width: 100%; border-radius: 8px; margin-bottom: 20px; }
+        .info-box {
+            background: #e7f5ff; padding: 15px; border-left: 4px solid #0d6efd;
+            margin: 20px 0; border-radius: 0 6px 6px 0;
+        }
+        .btn-inscribir {
+            background: #28a745; color: white; border: none; padding: 12px 24px;
+            font-size: 1.1em; border-radius: 6px; cursor: pointer; display: inline-block;
+        }
+        .btn-inscribir:hover { background: #218838; }
+        .inscripcion-form {
+            display: none; margin-top: 20px; padding: 20px;
+            background: #f1f8e9; border-radius: 8px;
+        }
+        .inscripcion-form input {
+            width: 100%; padding: 10px; margin: 8px 0;
+            border: 1px solid #ccc; border-radius: 4px;
+        }
+        .mensaje-exito {
+            color: #155724; background: #d4edda; padding: 12px;
+            border-radius: 6px; margin-top: 15px; display: none;
+        }
+        #chatbot-btn {
+            position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px;
+            background: #0d6efd; color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; box-shadow: 0 4px 12px rgba(13,110,253,0.4);
+            cursor: pointer; z-index: 1000;
+        }
+        #chatbot-panel {
+            position: fixed; bottom: 90px; right: 20px; width: 320px; background: white;
+            border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            display: none; flex-direction: column; z-index: 1000;
+        }
+        #chatbot-header {
+            background: #0d6efd; color: white; padding: 12px 16px;
+            border-radius: 10px 10px 0 0; font-weight: bold;
+        }
+        #chatbot-body { padding: 16px; max-height: 300px; overflow-y: auto; }
+        .faq-item button {
+            background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px;
+            padding: 10px; width: 100%; text-align: left; cursor: pointer;
+        }
+        .faq-item button:hover { background: #e9ecef; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="btn-volver">← Volver a Inicio</a>
+    <h1 id="titulo-curso">Cargando curso...</h1>
+</header>
+
+<main class="curso-detalle">
+    <div id="detalle-contenido">
+        <p>Cargando información del curso...</p>
+    </div>
+
+    <button id="btn-inscribir" class="btn-inscribir">📝 Inscribirme a este curso</button>
+    
+    <div id="inscripcion-form" class="inscripcion-form">
+        <h3>Formulario de Inscripción</h3>
+        <input type="text" id="nombre" placeholder="Nombre completo *" required>
+        <input type="email" id="email" placeholder="Correo electrónico *" required>
+        <input type="tel" id="telefono" placeholder="Teléfono (opcional)">
+        <button id="btn-enviar-inscripcion" class="btn-inscribir">✅ Confirmar Inscripción</button>
+        <div id="mensaje-exito" class="mensaje-exito">
+            ¡Inscripción registrada con éxito! Gracias, <span id="nombre-exito"></span>.
+        </div>
+    </div>
+</main>
+
+<!-- Chatbot flotante -->
+<div id="chatbot-btn" title="Asistente virtual">💬</div>
+<div id="chatbot-panel">
+    <div id="chatbot-header">Asistente Educativo</div>
+    <div id="chatbot-body">
+        <div class="faq-item">
+            <button onclick="alert('Sí, se entrega certificado de participación al finalizar el curso.')">¿Se entrega certificado?</button>
+        </div>
+        <div class="faq-item">
+            <button onclick="alert('No se requiere experiencia previa. Los cursos son para principiantes y avanzados.')">¿Necesito experiencia?</button>
+        </div>
+        <div class="faq-item">
+            <button onclick="document.getElementById('btn-inscribir').scrollIntoView({behavior:'smooth'});">¿Cómo me inscribo?</button>
+        </div>
+        <div class="faq-item">
+            <button onclick="alert('Los materiales básicos están incluidos. Se indicará en clase si se requiere algo adicional.')">¿Qué materiales debo llevar?</button>
+        </div>
+    </div>
+</div>
+
+<script src="cursos.js"></script>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = Number(urlParams.get('id')) || 1;
+    const curso = cursos.find(c => c.id === id);
+
+    if (curso) {
+        document.getElementById('titulo-curso').textContent = curso.nombre;
+        document.getElementById('detalle-contenido').innerHTML = `
+            <img src="${curso.imagen}" alt="${curso.nombre}" onerror="this.src='img/logo.png'">
+            <p><strong>Descripción:</strong> ${curso.descripcion || 'Información próximamente disponible.'}</p>
+            <div class="info-box">
+                <p><strong>📅 Duración:</strong> ${curso.duracion}</p>
+                <p><strong>🕗 Horario:</strong> ${curso.horario}</p>
+                <p><strong>🗓️ Inicio:</strong> ${curso.inicio} | <strong>🏁 Finaliza:</strong> ${curso.fin}</p>
+                <p><strong>💲 Costo:</strong> ${curso.costo}</p>
+            </div>
+            ${curso.video ? `
+                <h3>🎥 Video del curso</h3>
+                <video controls width="100%" poster="${curso.imagen}">
+                    <source src="${curso.video}" type="video/mp4">
+                    Tu navegador no soporta el video.
+                </video>
+            ` : ''}
+        `;
+    } else {
+        document.getElementById('detalle-contenido').innerHTML = `
+            <p style="color:red; font-weight:bold;">❌ Curso no encontrado (ID: ${id})</p>
+        `;
+        document.getElementById('btn-inscribir').style.display = 'none';
+    }
+
+    // Inscripción
+    document.getElementById('btn-inscribir')?.addEventListener('click', () => {
+        document.getElementById('inscripcion-form').style.display = 'block';
+    });
+
+    document.getElementById('btn-enviar-inscripcion')?.addEventListener('click', () => {
+        const nombre = document.getElementById('nombre')?.value.trim();
+        const email = document.getElementById('email')?.value.trim();
+        if (!nombre || !email) return alert('⚠️ Por favor, completa nombre y correo.');
+
+        const inscripcion = {
+            id_curso: id,
+            nombre_curso: curso?.nombre || `Curso ID ${id}`,
+            nombre, email,
+            telefono: document.getElementById('telefono')?.value.trim(),
+            fecha: new Date().toLocaleString('es-ES')
+        };
+
+        let inscripciones = JSON.parse(localStorage.getItem('inscripciones_carmen') || '[]');
+        inscripciones.push(inscripcion);
+        localStorage.setItem('inscripciones_carmen', JSON.stringify(inscripciones));
+
+        document.getElementById('nombre-exito').textContent = nombre;
+        document.getElementById('mensaje-exito').style.display = 'block';
+        document.getElementById('inscripcion-form').style.display = 'none';
+        console.log('✅ Inscripción guardada:', inscripcion);
+    });
+
+    // Chatbot toggle
+    document.getElementById('chatbot-btn')?.addEventListener('click', () => {
+        const p = document.getElementById('chatbot-panel');
+        p.style.display = p.style.display === 'flex' ? 'none' : 'flex';
+    });
+</script>
+</body>
+</html>

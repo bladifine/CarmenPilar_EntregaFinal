@@ -1,0 +1,26 @@
+PROYECTO: Carmen Pilar Fernández Mejorada
+=================================================
+Carpeta principal: /carmen_pilar_fernandez_mejorada/
+
+ARCHIVOS PRINCIPALES:
+├── index.html               → Página principal (lista de cursos)
+├── detalle_curso.html       → Página de detalle con inscripción y chatbot
+├── cursos.js                → Datos de los cursos (id, nombre, descripción...)
+├── styles.css               → Estilos globales (Poppins, header degradado)
+├── estructura_del_proyecto.txt → Este archivo
+
+CARPETAS:
+├── img/                     → Flyers y logo (flyer-curso1.png, peluqueria 2.png...)
+└── video/                   → Videos promocionales (cursos1.mp4...)
+
+FUNCIONALIDADES:
+✅ Navegación por clic en imagen → detalle_curso.html?id=X
+✅ Inscripción con guardado en localStorage
+✅ Chatbot flotante con FAQ
+✅ Diseño responsive y moderno
+✅ Portable: funciona sin servidor (solo abrir index.html)
+
+PRÓXIMOS PASOS:
+- Añadir más cursos en cursos.js
+- Migrar a PHP + MySQL (opcional)
+- Generar informe de inscripciones (desde localStorage)
