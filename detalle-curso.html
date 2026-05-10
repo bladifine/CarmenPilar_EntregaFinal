@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles | BotEduCarmen</title>
+    <style>
+        :root {
+            --azul-p: #0a192f;
+            --electrico: #00d2ff;
+            --naranja: #ff6d00;
+        }
+        body { 
+            background: var(--azul-p); color: white; font-family: 'Inter', sans-serif; margin: 0;
+            background-image: radial-gradient(circle at top right, rgba(0,210,255,0.05), transparent);
+        }
+        .header-simple { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
+        
+        .detalle-container { max-width: 900px; margin: 40px auto; padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        
+        .img-box img { width: 100%; border-radius: 20px; border: 2px solid var(--electrico); box-shadow: 0 0 20px rgba(0, 210, 255, 0.2); }
+        
+        .info-box { background: rgba(255,255,255,0.05); padding: 30px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); }
+        
+        .tag { background: var(--electrico); color: var(--azul-p); padding: 5px 12px; border-radius: 20px; font-weight: 800; font-size: 0.8rem; }
+        
+        .btn-add { 
+            background: linear-gradient(135deg, var(--naranja), #ff9100); color: white; border: none; 
+            padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-simple">
+        <a href="cursos.html" style="color:var(--electrico); text-decoration:none;">⬅ VOLVER AL CATÁLOGO</a>
+    </div>
+
+    <div id="contenido-detalle" class="detalle-container">
+        </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const nombreCurso = params.get('curso');
+
+        const CURSO_DATA = {
+            "Barbería": { d: "Aprende técnicas modernas de corte masculino y diseño de barba.", r: "Cédula, ser mayor de 15 años.", t: "3 meses", i: "img/Barberia.jpg" },
+            "Panadería": { d: "Domina el arte de las masas, fermentación y horneado artesanal.", r: "Cédula, delantal y gorro.", t: "4 meses", i: "img/panaderia.jpg" }
+            // Agrega aquí los demás si deseas descripciones únicas
+        };
+
+        function cargar() {
+            const cont = document.getElementById('contenido-detalle');
+            const info = CURSO_DATA[nombreCurso] || { d: "Formación técnica profesional en el área seleccionada.", r: "Cédula de identidad.", t: "Variable", i: "img/logo.png" };
+
+            cont.innerHTML = `
+                <div class="img-box">
+                    <img src="${info.i}" onerror="this.src='img/logo.png'">
+                </div>
+                <div class="info-box">
+                    <span class="tag">CURSO 2026</span>
+                    <h1 style="color:var(--electrico); font-size:2.5rem; margin:10px 0;">${nombreCurso}</h1>
+                    <p style="color:rgba(255,255,255,0.8); line-height:1.6;">${info.d}</p>
+                    <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:20px 0;">
+                    <p>🕒 <b>Duración:</b> ${info.t}</p>
+                    <p>📝 <b>Requisitos:</b> ${info.r}</p>
+                    <button onclick="agregar('${nombreCurso}', '${info.i}')" class="btn-add">SELECCIONAR CURSO</button>
+                </div>
+            `;
+        }
+
+        function agregar(n, img) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if(!cart.find(x => x.nombre === n)) {
+                cart.push({nombre: n, imagen: img});
+                localStorage.setItem('cart', JSON.stringify(cart));
+                alert("Curso añadido a tu selección");
+                window.location.href = "cursos.html";
+            } else {
+                alert("Ya está seleccionado");
+            }
+        }
+        cargar();
+    </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BotEduCarmen | Centro de Artes y Oficios</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos para que el inicio se vea profesional */
+        .hero {
+            background: linear-gradient(rgba(26, 35, 126, 0.7), rgba(26, 35, 126, 0.7)), 
+                        url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+        .hero h1 { font-size: 3rem; margin-bottom: 10px; }
+        .hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 25px; }
+
+        /* Contenedor del Chat para JS */
+        #chat-window {
+            display: none; /* Inicia oculto */
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container" style="display:flex; justify-content:space-between; align-items:center; padding:15px 0;">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <img src="img/logo.png" alt="Logo" style="height:50px;">
+                <strong style="font-size:1.4rem; color:var(--azul-oscuro);">BotEduCarmen</strong>
+            </div>
+            <nav>
+                <a href="index.html" style="color:var(--naranja); font-weight:bold;">Inicio</a>
+                <a href="cursos.html">Cursos</a>
+                <a href="admin.html" style="background:var(--naranja); color:white; padding:8px 15px; border-radius:5px; text-decoration:none; margin-left:10px;">ACCESO</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div>
+            <h1>Formación de Oficios</h1>
+            <p>Capacitación gratuita en Las Mercedes, La Victoria. Aprende un oficio y comienza tu propio emprendimiento hoy mismo.</p>
+            <a href="cursos.html" class="btn-naranja" style="padding:15px 40px; text-decoration:none; font-size:1.1rem; font-weight:bold; border-radius:30px;">VER CURSOS</a>
+        </div>
+    </section>
+
+    <main class="container" style="padding: 50px 0; text-align: center;">
+        <h2>Nuestra Misión</h2>
+        <p style="max-width:800px; margin:20px auto; line-height:1.6;">Proporcionar herramientas técnicas y creativas a la comunidad para el desarrollo socio-económico del sector mediante cursos de alta demanda.</p>
+    </main>
+
+    <div id="chat-icon" onclick="toggleChat()" style="position:fixed; bottom:30px; right:30px; width:70px; height:70px; cursor:pointer; z-index:4000; background:#1a237e; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
+        
+        <img src="img/chatbot.png" alt="Bot" 
+             style="width:100%; height:100%; object-fit:contain; border-radius:50%;" 
+             onerror="this.style.display='none'; document.getElementById('bot-fallback').style.display='block';">
+        
+        <span id="bot-fallback" style="display:none; color:white; font-size:35px;">🤖</span>
+    </div>
+
+    <div id="chat-window" style="position:fixed; bottom:110px; right:30px; width:330px; height:450px; background:white; border-radius:20px; box-shadow:0 15px 50px rgba(0,0,0,0.2); z-index:4000; overflow:hidden; border:1px solid #eee;">
+        
+        <div style="background:#1a237e; color:white; padding:18px; font-weight:bold; text-align:center;">
+            Asistente Virtual BotEdu
+        </div>
+        
+        <div id="chat-messages" style="flex:1; padding:20px; overflow-y:auto; background:#f8f9fa; display:flex; flex-direction:column; gap:12px;">
+            <div style="text-align:left;">
+                <span style="background:#e3f2fd; color:#333; padding:10px 14px; border-radius:15px 15px 15px 0; display:inline-block; font-size:0.9rem; border:1px solid #bbdefb;">
+                    ¡Hola! 👋 Soy tu asistente. ¿Quieres saber sobre los cursos o los requisitos?
+                </span>
+            </div>
+        </div>
+
+        <div style="padding:15px; border-top:1px solid #eee; display:flex; gap:10px; background:white;">
+            <input type="text" id="user-input" placeholder="Escribe tu duda..." 
+                   style="flex:1; padding:12px; border:1px solid #ddd; border-radius:12px; outline:none;"
+                   onkeypress="if(event.key==='Enter') sendMessage()">
+            
+            <button onclick="sendMessage()" 
+                    style="background:#1a237e; color:white; border:none; padding:10px 18px; border-radius:12px; cursor:pointer;">
+                ➤
+            </button>
+        </div>
+    </div>
+
+    <footer style="background:#1a237e; color:white; padding:20px; text-align:center; margin-top:50px;">
+        <p>&copy; 2024 BotEduCarmen - Proyecto de Tesis PNF Informática</p>
+    </footer>
+
+    <script src="motor.js"></script>
+    <script src="chatbot.js"></script>
+
+</body>
+</html>

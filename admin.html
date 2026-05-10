@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Console | BotEduCarmen</title>
+    <style>
+        :root { --bg: #050a14; --card: #0a192f; --accent: #00d2ff; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
+        
+        /* Barra Lateral */
+        .sidebar { background: var(--card); width: 250px; height: 100vh; position: fixed; border-right: 1px solid rgba(0,210,255,0.2); padding: 20px; display: flex; flex-direction: column; }
+        .main-content { margin-left: 280px; padding: 40px; }
+        
+        .glass-table { 
+            width: 100%; border-collapse: collapse; background: var(--card); 
+            border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); 
+        }
+        .glass-table th { background: rgba(0,210,255,0.1); color: var(--accent); padding: 15px; text-align: left; }
+        .glass-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        
+        .stat-mini { background: var(--card); padding: 20px; border-radius: 15px; border-left: 4px solid var(--accent); margin-bottom: 20px; display: inline-block; min-width: 200px; }
+        
+        .btn-logout { background: transparent; color: #ff4444; border: 1px solid #ff4444; padding: 10px; border-radius: 8px; cursor: pointer; margin-top: auto; font-weight: bold; }
+        .btn-logout:hover { background: #ff4444; color: white; }
+        
+        .btn-danger { background: #c62828; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; margin-left: 10px; }
+    </style>
+</head>
+<body>
+    <script>
+        // SEGURIDAD: Pide clave si no hay sesión activa
+        if (sessionStorage.getItem('admin_logueado') !== 'true') {
+            let p = prompt("🔐 Ingrese clave de administrador:");
+            if (p === "1234") {
+                sessionStorage.setItem('admin_logueado', 'true');
+            } else {
+                alert("Acceso denegado");
+                window.location.href = "index.html";
+            }
+        }
+    </script>
+
+    <div class="sidebar">
+        <h2 style="color:var(--accent); margin:0;">BotEdu <span style="font-weight:200">Admin</span></h2>
+        <p style="font-size:0.7rem; color:gray; letter-spacing:1px;">SISTEMA DE CONTROL 2026</p>
+        <hr style="opacity:0.1; margin:20px 0;">
+        <button onclick="vaciarTodo()" style="background:none; border:1px solid gray; color:gray; padding:8px; border-radius:5px; cursor:pointer; font-size:0.8rem;">⚠️ VACIAR BASE DE DATOS</button>
+        <button onclick="cerrarSesion()" class="btn-logout">CERRAR SESIÓN 🚪</button>
+    </div>
+
+    <div class="main-content">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
+            <div class="stat-mini">
+                <small style="color:var(--accent)">TOTAL INSCRITOS</small>
+                <h2 id="total-count" style="margin:0; font-size:2.5rem;">0</h2>
+            </div>
+            <button onclick="exportarCSV()" style="background:var(--accent); color:black; border:none; padding:12px 25px; border-radius:10px; font-weight:bold; cursor:pointer;">📥 DESCARGAR EXCEL</button>
+        </div>
+
+        <table class="glass-table">
+            <thead>
+                <tr>
+                    <th>FECHA</th>
+                    <th>ESTUDIANTE</th>
+                    <th>CÉDULA</th>
+                    <th>CURSOS SELECCIONADOS</th>
+                    <th>ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-datos"></tbody>
+        </table>
+    </div>
+
+    <script>
+        const DB_NAME = 'base_datos_inscritos';
+
+        function cerrarSesion() {
+            if(confirm("¿Cerrar sesión administrativa?")) {
+                sessionStorage.removeItem('admin_logueado');
+                window.location.href = "index.html";
+            }
+        }
+
+        function renderizar() {
+            const bd = JSON.parse(localStorage.getItem(DB_NAME)) || [];
+            const tabla = document.getElementById('tabla-datos');
+            document.getElementById('total-count').innerText = bd.length;
+
+            if(bd.length === 0) {
+                tabla.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:50px; color:gray;">No hay registros en el sistema.</td></tr>`;
+                return;
+            }
+
+            tabla.innerHTML = bd.map(i => `
+                <tr>
+                    <td style="font-size:0.8rem; color:gray;">${i.fecha}</td>
+                    <td><b>${i.nombre}</b></td>
+                    <td>${i.cedula}</td>
+                    <td style="color:var(--accent); font-size:0.9rem;">${i.cursos}</td>
+                    <td>
+                        <button onclick="borrarRegistro('${i.id}')" style="background:none; border:none; cursor:pointer; font-size:1.2rem;">🗑️</button>
+                    </td>
+                </tr>
+            `).reverse().join('');
+        }
+
+        function borrarRegistro(id) {
+            if(confirm("¿Eliminar este registro definitivamente?")) {
+                let bd = JSON.parse(localStorage.getItem(DB_NAME)) || [];
+                // Mejora: Comparación de ID forzada a String
+                let nuevaBD = bd.filter(item => String(item.id) !== String(id));
+                localStorage.setItem(DB_NAME, JSON.stringify(nuevaBD));
+                renderizar();
+            }
+        }
+
+        function vaciarTodo() {
+            let confirmacion = prompt("Escriba 'BORRAR' para eliminar TODOS los datos:");
+            if(confirmacion === "BORRAR") {
+                localStorage.removeItem(DB_NAME);
+                renderizar();
+                alert("Base de datos vaciada.");
+            }
+        }
+
+        function exportarCSV() {
+            const datos = JSON.parse(localStorage.getItem(DB_NAME)) || [];
+            if(datos.length === 0) return alert("Nada que exportar");
+            let csv = "\uFEFFFecha,Nombre,Cedula,Cursos\n";
+            datos.forEach(i => { csv += `${i.fecha},${i.nombre},${i.cedula},"${i.cursos}"\n`; });
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "Inscritos_CAE_2026.csv";
+            link.click();
+        }
+
+        document.addEventListener('DOMContentLoaded', renderizar);
+    </script>
+</body>
+</html>
