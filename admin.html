@@ -2,140 +2,291 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Console | BotEduCarmen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo 2026 | BotEduCarmen</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        :root { --bg: #050a14; --card: #0a192f; --accent: #00d2ff; }
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
-        
-        /* Barra Lateral */
-        .sidebar { background: var(--card); width: 250px; height: 100vh; position: fixed; border-right: 1px solid rgba(0,210,255,0.2); padding: 20px; display: flex; flex-direction: column; }
-        .main-content { margin-left: 280px; padding: 40px; }
-        
-        .glass-table { 
-            width: 100%; border-collapse: collapse; background: var(--card); 
-            border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); 
+        :root {
+            --azul-primario: #0a192f;
+            --azul-electrico: #00d2ff;
+            --naranja-neon: #ff6d00;
+            --naranja-glow: #ff9100;
+            --glass: rgba(255, 255, 255, 0.05);
+            --sombra-futurista: 0 20px 40px rgba(0,0,0,0.5);
         }
-        .glass-table th { background: rgba(0,210,255,0.1); color: var(--accent); padding: 15px; text-align: left; }
-        .glass-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        
-        .stat-mini { background: var(--card); padding: 20px; border-radius: 15px; border-left: 4px solid var(--accent); margin-bottom: 20px; display: inline-block; min-width: 200px; }
-        
-        .btn-logout { background: transparent; color: #ff4444; border: 1px solid #ff4444; padding: 10px; border-radius: 8px; cursor: pointer; margin-top: auto; font-weight: bold; }
-        .btn-logout:hover { background: #ff4444; color: white; }
-        
-        .btn-danger { background: #c62828; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; margin-left: 10px; }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            margin: 0;
+            background-color: var(--azul-primario);
+            color: white;
+            background-image: radial-gradient(circle at top left, rgba(0, 210, 255, 0.1), transparent);
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(10, 25, 47, 0.8);
+            backdrop-filter: blur(15px);
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        .panel-box {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            border-radius: 25px;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: var(--sombra-futurista);
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .counter-badge {
+            background: rgba(0, 210, 255, 0.2);
+            color: var(--azul-electrico);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            border: 1px solid var(--azul-electrico);
+        }
+
+        .btn-action {
+            background: rgba(255,255,255,0.05);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            margin-left: 10px;
+        }
+
+        .btn-action:hover {
+            background: white;
+            color: var(--azul-primario);
+        }
+
+        .btn-danger {
+            background: rgba(255, 109, 0, 0.1);
+            color: var(--naranja-neon);
+            border: 1px solid var(--naranja-neon);
+        }
+
+        .btn-danger:hover {
+            background: var(--naranja-neon);
+            color: white;
+            box-shadow: 0 0 15px var(--naranja-glow);
+        }
+
+        /* TABLA FUTURISTA */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background: rgba(0, 210, 255, 0.1);
+            color: var(--azul-electrico);
+            padding: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            border-bottom: 2px solid rgba(0, 210, 255, 0.3);
+        }
+
+        td {
+            padding: 18px 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+        }
+
+        tr:hover {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .btn-delete {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: 0.2s;
+        }
+
+        .btn-delete:hover {
+            transform: scale(1.2);
+        }
     </style>
 </head>
 <body>
+
+    <header>
+        <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="display:flex; align-items:center; gap:15px;">
+                <img src="img/logo.png" alt="Logo" style="height:45px; filter: drop-shadow(0 0 5px var(--azul-electrico));">
+                <h2 style="margin:0; font-size:1.4rem; letter-spacing:1px;">Consola Cloud 2026</h2>
+            </div>
+            <nav>
+                <button onclick="cerrarSesion()" class="btn-action btn-danger">SALIR DEL PANEL</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="panel-box">
+            <div class="stats-bar">
+                <div>
+                    <h1 style="margin:0; font-size:1.8rem; color:white;">Alumnos Inscritos</h1>
+                    <p style="margin:5px 0 0; color:rgba(255,255,255,0.5); font-size:0.9rem;">Sincronizado con Firebase en tiempo real</p>
+                </div>
+                <div style="display:flex; align-items:center;">
+                    <div class="counter-badge" style="margin-right: 15px;">
+                        Total: <span id="total-count">0</span>
+                    </div>
+                    <button onclick="exportarCSV()" class="btn-action">📊 EXPORTAR EXCEL</button>
+                    <button onclick="vaciarTodo()" class="btn-action btn-danger">⚠️ VACIAR TODO</button>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha / Hora</th>
+                            <th>Nombre Completo</th>
+                            <th>Cédula</th>
+                            <th>Cursos Solicitados</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-datos">
+                        <tr>
+                            <td colspan="5" style="text-align:center; padding:40px; color:rgba(255,255,255,0.4);">
+                                Conectando con la base de datos en la nube...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
     <script>
-        // SEGURIDAD: Pide clave si no hay sesión activa
-        if (sessionStorage.getItem('admin_logueado') !== 'true') {
-            let p = prompt("🔐 Ingrese clave de administrador:");
-            if (p === "1234") {
-                sessionStorage.setItem('admin_logueado', 'true');
-            } else {
-                alert("Acceso denegado");
-                window.location.href = "index.html";
+        // Configuración de tu base de datos de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDKnVg7dwb60-oXHs2nJ9w83XFkhN128tw",
+            authDomain: "boteducarmen2026.firebaseapp.com",
+            databaseURL: "https://boteducarmen2026-default-rtdb.firebaseio.com",
+            projectId: "boteducarmen2026",
+            storageBucket: "boteducarmen2026.firebasestorage.app",
+            messagingSenderId: "345344555322",
+            appId: "1:345344555322:web:df90364298617b9314b803"
+        };
+
+        // Arrancar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // FUNCIÓN QUE ESCUCHA LA NUBE EN TIEMPO REAL
+        function cargarDatosDesdeFirebase() {
+            database.ref('inscritos').on('value', (snapshot) => {
+                const datos = snapshot.val();
+                const tabla = document.getElementById('tabla-datos');
+                
+                if (!datos) {
+                    document.getElementById('total-count').innerText = 0;
+                    tabla.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:50px; color:rgba(255,255,255,0.4);">No hay alumnos registrados en la base de datos de la nube.</td></tr>`;
+                    return;
+                }
+
+                // Transformar el objeto en un array ordenado
+                const listaInscritos = Object.values(datos);
+                document.getElementById('total-count').innerText = listaInscritos.length;
+
+                // Renderizar los datos en la tabla
+                tabla.innerHTML = listaInscritos.map(i => `
+                    <tr>
+                        <td style="font-size:0.85rem; color:rgba(255,255,255,0.4);">${i.fecha || 'Sin fecha'}</td>
+                        <td><strong>${i.nombre}</strong></td>
+                        <td>${i.cedula}</td>
+                        <td style="color:var(--azul-electrico); font-weight:500;">${i.cursos}</td>
+                        <td>
+                            <button onclick="borrarRegistroCloud('${i.id}')" class="btn-delete" title="Eliminar Alumno">🗑️</button>
+                        </td>
+                    </tr>
+                `).reverse().join('');
+            });
+        }
+
+        // Eliminar un estudiante individual de la nube
+        function borrarRegistroCloud(id) {
+            if(confirm("¿Estás seguro de que deseas eliminar este registro de la nube?")) {
+                database.ref('inscritos/' + id).remove();
             }
         }
-    </script>
 
-    <div class="sidebar">
-        <h2 style="color:var(--accent); margin:0;">BotEdu <span style="font-weight:200">Admin</span></h2>
-        <p style="font-size:0.7rem; color:gray; letter-spacing:1px;">SISTEMA DE CONTROL 2026</p>
-        <hr style="opacity:0.1; margin:20px 0;">
-        <button onclick="vaciarTodo()" style="background:none; border:1px solid gray; color:gray; padding:8px; border-radius:5px; cursor:pointer; font-size:0.8rem;">⚠️ VACIAR BASE DE DATOS</button>
-        <button onclick="cerrarSesion()" class="btn-logout">CERRAR SESIÓN 🚪</button>
-    </div>
+        // Vaciar la nube por completo usando clave de confirmación
+        function vaciarTodo() {
+            let confirmacion = prompt("Para eliminar TODOS los registros de la nube, escriba 'BORRAR':");
+            if(confirmacion === "BORRAR") {
+                database.ref('inscritos').remove();
+                alert("Base de datos de la nube limpiada correctamente.");
+            }
+        }
 
-    <div class="main-content">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
-            <div class="stat-mini">
-                <small style="color:var(--accent)">TOTAL INSCRITOS</small>
-                <h2 id="total-count" style="margin:0; font-size:2.5rem;">0</h2>
-            </div>
-            <button onclick="exportarCSV()" style="background:var(--accent); color:black; border:none; padding:12px 25px; border-radius:10px; font-weight:bold; cursor:pointer;">📥 DESCARGAR EXCEL</button>
-        </div>
+        // Exportar a Excel (Formato CSV compatible)
+        function exportarCSV() {
+            database.ref('inscritos').once('value', (snapshot) => {
+                const datos = snapshot.val();
+                if(!datos) return alert("No hay datos disponibles para exportar.");
+                
+                let csv = "\uFEFFFecha,Nombre,Cedula,Cursos Inscritos\n";
+                Object.values(datos).forEach(i => { 
+                    csv += `${i.fecha || 'S/F'},${i.nombre},${i.cedula},"${i.cursos}"\n`; 
+                });
+                
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = "Reporte_Inscritos_Cloud_2026.csv";
+                link.click();
+            });
+        }
 
-        <table class="glass-table">
-            <thead>
-                <tr>
-                    <th>FECHA</th>
-                    <th>ESTUDIANTE</th>
-                    <th>CÉDULA</th>
-                    <th>CURSOS SELECCIONADOS</th>
-                    <th>ACCIONES</th>
-                </tr>
-            </thead>
-            <tbody id="tabla-datos"></tbody>
-        </table>
-    </div>
-
-    <script>
-        const DB_NAME = 'base_datos_inscritos';
-
+        // Salida de seguridad
         function cerrarSesion() {
-            if(confirm("¿Cerrar sesión administrativa?")) {
+            if(confirm("¿Cerrar la consola de administración?")) {
                 sessionStorage.removeItem('admin_logueado');
                 window.location.href = "index.html";
             }
         }
 
-        function renderizar() {
-            const bd = JSON.parse(localStorage.getItem(DB_NAME)) || [];
-            const tabla = document.getElementById('tabla-datos');
-            document.getElementById('total-count').innerText = bd.length;
-
-            if(bd.length === 0) {
-                tabla.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:50px; color:gray;">No hay registros en el sistema.</td></tr>`;
-                return;
-            }
-
-            tabla.innerHTML = bd.map(i => `
-                <tr>
-                    <td style="font-size:0.8rem; color:gray;">${i.fecha}</td>
-                    <td><b>${i.nombre}</b></td>
-                    <td>${i.cedula}</td>
-                    <td style="color:var(--accent); font-size:0.9rem;">${i.cursos}</td>
-                    <td>
-                        <button onclick="borrarRegistro('${i.id}')" style="background:none; border:none; cursor:pointer; font-size:1.2rem;">🗑️</button>
-                    </td>
-                </tr>
-            `).reverse().join('');
-        }
-
-        function borrarRegistro(id) {
-            if(confirm("¿Eliminar este registro definitivamente?")) {
-                let bd = JSON.parse(localStorage.getItem(DB_NAME)) || [];
-                // Mejora: Comparación de ID forzada a String
-                let nuevaBD = bd.filter(item => String(item.id) !== String(id));
-                localStorage.setItem(DB_NAME, JSON.stringify(nuevaBD));
-                renderizar();
-            }
-        }
-
-        function vaciarTodo() {
-            let confirmacion = prompt("Escriba 'BORRAR' para eliminar TODOS los datos:");
-            if(confirmacion === "BORRAR") {
-                localStorage.removeItem(DB_NAME);
-                renderizar();
-                alert("Base de datos vaciada.");
-            }
-        }
-
-        function exportarCSV() {
-            const datos = JSON.parse(localStorage.getItem(DB_NAME)) || [];
-            if(datos.length === 0) return alert("Nada que exportar");
-            let csv = "\uFEFFFecha,Nombre,Cedula,Cursos\n";
-            datos.forEach(i => { csv += `${i.fecha},${i.nombre},${i.cedula},"${i.cursos}"\n`; });
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = "Inscritos_CAE_2026.csv";
-            link.click();
-        }
-
-        document.addEventListener('DOMContentLoaded', renderizar);
+        // Ejecutar la lectura al iniciar la pantalla
+        document.addEventListener('DOMContentLoaded', cargarDatosDesdeFirebase);
     </script>
 </body>
 </html>
