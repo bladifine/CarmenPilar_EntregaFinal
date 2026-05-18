@@ -1,40 +1,44 @@
 /**
- * chatbot.js - Lógica del Asistente Virtual Inteligente Expandido
+ * chatbot.js - Lógica del Asistente Virtual Inteligente Ultra-Preciso
  * Proyecto: BotEduCarmen 2026
  */
 
 const baseConocimiento = {
     saludos: { 
-        keywords: ["hola", "buenos dias", "buenas tardes", "que tal", "saludos"], 
-        respuesta: "¡Hola! Soy el asistente virtual de BotEduCarmen. ¿Te gustaría conocer la oferta de cursos, las áreas disponibles o los requisitos de inscripción?" 
+        keywords: ["hola", "buenos dias", "buenas tardes", "que tal", "saludos", "alo"], 
+        respuesta: "¡Hola! Soy el asistente virtual de BotEduCarmen. ¿Te gustaría conocer la oferta de cursos, las áreas disponibles, los horarios o los requisitos de inscripción?" 
     },
     requisitos: {
-        keywords: ["requisitos", "necesito", "documentos", "papeles", "inscribirme", "inscripcion", "inscribir"],
-        respuesta: "Para inscribirte solo necesitas: Copia de tu Cédula de Identidad y ser mayor de 15 años. ¡El proceso y las clases son totalmente gratuitos!"
+        keywords: ["requisitos", "necesito", "documentos", "papeles", "inscribirme", "inscripcion", "inscribir", "costo", "precio", "gratis"],
+        respuesta: "Para inscribirte solo necesitas: Copia de tu Cédula de Identidad y ser mayor de 15 años. ¡El proceso y todas las clases son totalmente gratuitos!"
     },
     ubicacion: { 
-        keywords: ["donde", "ubicacion", "sede", "direccion", "queda", "sitio", "las mercedes"], 
+        keywords: ["donde", "ubicacion", "sede", "direccion", "queda", "sitio", "las mercedes", "mapa"], 
         respuesta: "Estamos ubicados en La Victoria, Estado Aragua, específicamente en el Sector Las Mercedes, en la sede del Centro de Artes y Oficios (CAE) 'Carmen Pilar Fernández'." 
+    },
+    horarios: {
+        keywords: ["horario", "horarios", "turno", "turnos", "hora", "dias", "tarde", "manana", "sabatino"],
+        respuesta: "Nuestros cursos operan en flexibilización 2026 con tres turnos disponibles según el taller: Turno Mañana (8:00 AM a 11:30 AM), Turno Tarde (1:30 PM a 4:30 PM) y Turno Sabatino Intensivo. Al seleccionar tus cursos en el sistema web podrás definir tu turno de preferencia."
     },
     gastronomia: {
         keywords: ["gastronomia", "cocina", "bilingue", "comida", "chef", "panaderia", "reposteria"],
         respuesta: "En el área de Gastronomía contamos con el curso estrella de 'Cocina Bilingüe'. Aprenderás técnicas culinarias profesionales combinadas con terminología técnica en inglés. ¡Ideal para emprender!"
     },
     estetitca: {
-        keywords: ["barberia", "barbero", "unas", "manicure", "pedicure", "estetitca", "peluqueria"],
+        keywords: ["barberia", "barbero", "unas", "manicure", "pedicure", "estetitca", "peluqueria", "cabello"],
         respuesta: "En el área de Estética ofrecemos los cursos prácticos de 'Barbería Profesional' y 'Estética de Uñas'. Incluyen diseño de cortes modernos y técnicas avanzadas de manicure/pedicure."
     },
     textil: {
-        keywords: ["modisteria", "confeccion", "corte", "costura", "lenceria", "ropa", "textil", "coser"],
+        keywords: ["modisteria", "confeccion", "corte", "costura", "lenceria", "ropa", "textil", "coser", "tela"],
         respuesta: "Nuestra área Textil cuenta con los cursos de 'Modistería' y 'Corte y Confección'. Aprenderás desde el uso de máquinas de coser tradicionales e industriales hasta el patronaje y confección de prendas desde cero."
     },
     electricidad: {
-        keywords: ["electricidad", "electrica", "circuitos", "cables", "mantenimiento", "electricista"],
-        respuesta: "El área técnica y tecnológica incluye capacitación práctica en Fundamentos de Electricidad, donde aprenderás instalaciones eléctricas residenciales, medidas de seguridad y reparación de circuitos básicos."
+        keywords: ["electricidad", "electrica", "circuitos", "cables", "mantenimiento", "electricista", "corriente"],
+        respuesta: "El área técnica incluye capacitación práctica en Fundamentos de Electricidad, donde aprenderás instalaciones eléctricas residenciales, medidas de seguridad y reparación de circuitos básicos."
     },
     cursos: { 
-        keywords: ["curso", "clases", "estudiar", "aprender", "oferta", "talleres", "tienes"], 
-        respuesta: "Contamos con una amplia oferta en las áreas de Gastronomía (Cocina Bilingüe), Estética (Barbería y Uñas), Textil (Modistería, Corte y Confección) y Electricidad. ¿Te interesa saber más sobre alguna de estas áreas?" 
+        keywords: ["curso", "oferta", "talleres", "tienes", "estudiar", "aprender", "cuantos", "lista", "catalogo"], 
+        respuesta: "Contamos con una excelente oferta formativa en las áreas de Gastronomía (Cocina Bilingüe), Estética (Barbería y Uñas), Textil (Modistería, Corte y Confección) y Electricidad. ¿Te interesa saber más sobre alguna de estas áreas o prefieres consultar los horarios?" 
     }
 };
 
@@ -55,7 +59,10 @@ function sendMessage() {
     
     if (!input || !container) return;
 
-    const textoUsuario = input.value.toLowerCase().trim();
+    // Capturar y normalizar el texto: minúsculas, quitar espacios extra y remover tildes
+    let textoUsuario = input.value.toLowerCase().trim();
+    textoUsuario = textoUsuario.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
     if (textoUsuario === "") return;
 
     // Dibujar el mensaje del usuario en la pantalla
@@ -66,11 +73,10 @@ function sendMessage() {
             </span>
         </div>`;
 
-    // Buscar la mejor respuesta basándonos en prioridades específicas primero
-    let respuestaFinal = "Lo siento, no tengo esa información específica de momento. Puedes intentar consultando por 'cursos', 'gastronomia', 'electricidad', 'estetitca', 'textil' o 'requisitos'.";
+    let respuestaFinal = "Lo siento, no procesé esa solicitud específica de momento. Puedes intentar preguntando de forma simple por 'cursos', 'horarios', 'requisitos', 'gastronomia', 'electricidad', 'estetitca' o 'textil'.";
     
-    // Lista ordenada de prioridades (busca primero temas específicos, luego genéricos)
-    const ordenCategorias = ['gastronomia', 'estetitca', 'textil', 'electricidad', 'requisitos', 'ubicacion', 'saludos', 'cursos'];
+    // Lista de jerarquía de búsqueda estricta para evitar solapamientos
+    const ordenCategorias = ['horarios', 'gastronomia', 'estetitca', 'textil', 'electricidad', 'requisitos', 'ubicacion', 'saludos', 'cursos'];
 
     for (let cat of ordenCategorias) {
         if (baseConocimiento[cat].keywords.some(k => textoUsuario.includes(k))) {
@@ -79,10 +85,10 @@ function sendMessage() {
         }
     }
 
-    // Guardar el input limpio y limpiar la barra de escritura
+    // Vaciar campo de texto inmediatamente
     input.value = "";
 
-    // Simular el efecto de escritura del bot (Timeout)
+    // Simular retraso de escritura de inteligencia artificial
     setTimeout(() => {
         container.innerHTML += `
             <div style="text-align:left; margin-bottom:12px;">
@@ -91,7 +97,7 @@ function sendMessage() {
                 </div>
             </div>`;
         
-        // Hacer scroll automático al último mensaje recibido
+        // Desplazamiento automático al final
         container.scrollTop = container.scrollHeight;
-    }, 450);
+    }, 400);
 }
