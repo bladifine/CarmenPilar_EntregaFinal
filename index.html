@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -87,7 +87,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            clip-path: ellipse(150% 100% at 50% 0%); /* Curva moderna en el fondo */
+            clip-path: ellipse(150% 100% at 50% 0%);
         }
 
         .glass-box {
@@ -189,28 +189,6 @@
         </div>
     </div>
 
-    <script>
-        function toggleChat() {
-            const w = document.getElementById('chat-window');
-            w.style.display = (w.style.display === 'none' || w.style.display === '') ? 'flex' : 'none';
-        }
-
-        function sendMessage() {
-            const input = document.getElementById('user-input');
-            const box = document.getElementById('chat-messages');
-            const text = input.value.trim();
-            if(!text) return;
-
-            box.innerHTML += `<div style="background:var(--azul-primario); color:white; padding:15px; border-radius:20px; align-self:flex-end; max-width:80%;">${input.value}</div>`;
-            
-            setTimeout(() => {
-                box.innerHTML += `<div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico);">Entendido. Como estamos en 2026, te recomiendo los nuevos cursos de Tecnología y Emprendimiento Digital.</div>`;
-                box.scrollTop = box.scrollHeight;
-            }, 700);
-            input.value = "";
-        }
-    </script>
-
     <style>
         @keyframes pulse {
             0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.4); }
@@ -218,5 +196,7 @@
             100% { transform: scale(1); }
         }
     </style>
+
+    <script src="chatbot.js"></script>
 </body>
 </html>
