@@ -1,5 +1,5 @@
 /**
- * chatbot.js - Motor de IA con Algoritmo de Similitud Morfológica y Tolerancia a Fallos Graves
+ * chatbot.js - Motor de IA con Algoritmo de Similitud y Módulo de Orientación de Inscripción
  * Diseñado exclusivamente para la defensa del PNF en Informática 2026
  * Sede: CAE "Carmen Pilar Fernández" - Las Mercedes, La Victoria, Aragua
  */
@@ -7,8 +7,13 @@
 const baseConocimiento = [
     {
         id: "saludos",
-        keywords: ["hola", "buenos dias", "buenas tardes", "buenas noches", "que tal", "alo", "saludos", "epale", "holaa", "holaaa", "buenas"],
-        respuesta: "¡Hola! Soy el asistente virtual del CAE 'Carmen Pilar Fernández'. Estoy listo para ayudarte con información sobre nuestra historia, la oferta de cursos gratuitos, requisitos de inscripción, horarios o directiva. ¿Qué deseas consultar?"
+        keywords: ["hola", "buenos dias", "buenas tardes", "buenas noches", "que tal", "alo", "saludos", "epale", "holaa", "buenas"],
+        respuesta: "¡Hola! Soy el asistente virtual del CAE 'Carmen Pilar Fernández'. Estoy listo para ayudarte con información sobre nuestra historia, los pasos de inscripción, la oferta de cursos gratuitos, horarios o ubicación. ¿Qué deseas consultar?"
+    },
+    {
+        id: "pasos_inscripcion",
+        keywords: ["pasos", "como inscribirme", "procesos", "etapas", "fases", "guiame", "orientame", "que hago primero", "donde entro", "incricion", "insgricion", "inscribir", "paso a paso"],
+        respuesta: "¡Te guío con gusto en tu proceso de inscripción paso a paso desde donde estés! Sigue estas 3 etapas en nuestra plataforma web: <br><br><b>1. Selección:</b> Dirígete al menú superior y haz clic en <b>'Cursos'</b>. Elige los talleres de tu preferencia haciendo clic en 'Seleccionar'.<br><b>2. Revisión:</b> Entra al icono del <b>'Carrito / Mi Selección'</b> arriba a la derecha para confirmar tus materias elegidas.<br><b>3. Registro Final:</b> Presiona 'Inscribirse', rellena el formulario con tus datos personales (Nombre y Cédula) y el sistema sincronizará tu cupo directamente con la base de datos en la nube. ¡Así de fácil, rápido y 100% gratuito!"
     },
     {
         id: "historia",
@@ -22,7 +27,7 @@ const baseConocimiento = [
     },
     {
         id: "requisitos",
-        keywords: ["requisitos", "necesito", "documentos", "papeles", "inscribirme", "inscripcion", "inscribir", "cedula", "edad", "recaudos", "rekesitos", "rrekesitos"],
+        keywords: ["requisitos", "necesito", "documentos", "papeles", "inscribirme", "inscripcion", "cedula", "edad", "recaudos", "rekesitos", "rrekesitos"],
         respuesta: "Los requisitos indispensables son muy simples: 1) Copia clara de la Cédula de Identidad. 2) Ser mayor de 15 años de edad. ¡No necesitas experiencia previa para ingresar!"
     },
     {
@@ -33,11 +38,11 @@ const baseConocimiento = [
     {
         id: "ubicacion",
         keywords: ["donde", "ubicacion", "sede", "direccion", "queda", "sitio", "las mercedes", "mapa", "llegar", "la victoria", "aragua", "localizacion"],
-        respuesta: "Nuestra sede física se encuentra en La Victoria, Estado Aragua, específicamente en el Sector Las Mercedes. Es un punto central y de fácil acceso para toda la comunidad del municipio José Félix Ribas."
+        respuesta: "Nuestra sede física se encuentra en La Victoria, Estado Aragua, específicamente en el Sector Las Mercedes. Es un punto central y de fácil acceso para toda la comunidad del municipio José Félix Ribas. Si te encuentras en otra zona de La Victoria, cualquier transporte público hacia Las Mercedes te dejará muy cerca."
     },
     {
         id: "horarios",
-        keywords: ["horario", "horarios", "turno", "turnos", "hora", "dias", "tarde", "manana", "sabatino", "cuando se estudia", "dias"],
+        keywords: ["horario", "horarios", "turno", "turnos", "hora", "dias", "tarde", "manana", "sabatino", "cuando se estudia"],
         respuesta: "Operamos en el período de flexibilización formativa con tres bloques horarios: Turno Mañana (8:00 AM a 11:30 AM), Turno Tarde (1:30 PM a 4:30 PM) y el Turno Sabatino Intensivo. Los días específicos varían según el curso seleccionado al momento del registro."
     },
     {
@@ -72,7 +77,7 @@ const baseConocimiento = [
     }
 ];
 
-// --- FUNCIÓN MATEMÁTICA AVANZADA: OBTENER BIGRAMAS (Parejas de letras) ---
+// --- FUNCIÓN MATEMÁTICA: OBTENER BIGRAMAS ---
 function obtenerBigramas(str) {
     let bigramas = new Set();
     for (let i = 0; i < str.length - 1; i++) {
@@ -114,7 +119,7 @@ function sendMessage() {
     textoUsuario = textoUsuario.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     textoUsuario = textoUsuario.replace(/[¿?¡!,.:;\-_()]/g, "");
 
-    // Reemplazos de jerga o abreviaciones extremas en internet
+    // Reemplazos de abreviaciones extremas en internet
     textoUsuario = textoUsuario.replace(/\bk\b/g, "que")
                                .replace(/\bq\b/g, "que")
                                .replace(/\binfo\b/g, "informacion")
@@ -123,7 +128,7 @@ function sendMessage() {
 
     if (textoUsuario === "") return;
 
-    // Dibujar el input en la pantalla
+    // Dibujar el input del usuario en pantalla
     container.innerHTML += `
         <div style="text-align:right; margin-bottom:12px;">
             <span style="background:#0a192f; color:white; padding:10px 15px; border-radius:20px 20px 0 20px; display:inline-block; font-size:0.95rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
@@ -134,25 +139,23 @@ function sendMessage() {
     let mejorCategoria = null;
     let puntajeMaximo = 0;
 
-    // Separamos la frase en palabras sueltas
+    // Separar la frase en palabras sueltas
     const palabrasUsuario = textoUsuario.split(/\s+/);
 
     baseConocimiento.forEach(categoria => {
         let puntosCategoria = 0;
 
         categoria.keywords.forEach(keyword => {
-            // 1. Si la palabra clave está exacta en la oración (Puntaje máximo directo)
+            // 1. Coincidencia exacta
             if (textoUsuario.includes(keyword)) {
                 puntosCategoria += 5;
             }
 
-            // 2. Análisis tolerante por palabra (Evita errores ortográficos o palabras cortadas)
+            // 2. Coincidencia por bigramas tolerante a fallos de ortografía
             palabrasUsuario.forEach(pUser => {
                 let similitud = calcularSimilitud(pUser, keyword);
-                
-                // Si la similitud supera el 55%, asumimos que es la misma palabra con errores
                 if (similitud >= 0.55) {
-                    puntosCategoria += (similitud * 4); // Suma peso proporcional a qué tan parecida es
+                    puntosCategoria += (similitud * 4);
                 }
             });
         });
@@ -165,11 +168,11 @@ function sendMessage() {
 
     let respuestaFinal = "";
 
-    // Ponemos un umbral de confianza mínimo de 1.5 puntos para evitar incoherencias
+    // Verificar el umbral de confianza mínimo
     if (puntajeMaximo >= 1.5 && mejorCategoria !== null) {
         respuestaFinal = mejorCategoria.respuesta;
     } else {
-        respuestaFinal = "Disculpa, como asistente virtual del CAE 'Carmen Pilar Fernández' solo puedo responder preguntas vinculadas a la institución, los talleres formativos (Cocina, Barbería, Uñas, Confección, Electricidad), requisitos o ubicación en Las Mercedes. ¿Podrías reformular tu consulta?";
+        respuestaFinal = "Disculpa, como asistente virtual del CAE 'Carmen Pilar Fernández' solo puedo responder preguntas vinculadas a la institución, los pasos de inscripción, los talleres formativos, requisitos o nuestra ubicación en Las Mercedes. ¿Podrías reformular tu consulta?";
     }
 
     input.value = "";
