@@ -32,193 +32,106 @@
             padding: 20px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-
-        .form-container {
-            max-width: 600px;
-            width: 90%;
-            margin: 40px auto;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 210, 255, 0.2);
-            border-radius: 25px;
-            padding: 40px;
-            box-shadow: var(--sombra-futurista);
-            box-sizing: border-box;
-        }
-
-        h2 {
-            margin-top: 0;
-            color: white;
-            font-size: 1.8rem;
-            text-align: center;
-        }
-
-        .resumen-cursos {
-            background: rgba(0, 210, 255, 0.05);
-            border-left: 4px solid var(--azul-electrico);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            font-size: 0.95rem;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--azul-electrico);
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        input {
-            width: 100%;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            color: white;
-            font-size: 1rem;
-            outline: none;
-            transition: 0.3s;
-            box-sizing: border-box;
-        }
-
-        input:focus {
-            border-color: var(--azul-electrico);
-            box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .btn-enviar {
-            width: 100%;
-            background: linear-gradient(135deg, var(--naranja-neon), var(--naranja-glow));
-            color: white;
-            padding: 16px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 6px 20px rgba(255, 109, 0, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 10px;
-        }
-
-        .btn-enviar:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 25px rgba(255, 109, 0, 0.5);
-        }
-
-        .btn-enviar:disabled {
-            background: #444;
-            color: #888;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
+        .form-box { background: var(--glass); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); max-width: 500px; margin: 40px auto; width: 90%; box-shadow: var(--sombra-futurista); }
+        .input-group { margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+        .input-group input { padding: 12px 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: white; font-size: 1rem; outline: none; }
+        .input-group input:focus { border-color: var(--azul-electrico); }
     </style>
 </head>
 <body>
 
     <header>
-        <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <a href="carrito.html" style="color: var(--azul-electrico); text-decoration: none; font-weight: bold;">⬅ REVISAR SELECCIÓN</a>
-            <div style="font-weight: bold; letter-spacing: 2px; font-size: 0.9rem;">FORMULARIO DE INGRESO 2026</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; width: 100%;">
+            <h2 style="margin:0; color:var(--azul-electrico)">Paso Final de Inscripción</h2>
+            <a href="carrito.html" style="color: white; text-decoration: none;">← Volver</a>
         </div>
     </header>
 
-    <main style="flex: 1; display: flex; align-items: center; justify-content: center;">
-        <div class="form-container">
-            <h2>Completa tu Inscripción</h2>
-            
-            <div class="resumen-cursos">
-                <strong>Cursos seleccionados:</strong> <span id="lista-resumen">Cargando...</span>
-            </div>
-
-            <form id="form-registro" onsubmit="procesarFormulario(event)">
-                <div class="form-group">
-                    <label for="nombre">Nombre Completo</label>
-                    <input type="text" id="nombre" required placeholder="Ej. Juan Pérez">
-                </div>
-
-                <div class="form-group">
-                    <label for="cedula">Cédula de Identidad</label>
-                    <input type="text" id="cedula" required placeholder="Ej. 25123456">
-                </div>
-
-                <button type="submit" id="btn-submit-form" class="btn-enviar">FINALIZAR E INSCRIBIRSE 🚀</button>
-            </form>
+    <div class="form-box">
+        <h3 style="margin-top:0; color:var(--azul-electrico); text-align: center;">Formulario Digital de Registro</h3>
+        <p style="font-size:0.9rem; color:rgba(255,255,255,0.7); text-align:center; margin-bottom:25px;">Introduce tus datos auténticos para enlazar tus cupos en la base de datos.</p>
+        
+        <div class="input-group">
+            <label>Nombre Completo:</label>
+            <input type="text" id="nombre-usuario" placeholder="Ej: Juan Pérez">
         </div>
-    </main>
 
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+        <div class="input-group">
+            <label>Cédula de Identidad:</label>
+            <input type="number" id="cedula-usuario" placeholder="Ej: 27123456">
+        </div>
+
+        <div class="input-group">
+            <label>Resumen de Materias Elegidas:</label>
+            <textarea id="cursos-inscribir" readonly style="padding:12px; border-radius:10px; background:rgba(0,0,0,0.4); color:var(--azul-electrico); border:1px solid rgba(255,255,255,0.1); font-family:inherit; resize:none; font-weight:bold; outline:none;" rows="3"></textarea>
+        </div>
+
+        <button id="btn-submit-form" onclick="enviarInscripcionCloud()" style="width:100%; padding:15px; background:var(--naranja-neon); color:white; border:none; border-radius:10px; font-weight:800; font-size:1rem; cursor:pointer; box-shadow:0 4px 15px rgba(255,109,0,0.3); margin-top:10px;">FINALIZAR E INSCRIBIRSE 🚀</button>
+    </div>
+
+    <div id="chat-window" style="display:none; position:fixed; bottom:90px; right:30px; width:350px; height:450px; background:white; z-index:99999; flex-direction:column; border-radius:15px; box-shadow:0 5px 25px rgba(0,0,0,0.3); overflow:hidden; font-family:'Segoe UI', sans-serif;">
+        <div style="background:#0a192f; color:#00d2ff; padding:15px; font-weight:bold; display:flex; justify-content:space-between; align-items:center;">
+            <span>🤖 Asistente CAE</span>
+            <button onclick="toggleChat()" style="background:none; border:none; color:white; cursor:pointer; font-size:1.2rem;">✖</button>
+        </div>
+        <div id="chat-messages" style="flex:1; padding:15px; overflow-y:auto; background:#f8fafc; display:flex; flex-direction:column; gap:10px;">
+            <div style="text-align:left;">
+                <div style="background:white; color:#1e293b; padding:12px 18px; border-radius:20px 20px 20px 0; display:inline-block; font-size:0.95rem; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid #00d2ff;">
+                    Estás en el paso de sincronización. Ingresa tu Nombre y Cédula para enviar los datos de forma segura a Firebase.
+                </div>
+            </div>
+        </div>
+        <div style="padding:10px; border-top:1px solid #e2e8f0; display:flex; background:white; gap:5px;">
+            <input type="text" id="user-input" placeholder="Pregúntame algo..." style="flex:1; padding:10px; border:1px solid #cbd5e1; border-radius:20px; outline:none; color:#333;">
+            <button onclick="sendMessage()" style="background:#0a192f; color:#00d2ff; border:none; width:40px; height:40px; border-radius:50%; cursor:pointer; font-size:1.2rem; display:flex; align-items:center; justify-content:center;">➤</button>
+        </div>
+    </div>
+
+    <button onclick="toggleChat()" style="position:fixed; bottom:20px; right:30px; width:60px; height:60px; background:#0a192f; color:#00d2ff; border:2px solid #00d2ff; border-radius:50%; font-size:1.8rem; cursor:pointer; box-shadow:0 4px 15px rgba(0,210,255,0.4); z-index:99999; display:flex; align-items:center; justify-content:center;">
+        🤖
+    </button>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <script>
-        // Configuración oficial de tu Firebase
+        // Configuración Firebase (Reemplázala por tus credenciales del proyecto si varían)
         const firebaseConfig = {
-            apiKey: "AIzaSyDKnVg7dwb60-oXHs2nJ9w83XFkhN128tw",
-            authDomain: "boteducarmen2026.firebaseapp.com",
-            databaseURL: "https://boteducarmen2026-default-rtdb.firebaseio.com",
-            projectId: "boteducarmen2026",
-            storageBucket: "boteducarmen2026.firebasestorage.app",
-            messagingSenderId: "345344555322",
-            appId: "1:345344555322:web:df90364298617b9314b803"
+            databaseURL: "https://capifer-database-default-rtdb.firebaseio.com/"
         };
-
-        // Inicializar Firebase
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        let cursosInscribirTexto = "";
-
-        // Al cargar la página, extrae los cursos guardados en el localStorage para mostrarlos en el formulario
-        document.addEventListener('DOMContentLoaded', () => {
-            const carrito = JSON.parse(localStorage.getItem('cart')) || [];
-            const resumenSpan = document.getElementById('lista-resumen');
-            const btnSubmit = document.getElementById('btn-submit-form');
-
-            if (carrito.length === 0) {
-                resumenSpan.innerHTML = "<span style='color:#ff4444;'>No has seleccionado ningún curso todavía.</span>";
-                btnSubmit.disabled = true;
+        function inicializarFormulario() {
+            let carrito = JSON.parse(localStorage.getItem('cart')) || [];
+            if(carrito.length === 0) {
+                alert("No tienes cursos preseleccionados. Volviendo al catálogo.");
+                window.location.href = "cursos.html";
                 return;
             }
+            // Mostrar nombres separados por coma
+            document.getElementById('cursos-inscribir').value = carrito.map(x => x.nombre).join(', ');
+        }
 
-            // Unir los nombres de los cursos con comas para guardarlos como texto claro en la BD
-            const nombresCursos = carrito.map(item => item.nombre.trim());
-            cursosInscribirTexto = nombresCursos.join(', ');
-            resumenSpan.innerText = cursosInscribirTexto;
-        });
+        document.addEventListener('DOMContentLoaded', inicializarFormulario);
 
-        // Evento que se ejecuta al presionar el botón de enviar
-        function procesarFormulario(event) {
-            event.preventDefault(); // Evita que la página recargue sola
-
-            const nombreUser = document.getElementById('nombre').value.trim();
-            const cedulaUser = document.getElementById('cedula').value.trim();
+        function enviarInscripcionCloud() {
+            const nombreUser = document.getElementById('nombre-usuario').value.trim();
+            const cedulaUser = document.getElementById('cedula-usuario').value.trim();
+            const cursosInscribirTexto = document.getElementById('cursos-inscribir').value;
             const btnSubmit = document.getElementById('btn-submit-form');
 
-            if (!nombreUser || !cedulaUser || !cursosInscribirTexto) {
+            if (!nombreUser || !cedulaUser) {
                 alert("Por favor rellene todos los campos.");
                 return;
             }
 
-            // Bloquear el botón temporalmente para evitar doble click
             btnSubmit.disabled = true;
             btnSubmit.innerText = "Sincronizando con la nube...";
 
-            // Crear ID único basado en milisegundos de tiempo
             const nuevoId = Date.now().toString();
             const fechaHoraString = new Date().toLocaleString();
 
-            // SUBIR LOS DATOS A LA BASE DE DATOS DE FIREBASE
             database.ref('inscritos/' + nuevoId).set({
                 id: nuevoId,
                 nombre: nombreUser,
@@ -227,9 +140,7 @@
                 fecha: fechaHoraString
             })
             .then(() => {
-                // Si Firebase responde con éxito, se limpia el listado del cliente para que no queden duplicados
                 localStorage.removeItem('cart');
-                // Redirección directa a tu página de confirmación
                 window.location.href = "gracias.html";
             })
             .catch((error) => {
@@ -239,5 +150,6 @@
             });
         }
     </script>
+    <script src="chatbot.js"></script>
 </body>
 </html>
