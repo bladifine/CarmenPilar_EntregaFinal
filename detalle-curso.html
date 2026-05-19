@@ -27,6 +27,16 @@
             background: linear-gradient(135deg, var(--naranja), #ff9100); color: white; border: none; 
             padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 20px;
         }
+
+        /* 📱 ESTILO BOTÓN WHATSAPP (Izquierda) */
+        .btn-whatsapp-flotante {
+            position: fixed; bottom: 20px; left: 30px;
+            width: 60px; height: 60px; background: #25D366; color: white;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; text-decoration: none; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 99999; transition: 0.3s;
+        }
+        .btn-whatsapp-flotante:hover { transform: scale(1.1); }
     </style>
 </head>
 <body>
@@ -36,38 +46,18 @@
 
     <div id="contenido-detalle" class="detalle-container"></div>
 
-    <div id="chat-window" style="display:none; position:fixed; bottom:90px; right:30px; width:350px; height:450px; background:white; z-index:99999; flex-direction:column; border-radius:15px; box-shadow:0 5px 25px rgba(0,0,0,0.3); overflow:hidden; font-family:'Segoe UI', sans-serif;">
-        <div style="background:#0a192f; color:#00d2ff; padding:15px; font-weight:bold; display:flex; justify-content:space-between; align-items:center;">
-            <span>🤖 Asistente CAE</span>
-            <button onclick="toggleChat()" style="background:none; border:none; color:white; cursor:pointer; font-size:1.2rem;">✖</button>
-        </div>
-        <div id="chat-messages" style="flex:1; padding:15px; overflow-y:auto; background:#f8fafc; display:flex; flex-direction:column; gap:10px;">
-            <div style="text-align:left;">
-                <div style="background:white; color:#1e293b; padding:12px 18px; border-radius:20px 20px 20px 0; display:inline-block; font-size:0.95rem; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid #00d2ff;">
-                    ¡Hola! Soy el asistente virtual del CAE 'Carmen Pilar Fernández'. ¿En qué puedo orientarte hoy?
-                </div>
-            </div>
-        </div>
-        <div style="padding:10px; border-top:1px solid #e2e8f0; display:flex; background:white; gap:5px;">
-            <input type="text" id="user-input" placeholder="Pregúntame algo..." style="flex:1; padding:10px; border:1px solid #cbd5e1; border-radius:20px; outline:none; color:#333;">
-            <button onclick="sendMessage()" style="background:#0a192f; color:#00d2ff; border:none; width:40px; height:40px; border-radius:50%; cursor:pointer; font-size:1.2rem; display:flex; align-items:center; justify-content:center;">➤</button>
-        </div>
-    </div>
+    <a href="https://wa.me/584121234567?text=Hola%20profesor,%20tengo%20una%20consulta%20sobre%20uno%20de%20los%20cursos%20del%20catálogo." 
+       target="_blank" class="btn-whatsapp-flotante">💬</a>
 
-    <button onclick="toggleChat()" style="position:fixed; bottom:20px; right:30px; width:60px; height:60px; background:#0a192f; color:#00d2ff; border:2px solid #00d2ff; border-radius:50%; font-size:1.8rem; cursor:pointer; box-shadow:0 4px 15px rgba(0,210,255,0.4); z-index:99999; display:flex; align-items:center; justify-content:center;">
-        🤖
-    </button>
-
-    <script src="chatbot.js"></script>
+    <button onclick="toggleChat()" style="position:fixed; bottom:20px; right:30px; width:60px; height:60px; background:#0a192f; color:#00d2ff; border:2px solid #00d2ff; border-radius:50%; font-size:1.8rem; cursor:pointer; box-shadow:0 4px 15px rgba(0,210,255,0.4); z-index:99999; display:flex; align-items:center; justify-content:center;">🤖</button>
 
     <script>
         const params = new URLSearchParams(window.location.search);
         const nombreCurso = params.get('curso');
 
-        // CORRECCIÓN: Nombres sincronizados en minúsculas y añadido el de Cocina Nacional
         const CURSO_DATA = {
             "Barbería": { d: "Aprende técnicas modernas de corte masculino, perfilado y diseño estructural de barba.", r: "Cédula de identidad, ser mayor de 15 años.", t: "3 meses", i: "img/barberia.jpg" },
-            "Panadería": { d: "Domina el arte de las masas, fermentación balanceada y métodos de horneado artesanal.", r: "Cédula de identidad, delantal y gorro.", t: "4 meses", i: "img/panaderia.jpg" },
+            "Panadería": { d: "Domina el arte de las masas, fermentación balanceada y métodos de horneado artesanal.", r: "Cédula de identidad, delantal y gorro.", t: "4 months", i: "img/panaderia.jpg" },
             "Cocina Nacional": { d: "Conoce el manejo técnico de fogones, sazones tradicionales y platos típicos de nuestra gastronomía.", r: "Cédula de identidad, delantal y paño técnico.", t: "3 meses", i: "img/cocina_nacional.jpg" }
         };
 
