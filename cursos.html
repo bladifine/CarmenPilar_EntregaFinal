@@ -74,11 +74,10 @@
         }
         .btn-seleccion.activo { background: var(--electrico); color: var(--azul-p); }
 
-        /* Botón Flotante */
         .cart-float {
             position: fixed; bottom: 30px; right: 30px; background: var(--naranja);
             padding: 20px; border-radius: 50px; text-decoration: none; color: white;
-            font-weight: bold; box-shadow: 0 10px 30px rgba(255,109,0,0.3); display: none;
+            font-weight: bold; box-shadow: 0 10px 30px rgba(255,109,0,0.3); display: none; z-index: 999;
         }
     </style>
 </head>
@@ -87,10 +86,14 @@
     <header>
         <div style="max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; padding:0 20px;">
             <div class="header-brand">
-                <img src="img/logo.png" alt="Logo">
+                <img src="img/logo.png" alt="Logo" onerror="this.src='img/logo.png'">
                 <h2 style="margin:0; font-size:1.4rem;">BotEduCarmen</h2>
             </div>
-            <nav><a href="index.html" style="color:white; text-decoration:none;">Inicio</a></nav>
+            <nav style="display: flex; gap: 20px;">
+                <a href="index.html" style="color: white; text-decoration: none;">Inicio</a>
+                <a href="cursos.html" style="color: var(--electrico); text-decoration: none; font-weight: bold;">Cursos</a>
+                <a href="carrito.html" style="color: white; text-decoration: none;">Mi Selección</a>
+            </nav>
         </div>
     </header>
 
@@ -107,16 +110,39 @@
         💼 VER SELECCIÓN (<span id="cart-count">0</span>)
     </a>
 
+    <div id="chat-window" style="display:none; position:fixed; bottom:90px; right:30px; width:350px; height:450px; background:white; z-index:99999; flex-direction:column; border-radius:15px; box-shadow:0 5px 25px rgba(0,0,0,0.3); overflow:hidden; font-family:'Segoe UI', sans-serif;">
+        <div style="background:#0a192f; color:#00d2ff; padding:15px; font-weight:bold; display:flex; justify-content:space-between; align-items:center;">
+            <span>🤖 Asistente CAE</span>
+            <button onclick="toggleChat()" style="background:none; border:none; color:white; cursor:pointer; font-size:1.2rem;">✖</button>
+        </div>
+        <div id="chat-messages" style="flex:1; padding:15px; overflow-y:auto; background:#f8fafc; display:flex; flex-direction:column; gap:10px;">
+            <div style="text-align:left;">
+                <div style="background:white; color:#1e293b; padding:12px 18px; border-radius:20px 20px 20px 0; display:inline-block; font-size:0.95rem; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid #00d2ff;">
+                    ¡Hola! Soy el asistente virtual del CAE 'Carmen Pilar Fernández'. ¿En qué puedo orientarte hoy?
+                </div>
+            </div>
+        </div>
+        <div style="padding:10px; border-top:1px solid #e2e8f0; display:flex; background:white; gap:5px;">
+            <input type="text" id="user-input" placeholder="Pregúntame algo..." style="flex:1; padding:10px; border:1px solid #cbd5e1; border-radius:20px; outline:none; color:#333;">
+            <button onclick="sendMessage()" style="background:#0a192f; color:#00d2ff; border:none; width:40px; height:40px; border-radius:50%; cursor:pointer; font-size:1.2rem; display:flex; align-items:center; justify-content:center;">➤</button>
+        </div>
+    </div>
+
+    <button onclick="toggleChat()" style="position:fixed; bottom:20px; right:30px; width:60px; height:60px; background:#0a192f; color:#00d2ff; border:2px solid #00d2ff; border-radius:50%; font-size:1.8rem; cursor:pointer; box-shadow:0 4px 15px rgba(0,210,255,0.4); z-index:99999; display:flex; align-items:center; justify-content:center;">
+        🤖
+    </button>
+
     <script src="cursos.js"></script>
+    <script src="chatbot.js"></script>
+
     <script>
-        // Carga y renderizado dinámico de cursos
         function cargarCursos() {
             const grid = document.getElementById('cursos-grid');
             if (!grid) return;
 
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-            // Se utiliza el arreglo global MIS_CURSOS que ya viene de cursos.js sin duplicarlo aquí
+            // REVISIÓN: Aquí se lee directamente de cursos.js sin declararlo de nuevo
             grid.innerHTML = MIS_CURSOS.map(c => {
                 const yaSeleccionado = cart.some(x => x.nombre.trim() === c.name.trim());
                 const textoBtn = yaSeleccionado ? "✓ SELECCIONADO" : "SELECCIONAR CURSO";
@@ -127,8 +153,8 @@
                         <img src="${c.img}" alt="${c.name}" onerror="this.onerror=null; this.src='img/logo.png';">
                         <div class="curso-info">
                             <span class="badge">${c.cat}</span>
-                            <h3 style="margin: 10px 0 5px 0; font-size:1.3rem;">${c.name}</h3>
-                            <p style="margin:0; color:rgba(255,255,255,0.6); font-size:0.9rem;">Modalidad: Presencial</p>
+                            <h3 style="margin: 10px 0 5px 0; font-size:1.3rem; color: white;">${c.name}</h3>
+                            <p style="margin:0; color:rgba(255,255,255,0.6); font-size:0.9rem;">Costo: Gratis</p>
                             <button onclick="toggleSeleccion('${c.name}', '${c.img}')" class="btn-seleccion ${claseBtn}">
                                 ${textoBtn}
                             </button>
