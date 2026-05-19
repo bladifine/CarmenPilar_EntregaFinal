@@ -2,8 +2,8 @@ const MIS_CURSOS = [
     { name: "Modistería", price: "Gratis", cat: "Costura", img: "img/modisteria.jpg" },
     { name: "Cocina Bilingüe", price: "Gratis", cat: "Gastronomía", img: "img/cocina.jpg" },
     { name: "Barbería", price: "Gratis", cat: "Estética", img: "img/barberia.jpg" },
-    { name: "Uñas", price: "Gratis", cat: "Estética", img: "img/estetica_de_unas.jpg" }, // Ajustado al nombre real
-    { name: "Corte y Confección", price: "Gratis", cat: "Diseño", img: "img/corte_y_confeccion.jpg" } // Ajustado al nombre real
+    { name: "Uñas", price: "Gratis", cat: "Estética", img: "img/estetica_de_unas.jpg" },
+    { name: "Corte y Confección", price: "Gratis", cat: "Diseño", img: "img/corte_y_confeccion.jpg" }
 ];
 
 function mostrarCursos() {
