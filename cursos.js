@@ -2,8 +2,8 @@ const MIS_CURSOS = [
     { name: "Modistería", price: "Gratis", cat: "Costura", img: "img/modisteria.jpg" },
     { name: "Cocina Bilingüe", price: "Gratis", cat: "Gastronomía", img: "img/cocina.jpg" },
     { name: "Barbería", price: "Gratis", cat: "Estética", img: "img/barberia.jpg" },
-    { name: "Uñas", price: "Gratis", cat: "Estética", img: "img/unas.jpg" },
-    { name: "Corte y Confección", price: "Gratis", cat: "Diseño", img: "img/corte.jpg" }
+    { name: "Uñas", price: "Gratis", cat: "Estética", img: "img/estetica_de_unas.jpg" }, // Ajustado al nombre real
+    { name: "Corte y Confección", price: "Gratis", cat: "Diseño", img: "img/corte_y_confeccion.jpg" } // Ajustado al nombre real
 ];
 
 function mostrarCursos() {
@@ -12,7 +12,7 @@ function mostrarCursos() {
 
     grid.innerHTML = MIS_CURSOS.map(c => `
         <div class="course-card">
-            <img src="${c.img}" alt="${c.name}" onerror="this.src='https://via.placeholder.com/300x200?text=Curso'">
+            <img src="${c.img}" alt="${c.name}" onerror="this.onerror=null; this.src='img/logo.png';">
             <div class="course-info">
                 <h3>${c.name}</h3>
                 <span class="badge">${c.cat}</span>
@@ -27,12 +27,14 @@ function mostrarCursos() {
 
 function filtrarCursos() {
     const busqueda = document.getElementById('buscador').value.toLowerCase();
-    const cards = document.querySelectorAll('.course-card');
+    const tarjetas = document.querySelectorAll('.course-card');
     
-    cards.forEach(card => {
-        const texto = card.innerText.toLowerCase();
-        card.style.display = texto.includes(busqueda) ? 'block' : 'none';
+    tarjetas.forEach(tarjeta => {
+        const texto = tarjeta.querySelector('h3').innerText.toLowerCase();
+        if (texto.includes(busqueda)) {
+            tarjeta.style.display = "block";
+        } else {
+            tarjeta.style.display = "none";
+        }
     });
 }
-
-document.addEventListener('DOMContentLoaded', mostrarCursos);
