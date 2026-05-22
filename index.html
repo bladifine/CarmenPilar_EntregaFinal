@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BotEduCarmen 2026 | Sistema de Formación Inteligente</title>
-    <link rel="icon" href="data:,"> <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:,"> 
+    <link rel="stylesheet" href="styles.css">
     <style>
         :root {
             --azul-primario: #0a192f;
@@ -51,6 +52,32 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
 
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        /* BOTÓN DE WHATSAPP INTEGRADO DE FORMA LIMPIA EN EL HEADER */
+        .btn-header-whatsapp {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #25D366;
+            color: white !important;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
+            transition: 0.3s;
+        }
+        .btn-header-whatsapp:hover {
+            background: #20ba5a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
         /* BOTONES 3D NEOMÓRFICOS */
         .btn-2026 {
             background: linear-gradient(135deg, var(--naranja-neon), var(--naranja-glow));
@@ -87,7 +114,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            clip-path: ellipse(150% 100% at 50% 0%); /* Curva moderna en el fondo */
+            clip-path: ellipse(150% 100% at 50% 0%);
         }
 
         .glass-box {
@@ -110,29 +137,6 @@
             text-align: center;
             border-top: 5px solid var(--naranja-neon);
         }
-
-        /* 📱 ESTILO ADICIONAL: BOTÓN FLOTANTE DE WHATSAPP (Izquierda) */
-        .btn-whatsapp-flotante {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            width: 70px;
-            height: 70px;
-            background: #25D366;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.2rem;
-            text-decoration: none;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
-            z-index: 5000;
-            transition: transform 0.3s ease;
-        }
-        .btn-whatsapp-flotante:hover {
-            transform: scale(1.1);
-        }
     </style>
 </head>
 <body>
@@ -154,7 +158,15 @@
             <nav>
                 <a href="index.html" style="text-decoration:none; color:var(--naranja-neon); font-weight:700; margin-right:25px;">INICIO</a>
                 <a href="cursos.html" style="text-decoration:none; color:var(--azul-primario); font-weight:600; margin-right:25px;">CURSOS</a>
-                <a href="admin.html" class="btn-2026" style="padding:10px 25px; font-size:0.8rem;">ADMIN</a>
+                <a href="admin.html" class="btn-2026" style="padding:10px 25px; font-size:0.8rem; margin-right:20px;">ADMIN</a>
+                
+                <a href="https://wa.me/584243360158?text=Hola%20Bladimir,%20estoy%20en%20el%20inicio%20de%20la%20página%20y%20tengo%20unas%20preguntas." 
+                   target="_blank" class="btn-header-whatsapp">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 16 16">
+                      <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.69-4.98c-.202-.101-1.194-.588-1.378-.654-.184-.066-.317-.099-.45.099-.132.199-.512.654-.627.787-.114.133-.23.149-.43.049-.2-.1-.843-.311-1.607-.994-.594-.53-1.002-1.185-1.119-1.385-.116-.2-.012-.308.087-.407.091-.089.202-.234.302-.35.101-.117.135-.198.203-.331.066-.133.033-.25-.016-.35-.049-.1-.45-1.085-.617-1.485-.162-.395-.327-.341-.45-.347-.116-.006-.25-.006-.384-.006-.134 0-.353.05-.537.25-.184.2-.703.687-.703 1.677 0 .99.72 1.947.82 2.082.102.135 1.417 2.164 3.435 3.033.48.207.854.33 1.146.422.481.153.918.132 1.264.08.384-.057 1.194-.488 1.362-.958.168-.471.168-.875.118-.958-.05-.084-.185-.133-.386-.233z"/>
+                   </svg>
+                   WhatsApp
+                </a>
             </nav>
         </div>
     </header>
@@ -172,7 +184,7 @@
             <h2 style="color: var(--azul-primario); font-size: 2.5rem; margin-top: 0;">Nuestra Misión</h2>
             <p style="font-size: 1.3rem; line-height: 1.8; color: #475569;">
                 En el año 2026, nuestra misión evoluciona para integrar herramientas de inteligencia artificial y 
-                técnicas creativas avanzadas, impulsando el desarrollo socio-económico de Las Mercedes mediante 
+                técnicas creativeas avanzadas, impulsando el desarrollo socio-económico de Las Mercedes mediante 
                 la formación gratuita de excelencia.
             </p>
         </div>
@@ -191,11 +203,6 @@
             <p style="margin-top: 40px; font-size: 0.8rem; opacity: 0.4;">© 2026 Todos los derechos reservados.</p>
         </div>
     </footer>
-
-    <a href="https://wa.me/584243360158?text=Hola%20Bladimir,%20estoy%20en%20el%20inicio%20de%20la%20página%20y%20tengo%20unas%20preguntas." 
-       target="_blank" class="btn-whatsapp-flotante">
-       💬
-    </a>
 
     <div id="chat-icon" onclick="toggleChat()" style="position:fixed; bottom:30px; right:30px; width:85px; height:85px; cursor:pointer; z-index:5000; animation: pulse 2s infinite;">
         <img src="img/chatbot.png" style="width:100%; height:100%; object-fit:contain; border-radius:50%; filter: drop-shadow(0 0 15px var(--azul-electrico));" onerror="this.style.display='none'; document.getElementById('fb').style.display='flex';">
