@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo 2026 | BotEduCarmen</title>
-    <link rel="icon" href="data:,"> <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="styles.css">
     <style>
         :root {
             --azul-p: #0a192f;
@@ -32,6 +33,27 @@
         .header-brand { display: flex; align-items: center; gap: 15px; }
         .header-brand img { height: 50px; }
 
+        /* Estilo para los elementos de navegación y el botón de WhatsApp integrado */
+        nav { display: flex; align-items: center; gap: 20px; }
+
+        .btn-header-whatsapp {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        .btn-header-whatsapp:hover {
+            background: #20ba5a;
+            transform: translateY(-2px);
+        }
+
         .search-container { text-align: center; margin: 30px 0; }
         #buscador { 
             width: 80%; max-width: 500px; padding: 15px; 
@@ -58,10 +80,8 @@
         .curso-card:hover { transform: translateY(-5px); border-color: var(--electrico); }
 
         .curso-img { width: 100%; height: 160px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1); }
-
         .curso-info { padding: 20px; }
 
-        /* Botón dinámico */
         .btn-accion {
             border: none; padding: 12px; border-radius: 10px; width: 100%; 
             cursor: pointer; font-weight: bold; transition: 0.3s; text-transform: uppercase;
@@ -69,6 +89,7 @@
         .btn-seleccionar { background: var(--naranja); color: white; box-shadow: 0 4px 15px rgba(255, 109, 0, 0.3); }
         .btn-quitar { background: #444; color: #ccc; border: 1px solid #666; }
 
+        /* Botón de Confirmación Flotante (Izquierda abajo) */
         #cart-float {
             position: fixed; bottom: 30px; left: 30px; z-index: 2000; display: none;
         }
@@ -78,28 +99,35 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 2px solid var(--electrico);
         }
 
-        /* 📱 BOTÓN FLOTANTE DE WHATSAPP (Izquierda - Elevado para que no tape el botón de confirmación) */
-        .btn-whatsapp-flotante {
-            position: fixed; bottom: 110px; left: 30px;
-            width: 70px; height: 70px; background: #25D366; color: white;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 2.2rem; text-decoration: none; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
-            z-index: 5000; transition: transform 0.3s ease;
+        /* Botón de volver arriba discreto (Izquierda abajo, sobre el botón de confirmación si se activa) */
+        #btn-subir {
+            position: fixed; bottom: 105px; left: 30px; width: 55px; height: 55px; 
+            background: var(--azul-p); border: 2px solid var(--electrico); color: var(--electrico); 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 15px rgba(0,210,255,0.3); 
+            z-index: 1900; transition: 0.3s; opacity: 0; pointer-events: none;
         }
-        .btn-whatsapp-flotante:hover { transform: scale(1.1); }
+        #btn-subir:hover { background: var(--electrico); color: var(--azul-p); }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+        <div class="container" style="display:flex; justify-content:space-between; align-items:center; max-width:1200px; margin:0 auto; padding:0 20px; width:100%; box-sizing:border-box;">
             <div class="header-brand">
-                <img src="img/logo.png" alt="Logo">
+                <img src="img/logo.png" alt="Logo" onerror="this.style.display='none'">
                 <h1 style="font-size: 1.4rem; margin:0;">BotEduCarmen <span style="color:var(--electrico)">2026</span></h1>
             </div>
             <nav>
-                <a href="index.html" style="color:white; text-decoration:none; margin-right:20px;">Inicio</a>
+                <a href="index.html" style="color:white; text-decoration:none;">Inicio</a>
                 <a href="admin.html" style="color:var(--naranja); text-decoration:none;">Admin</a>
+                <a href="https://wa.me/584243360158?text=Hola%20Bladimir,%20estoy%20viendo%20el%20catálogo%20de%20cursos%20y%20tengo%20algunas%20dudas." 
+                   target="_blank" class="btn-header-whatsapp">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 16 16">
+                      <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.69-4.98c-.202-.101-1.194-.588-1.378-.654-.184-.066-.317-.099-.45.099-.132.199-.512.654-.627.787-.114.133-.23.149-.43.049-.2-.1-.843-.311-1.607-.994-.594-.53-1.002-1.185-1.119-1.385-.116-.2-.012-.308.087-.407.091-.089.202-.234.302-.35.101-.117.135-.198.203-.331.066-.133.033-.25-.016-.35-.049-.1-.45-1.085-.617-1.485-.162-.395-.327-.341-.45-.347-.116-.006-.25-.006-.384-.006-.134 0-.353.05-.537.25-.184.2-.703.687-.703 1.677 0 .99.72 1.947.82 2.082.102.135 1.417 2.164 3.435 3.033.48.207.854.33 1.146.422.481.153.918.132 1.264.08.384-.057 1.194-.488 1.362-.958.168-.471.168-.875.118-.958-.05-.084-.185-.133-.386-.233z"/>
+                   </svg>
+                   WhatsApp
+                </a>
             </nav>
         </div>
     </header>
@@ -114,10 +142,7 @@
         <a href="contacto.html" class="btn-confirmar">🚀 CONFIRMAR INSCRIPCIÓN (<span id="cart-count">0</span>)</a>
     </div>
 
-    <a href="https://wa.me/584243360158?text=Hola%20Bladimir,%20estoy%20viendo%20el%20catálogo%20de%20cursos%20y%20tengo%20algunas%20dudas." 
-       target="_blank" class="btn-whatsapp-flotante">
-       💬
-    </a>
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" id="btn-subir">▲</button>
 
     <div id="chat-icon" onclick="toggleChat()" style="position:fixed; bottom:30px; right:30px; width:85px; height:85px; cursor:pointer; z-index:5000; animation: pulse 2s infinite;">
         <img src="img/chatbot.png" style="width:100%; height:100%; object-fit:contain; border-radius:50%; filter: drop-shadow(0 0 15px var(--electrico));" onerror="this.style.display='none'; document.getElementById('fb').style.display='flex';">
@@ -141,9 +166,9 @@
 
     <script>
         const CURSOS = [
-            {n: "Barbería", i: "barberia.jpg"}, {n: "Estética Avanzada", i: "estetica_avanzada.jpg"},
+            {n: "Barbería", i: "Barberia.jpg"}, {n: "Estética Avanzada", i: "estetica_avanzada.jpg"},
             {n: "Masaje Corporales", i: "masaje.jpg"}, {n: "Puntillismo Avanzado", i: "puntillismo_avanzado.jpg"},
-            {n: "Estética de Uñas", i: "estetica_de_unas.jpg"}, {n: "Masoterapia", i: "masoterapia.jpg"},
+            {n: "Estética de Uñas", i: "Estetica_de_unas.jpg"}, {n: "Masoterapia", i: "masoterapia.jpg"},
             {n: "Puntillismo Básico", i: "puntillismo_basico.jpg"}, {n: "Cosmetología", i: "Cosmetologia.jpg"},
             {n: "Modistería", i: "modisteria.jpg"}, {n: "Repostería", i: "reposteria.jpg"},
             {n: "Dibujo Artístico", i: "dibujo_artistico.jpg"}, {n: "Lencería", i: "lenceria.jpg"},
@@ -209,7 +234,7 @@
             document.getElementById('cart-count').innerText = cart.length;
         }
 
-        // FUNCIONES DE TU CHATBOT PROPIO
+        // CONTROL DEL CHATBOT
         function toggleChat() {
             const w = document.getElementById('chat-window');
             w.style.display = (w.style.display === 'none' || w.style.display === '') ? 'flex' : 'none';
@@ -229,6 +254,18 @@
             }, 700);
             input.value = "";
         }
+
+        // CONTROL SENSORIAL DEL BOTÓN VOLVER ARRIBA
+        window.addEventListener('scroll', () => {
+            const btnSubir = document.getElementById('btn-subir');
+            if (window.scrollY > 400) {
+                btnSubir.style.opacity = '1';
+                btnSubir.style.pointerEvents = 'auto';
+            } else {
+                btnSubir.style.opacity = '0';
+                btnSubir.style.pointerEvents = 'none';
+            }
+        });
 
         document.addEventListener('DOMContentLoaded', () => {
             cargarCursos();
