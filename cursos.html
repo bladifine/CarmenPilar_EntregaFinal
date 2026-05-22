@@ -161,4 +161,138 @@
         </div>
         <div style="padding:20px; background:white; display:flex; gap:10px;">
             <input type="text" id="user-input" placeholder="Pregunta algo..." style="flex:1; padding:15px; border:2px solid #e2e8f0; border-radius:20px; outline:none;" onkeypress="if(event.key==='Enter') sendMessage()">
-            <button onclick="sendMessage()" style="background:var(--azul-p); color:var(--electrico); border:none; width:
+            <button onclick="sendMessage()" style="background:var(--azul-p); color:var(--electrico); border:none; width:55px; height:55px; border-radius:20px; cursor:pointer; font-size:1.5rem;">➤</button>
+        </div>
+    </div>
+
+    <script>
+        // Mapeo EXACTO basado en los archivos reales de tu carpeta img/
+        const CURSOS = [
+            {n: "Barbería", i: "barberia.jpg"}, 
+            {n: "Estética Avanzada", i: "estetica_avanzada.jpg"},
+            {n: "Masaje Corporales", i: "masaje.jpg"}, 
+            {n: "Puntillismo Avanzado", i: "puntillismo_avanzado.jpg"},
+            {n: "Estética de Uñas", i: "estetica_de_unas.jpg"}, 
+            {n: "Masoterapia", i: "masoterapia.jpg"},
+            {n: "Puntillismo Básico", i: "puntillismo_basico.jpg"}, 
+            {n: "Cosmetología", i: "cosmetologia.jpg"}, // Vinculado a minúscula
+            {n: "Modistería", i: "modisteria.jpg"}, 
+            {n: "Repostería", i: "reposteria.jpg"},
+            {n: "Dibujo Artístico", i: "dibujo_artistico.jpg"}, 
+            {n: "Lencería", i: "lenceria.jpg"},
+            {n: "Panadería", i: "panaderia.jpg"}, 
+            {n: "Pastelería", i: "reposteria_y_pasteleria.jpg"},
+            {n: "Dulces Criollos", i: "dulces_criollos.jpg"}, 
+            {n: "Peluquería", i: "peluqueria.jpg"},
+            {n: "Ropa Íntima", i: "ropa_intima.jpg"}, 
+            {n: "Electricidad", i: "electricidad.jpg"},
+            {n: "Manicure y Pedicure", i: "manicure_pedicure.jpg"}, 
+            {n: "Pintura Artística", i: "pintura_artistica.jpg"},
+            {n: "Rostros", i: "rostros.jpg"}, 
+            {n: "Electrodomésticos", i: "electrodomesticos.jpg"},
+            {n: "Manualidades", i: "manualidades.jpg"}, 
+            {n: "Pintura Avanzada", i: "pintura_avanzada.jpg"},
+            {n: "Tejido y Crochet", i: "tejer.jpg"} // Vinculado a minúscula
+        ];
+
+        function cargarCursos() {
+            const grid = document.getElementById('grid-cursos');
+            const seleccionados = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            grid.innerHTML = CURSOS.map(c => {
+                const estaEnCart = seleccionados.find(x => x.nombre === c.n);
+                const claseBtn = estaEnCart ? "btn-quitar" : "btn-seleccionar";
+                const textoBtn = estaEnCart ? "✖ QUITAR" : "✚ SELECCIONAR";
+
+                return `
+                    <div class="curso-card" data-name="${c.n.toLowerCase()}">
+                        <a href="detalle-curso.html?curso=${encodeURIComponent(c.n)}">
+                            <img src="img/${c.i}" class="curso-img" onerror="handleFallback(this, '${c.i}')">
+                        </a>
+                        <div class="curso-info">
+                            <h3>${c.n}</h3>
+                            <button onclick="toggleSeleccion('${c.n}', 'img/${c.i}')" class="btn-accion ${claseBtn}">
+                                ${textoBtn}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Sistema inteligente alternativo por si GitHub Pages demora en detectar mayúsculas/minúsculas locales
+        function handleFallback(imgElement, originalSrc) {
+            if (originalSrc === "cosmetologia.jpg" && !imgElement.src.includes("Cosmetologia.jpg")) {
+                imgElement.src = "img/Cosmetologia.jpg";
+            } else if (originalSrc === "tejer.jpg" && !imgElement.src.includes("Tejer.jpg")) {
+                imgElement.src = "img/Tejer.jpg";
+            } else {
+                imgElement.src = "img/logo.png";
+            }
+        }
+
+        function toggleSeleccion(nombre, imagen) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const index = cart.findIndex(x => x.nombre === nombre);
+
+            if (index !== -1) {
+                cart.splice(index, 1);
+            } else {
+                cart.push({ nombre, imagen });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            cargarCursos();
+            actualizarUI();
+        }
+
+        function filtrar() {
+            let val = document.getElementById('buscador').value.toLowerCase();
+            document.querySelectorAll('.curso-card').forEach(card => {
+                card.style.display = card.dataset.name.includes(val) ? "block" : "none";
+            });
+        }
+
+        function actualizarUI() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            document.getElementById('cart-float').style.display = cart.length > 0 ? "block" : "none";
+            document.getElementById('cart-count').innerText = cart.length;
+        }
+
+        function toggleChat() {
+            const w = document.getElementById('chat-window');
+            w.style.display = (w.style.display === 'none' || w.style.display === '') ? 'flex' : 'none';
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('user-input');
+            const box = document.getElementById('chat-messages');
+            const text = input.value.trim();
+            if(!text) return;
+
+            box.innerHTML += `<div style="background:var(--azul-p); color:white; padding:15px; border-radius:20px; align-self:flex-end; max-width:80%;">${text}</div>`;
+            setTimeout(() => {
+                box.innerHTML += `<div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--electrico);">Excelente elección. Recuerda revisar los requisitos detallados antes de procesar tu inscripción en el sistema.</div>`;
+                box.scrollTop = box.scrollHeight;
+            }, 700);
+            input.value = "";
+        }
+
+        window.addEventListener('scroll', () => {
+            const btnSubir = document.getElementById('btn-subir');
+            if (window.scrollY > 400) {
+                btnSubir.style.opacity = '1';
+                btnSubir.style.pointerEvents = 'auto';
+            } else {
+                btnSubir.style.opacity = '0';
+                btnSubir.style.pointerEvents = 'none';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarCursos();
+            actualizarUI();
+        });
+    </script>
+</body>
+</html>
