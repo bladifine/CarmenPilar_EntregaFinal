@@ -8,15 +8,20 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         :root {
-            --azul-p: #0a192f;
-            --electrico: #00d2ff;
+            /* Variables exactas de index.html */
+            --azul-primario: #0a192f;
+            --azul-electrico: #00d2ff;
+            --naranja-neon: #ff6d00;
+            --naranja-glow: #ff9100;
+            --glass: rgba(255, 255, 255, 0.08);
+            --sombra-futurista: 0 20px 40px rgba(0,0,0,0.4);
+            
+            /* Mantener compatibilidad con el resto del catálogo viejo si aplica */
             --naranja: #ff6d00;
-            --verde-wa: #25d366;
-            --glass: rgba(255, 255, 255, 0.05);
         }
 
         body { 
-            background-color: var(--azul-p); 
+            background-color: var(--azul-primario); 
             color: white; 
             font-family: 'Inter', sans-serif;
             margin: 0;
@@ -36,16 +41,16 @@
 
         nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         
-        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links { display: flex; gap: 25px; align-items: center; }
         .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: 0.3s; font-size: 0.95rem; }
-        .nav-links a:hover { color: var(--electrico); }
+        .nav-links a:hover { color: var(--azul-electrico); }
 
         .btn-cart-nav {
             background: rgba(0, 210, 255, 0.1);
-            border: 1px solid var(--electrico);
+            border: 1px solid var(--azul-electrico);
             padding: 8px 16px;
             border-radius: 50px;
-            color: var(--electrico);
+            color: var(--azul-electrico);
             font-weight: bold;
             display: flex;
             align-items: center;
@@ -53,70 +58,60 @@
             text-decoration: none;
             transition: 0.3s;
         }
-        .btn-cart-nav:hover { background: var(--electrico); color: var(--azul-p); transform: scale(1.05); }
+        .btn-cart-nav:hover { background: var(--azul-electrico); color: var(--azul-primario); transform: scale(1.05); }
 
-        /* 🟢 BOTÓN WHATSAPP ARRIBA A LA DERECHA */
-        .btn-wa-nav {
-            background: rgba(37, 211, 102, 0.1);
-            border: 1px solid var(--verde-wa);
-            padding: 8px 16px;
-            border-radius: 50px;
-            color: var(--verde-wa);
-            font-weight: bold;
+        /* BOTÓN DE WHATSAPP INTEGRADO DE FORMA LIMPIA EN EL HEADER */
+        .btn-header-whatsapp {
             display: flex;
             align-items: center;
             gap: 8px;
+            background: #25D366;
+            color: white !important;
             text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
             transition: 0.3s;
         }
-        .btn-wa-nav:hover { background: var(--verde-wa); color: white; transform: scale(1.05); }
+        .btn-header-whatsapp:hover {
+            background: #20ba5a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
 
         .search-section { max-width: 1200px; margin: 40px auto 20px; padding: 0 20px; display: flex; gap: 20px; flex-wrap: wrap; }
         .search-box { flex: 1; min-width: 280px; position: relative; }
-        .search-box input { width: 100%; padding: 15px 20px; border-radius: 12px; background: var(--glass); border: 1px solid rgba(255,255,255,0.1); color: white; outline: none; font-size: 1rem; box-sizing: border-box; transition: 0.3s; }
-        .search-box input:focus { border-color: var(--electrico); box-shadow: 0 0 15px rgba(0,210,255,0.2); }
+        .search-box input { width: 100%; padding: 15px 20px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; outline: none; font-size: 1rem; box-sizing: border-box; transition: 0.3s; }
+        .search-box input:focus { border-color: var(--azul-electrico); box-shadow: 0 0 15px rgba(0,210,255,0.2); }
         
-        .filter-select { padding: 0 20px; height: 52px; border-radius: 12px; background: var(--azul-p); border: 1px solid rgba(255,255,255,0.1); color: white; font-size: 1rem; outline: none; cursor: pointer; transition: 0.3s; }
-        .filter-select:focus { border-color: var(--electrico); }
+        .filter-select { padding: 0 20px; height: 52px; border-radius: 12px; background: var(--azul-primario); border: 1px solid rgba(255,255,255,0.1); color: white; font-size: 1rem; outline: none; cursor: pointer; transition: 0.3s; }
+        .filter-select:focus { border-color: var(--azul-electrico); }
 
         .cursos-grid { max-width: 1200px; margin: 0 auto 60px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
         
         .card { 
-            background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; overflow: hidden; 
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; overflow: hidden; 
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; height: 100%;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-        .card:hover { transform: translateY(-10px); border-color: var(--electrico); box-shadow: 0 15px 35px rgba(0,210,255,0.15); }
+        .card:hover { transform: translateY(-10px); border-color: var(--azul-electrico); box-shadow: 0 15px 35px rgba(0,210,255,0.15); }
         
         .card-link-img { display: block; width: 100%; height: 190px; overflow: hidden; }
         .card img { width: 100%; height: 100%; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
+        .card:hover img { transform: scale(1.05); }
         
         .card-body { padding: 25px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .card-title { margin: 0 0 10px; font-size: 1.3rem; color: white; }
         .card-title a { color: white; text-decoration: none; transition: 0.3s; }
-        .card-title a:hover { color: var(--electrico); }
+        .card-title a:hover { color: var(--azul-electrico); }
         
         .btn-detalles { display: block; text-align: center; width: 100%; margin-top: 10px; padding: 10px; text-decoration: none; color: rgba(255,255,255,0.6); font-size: 0.85rem; font-weight: bold; transition: 0.3s; }
-        .btn-detalles:hover { color: var(--electrico); }
+        .btn-detalles:hover { color: var(--azul-electrico); }
 
         #btn-subir { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: var(--naranja); border: none; border-radius: 50%; color: white; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: 0.3s; z-index: 99; box-shadow: 0 5px 15px rgba(255,109,0,0.4); }
         #btn-subir:hover { transform: scale(1.1); background: #e65c00; }
-
-        /* 🤖 INTERFAZ DEL CHATBOT FLOTANTE */
-        .chatbot-container { position: fixed; bottom: 30px; left: 30px; z-index: 1000; font-family: sans-serif; }
-        .chatbot-bubble { width: 60px; height: 60px; background: var(--electrico); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; cursor: pointer; box-shadow: 0 8px 25px rgba(0,210,255,0.4); transition: 0.3s; }
-        .chatbot-bubble:hover { transform: scale(1.1); }
-        
-        .chatbot-window { width: 320px; height: 400px; background: #0c1a30; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; position: absolute; bottom: 75px; left: 0; display: none; flex-direction: column; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .chatbot-header { background: var(--electrico); padding: 15px; color: var(--azul-p); font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
-        .chatbot-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; }
-        .msg { padding: 10px 14px; border-radius: 12px; max-width: 80%; line-height: 1.4; }
-        .msg.bot { background: rgba(255,255,255,0.08); align-self: flex-start; color: #fff; }
-        .msg.user { background: var(--electrico); align-self: flex-end; color: var(--azul-p); font-weight: 500; }
-        
-        .chatbot-input-area { padding: 10px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; gap: 8px; background: rgba(0,0,0,0.2); }
-        .chatbot-input-area input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; color: white; outline: none; font-size: 0.85rem; }
-        .chatbot-input-area button { background: var(--electrico); border: none; color: var(--azul-p); padding: 0 15px; border-radius: 8px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -125,17 +120,21 @@
         <nav>
             <div class="header-brand">
                 <img src="img/logo.png" onerror="this.src='img/logo.png'">
-                <h1 style="margin:0; font-size:1.4rem; letter-spacing:1px; color:white;">CAE <span style="color:var(--electrico)">CARMEN PILAR</span></h1>
+                <h1 style="margin:0; font-size:1.4rem; letter-spacing:1px; color:white;">CAE <span style="color:var(--azul-electrico)">CARMEN PILAR</span></h1>
             </div>
             <div class="nav-links">
                 <a href="index.html">Inicio</a>
-                <a href="cursos.html" style="color:var(--electrico)">Catálogo</a>
+                <a href="cursos.html" style="color:var(--azul-electrico)">Catálogo</a>
                 <a href="admin.html">Panel</a>
                 <a href="carrito.html" class="btn-cart-nav">
                     🛒 Mi Lista (<span id="cart-count">0</span>)
                 </a>
-                <a href="https://wa.me/5804243360158?text=Hola,%20solicito%20información%20sobre%20las%20inscripciones%20de%20los%20cursos." target="_blank" class="btn-wa-nav">
-                    💬 WhatsApp
+                <a href="https://wa.me/584243360158?text=Hola%20Bladimir,%20estoy%20en%20el%20catalogo%20de%20la%20página%20y%20tengo%20unas%20preguntas." 
+                   target="_blank" class="btn-header-whatsapp">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 16 16">
+                      <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.69-4.98c-.202-.101-1.194-.588-1.378-.654-.184-.066-.317-.099-.45.099-.132.199-.512.654-.627.787-.114.133-.23.149-.43.049-.2-.1-.843-.311-1.607-.994-.594-.53-1.002-1.185-1.119-1.385-.116-.2-.012-.308.087-.407.091-.089.202-.234.302-.35.101-.117.135-.198.203-.331.066-.133.033-.25-.016-.35-.049-.1-.45-1.085-.617-1.485-.162-.395-.327-.341-.45-.347-.116-.006-.25-.006-.384-.006-.134 0-.353.05-.537.25-.184.2-.703.687-.703 1.677 0 .99.72 1.947.82 2.082.102.135 1.417 2.164 3.435 3.033.48.207.854.33 1.146.422.481.153.918.132 1.264.08.384-.057 1.194-.488 1.362-.958.168-.471.168-.875.118-.958-.05-.084-.185-.133-.386-.233z"/>
+                   </svg>
+                   WhatsApp
                 </a>
             </div>
         </nav>
@@ -159,20 +158,23 @@
 
     <button id="btn-subir" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲</button>
 
-    <div class="chatbot-container">
-        <div class="chatbot-bubble" onclick="toggleChatbot()">🤖</div>
-        <div class="chatbot-window" id="chat-window">
-            <div class="chatbot-header">
-                <span>🤖 BotEduCarmen</span>
-                <span style="cursor:pointer; font-size:1.2rem;" onclick="toggleChatbot()">×</span>
+    <div id="chat-icon" onclick="toggleChat()" style="position:fixed; bottom:30px; left:30px; width:85px; height:85px; cursor:pointer; z-index:5000; animation: pulse 2s infinite;">
+        <img src="img/chatbot.png" style="width:100%; height:100%; object-fit:contain; border-radius:50%; filter: drop-shadow(0 0 15px var(--azul-electrico));" onerror="this.style.display='none'; document.getElementById('fb').style.display='flex';">
+        <div id="fb" style="display:none; width:100%; height:100%; background:var(--azul-primario); border-radius:50%; align-items:center; justify-content:center; color:white; font-size:40px; border:3px solid var(--azul-electrico);">🤖</div>
+    </div>
+
+    <div id="chat-window" style="position:fixed; bottom:130px; left:30px; width:380px; height:550px; background:white; border-radius:30px; box-shadow: 0 25px 70px rgba(0,0,0,0.4); z-index:5000; display:none; flex-direction:column; overflow:hidden; border:2px solid var(--azul-primario); color: #1e293b;">
+        <div style="background:var(--azul-primario); color:white; padding:25px; text-align:center; font-weight:800; font-size:1.3rem;">
+            🤖 AI ASISTENTE 2026
+        </div>
+        <div id="chat-messages" style="flex:1; padding:25px; overflow-y:auto; background:#f1f5f9; display:flex; flex-direction:column; gap:15px; font-size: 0.95rem;">
+            <div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico);">
+                ¡Hola Bladimir! Estamos operando en tiempo real. ¿Qué curso te interesa hoy?
             </div>
-            <div class="chatbot-messages" id="chat-messages">
-                <div class="msg bot">¡Hola! Soy el asistente virtual de CAE Carmen Pilar. ¿En qué curso o especialidad estás interesado hoy?</div>
-            </div>
-            <div class="chatbot-input-area">
-                <input type="text" id="chat-input" placeholder="Escribe tu mensaje aquí..." onkeypress="evaluarTecladoChat(event)">
-                <button onclick="enviarMensajeChat()">Enviar</button>
-            </div>
+        </div>
+        <div style="padding:20px; background:white; display:flex; gap:10px;">
+            <input type="text" id="user-input" placeholder="Pregunta algo..." style="flex:1; padding:15px; border:2px solid #e2e8f0; border-radius:20px; outline:none; background: white; color: #1e293b;" onkeypress="if(event.key==='Enter') sendMessage()">
+            <button onclick="sendMessage()" style="background:var(--azul-primario); color:var(--azul-electrico); border:none; width:55px; height:55px; border-radius:20px; cursor:pointer; font-size:1.5rem; display:flex; align-items:center; justify-content:center;">➤</button>
         </div>
     </div>
 
@@ -215,7 +217,6 @@
             { n: "Dibujo de Rostros", c: "Arte", i: "rostros.jpg" }
         ];
 
-        // RENDERIZADO EN PANTALLA CON ENLACES EN LAS FOTOS Y TÍTULOS
         function cargarCursos() {
             const grid = document.getElementById('cursos-grid');
             if(!grid) return;
@@ -231,14 +232,14 @@
                         </a>
                         <div class="card-body">
                             <div>
-                                <span style="font-size:0.8rem; background:rgba(0,210,255,0.1); color:var(--electrico); padding:4px 10px; border-radius:50px; font-weight:bold; text-transform:uppercase;">${curso.c}</span>
+                                <span style="font-size:0.8rem; background:rgba(0,210,255,0.1); color:var(--azul-electrico); padding:4px 10px; border-radius:50px; font-weight:bold; text-transform:uppercase;">${curso.c}</span>
                                 <h3 class="card-title" style="margin-top:10px;">
                                     <a href="${urlDetalle}">${curso.n}</a>
                                 </h3>
                                 <p style="color:rgba(255,255,255,0.6); font-size:0.9rem; margin:5px 0;">Certificación Avalada Gratuita</p>
                             </div>
                             <div style="margin-top:15px;">
-                                <button onclick="agregarAlCarrito('${curso.n}', 'img/${archivoImagen}')" style="width:100%; padding:12px; border-radius:10px; background:var(--electrico); color:var(--azul-p); border:none; font-weight:bold; cursor:pointer; transition:0.3s; font-size:0.95rem;">✚ SELECCIONAR</button>
+                                <button onclick="agregarAlCarrito('${curso.n}', 'img/${archivoImagen}')" style="width:100%; padding:12px; border-radius:10px; background:var(--azul-electrico); color:var(--azul-primario); border:none; font-weight:bold; cursor:pointer; transition:0.3s; font-size:0.95rem;">✚ SELECCIONAR</button>
                                 <a href="${urlDetalle}" class="btn-detalles">🔎 VER REQUISITOS</a>
                             </div>
                         </div>
@@ -248,7 +249,6 @@
             actualizarContadorUI();
         }
 
-        // FILTRADO INTELIGENTE
         function filtrarCatalogo() {
             const textoBusqueda = document.getElementById('buscador').value.toLowerCase().trim();
             const categoriaSeleccionada = document.getElementById('filtro-categoria').value.toLowerCase().trim();
@@ -271,7 +271,6 @@
             });
         }
 
-        // AGREGAR AL CARRITO LOCALMENTE
         function agregarAlCarrito(nombre, img) {
             let carrito = JSON.parse(localStorage.getItem('cart')) || [];
             
@@ -293,54 +292,27 @@
             if(badge) badge.textContent = carrito.length;
         }
 
-        // 🤖 LÓGICA INTERACTIVA DEL CHATBOT
-        function toggleChatbot() {
-            const windowChat = document.getElementById('chat-window');
-            windowChat.style.display = (windowChat.style.display === 'flex') ? 'none' : 'flex';
+        // FUNCIONES DEL CHATBOT
+        function toggleChat() {
+            const w = document.getElementById('chat-window');
+            w.style.display = (w.style.display === 'none' || w.style.display === '') ? 'flex' : 'none';
         }
 
-        function evaluarTecladoChat(event) {
-            if (event.key === 'Enter') enviarMensajeChat();
-        }
+        function sendMessage() {
+            const input = document.getElementById('user-input');
+            const box = document.getElementById('chat-messages');
+            const text = input.value.trim();
+            if(!text) return;
 
-        function enviarMensajeChat() {
-            const input = document.getElementById('chat-input');
-            const texto = input.value.trim();
-            if (!texto) return;
-
-            const contenedor = document.getElementById('chat-messages');
-
-            // Mensaje de usuario
-            const userDiv = document.createElement('div');
-            userDiv.className = 'msg user';
-            userDiv.textContent = texto;
-            contenedor.appendChild(userDiv);
+            box.innerHTML += `<div style="background:var(--azul-primario); color:white; padding:15px; border-radius:20px; align-self:flex-end; max-width:80%; word-break: break-word;">${text}</div>`;
             
-            input.value = '';
-            contenedor.scrollTop = contenedor.scrollHeight;
-
-            // Respuesta automática simulada inteligente
             setTimeout(() => {
-                const botDiv = document.createElement('div');
-                botDiv.className = 'msg bot';
-                
-                const consulta = texto.toLowerCase();
-                if (consulta.includes('requisitos') || consulta.includes('necesito')) {
-                    botDiv.textContent = "Para ver los requisitos detallados, haz clic en el botón 'VER REQUISITOS' que se encuentra abajo de la tarjeta de cada curso.";
-                } else if (consulta.includes('precio') || consulta.includes('costo') || consulta.includes('gratis')) {
-                    botDiv.textContent = "¡Todos nuestros cursos son completamente gratuitos y cuentan con Certificación Avalada!";
-                } else if (consulta.includes('inscribir') || consulta.includes('inscripcion')) {
-                    botDiv.textContent = "Para pre-inscribirte, presiona el botón 'SELECCIONAR' en los cursos que quieras y luego ve al icono del carrito de compras arriba a la derecha.";
-                } else {
-                    botDiv.textContent = "Entendido tu consulta. Te sugiero revisar nuestro listado completo de 25 especialidades o escribirnos directamente a nuestro WhatsApp oficial mediante el botón superior.";
-                }
-                
-                contenedor.appendChild(botDiv);
-                contenedor.scrollTop = contenedor.scrollHeight;
-            }, 800);
+                box.innerHTML += `<div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico);">Entendido. Como estamos en 2026, te recomiendo los nuevos cursos de Tecnología y Emprendimiento Digital.</div>`;
+                box.scrollTop = box.scrollHeight;
+            }, 700);
+            input.value = "";
         }
 
-        // BOTÓN SUBIR
         window.addEventListener('scroll', () => {
             const btnSubir = document.getElementById('btn-subir');
             if (window.scrollY > 400) {
@@ -354,5 +326,14 @@
 
         document.addEventListener('DOMContentLoaded', cargarCursos);
     </script>
+
+    <style>
+        /* Animación idéntica a index.html */
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.4); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(0, 210, 255, 0); }
+            100% { transform: scale(1); }
+        }
+    </style>
 </body>
 </html>
