@@ -65,7 +65,7 @@
         .cursos-grid { max-width: 1200px; margin: 0 auto 60px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
         
         .card { 
-            background: var(--glass); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; overflow: hidden; 
+            background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; overflow: hidden; 
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; height: 100%;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
@@ -120,10 +120,10 @@
     <button id="btn-subir" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲</button>
 
     <script>
-        // BASE DE DATOS SINCRONIZADA 100% CON LAS IMÁGENES REALES DE TU CARPETA IMG
+        // BASE DE DATOS TOTALMENTE AJUSTADA A LOS ARCHIVOS EXISTENTES
         const BASE_DATOS_CURSOS = [
             { n: "Cocina Nacional", c: "Gastronomía", i: "cocina_nacional.jpg" },
-            { n: "Panaderia", c: "Gastronomía", i: "panaderia.jpg" },
+            { n: "Panadería", c: "Gastronomía", i: "panaderia.jpg" },
             { n: "Repostería y Pastelería", c: "Gastronomía", i: "reposteria_y_pasteleria.jpg" },
             { n: "Modistería", c: "Textil y Diseño", i: "modisteria.jpg" },
             { n: "Lencería y Ropa Íntima", c: "Textil y Diseño", i: "ropa_intima.jpg" },
@@ -136,7 +136,7 @@
             { n: "Reparación de Electrodomésticos", c: "Técnica", i: "electrodomesticos.jpg" }
         ];
 
-        // RENDERIZADO SEGURO
+        // FUNCIÓN DE CARGA
         function cargarCursos() {
             const grid = document.getElementById('cursos-grid');
             if(!grid) return;
@@ -163,18 +163,21 @@
             actualizarContadorUI();
         }
 
-        // FILTRADO POR ENTRADA DE TEXTO Y CATEGORÍA
+        // FILTRADO INTELIGENTE SIN IMPORTAR ACENTOS NI MAYÚSCULAS
         function filtrarCatalogo() {
-            const textoBusqueda = document.getElementById('buscador').value.toLowerCase();
-            const categoriaSeleccionada = document.getElementById('filtro-categoria').value.toLowerCase();
+            const textoBusqueda = document.getElementById('buscador').value.toLowerCase().trim();
+            const categoriaSeleccionada = document.getElementById('filtro-categoria').value.toLowerCase().trim();
             const tarjetas = document.querySelectorAll('.card');
+
+            // Quita acentos de manera segura para la comparación
+            const limpiarAcentos = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
             tarjetas.forEach(tarjeta => {
                 const nombreCurso = tarjeta.getAttribute('data-name');
                 const categoriaCurso = tarjeta.getAttribute('data-cat');
 
-                const cumpleNombre = nombreCurso.includes(textoBusqueda);
-                const cumpleCategoria = (categoriaSeleccionada === 'todos' || categoriaCurso === categoriaSeleccionada);
+                const cumpleNombre = limpiarAcentos(nombreCurso).includes(limpiarAcentos(textoBusqueda));
+                const cumpleCategoria = (categoriaSeleccionada === 'todos' || limpiarAcentos(categoriaCurso) === limpiarAcentos(categoriaSeleccionada));
 
                 if (cumpleNombre && cumpleCategoria) {
                     tarjeta.style.display = 'flex';
@@ -184,7 +187,7 @@
             });
         }
 
-        // SISTEMA DE SELECCIÓN DE CURSOS
+        // AGREGAR AL CARRITO
         function agregarAlCarrito(nombre, img) {
             let carrito = JSON.parse(localStorage.getItem('cart')) || [];
             
@@ -206,7 +209,7 @@
             if(badge) badge.textContent = carrito.length;
         }
 
-        // EVENTO PARA BOTÓN FLOTANTE
+        // SCROLL
         window.addEventListener('scroll', () => {
             const btnSubir = document.getElementById('btn-subir');
             if (window.scrollY > 400) {
