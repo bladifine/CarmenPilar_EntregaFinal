@@ -34,37 +34,52 @@
         .header-brand img { height: 50px; }
 
         nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .nav-links { display: flex; gap: 20px; align-items: center; }
-        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: 0.3s; }
+        
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: 0.3s; font-size: 0.95rem; }
         .nav-links a:hover { color: var(--electrico); }
 
-        .search-section { text-align: center; padding: 60px 20px 40px; }
-        .search-box { width: 100%; max-width: 600px; padding: 15px 25px; border-radius: 30px; border: 2px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: white; font-size: 1.1rem; outline: none; transition: 0.3s; backdrop-filter: blur(5px); }
-        .search-box:focus { border-color: var(--electrico); box-shadow: 0 0 15px rgba(0, 210, 255, 0.3); }
+        .btn-cart-nav {
+            background: rgba(0, 210, 255, 0.1);
+            border: 1px solid var(--electrico);
+            padding: 8px 16px;
+            border-radius: 50px;
+            color: var(--electrico);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn-cart-nav:hover { background: var(--electrico); color: var(--azul-p); transform: scale(1.05); }
 
-        .container-grid { max-width: 1200px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+        .search-section { max-width: 1200px; margin: 40px auto 20px; padding: 0 20px; display: flex; gap: 20px; flex-wrap: wrap; }
+        .search-box { flex: 1; min-width: 280px; position: relative; }
+        .search-box input { width: 100%; padding: 15px 20px; border-radius: 12px; background: var(--glass); border: 1px solid rgba(255,255,255,0.1); color: white; outline: none; font-size: 1rem; box-sizing: border-box; transition: 0.3s; }
+        .search-box input:focus { border-color: var(--electrico); box-shadow: 0 0 15px rgba(0,210,255,0.2); }
         
-        .card { background: var(--glass); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; overflow: hidden; transition: 0.3s; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .card:hover { transform: translateY(-5px); border-color: var(--electrico); box-shadow: 0 15px 35px rgba(0, 210, 255, 0.2); }
-        .card img { width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .card-title { margin: 0 0 10px; font-size: 1.3rem; color: var(--electrico); }
+        .filter-select { padding: 0 20px; height: 52px; border-radius: 12px; background: var(--azul-p); border: 1px solid rgba(255,255,255,0.1); color: white; font-size: 1rem; outline: none; cursor: pointer; transition: 0.3s; }
+        .filter-select:focus { border-color: var(--electrico); }
+
+        .cursos-grid { max-width: 1200px; margin: 0 auto 60px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
         
-        .btn-detalles { display: block; text-align: center; background: transparent; color: white; border: 2px solid var(--electrico); padding: 10px; border-radius: 12px; text-decoration: none; font-weight: bold; margin-top: 15px; transition: 0.3s; }
-        .btn-detalles:hover { background: var(--electrico); color: var(--azul-p); }
+        .card { 
+            background: var(--glass); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; overflow: hidden; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; height: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .card:hover { transform: translateY(-10px); border-color: var(--electrico); box-shadow: 0 15px 35px rgba(0,210,255,0.15); }
+        .card img { width: 100%; height: 190px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        
+        .card-body { padding: 25px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .card-title { margin: 0 0 10px; font-size: 1.3rem; color: white; }
+        
+        .btn-detalles { display: block; text-align: center; width: 100%; margin-top: 10px; padding: 10px; text-decoration: none; color: rgba(255,255,255,0.6); font-size: 0.85rem; font-weight: bold; transition: 0.3s; }
+        .btn-detalles:hover { color: var(--electrico); }
 
-        /* Botón flotante del Carrito */
-        .cart-float-btn { position: fixed; bottom: 30px; right: 30px; background: var(--naranja); color: white; border: none; padding: 15px 30px; border-radius: 50px; font-size: 1.1rem; font-weight: bold; cursor: pointer; box-shadow: 0 10px 25px rgba(255, 109, 0, 0.4); transition: 0.3s; z-index: 999; text-decoration: none; display: none; }
-        .cart-float-btn:hover { background: #e65c00; transform: scale(1.05); }
-
-        /* Estilos del Chatbot Integrado */
-        #chat-widget { position: fixed; bottom: 30px; left: 30px; z-index: 1000; }
-        #chat-button { background: var(--electrico); border: none; width: 60px; height: 60px; border-radius: 50%; cursor: pointer; box-shadow: 0 10px 25px rgba(0,210,255,0.3); font-size: 1.8rem; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
-        #chat-button:hover { transform: scale(1.1); }
-        #chat-window { position: fixed; bottom: 105px; left: 30px; width: 350px; height: 430px; background: #f8fafc; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); display: none; flex-direction: column; overflow: hidden; border: 1px solid rgba(0,0,0,0.1); }
-
-        /* Botón de subir */
-        .btn-top { position: fixed; bottom: 110px; right: 35px; background: rgba(255,255,255,0.1); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; pointer-events: none; backdrop-filter: blur(5px); }
+        #btn-subir { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: var(--naranja); border: none; border-radius: 50%; color: white; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: 0.3s; z-index: 99; box-shadow: 0 5px 15px rgba(255,109,0,0.4); }
+        #btn-subir:hover { transform: scale(1.1); background: #e65c00; }
     </style>
 </head>
 <body>
@@ -72,90 +87,62 @@
     <header>
         <nav>
             <div class="header-brand">
-                <img src="img/logo.png" alt="Logo BotEduCarmen" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'50\' height=\'50\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%2300d2ff\' stroke-width=\'2\'><circle cx=\'12\' cy=\'12\' r=\'10\'/></svg>'">
-                <h1 style="margin:0; font-size:1.5rem; letter-spacing:1px; color:white;">BotEduCarmen</h1>
+                <img src="img/logo.png" onerror="this.src='img/logo.png'">
+                <h1 style="margin:0; font-size:1.4rem; letter-spacing:1px; color:white;">CAE <span style="color:var(--electrico)">CARMEN PILAR</span></h1>
             </div>
             <div class="nav-links">
                 <a href="index.html">Inicio</a>
-                <a href="cursos.html" style="color:var(--electrico)">Cursos</a>
-                <a href="admin.html">Panel Admin</a>
-                <a href="carrito.html" style="background:rgba(255,255,255,0.1); padding:8px 15px; border-radius:10px;">📋 Mi Selección (<span id="carrito-contador">0</span>)</a>
+                <a href="cursos.html" style="color:var(--electrico)">Catálogo</a>
+                <a href="admin.html">Panel</a>
+                <a href="carrito.html" class="btn-cart-nav">
+                    🛒 Mi Lista (<span id="cart-count">0</span>)
+                </a>
             </div>
         </nav>
     </header>
 
-    <section class="search-section">
-        <h2 style="font-size:2.5rem; margin-bottom:10px;">Oferta Formativa Certificada 2026</h2>
-        <p style="color:rgba(255,255,255,0.6); margin-bottom:30px;">Explora nuestras especialidades gratuitas e impulsa tu perfil profesional.</p>
-        <input type="text" id="buscador" class="search-box" placeholder="🔎 Busca por nombre de curso o categoría..." onkeyup="filtrarCursos()">
-    </section>
-
-    <main class="container-grid" id="cursos-grid">
-        </main>
-
-    <button id="btn-subir" class="btn-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲</button>
-
-    <a href="carrito.html" id="cart-float" class="cart-float-btn">🚀 CONFIRMAR INSCRIPCIÓN</a>
-
-    <div id="chat-widget">
-        <button id="chat-button" onclick="toggleChat()">🤖</button>
-        <div id="chat-window">
-            <div style="background:#0a192f; color:#00d2ff; padding:15px; font-weight:bold; display:flex; justify-content:space-between; align-items:center;">
-                <span>Asistente Virtual CAE</span>
-                <button onclick="toggleChat()" style="background:transparent; border:none; color:white; cursor:pointer; font-size:1.1rem;">✕</button>
-            </div>
-            <div id="chat-messages" style="flex:1; padding:15px; overflow-y:auto; display:flex; flex-direction:column; gap:10px; background:#f1f5f9;">
-                <div style="background:white; color:#1e293b; padding:12px 18px; border-radius:20px 20px 20px 0; max-width:80%; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--electrico);">
-                    ¡Hola! ¿Tienes dudas sobre los requisitos o la duración de algún curso? Pregúntame con total confianza.
-                </div>
-            </div>
-            <div style="padding:10px; border-top:1px solid #e2e8f0; display:flex; background:white; gap:5px;">
-                <input type="text" id="user-input" placeholder="Escribe un mensaje..." style="flex:1; padding:10px; border:1px solid #cbd5e1; border-radius:20px; outline:none; color:#333;">
-                <button onclick="sendMessage()" style="background:#0a192f; color:#00d2ff; border:none; width:40px; height:40px; border-radius:50%; cursor:pointer; font-size:1.2rem; display:flex; align-items:center; justify-content:center;">➤</button>
-            </div>
+    <div class="search-section">
+        <div class="search-box">
+            <input type="text" id="buscador" oninput="filtrarCatalogo()" placeholder="🔍 Buscar especialidad formativa por nombre...">
         </div>
+        <select id="filtro-categoria" onchange= "filtrarCatalogo()" class="filter-select">
+            <option value="todos">🗂️ Todas las Categorías</option>
+            <option value="gastronomía">Gastronomía</option>
+            <option value="textil y diseño">Textil y Diseño</option>
+            <option value="estética">Estética</option>
+            <option value="arte">Arte</option>
+            <option value="técnica">Área Técnica</option>
+        </select>
     </div>
 
-    <script src="script.js"></script>
-    <script src="chatbot.js"></script>
+    <div class="cursos-grid" id="cursos-grid"></div>
+
+    <button id="btn-subir" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲</button>
 
     <script>
-        // LISTA INTEGRAL DE CURSOS ORIGINALES DEL PROYECTO
+        // LISTA OFICIAL GLOBAL DE CURSOS (12 Cursos Sincronizados)
         const BASE_DATOS_CURSOS = [
-            { n: "Modistería", c: "Costura", i: "modisteria.jpg" },
-            { n: "Lencería", c: "Costura", i: "lenceria.jpg" },
-            { n: "Ropa Íntima", c: "Costura", i: "ropa_intima.jpg" },
-            { n: "Manualidades", c: "Costura", i: "manualidades.jpg" },
-            { n: "Tejido y Crochet", c: "Costura", i: "tejer.jpg" },
             { n: "Cocina Nacional", c: "Gastronomía", i: "cocina.jpg" },
-            { n: "Panadería", c: "Gastronomía", i: "panaderia.jpg" },
-            { n: "Repostería", c: "Gastronomía", i: "resposteria.jpg" },
-            { n: "Pastelería", c: "Gastronomía", i: "pasteleria.jpg" },
-            { n: "Dulces Criollos", c: "Gastronomía", i: "dulces_criollos.jpg" },
-            { n: "Barbería", c: "Estética", i: "barberia.jpg" },
-            { n: "Peluquería", c: "Estética", i: "peluqueria.jpg" },
-            { n: "Estética Avanzada", c: "Estética", i: "cosmetologia.jpg" },
-            { n: "Estética de Uñas", c: "Estética", i: "estetica_de_unas.jpg" },
-            { n: "Manicure y Pedicure", c: "Estética", i: "manicure.jpg" },
-            { n: "Masajes y Masoterapia", c: "Estética", i: "masajes.jpg" },
-            { n: "Dibujo Artístico", c: "Arte", i: "dibujo.jpg" },
-            { n: "Pintura Artística", c: "Arte", i: "pintura.jpg" },
-            { n: "Pintura Avanzada", c: "Arte", i: "pintura_avanzada.jpg" },
-            { n: "Rostros", c: "Arte", i: "rostros.jpg" },
-            { n: "Puntillismo Básico", c: "Arte", i: "puntillismo.jpg" },
-            { n: "Puntillismo Avanzado", c: "Arte", i: "puntillismo_avanzado.jpg" },
-            { n: "Fundamentos de Electricidad", c: "Técnica", i: "electricidad.jpg" },
-            { n: "Reparación de Electrodomésticos", c: "Técnica", i: "electrodomesticos.jpg" }
+            { n: "Panadería", c: "Gastronomía", i: "cocina.jpg" },
+            { n: "Repostería y Pastelería", c: "Gastronomía", i: "pasteleria.jpg" },
+            { n: "Modistería", c: "Textil y Diseño", i: "modisteria.jpg" },
+            { n: "Lencería y Ropa Íntima", c: "Textil y Diseño", i: "ropa_intima.jpg" },
+            { n: "Tejido y Crochet", c: "Textil y Diseño", i: "tejer.jpg" },
+            { n: "Barbería y Peluquería", c: "Estética", i: "barberia.jpg" },
+            { n: "Manicure y Pedicure", c: "Estética", i: "manicure_y_pedicure.jpg" },
+            { n: "Masajes y Masoterapia", c: "Estética", i: "masajes_y_masoterapia.jpg" },
+            { n: "Dibujo y Pintura Artística", c: "Arte", i: "logo.png" },
+            { n: "Fundamentos de Electricidad", c: "Técnica", i: "fundamentos_de_electricidad.jpg" },
+            { n: "Reparación de Electrodomésticos", c: "Técnica", i: "reparacion_de_electrodomesticos.jpg" }
         ];
 
+        // RENDERIZADO CORREGIDO SIN ERRORES 404 (Usa directamente la clave .i)
         function cargarCursos() {
             const grid = document.getElementById('cursos-grid');
             if(!grid) return;
 
             grid.innerHTML = BASE_DATOS_CURSOS.map(curso => {
-                // Sincronización automática de nombres de imagen limpios en minúsculas
-                const archivoImagen = limpiarParaImagen(curso.n) + ".jpg";
-                
+                const archivoImagen = curso.i;
                 return `
                     <div class="card" data-name="${curso.n.toLowerCase()}" data-cat="${curso.c.toLowerCase()}">
                         <img src="img/${archivoImagen}" onerror="this.src='img/logo.png'">
@@ -166,58 +153,61 @@
                                 <p style="color:rgba(255,255,255,0.6); font-size:0.9rem; margin:5px 0;">Certificación Avalada Gratuita</p>
                             </div>
                             <div style="margin-top:15px;">
-                                <button onclick="agregarAlCarrito('${curso.n}', 'img/${archivoImagen}')" style="width:100%; padding:12px; border-radius:10px; background:var(--electrico); color:var(--azul-p); border:none; font-weight:bold; cursor:pointer; transition:0.3s;">✚ SELECCIONAR</button>
+                                <button onclick="agregarAlCarrito('${curso.n}', 'img/${archivoImagen}')" style="width:100%; padding:12px; border-radius:10px; background:var(--electrico); color:var(--azul-p); border:none; font-weight:bold; cursor:pointer; transition:0.3s; font-size:0.95rem;">✚ SELECCIONAR</button>
                                 <a href="detalle-curso.html?curso=${encodeURIComponent(curso.n)}" class="btn-detalles">🔎 VER REQUISITOS</a>
                             </div>
                         </div>
                     </div>
                 `;
             }).join('');
+            actualizarContadorUI();
         }
 
-        function filtrarCursos() {
-            const query = document.getElementById('buscador').value.toLowerCase().trim();
-            const cards = document.querySelectorAll('.card');
+        // LÓGICA DEL BUSCADOR Y FILTRADO POR CATEGORÍAS
+        function filtrarCatalogo() {
+            const textoBusqueda = document.getElementById('buscador').value.toLowerCase();
+            const categoriaSeleccionada = document.getElementById('filtro-categoria').value.toLowerCase();
+            const tarjetas = document.querySelectorAll('.card');
 
-            cards.forEach(card => {
-                const name = card.getAttribute('data-name');
-                const cat = card.getAttribute('data-cat');
-                if(name.includes(query) || cat.includes(query)) {
-                    card.style.display = 'flex';
+            tarjetas.forEach(tarjeta => {
+                const nombreCurso = tarjeta.getAttribute('data-name');
+                const categoriaCurso = tarjeta.getAttribute('data-cat');
+
+                const cumpleNombre = nombreCurso.includes(textoBusqueda);
+                const cumpleCategoria = (categoriaSeleccionada === 'todos' || categoriaCurso === categoriaSeleccionada);
+
+                if (cumpleNombre && cumpleCategoria) {
+                    tarjeta.style.display = 'flex';
                 } else {
-                    card.style.display = 'none';
+                    tarjeta.style.display = 'none';
                 }
             });
         }
 
-        function toggleChat() {
-            const w = document.getElementById('chat-window');
-            w.style.display = (w.style.display === 'none' || w.style.display === '') ? 'flex' : 'none';
-        }
-
-        function sendMessage() {
-            const input = document.getElementById('user-input');
-            const box = document.getElementById('chat-messages');
-            const text = input.value.trim();
-            if(!text) return;
-
-            box.innerHTML += `<div style="background:var(--azul-p); color:white; padding:12px 18px; border-radius:20px 20px 0 20px; align-self:flex-end; max-width:80%; font-size:0.95rem; font-weight:bold;">${text}</div>`;
+        // SISTEMA DE SELECCIÓN DE CURSOS COMPATIBLE CON CARRITO.HTML
+        function agregarAlCarrito(nombre, img) {
+            let carrito = JSON.parse(localStorage.getItem('cart')) || [];
             
-            // Llamada interna a la lógica del chatbot.js si está definida, sino respuesta fallback
-            if(typeof buscarRespuestaBot === 'function') {
-                setTimeout(() => {
-                    buscarRespuestaBot(text);
-                    box.scrollTop = box.scrollHeight;
-                }, 400);
-            } else {
-                setTimeout(() => {
-                    box.innerHTML += `<div style="background:white; color:#1e293b; padding:12px 18px; border-radius:20px 20px 20px 0; align-self:flex-start; max-width:80%; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--electrico);">Excelente elección. Recuerda revisar los requisitos detallados antes de procesar tu inscripción en el sistema.</div>`;
-                    box.scrollTop = box.scrollHeight;
-                }, 700);
+            if (carrito.some(item => item.nombre.trim().toLowerCase() === nombre.trim().toLowerCase())) {
+                alert("⚠️ Este curso ya lo tienes agregado en tu lista de selección.");
+                return;
             }
-            input.value = "";
+
+            carrito.push({ nombre: nombre.trim(), imagen: img });
+            localStorage.setItem('cart', JSON.stringify(carrito));
+            actualizarContadorUI();
+
+            // Mensaje elegante flotante de confirmación
+            alert(`✅ "${nombre}" se añadió correctamente a tu selección.`);
         }
 
+        function actualizarContadorUI() {
+            const carrito = JSON.parse(localStorage.getItem('cart')) || [];
+            const badge = document.getElementById('cart-count');
+            if(badge) badge.textContent = carrito.length;
+        }
+
+        // CONTROL DE BOTÓN FLOTANTE "SUBIR"
         window.addEventListener('scroll', () => {
             const btnSubir = document.getElementById('btn-subir');
             if (window.scrollY > 400) {
@@ -229,9 +219,7 @@
             }
         });
 
-        document.addEventListener('DOMContentLoaded', () => {
-            cargarCursos();
-        });
+        document.addEventListener('DOMContentLoaded', cargarCursos);
     </script>
 </body>
 </html>
