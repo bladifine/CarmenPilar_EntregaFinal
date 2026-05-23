@@ -1,4 +1,4 @@
-// Función única para normalizar nombres de archivos de imagen y evitar errores de tildes/mayúsculas
+// Función única y mejorada para normalizar nombres de archivos de imagen
 function limpiarParaImagen(texto) {
     return texto.toLowerCase()
         .normalize("NFD")
@@ -7,47 +7,46 @@ function limpiarParaImagen(texto) {
         .replace(/[^\w]/g, "");         // Quita símbolos especiales
 }
 
-// ===== LÓGICA UNIFICADA DEL CARRITO DE COMPRAS 2026 =====
+// ===== LÓGICA DEL CARRITO =====
 function obtenerCarrito() {
-    return JSON.parse(localStorage.getItem('cart') || '[]');
+    return JSON.parse(localStorage.getItem('carrito_carmen') || '[]');
 }
 
 function guardarCarrito(carrito) {
-    localStorage.setItem('cart', JSON.stringify(carrito));
+    localStorage.setItem('carrito_carmen', JSON.stringify(carrito));
     actualizarContadorCarrito();
 }
 
-function agregarAlCarrito(nombre, imagen) {
+function agregarAlCarrito(nombre, costo) {
     let carrito = obtenerCarrito();
-    // Limpieza de espacios para evitar duplicados falsos
-    if (carrito.some(item => item.nombre.trim().toLowerCase() === nombre.trim().toLowerCase())) {
-        alert("⚠️ Ya has seleccionado este curso en tu lista.");
+    if (carrito.some(item => item.nombre === nombre)) {
+        alert("⚠️ Ya seleccionaste este curso");
         return;
     }
-    
-    // Generar ruta de imagen correcta en minúsculas si no viene definida
-    const rutaImagen = imagen || `img/${limpiarParaImagen(nombre)}.jpg`;
-    
-    carrito.push({ nombre: nombre.trim(), imagen: rutaImagen });
+    carrito.push({ nombre, costo });
     guardarCarrito(carrito);
-    alert("🚀 Curso añadido con éxito.");
+    
+    // Feedback visual
+    if (event && event.target) {
+        const btn = event.target;
+        const original = btn.textContent;
+        btn.textContent = '✅ Agregado';
+        btn.style.background = '#4caf50';
+        setTimeout(() => {
+            btn.textContent = original;
+            btn.style.background = '';
+        }, 1500);
+    }
 }
 
 function actualizarContadorCarrito() {
-    const contadores = document.querySelectorAll('#cart-count, #carrito-contador');
+    const contadores = document.querySelectorAll('#carrito-contador');
     const total = obtenerCarrito().length;
-    contadores.forEach(c => {
-        if (c) c.textContent = total;
-    });
-    
-    // Control de visibilidad del botón flotante si existe en la interfaz
-    const botonFlotante = document.getElementById('cart-float');
-    if (botonFlotante) {
-        botonFlotante.style.display = total > 0 ? "block" : "none";
-    }
+    contadores.forEach(c => c.textContent = total);
 }
 
-// ===== INICIALIZACIÓN GLOBAL AUTOMÁTICA =====
+// ===== INICIALIZACIÓN =====
 document.addEventListener('DOMContentLoaded', () => {
     actualizarContadorCarrito();
+    if (typeof cargarCursos === 'function') cargarCursos();
 });
