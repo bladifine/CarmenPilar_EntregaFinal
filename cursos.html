@@ -11,6 +11,7 @@
             --azul-p: #0a192f;
             --electrico: #00d2ff;
             --naranja: #ff6d00;
+            --verde-wa: #25d366;
             --glass: rgba(255, 255, 255, 0.05);
         }
 
@@ -35,7 +36,7 @@
 
         nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         
-        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
         .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: 0.3s; font-size: 0.95rem; }
         .nav-links a:hover { color: var(--electrico); }
 
@@ -54,6 +55,22 @@
         }
         .btn-cart-nav:hover { background: var(--electrico); color: var(--azul-p); transform: scale(1.05); }
 
+        /* 🟢 BOTÓN WHATSAPP ARRIBA A LA DERECHA */
+        .btn-wa-nav {
+            background: rgba(37, 211, 102, 0.1);
+            border: 1px solid var(--verde-wa);
+            padding: 8px 16px;
+            border-radius: 50px;
+            color: var(--verde-wa);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn-wa-nav:hover { background: var(--verde-wa); color: white; transform: scale(1.05); }
+
         .search-section { max-width: 1200px; margin: 40px auto 20px; padding: 0 20px; display: flex; gap: 20px; flex-wrap: wrap; }
         .search-box { flex: 1; min-width: 280px; position: relative; }
         .search-box input { width: 100%; padding: 15px 20px; border-radius: 12px; background: var(--glass); border: 1px solid rgba(255,255,255,0.1); color: white; outline: none; font-size: 1rem; box-sizing: border-box; transition: 0.3s; }
@@ -71,10 +88,8 @@
         }
         .card:hover { transform: translateY(-10px); border-color: var(--electrico); box-shadow: 0 15px 35px rgba(0,210,255,0.15); }
         
-        /* Estilo para que el enlace de la foto ocupe el espacio correcto */
         .card-link-img { display: block; width: 100%; height: 190px; overflow: hidden; }
         .card img { width: 100%; height: 100%; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
-        .card:hover img { transform: scale(1.05); }
         
         .card-body { padding: 25px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .card-title { margin: 0 0 10px; font-size: 1.3rem; color: white; }
@@ -86,6 +101,22 @@
 
         #btn-subir { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: var(--naranja); border: none; border-radius: 50%; color: white; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: 0.3s; z-index: 99; box-shadow: 0 5px 15px rgba(255,109,0,0.4); }
         #btn-subir:hover { transform: scale(1.1); background: #e65c00; }
+
+        /* 🤖 INTERFAZ DEL CHATBOT FLOTANTE */
+        .chatbot-container { position: fixed; bottom: 30px; left: 30px; z-index: 1000; font-family: sans-serif; }
+        .chatbot-bubble { width: 60px; height: 60px; background: var(--electrico); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; cursor: pointer; box-shadow: 0 8px 25px rgba(0,210,255,0.4); transition: 0.3s; }
+        .chatbot-bubble:hover { transform: scale(1.1); }
+        
+        .chatbot-window { width: 320px; height: 400px; background: #0c1a30; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; position: absolute; bottom: 75px; left: 0; display: none; flex-direction: column; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .chatbot-header { background: var(--electrico); padding: 15px; color: var(--azul-p); font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+        .chatbot-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; }
+        .msg { padding: 10px 14px; border-radius: 12px; max-width: 80%; line-height: 1.4; }
+        .msg.bot { background: rgba(255,255,255,0.08); align-self: flex-start; color: #fff; }
+        .msg.user { background: var(--electrico); align-self: flex-end; color: var(--azul-p); font-weight: 500; }
+        
+        .chatbot-input-area { padding: 10px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; gap: 8px; background: rgba(0,0,0,0.2); }
+        .chatbot-input-area input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; color: white; outline: none; font-size: 0.85rem; }
+        .chatbot-input-area button { background: var(--electrico); border: none; color: var(--azul-p); padding: 0 15px; border-radius: 8px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -102,6 +133,9 @@
                 <a href="admin.html">Panel</a>
                 <a href="carrito.html" class="btn-cart-nav">
                     🛒 Mi Lista (<span id="cart-count">0</span>)
+                </a>
+                <a href="https://wa.me/5804243360158?text=Hola,%20solicito%20información%20sobre%20las%20inscripciones%20de%20los%20cursos." target="_blank" class="btn-wa-nav">
+                    💬 WhatsApp
                 </a>
             </div>
         </nav>
@@ -124,6 +158,23 @@
     <div class="cursos-grid" id="cursos-grid"></div>
 
     <button id="btn-subir" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲</button>
+
+    <div class="chatbot-container">
+        <div class="chatbot-bubble" onclick="toggleChatbot()">🤖</div>
+        <div class="chatbot-window" id="chat-window">
+            <div class="chatbot-header">
+                <span>🤖 BotEduCarmen</span>
+                <span style="cursor:pointer; font-size:1.2rem;" onclick="toggleChatbot()">×</span>
+            </div>
+            <div class="chatbot-messages" id="chat-messages">
+                <div class="msg bot">¡Hola! Soy el asistente virtual de CAE Carmen Pilar. ¿En qué curso o especialidad estás interesado hoy?</div>
+            </div>
+            <div class="chatbot-input-area">
+                <input type="text" id="chat-input" placeholder="Escribe tu mensaje aquí..." onkeypress="evaluarTecladoChat(event)">
+                <button onclick="enviarMensajeChat()">Enviar</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // BASE DE DATOS MAESTRA: 25 Cursos Oficiales
@@ -220,7 +271,7 @@
             });
         }
 
-        // AGREGAR AL CARRITO LOCALMENTE (Mantiene a salvo el flujo de datos)
+        // AGREGAR AL CARRITO LOCALMENTE
         function agregarAlCarrito(nombre, img) {
             let carrito = JSON.parse(localStorage.getItem('cart')) || [];
             
@@ -240,6 +291,53 @@
             const carrito = JSON.parse(localStorage.getItem('cart')) || [];
             const badge = document.getElementById('cart-count');
             if(badge) badge.textContent = carrito.length;
+        }
+
+        // 🤖 LÓGICA INTERACTIVA DEL CHATBOT
+        function toggleChatbot() {
+            const windowChat = document.getElementById('chat-window');
+            windowChat.style.display = (windowChat.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        function evaluarTecladoChat(event) {
+            if (event.key === 'Enter') enviarMensajeChat();
+        }
+
+        function enviarMensajeChat() {
+            const input = document.getElementById('chat-input');
+            const texto = input.value.trim();
+            if (!texto) return;
+
+            const contenedor = document.getElementById('chat-messages');
+
+            // Mensaje de usuario
+            const userDiv = document.createElement('div');
+            userDiv.className = 'msg user';
+            userDiv.textContent = texto;
+            contenedor.appendChild(userDiv);
+            
+            input.value = '';
+            contenedor.scrollTop = contenedor.scrollHeight;
+
+            // Respuesta automática simulada inteligente
+            setTimeout(() => {
+                const botDiv = document.createElement('div');
+                botDiv.className = 'msg bot';
+                
+                const consulta = texto.toLowerCase();
+                if (consulta.includes('requisitos') || consulta.includes('necesito')) {
+                    botDiv.textContent = "Para ver los requisitos detallados, haz clic en el botón 'VER REQUISITOS' que se encuentra abajo de la tarjeta de cada curso.";
+                } else if (consulta.includes('precio') || consulta.includes('costo') || consulta.includes('gratis')) {
+                    botDiv.textContent = "¡Todos nuestros cursos son completamente gratuitos y cuentan con Certificación Avalada!";
+                } else if (consulta.includes('inscribir') || consulta.includes('inscripcion')) {
+                    botDiv.textContent = "Para pre-inscribirte, presiona el botón 'SELECCIONAR' en los cursos que quieras y luego ve al icono del carrito de compras arriba a la derecha.";
+                } else {
+                    botDiv.textContent = "Entendido tu consulta. Te sugiero revisar nuestro listado completo de 25 especialidades o escribirnos directamente a nuestro WhatsApp oficial mediante el botón superior.";
+                }
+                
+                contenedor.appendChild(botDiv);
+                contenedor.scrollTop = contenedor.scrollHeight;
+            }, 800);
         }
 
         // BOTÓN SUBIR
