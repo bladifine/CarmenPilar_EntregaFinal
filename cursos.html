@@ -105,7 +105,7 @@
         <div class="search-box">
             <input type="text" id="buscador" oninput="filtrarCatalogo()" placeholder="🔍 Buscar especialidad formativa por nombre...">
         </div>
-        <select id="filtro-categoria" onchange= "filtrarCatalogo()" class="filter-select">
+        <select id="filtro-categoria" onchange="filtrarCatalogo()" class="filter-select">
             <option value="todos">🗂️ Todas las Categorías</option>
             <option value="gastronomía">Gastronomía</option>
             <option value="textil y diseño">Textil y Diseño</option>
@@ -120,23 +120,23 @@
     <button id="btn-subir" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲</button>
 
     <script>
-        // LISTA OFICIAL GLOBAL DE CURSOS (12 Cursos Sincronizados)
+        // BASE DE DATOS SINCRONIZADA 100% CON LAS IMÁGENES REALES DE TU CARPETA IMG
         const BASE_DATOS_CURSOS = [
-            { n: "Cocina Nacional", c: "Gastronomía", i: "cocina.jpg" },
-            { n: "Panadería", c: "Gastronomía", i: "cocina.jpg" },
-            { n: "Repostería y Pastelería", c: "Gastronomía", i: "pasteleria.jpg" },
+            { n: "Cocina Nacional", c: "Gastronomía", i: "cocina_nacional.jpg" },
+            { n: "Panadería", c: "Gastronomía", i: "panadería.jpg" },
+            { n: "Repostería y Pastelería", c: "Gastronomía", i: "reposteria_y_pasteleria.jpg" },
             { n: "Modistería", c: "Textil y Diseño", i: "modisteria.jpg" },
             { n: "Lencería y Ropa Íntima", c: "Textil y Diseño", i: "ropa_intima.jpg" },
             { n: "Tejido y Crochet", c: "Textil y Diseño", i: "tejer.jpg" },
             { n: "Barbería y Peluquería", c: "Estética", i: "barberia.jpg" },
-            { n: "Manicure y Pedicure", c: "Estética", i: "manicure_y_pedicure.jpg" },
-            { n: "Masajes y Masoterapia", c: "Estética", i: "masajes_y_masoterapia.jpg" },
-            { n: "Dibujo y Pintura Artística", c: "Arte", i: "logo.png" },
-            { n: "Fundamentos de Electricidad", c: "Técnica", i: "fundamentos_de_electricidad.jpg" },
-            { n: "Reparación de Electrodomésticos", c: "Técnica", i: "reparacion_de_electrodomesticos.jpg" }
+            { n: "Manicure y Pedicure", c: "Estética", i: "manicure_pedicure.jpg" },
+            { n: "Masajes y Masoterapia", c: "Estética", i: "masoterapia.jpg" },
+            { n: "Dibujo y Pintura Artística", c: "Arte", i: "dibujo_artistico.jpg" },
+            { n: "Fundamentos de Electricidad", c: "Técnica", i: "electricidad.jpg" },
+            { n: "Reparación de Electrodomésticos", c: "Técnica", i: "electrodomesticos.jpg" }
         ];
 
-        // RENDERIZADO CORREGIDO SIN ERRORES 404 (Usa directamente la clave .i)
+        // RENDERIZADO SEGURO
         function cargarCursos() {
             const grid = document.getElementById('cursos-grid');
             if(!grid) return;
@@ -145,7 +145,7 @@
                 const archivoImagen = curso.i;
                 return `
                     <div class="card" data-name="${curso.n.toLowerCase()}" data-cat="${curso.c.toLowerCase()}">
-                        <img src="img/${archivoImagen}" onerror="this.src='img/logo.png'">
+                        <img src="img/${archivoImagen}" onerror="this.onerror=null; this.src='img/logo.png';">
                         <div class="card-body">
                             <div>
                                 <span style="font-size:0.8rem; background:rgba(0,210,255,0.1); color:var(--electrico); padding:4px 10px; border-radius:50px; font-weight:bold; text-transform:uppercase;">${curso.c}</span>
@@ -163,7 +163,7 @@
             actualizarContadorUI();
         }
 
-        // LÓGICA DEL BUSCADOR Y FILTRADO POR CATEGORÍAS
+        // FILTRADO POR ENTRADA DE TEXTO Y CATEGORÍA
         function filtrarCatalogo() {
             const textoBusqueda = document.getElementById('buscador').value.toLowerCase();
             const categoriaSeleccionada = document.getElementById('filtro-categoria').value.toLowerCase();
@@ -184,7 +184,7 @@
             });
         }
 
-        // SISTEMA DE SELECCIÓN DE CURSOS COMPATIBLE CON CARRITO.HTML
+        // SISTEMA DE SELECCIÓN DE CURSOS
         function agregarAlCarrito(nombre, img) {
             let carrito = JSON.parse(localStorage.getItem('cart')) || [];
             
@@ -197,7 +197,6 @@
             localStorage.setItem('cart', JSON.stringify(carrito));
             actualizarContadorUI();
 
-            // Mensaje elegante flotante de confirmación
             alert(`✅ "${nombre}" se añadió correctamente a tu selección.`);
         }
 
@@ -207,7 +206,7 @@
             if(badge) badge.textContent = carrito.length;
         }
 
-        // CONTROL DE BOTÓN FLOTANTE "SUBIR"
+        // EVENTO PARA BOTÓN FLOTANTE
         window.addEventListener('scroll', () => {
             const btnSubir = document.getElementById('btn-subir');
             if (window.scrollY > 400) {
