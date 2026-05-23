@@ -120,23 +120,45 @@
     <button id="btn-subir" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲</button>
 
     <script>
-        // BASE DE DATOS TOTALMENTE AJUSTADA A LOS ARCHIVOS EXISTENTES
+        // BASE DE DATOS MAESTRA: ¡Sincronizados los 25 Cursos Oficiales de la Institución!
         const BASE_DATOS_CURSOS = [
+            // --- Gastronomía (5 cursos) ---
             { n: "Cocina Nacional", c: "Gastronomía", i: "cocina_nacional.jpg" },
             { n: "Panadería", c: "Gastronomía", i: "panaderia.jpg" },
             { n: "Repostería y Pastelería", c: "Gastronomía", i: "reposteria_y_pasteleria.jpg" },
+            { n: "Repostería Básica", c: "Gastronomía", i: "reposteria.jpg" },
+            { n: "Dulces Criollos", c: "Gastronomía", i: "dulces_criollos.jpg" },
+
+            // --- Textil y Diseño (4 cursos) ---
             { n: "Modistería", c: "Textil y Diseño", i: "modisteria.jpg" },
             { n: "Lencería y Ropa Íntima", c: "Textil y Diseño", i: "ropa_intima.jpg" },
+            { n: "Lencería Hogar", c: "Textil y Diseño", i: "lenceria.jpg" },
             { n: "Tejido y Crochet", c: "Textil y Diseño", i: "tejer.jpg" },
-            { n: "Barbería y Peluquería", c: "Estética", i: "barberia.jpg" },
+
+            // --- Estética (7 cursos) ---
+            { n: "Barbería Comercial", c: "Estética", i: "barberia.jpg" },
+            { n: "Peluquería Básica", c: "Estética", i: "peluqueria.jpg" },
             { n: "Manicure y Pedicure", c: "Estética", i: "manicure_pedicure.jpg" },
-            { n: "Masajes y Masoterapia", c: "Estética", i: "masoterapia.jpg" },
-            { n: "Dibujo y Pintura Artística", c: "Arte", i: "dibujo_artistico.jpg" },
+            { n: "Estética de Uñas", c: "Estética", i: "estetica_de_unas.jpg" },
+            { n: "Masajes Corporales", c: "Estética", i: "masaje.jpg" },
+            { n: "Masoterapia Profesional", c: "Estética", i: "masoterapia.jpg" },
+            { n: "Cosmetología Clínica", c: "Estética", i: "cosmetologia.jpg" },
+
+            // --- Área Técnica (2 cursos) ---
             { n: "Fundamentos de Electricidad", c: "Técnica", i: "electricidad.jpg" },
-            { n: "Reparación de Electrodomésticos", c: "Técnica", i: "electrodomesticos.jpg" }
+            { n: "Reparación de Electrodomésticos", c: "Técnica", i: "electrodomesticos.jpg" },
+
+            // --- Arte y Manualidades (7 cursos) ---
+            { n: "Dibujo Artístico", c: "Arte", i: "dibujo_artistico.jpg" },
+            { n: "Pintura Artística", c: "Arte", i: "pintura_artistica.jpg" },
+            { n: "Pintura Avanzada", c: "Arte", i: "pintura_avanzada.jpg" },
+            { n: "Puntillismo Básico", c: "Arte", i: "puntillismo_basico.jpg" },
+            { n: "Puntillismo Avanzado", c: "Arte", i: "puntillismo_avanzado.jpg" },
+            { n: "Manualidades Creativas", c: "Arte", i: "manualidades.jpg" },
+            { n: "Dibujo de Rostros", c: "Arte", i: "rostros.jpg" }
         ];
 
-        // FUNCIÓN DE CARGA
+        // RENDERIZADO EN PANTALLA
         function cargarCursos() {
             const grid = document.getElementById('cursos-grid');
             if(!grid) return;
@@ -163,13 +185,12 @@
             actualizarContadorUI();
         }
 
-        // FILTRADO INTELIGENTE SIN IMPORTAR ACENTOS NI MAYÚSCULAS
+        // FILTRADO COMPLETO Y CONTROL DE CATEGORÍAS SIN ACENTOS
         function filtrarCatalogo() {
             const textoBusqueda = document.getElementById('buscador').value.toLowerCase().trim();
             const categoriaSeleccionada = document.getElementById('filtro-categoria').value.toLowerCase().trim();
             const tarjetas = document.querySelectorAll('.card');
 
-            // Quita acentos de manera segura para la comparación
             const limpiarAcentos = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
             tarjetas.forEach(tarjeta => {
@@ -187,7 +208,7 @@
             });
         }
 
-        // AGREGAR AL CARRITO
+        // SISTEMA DE SELECCIÓN COMPATIBLE
         function agregarAlCarrito(nombre, img) {
             let carrito = JSON.parse(localStorage.getItem('cart')) || [];
             
@@ -209,7 +230,7 @@
             if(badge) badge.textContent = carrito.length;
         }
 
-        // SCROLL
+        // BOTÓN SUBIR FLOTANTE
         window.addEventListener('scroll', () => {
             const btnSubir = document.getElementById('btn-subir');
             if (window.scrollY > 400) {
