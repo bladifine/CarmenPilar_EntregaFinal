@@ -18,10 +18,12 @@
 
         body { 
             font-family: 'Inter', 'Segoe UI', sans-serif; 
-            margin: 0; \n            background-color: #f8fafc; 
+            margin: 0; 
+            background-color: #f8fafc; 
             color: #1e293b;
         }
 
+        /* BARRA SUPERIOR 2026 */
         .top-bar {
             background: var(--azul-primario);
             color: var(--azul-electrico);
@@ -29,200 +31,221 @@
             font-size: 0.85rem;
             letter-spacing: 1px;
             font-weight: 600;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         header {
             background: rgba(10, 25, 47, 0.95);
-            backdrop-filter: blur(15px);
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(0, 210, 255, 0.1);
-        }
-
-        nav {
+            backdrop-filter: blur(10px);
+            padding: 20px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
         }
 
-        .header-brand {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+            letter-spacing: -0.5px;
         }
 
-        .header-brand img {
-            height: 55px;
-            filter: drop-shadow(0 0 10px rgba(0,210,255,0.2));
+        .logo span {
+            color: var(--azul-electrico);
         }
 
-        .nav-links {
+        nav {
             display: flex;
             gap: 30px;
             align-items: center;
         }
 
-        .nav-links a {
+        nav a {
+            color: #94a3b8;
             text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s;
+            font-weight: 500;
+            transition: all 0.3s ease;
             font-size: 0.95rem;
         }
 
-        .btn-cart-nav {
-            background: var(--glass);
-            border: 1px solid rgba(0, 210, 255, 0.3);
-            padding: 10px 20px;
-            border-radius: 50px;
-            color: var(--azul-electrico) !important;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: inset 0 0 10px rgba(0,210,255,0.1);
-        }
-
-        .btn-cart-nav:hover {
-            background: var(--azul-electrico);
-            color: var(--azul-primario) !important;
-            box-shadow: 0 0 20px rgba(0,210,255,0.4);
-        }
-
-        .btn-header-whatsapp {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #25D366;
-            color: white !important;
-            padding: 10px 20px;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
-        }
-
-        .btn-header-whatsapp:hover {
-            background: #20ba5a;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
-        }
-
-        .hero-section {
-            background: radial-gradient(circle at top right, #112240, var(--azul-primario));
+        nav a:hover {
             color: white;
-            padding: 100px 20px;
+        }
+
+        /* Cambio de color solicitado para el enlace del catálogo */
+        nav a.nav-catalogo {
+            color: var(--naranja-neon);
+            font-weight: 600;
+        }
+
+        nav a.nav-catalogo:hover {
+            color: var(--naranja-glow);
+            text-shadow: 0 0 8px var(--naranja-glow);
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+        .hero {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
             text-align: center;
-            position: relative;
+        }
+
+        /* BOTÓN FLOTANTE CHATBOT */
+        .chat-launcher {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, var(--azul-electrico), #00a8ff);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            color: var(--azul-primario);
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0, 210, 255, 0.4);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 9999;
+            animation: pulse 2s infinite;
+        }
+
+        .chat-launcher:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        /* VENTANA DEL CHAT */
+        .chat-window {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            width: 380px;
+            height: 550px;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: var(--sombra-futurista);
+            display: none;
+            flex-direction: column;
             overflow: hidden;
+            z-index: 9999;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
         }
 
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(transparent, #f8fafc);
-            pointer-events: none;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            line-height: 1.2;
-            letter-spacing: -1px;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: #8892b0;
-            margin-bottom: 40px;
-            line-height: 1.6;
-        }
-
-        .btn-principal {
-            background: linear-gradient(135deg, var(--naranja-neon), var(--naranja-glow));
+        .chat-header {
+            background: var(--azul-primario);
             color: white;
-            padding: 18px 40px;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 10px 30px rgba(255,109,0,0.3);
-            transition: 0.3s;
-            letter-spacing: 0.5px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 2px solid var(--azul-electrico);
         }
 
-        .btn-principal:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255,109,0,0.5);
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background-color: #f1f5f9;
+        }
+
+        .chat-input-area {
+            padding: 15px;
+            background: white;
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            border: 1px solid #cbd5e1;
+            padding: 12px 20px;
+            border-radius: 30px;
+            outline: none;
+            font-size: 0.95rem;
+        }
+
+        .chat-input-area button {
+            background: var(--azul-primario);
+            color: var(--azul-electrico);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .chat-input-area button:hover {
+            background: #112240;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.4); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(0, 210, 255, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 210, 255, 0); }
         }
     </style>
 </head>
 <body>
 
-    <div class="top-bar">
-        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px; text-align: right;">
-            ⚡ INSCRIPCIONES ABIERTAS PERÍODO FORMATIVO 2026
-        </div>
+    <div class="top-bar" style="text-align: center;">
+        SISTEMA OFICIAL DE INSCRIPCIONES FORMATIVAS DE ESTE AÑO 2026
     </div>
 
     <header>
+        <a href="index.html" class="logo">BotEdu<span>Carmen</span></a>
         <nav>
-            <div class="header-brand">
-                <img src="img/logo.png" onerror="this.onerror=null; this.src='img/logo.png';">
-                <h1 style="margin: 0; font-size: 1.5rem; color: white; letter-spacing: 1px;">CAE <span style="color: var(--azul-electrico)">CARMEN PILAR</span></h1>
-            </div>
-            <div class="nav-links">
-                <a href="cursos.html" style="color: var(--azul-electrico);">Catálogo de Cursos</a>
-                <a href="carrito.html" class="btn-cart-nav">
-                    🛒 Mi Lista (<span id="cart-count">0</span>)
-                </a>
-                <a href="https://wa.me/584243360158?text=Hola,%20estoy%20viendo%20el%20sistema%20web%20y%20deseo%20m%C3%A1s%20informaci%C3%B3n." target="_blank" class="btn-header-whatsapp">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 16 16">
-                        <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.69-4.98c-.202-.101-1.194-.588-1.378-.654-.184-.066-.317-.099-.45.099-.132.199-.512.654-.627.787-.114.133-.23.149-.43.049-.2-.1-.843-.311-1.607-.994-.594-.53-1.002-1.185-1.119-1.385-.116-.2-.012-.308.087-.407.091-.089.202-.234.302-.35.101-.117.135-.198.203-.331.066-.133.033-.25-.016-.35-.049-.1-.45-1.085-.617-1.485-.162-.395-.327-.341-.45-.347-.116-.006-.25-.006-.384-.006-.134 0-.353.05-.537.25-.184.2-.703.687-.703 1.677 0 .99.72 1.947.82 2.082.102.135 1.417 2.164 3.435 3.033.48.207.854.33 1.146.422.481.153.918.132 1.264.08.384-.057 1.194-.488 1.362-.958.168-.471.168-.875.118-.958-.05-.084-.185-.133-.386-.233z"/>
-                    </svg>
-                    WhatsApp
-                </a>
-            </div>
+            <a href="cursos.html" class="nav-catalogo">Catálogo de Cursos</a>
+            <a href="carrito.html">Mi Selección</a>
         </nav>
     </header>
 
-    <main class="hero-section">
-        <div class="hero-content">
-            <h2 class="hero-title">Capacitación Técnica y Profesional Gratuita</h2>
-            <p class="hero-subtitle">Potencia tus habilidades en este 2026 con nuestras 25 especialidades formativas avaladas de manera oficial. Aprende, emprende y transforma tu futuro.</p>
-            <a href="cursos.html" class="btn-principal">EXPLORAR CATÁLOGO DE CURSOS 🔎</a>
-        </div>
+    <main class="hero">
+        <h1 style="font-size: 3rem; color: var(--azul-primario); margin-bottom: 20px;">Bienvenido al Sistema de Formación</h1>
+        <p style="font-size: 1.2rem; color: #64748b; max-width: 600px; margin: 0 auto 40px auto;">
+            Explora nuestro catálogo completo de capacitaciones totalmente gratuitas para este período 2026 y gestiona tu cupo al instante.
+        </p>
+        <a href="cursos.html" style="background: var(--naranja-neon); color: white; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 600; box-shadow: 0 4px 15px rgba(255,109,0,0.3); display: inline-block; transition: background 0.2s;">
+            Ver Catálogo Completo
+        </a>
     </main>
 
-    <div id="chat-icon" onclick="toggleChat()" style="position: fixed; bottom: 30px; left: 30px; width: 85px; height: 85px; cursor: pointer; z-index: 5000; animation: pulse 2s infinite;">
-        <img src="img/chatbot.png" style="width: 100%; height: 100%; object-fit: contain; border-radius: 50%; filter: drop-shadow(0 0 15px var(--azul-electrico));" onerror="this.style.display='none'; document.getElementById('fb').style.display='flex';">
-        <div id="fb" style="display: none; width: 100%; height: 100%; background: var(--azul-primario); border-radius: 50%; align-items: center; justify-content: center; color: white; font-size: 40px; border: 3px solid var(--azul-electrico);">🤖</div>
-    </div>
+    <div class="chat-launcher" onclick="toggleChat()">🤖</div>
 
-    <div id="chat-window" style="position: fixed; bottom: 130px; left: 30px; width: 380px; height: 550px; background: white; border-radius: 30px; box-shadow: 0 25px 70px rgba(0,0,0,0.4); z-index: 5000; display: none; flex-direction: column; overflow: hidden; border: 2px solid var(--azul-primario); color: #1e293b;">
-        <div style="background: var(--azul-primario); color: white; padding: 25px; text-align: center; font-weight: 800; font-size: 1.3rem;">
-            🤖 AI ASISTENTE 2026
-        </div>
-        <div id="chat-messages" style="flex: 1; padding: 25px; overflow-y: auto; background: #f1f5f9; display: flex; flex-direction: column; gap: 15px; font-size: 0.95rem;">
-            <div style="background: white; padding: 15px; border-radius: 20px; align-self: flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico); color: #1e293b;">
-                ¡Hola! Bienvenido al asistente virtual del CAE Carmen Pilar. ¿Qué especialidad o área formativa te interesa hoy?
+    <div class="chat-window" id="chat-window">
+        <div class="chat-header">
+            <div style="font-size: 1.5rem;">🤖</div>
+            <div>
+                <div style="font-weight: 700; font-size: 1.05rem;">Asistente CAE</div>
+                <div style="font-size: 0.8rem; color: var(--azul-electrico);">En línea • Período 2026</div>
             </div>
         </div>
-        <div style="padding: 20px; background: white; display: flex; gap: 10px;">
-            <input type="text" id="user-input" placeholder="Pregunta algo..." style="flex: 1; padding: 15px; border: 2px solid #e2e8f0; border-radius: 20px; outline: none; background: white; color: #1e293b;" onkeypress="if(event.key==='Enter') sendMessage()">
-            <button onclick="sendMessage()" style="background: var(--azul-primario); color: var(--azul-electrico); border: none; width: 55px; height: 55px; border-radius: 20px; cursor: pointer; font-size: 1.5rem; display: flex; align-items: center; justify-content: center;">➤</button>
+        
+        <div class="chat-messages" id="chat-messages">
+            <div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico);">
+                ¡Hola! Soy el asistente virtual del CAE 'Carmen Pilar Fernández'. Estoy listo para ayudarte con información sobre nuestra oferta de cursos gratuitos, horarios o ubicación. ¿Qué deseas consultar?
+            </div>
+        </div>
+
+        <div class="chat-input-area">
+            <input type="text" id="user-input" placeholder="Escribe tu consulta aquí..." onkeypress="if(event.key === 'Enter') sendMessage()">
+            <button onclick="sendMessage()">➤</button>
         </div>
     </div>
 
@@ -242,28 +265,11 @@
             box.scrollTop = box.scrollHeight;
             
             setTimeout(() => {
-                box.innerHTML += `<div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico); color: #1e293b;">Entendido de manera perfecta. Te invito a presionar el botón de arriba para ver todas nuestras especialidades disponibles en tiempo real.</div>`;
+                box.innerHTML += `<div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico); color: #1e293b;">Entendido. Como estamos en 2026, te recomiendo los nuevos cursos de Tecnología y Emprendimiento Digital.</div>`;
                 box.scrollTop = box.scrollHeight;
             }, 700);
             input.value = "";
         }
-
-        function actualizarContadorUI() {
-            let carrito = JSON.parse(localStorage.getItem('cart')) || [];
-            const badge = document.getElementById('cart-count');
-            if(badge) {
-                badge.textContent = carrito.length;
-            }
-        }
-        document.addEventListener('DOMContentLoaded', actualizarContadorUI);
     </script>
-
-    <style>
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.4); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(0, 210, 255, 0); }
-            100% { transform: scale(1); }
-        }
-    </style>
 </body>
 </html>
