@@ -77,17 +77,6 @@
             color: white;
         }
 
-        /* El color solicitado para resaltar el catálogo */
-        nav a.nav-catalogo {
-            color: var(--naranja-neon) !important;
-            font-weight: 700;
-        }
-
-        nav a.nav-catalogo:hover {
-            color: var(--naranja-glow) !important;
-            text-shadow: 0 0 8px var(--naranja-glow);
-        }
-
         /* CONTENEDOR PRINCIPAL */
         .hero {
             max-width: 1200px;
@@ -211,7 +200,8 @@
     <header>
         <a href="index.html" class="logo">BotEdu<span>Carmen</span></a>
         <nav>
-            <a href="cursos.html" class="nav-catalogo">Catálogo de Cursos</a>
+            <a href="index.html">Inicio</a>
+            <a href="cursos.html">Catálogo de Cursos</a>
             <a href="carrito.html">Mi Selección</a>
         </nav>
     </header>
@@ -261,11 +251,10 @@
             const text = input.value.trim();
             if(!text) return;
 
-            box.innerHTML += `<div style=\"background:var(--azul-primario); color:white; padding:15px; border-radius:20px; align-self:flex-end; max-width:80%; word-break: break-word;\">${text}</div>`;
-            box.scrollTop = box.scrollHeight;
+            box.innerHTML += `<div style="background:var(--azul-primario); color:white; padding:15px; border-radius:20px; align-self:flex-end; max-width:80%;">${text}</div>`;
             
             setTimeout(() => {
-                box.innerHTML += `<div style=\"background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico); color: #1e293b;\">Entendido. Como estamos en 2026, te recomiendo los nuevos cursos de Tecnología y Emprendimiento Digital.</div>`;
+                box.innerHTML += `<div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico);">Entendido. Como estamos en 2026, te recomiendo los nuevos cursos de Tecnología y Emprendimiento Digital.</div>`;
                 box.scrollTop = box.scrollHeight;
             }, 700);
             input.value = "";
