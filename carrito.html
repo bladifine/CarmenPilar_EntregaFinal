@@ -47,9 +47,7 @@
         }
 
         .cart-item:hover { border-color: var(--azul-electrico); }
-
         .cart-item img { width: 100px; height: 60px; object-fit: cover; border-radius: 8px; border: 1px solid var(--azul-electrico); }
-
         .btn-eliminar { background: #ff4444; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 8px; font-weight: bold; }
 
         .btn-finalizar {
@@ -66,7 +64,6 @@
             box-shadow: 0 10px 20px rgba(255, 109, 0, 0.3);
         }
 
-        /* 🟢 BOTÓN DE WHATSAPP INTEGRADO DE FORMA LIMPIA EN EL HEADER */
         .btn-header-whatsapp {
             display: flex;
             align-items: center;
@@ -93,11 +90,7 @@
         <a href="cursos.html" style="color: var(--azul-electrico); text-decoration: none; font-weight: bold;">⬅ VOLVER AL CATÁLOGO</a>
         <div style="font-weight: bold; letter-spacing: 2px;">MI LISTA DE INTERÉS</div>
         
-        <a href="https://wa.me/584243360158?text=Hola%20Bladimir,%20estoy%20revisando%20mi%20lista%20de%20inter%C3%A9s%20y%20tengo%20unas%20preguntas." 
-           target="_blank" class="btn-header-whatsapp">
-           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 16 16">
-              <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.69-4.98c-.202-.101-1.194-.588-1.378-.654-.184-.066-.317-.099-.45.099-.132.199-.512.654-.627.787-.114.133-.23.149-.43.049-.2-.1-.843-.311-1.607-.994-.594-.53-1.002-1.185-1.119-1.385-.116-.2-.012-.308.087-.407.091-.089.202-.234.302-.35.101-.117.135-.198.203-.331.066-.133.033-.25-.016-.35-.049-.1-.45-1.085-.617-1.485-.162-.395-.327-.341-.45-.347-.116-.006-.25-.006-.384-.006-.134 0-.353.05-.537.25-.184.2-.703.687-.703 1.677 0 .99.72 1.947.82 2.082.102.135 1.417 2.164 3.435 3.033.48.207.854.33 1.146.422.481.153.918.132 1.264.08.384-.057 1.194-.488 1.362-.958.168-.471.168-.875.118-.958-.05-.084-.185-.133-.386-.233z"/>
-           </svg>
+        <a href="https://wa.me/584243360158?text=Hola,%20estoy%20revisando%20mi%20lista%20de%20inter%C3%A9s%20y%20tengo%20unas%20preguntas." target="_blank" class="btn-header-whatsapp">
            WhatsApp
         </a>
     </header>
@@ -122,7 +115,7 @@
         </div>
         <div id="chat-messages" style="flex:1; padding:25px; overflow-y:auto; background:#f1f5f9; display:flex; flex-direction:column; gap:15px; font-size: 0.95rem;">
             <div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico); color: #1e293b;">
-                ¡Hola Bladimir! Estamos operando en tiempo real desde tu Lista de Selección. ¿Tienes alguna duda técnica con tus cursos elegidos?
+                ¡Hola! Bienvenido al asistente virtual del CAE Carmen Pilar. ¿Tienes alguna pregunta sobre los cursos que has seleccionado en tu lista?
             </div>
         </div>
         <div style="padding:20px; background:white; display:flex; gap:10px;">
@@ -172,7 +165,6 @@
             }
         }
 
-        /* 🤖 LÓGICA DE INTERACCIÓN ACTIVA DEL CHATBOT CORREGIDA */
         function toggleChat() {
             const w = document.getElementById('chat-window');
             w.style.display = (w.style.display === 'none' || w.style.display === '') ? 'flex' : 'none';
@@ -184,11 +176,9 @@
             const text = input.value.trim();
             if(!text) return;
 
-            // Agrega el mensaje del usuario de inmediato
             box.innerHTML += `<div style="background:var(--azul-primario); color:white; padding:15px; border-radius:20px; align-self:flex-end; max-width:80%; word-break: break-word;">${text}</div>`;
             box.scrollTop = box.scrollHeight;
             
-            // Simulación inteligente de respuesta en base a la página
             setTimeout(() => {
                 box.innerHTML += `<div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico); color: #1e293b;">Entendido perfectamente. Si ya seleccionaste tus cursos, procede al botón naranja de abajo para registrar tus Datos Personales.</div>`;
                 box.scrollTop = box.scrollHeight;
@@ -200,7 +190,6 @@
     </script>
 
     <style>
-        /* Animación parpadeante idéntica a index.html */
         @keyframes pulse {
             0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.4); }
             70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(0, 210, 255, 0); }

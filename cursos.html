@@ -8,15 +8,12 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         :root {
-            /* Variables exactas de index.html */
             --azul-primario: #0a192f;
             --azul-electrico: #00d2ff;
             --naranja-neon: #ff6d00;
             --naranja-glow: #ff9100;
             --glass: rgba(255, 255, 255, 0.08);
             --sombra-futurista: 0 20px 40px rgba(0,0,0,0.4);
-            
-            /* Mantener compatibilidad con el resto del catálogo viejo si aplica */
             --naranja: #ff6d00;
         }
 
@@ -33,34 +30,62 @@
             backdrop-filter: blur(15px);
             padding: 15px 0;
             border-bottom: 1px solid rgba(255,255,255,0.1);
-            position: sticky; top: 0; z-index: 1000;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        .header-brand { display: flex; align-items: center; gap: 15px; }
-        .header-brand img { height: 50px; }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        
-        .nav-links { display: flex; gap: 25px; align-items: center; }
-        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: 0.3s; font-size: 0.95rem; }
-        .nav-links a:hover { color: var(--azul-electrico); }
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-brand img {
+            height: 50px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--azul-electrico);
+        }
 
         .btn-cart-nav {
-            background: rgba(0, 210, 255, 0.1);
+            background: var(--azul-electrico);
             border: 1px solid var(--azul-electrico);
             padding: 8px 16px;
             border-radius: 50px;
-            color: var(--azul-electrico);
+            color: var(--azul-primario) !important;
             font-weight: bold;
             display: flex;
             align-items: center;
             gap: 8px;
-            text-decoration: none;
-            transition: 0.3s;
         }
-        .btn-cart-nav:hover { background: var(--azul-electrico); color: var(--azul-primario); transform: scale(1.05); }
 
-        /* BOTÓN DE WHATSAPP INTEGRADO DE FORMA LIMPIA EN EL HEADER */
         .btn-header-whatsapp {
             display: flex;
             align-items: center;
@@ -81,37 +106,122 @@
             box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
         }
 
-        .search-section { max-width: 1200px; margin: 40px auto 20px; padding: 0 20px; display: flex; gap: 20px; flex-wrap: wrap; }
-        .search-box { flex: 1; min-width: 280px; position: relative; }
-        .search-box input { width: 100%; padding: 15px 20px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; outline: none; font-size: 1rem; box-sizing: border-box; transition: 0.3s; }
-        .search-box input:focus { border-color: var(--azul-electrico); box-shadow: 0 0 15px rgba(0,210,255,0.2); }
-        
-        .filter-select { padding: 0 20px; height: 52px; border-radius: 12px; background: var(--azul-primario); border: 1px solid rgba(255,255,255,0.1); color: white; font-size: 1rem; outline: none; cursor: pointer; transition: 0.3s; }
-        .filter-select:focus { border-color: var(--azul-electrico); }
-
-        .cursos-grid { max-width: 1200px; margin: 0 auto 60px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
-        
-        .card { 
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; overflow: hidden; 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; height: 100%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        .catalogo-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            box-sizing: border-box;
         }
-        .card:hover { transform: translateY(-10px); border-color: var(--azul-electrico); box-shadow: 0 15px 35px rgba(0,210,255,0.15); }
-        
-        .card-link-img { display: block; width: 100%; height: 190px; overflow: hidden; }
-        .card img { width: 100%; height: 100%; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
-        .card:hover img { transform: scale(1.05); }
-        
-        .card-body { padding: 25px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .card-title { margin: 0 0 10px; font-size: 1.3rem; color: white; }
+
+        .filtros-wrapper {
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .input-busqueda {
+            flex: 2;
+            background: rgba(10, 25, 47, 0.7);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .select-filtro {
+            flex: 1;
+            background: rgba(10, 25, 47, 0.7);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .cursos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, border-color 0.3s;
+            box-shadow: var(--sombra-futurista);
+            backdrop-filter: blur(10px);
+        }
+
+        .card:hover { transform: translateY(-5px); border-color: var(--azul-electrico); }
+
+        .card-link-img img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .card-body {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-title { font-size: 1.25rem; margin: 0 0 10px 0; font-weight: 700; }
         .card-title a { color: white; text-decoration: none; transition: 0.3s; }
         .card-title a:hover { color: var(--azul-electrico); }
-        
-        .btn-detalles { display: block; text-align: center; width: 100%; margin-top: 10px; padding: 10px; text-decoration: none; color: rgba(255,255,255,0.6); font-size: 0.85rem; font-weight: bold; transition: 0.3s; }
-        .btn-detalles:hover { color: var(--azul-electrico); }
 
-        #btn-subir { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: var(--naranja); border: none; border-radius: 50%; color: white; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: 0.3s; z-index: 99; box-shadow: 0 5px 15px rgba(255,109,0,0.4); }
-        #btn-subir:hover { transform: scale(1.1); background: #e65c00; }
+        .btn-detalles {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 10px;
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+        .btn-detalles:hover { opacity: 1; color: var(--azul-electrico); }
+
+        #btn-subir {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--naranja-neon);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+            z-index: 99;
+            box-shadow: 0 5px 15px rgba(255,109,0,0.4);
+        }
     </style>
 </head>
 <body>
@@ -119,82 +229,70 @@
     <header>
         <nav>
             <div class="header-brand">
-                <img src="img/logo.png" onerror="this.src='img/logo.png'">
-                <h1 style="margin:0; font-size:1.4rem; letter-spacing:1px; color:white;">CAE <span style="color:var(--azul-electrico)">CARMEN PILAR</span></h1>
+                <img src="img/logo.png" onerror="this.onerror=null; this.src='img/logo.png';">
+                <h1 style="margin: 0; font-size: 1.4rem; letter-spacing: 1px;">CAE <span style="color: var(--azul-electrico)">CARMEN PILAR</span></h1>
             </div>
             <div class="nav-links">
                 <a href="index.html">Inicio</a>
-                <a href="cursos.html" style="color:var(--azul-electrico)">Catálogo</a>
-                <a href="admin.html">Panel</a>
+                <a href="cursos.html" style="color: var(--azul-electrico);">Catálogo</a>
                 <a href="carrito.html" class="btn-cart-nav">
                     🛒 Mi Lista (<span id="cart-count">0</span>)
                 </a>
-                <a href="https://wa.me/584243360158?text=Hola%20Bladimir,%20estoy%20en%20el%20catalogo%20de%20la%20página%20y%20tengo%20unas%20preguntas." 
-                   target="_blank" class="btn-header-whatsapp">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 16 16">
-                      <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.69-4.98c-.202-.101-1.194-.588-1.378-.654-.184-.066-.317-.099-.45.099-.132.199-.512.654-.627.787-.114.133-.23.149-.43.049-.2-.1-.843-.311-1.607-.994-.594-.53-1.002-1.185-1.119-1.385-.116-.2-.012-.308.087-.407.091-.089.202-.234.302-.35.101-.117.135-.198.203-.331.066-.133.033-.25-.016-.35-.049-.1-.45-1.085-.617-1.485-.162-.395-.327-.341-.45-.347-.116-.006-.25-.006-.384-.006-.134 0-.353.05-.537.25-.184.2-.703.687-.703 1.677 0 .99.72 1.947.82 2.082.102.135 1.417 2.164 3.435 3.033.48.207.854.33 1.146.422.481.153.918.132 1.264.08.384-.057 1.194-.488 1.362-.958.168-.471.168-.875.118-.958-.05-.084-.185-.133-.386-.233z"/>
-                   </svg>
-                   WhatsApp
+                <a href="https://wa.me/584243360158?text=Hola,%20estoy%20viendo%20el%20cat%C3%A1logo%20de%20cursos%20y%20tengo%20preguntas." target="_blank" class="btn-header-whatsapp">
+                    WhatsApp
                 </a>
             </div>
         </nav>
     </header>
 
-    <div class="search-section">
-        <div class="search-box">
-            <input type="text" id="buscador" oninput="filtrarCatalogo()" placeholder="🔍 Buscar especialidad formativa por nombre...">
+    <main class="catalogo-container">
+        <div class="filtros-wrapper">
+            <input type="text" id="buscador" class="input-busqueda" placeholder="Buscar especialidad..." oninput="filtrarCatalogo()">
+            <select id="filtro-categoria" class="select-filtro" onchange="filtrarCatalogo()">
+                <option value="todos">Todas las Áreas</option>
+                <option value="Gastronomía">Gastronomía</option>
+                <option value="Textil y Diseño">Textil y Diseño</option>
+                <option value="Estética">Estética</option>
+                <option value="Técnica">Técnica</option>
+                <option value="Arte">Arte</option>
+            </select>
         </div>
-        <select id="filtro-categoria" onchange="filtrarCatalogo()" class="filter-select">
-            <option value="todos">🗂️ Todas las Categorías</option>
-            <option value="gastronomía">Gastronomía</option>
-            <option value="textil y diseño">Textil y Diseño</option>
-            <option value="estética">Estética</option>
-            <option value="arte">Arte</option>
-            <option value="técnica">Área Técnica</option>
-        </select>
+        <div id="cursos-grid" class="cursos-grid"></div>
+    </main>
+
+    <button id="btn-subir" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲</button>
+
+    <div id="chat-icon" onclick="toggleChat()" style="position: fixed; bottom: 30px; left: 30px; width: 85px; height: 85px; cursor: pointer; z-index: 5000; animation: pulse 2s infinite;">
+        <img src="img/chatbot.png" style="width: 100%; height: 100%; object-fit: contain; border-radius: 50%; filter: drop-shadow(0 0 15px var(--azul-electrico));" onerror="this.style.display='none'; document.getElementById('fb').style.display='flex';">
+        <div id="fb" style="display: none; width: 100%; height: 100%; background: var(--azul-primario); border-radius: 50%; align-items: center; justify-content: center; color: white; font-size: 40px; border: 3px solid var(--azul-electrico);">🤖</div>
     </div>
 
-    <div class="cursos-grid" id="cursos-grid"></div>
-
-    <button id="btn-subir" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲</button>
-
-    <div id="chat-icon" onclick="toggleChat()" style="position:fixed; bottom:30px; left:30px; width:85px; height:85px; cursor:pointer; z-index:5000; animation: pulse 2s infinite;">
-        <img src="img/chatbot.png" style="width:100%; height:100%; object-fit:contain; border-radius:50%; filter: drop-shadow(0 0 15px var(--azul-electrico));" onerror="this.style.display='none'; document.getElementById('fb').style.display='flex';">
-        <div id="fb" style="display:none; width:100%; height:100%; background:var(--azul-primario); border-radius:50%; align-items:center; justify-content:center; color:white; font-size:40px; border:3px solid var(--azul-electrico);">🤖</div>
-    </div>
-
-    <div id="chat-window" style="position:fixed; bottom:130px; left:30px; width:380px; height:550px; background:white; border-radius:30px; box-shadow: 0 25px 70px rgba(0,0,0,0.4); z-index:5000; display:none; flex-direction:column; overflow:hidden; border:2px solid var(--azul-primario); color: #1e293b;">
-        <div style="background:var(--azul-primario); color:white; padding:25px; text-align:center; font-weight:800; font-size:1.3rem;">
+    <div id="chat-window" style="position: fixed; bottom: 130px; left: 30px; width: 380px; height: 550px; background: white; border-radius: 30px; box-shadow: 0 25px 70px rgba(0,0,0,0.4); z-index: 5000; display: none; flex-direction: column; overflow: hidden; border: 2px solid var(--azul-primario); color: #1e293b;">
+        <div style="background: var(--azul-primario); color: white; padding: 25px; text-align: center; font-weight: 800; font-size: 1.3rem;">
             🤖 AI ASISTENTE 2026
         </div>
-        <div id="chat-messages" style="flex:1; padding:25px; overflow-y:auto; background:#f1f5f9; display:flex; flex-direction:column; gap:15px; font-size: 0.95rem;">
-            <div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico);">
-                ¡Hola Bladimir! Estamos operando en tiempo real. ¿Qué curso te interesa hoy?
+        <div id="chat-messages" style="flex: 1; padding: 25px; overflow-y: auto; background: #f1f5f9; display: flex; flex-direction: column; gap: 15px; font-size: 0.95rem;">
+            <div style="background: white; padding: 15px; border-radius: 20px; align-self: flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico); color: #1e293b;">
+                ¡Hola! Bienvenido al asistente virtual del CAE Carmen Pilar. ¿Qué especialidad o área te interesa hoy?
             </div>
         </div>
-        <div style="padding:20px; background:white; display:flex; gap:10px;">
-            <input type="text" id="user-input" placeholder="Pregunta algo..." style="flex:1; padding:15px; border:2px solid #e2e8f0; border-radius:20px; outline:none; background: white; color: #1e293b;" onkeypress="if(event.key==='Enter') sendMessage()">
-            <button onclick="sendMessage()" style="background:var(--azul-primario); color:var(--azul-electrico); border:none; width:55px; height:55px; border-radius:20px; cursor:pointer; font-size:1.5rem; display:flex; align-items:center; justify-content:center;">➤</button>
+        <div style="padding: 20px; background: white; display: flex; gap: 10px;">
+            <input type="text" id="user-input" placeholder="Pregunta algo..." style="flex: 1; padding: 15px; border: 2px solid #e2e8f0; border-radius: 20px; outline: none; background: white; color: #1e293b;" onkeypress="if(event.key==='Enter') sendMessage()">
+            <button onclick="sendMessage()" style="background: var(--azul-primario); color: var(--azul-electrico); border: none; width: 55px; height: 55px; border-radius: 20px; cursor: pointer; font-size: 1.5rem; display: flex; align-items: center; justify-content: center;">➤</button>
         </div>
     </div>
 
     <script>
-        // BASE DE DATOS MAESTRA: 25 Cursos Oficiales
         const BASE_DATOS_CURSOS = [
-            // --- Gastronomía (5 cursos) ---
             { n: "Cocina Nacional", c: "Gastronomía", i: "cocina_nacional.jpg" },
             { n: "Panadería", c: "Gastronomía", i: "panaderia.jpg" },
             { n: "Repostería y Pastelería", c: "Gastronomía", i: "reposteria_y_pasteleria.jpg" },
             { n: "Repostería Básica", c: "Gastronomía", i: "reposteria.jpg" },
             { n: "Dulces Criollos", c: "Gastronomía", i: "dulces_criollos.jpg" },
-
-            // --- Textil y Diseño (4 cursos) ---
             { n: "Modistería", c: "Textil y Diseño", i: "modisteria.jpg" },
             { n: "Lencería y Ropa Íntima", c: "Textil y Diseño", i: "ropa_intima.jpg" },
             { n: "Lencería Hogar", c: "Textil y Diseño", i: "lenceria.jpg" },
             { n: "Tejido y Crochet", c: "Textil y Diseño", i: "tejer.jpg" },
-
-            // --- Estética (7 cursos) ---
             { n: "Barbería Comercial", c: "Estética", i: "barberia.jpg" },
             { n: "Peluquería Básica", c: "Estética", i: "peluqueria.jpg" },
             { n: "Manicure y Pedicure", c: "Estética", i: "manicure_pedicure.jpg" },
@@ -202,12 +300,8 @@
             { n: "Masajes Corporales", c: "Estética", i: "masaje.jpg" },
             { n: "Masoterapia Profesional", c: "Estética", i: "masoterapia.jpg" },
             { n: "Cosmetología Clínica", c: "Estética", i: "cosmetologia.jpg" },
-
-            // --- Área Técnica (2 cursos) ---
             { n: "Fundamentos de Electricidad", c: "Técnica", i: "electricidad.jpg" },
             { n: "Reparación de Electrodomésticos", c: "Técnica", i: "electrodomesticos.jpg" },
-
-            // --- Arte y Manualidades (7 cursos) ---
             { n: "Dibujo Artístico", c: "Arte", i: "dibujo_artistico.jpg" },
             { n: "Pintura Artística", c: "Arte", i: "pintura_artistica.jpg" },
             { n: "Pintura Avanzada", c: "Arte", i: "pintura_avanzada.jpg" },
@@ -232,14 +326,14 @@
                         </a>
                         <div class="card-body">
                             <div>
-                                <span style="font-size:0.8rem; background:rgba(0,210,255,0.1); color:var(--azul-electrico); padding:4px 10px; border-radius:50px; font-weight:bold; text-transform:uppercase;">${curso.c}</span>
-                                <h3 class="card-title" style="margin-top:10px;">
+                                <span style="font-size: 0.8rem; background: rgba(0, 210, 255, 0.1); color: var(--azul-electrico); padding: 4px 10px; border-radius: 50px; font-weight: bold; text-transform: uppercase;">${curso.c}</span>
+                                <h3 class="card-title" style="margin-top: 10px;">
                                     <a href="${urlDetalle}">${curso.n}</a>
                                 </h3>
-                                <p style="color:rgba(255,255,255,0.6); font-size:0.9rem; margin:5px 0;">Certificación Avalada Gratuita</p>
+                                <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; margin: 5px 0;">Certificación Avalada Gratuita</p>
                             </div>
-                            <div style="margin-top:15px;">
-                                <button onclick="agregarAlCarrito('${curso.n}', 'img/${archivoImagen}')" style="width:100%; padding:12px; border-radius:10px; background:var(--azul-electrico); color:var(--azul-primario); border:none; font-weight:bold; cursor:pointer; transition:0.3s; font-size:0.95rem;">✚ SELECCIONAR</button>
+                            <div style="margin-top: 15px;">
+                                <button onclick="agregarAlCarrito('${curso.n}', 'img/${archivoImagen}')" style="width: 100%; padding: 12px; border-radius: 10px; background: var(--azul-electrico); color: var(--azul-primario); border: none; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 0.95rem;">✚ SELECCIONAR</button>
                                 <a href="${urlDetalle}" class="btn-detalles">🔎 VER REQUISITOS</a>
                             </div>
                         </div>
@@ -254,45 +348,35 @@
             const categoriaSeleccionada = document.getElementById('filtro-categoria').value.toLowerCase().trim();
             const tarjetas = document.querySelectorAll('.card');
 
-            const limpiarAcentos = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
             tarjetas.forEach(tarjeta => {
                 const nombreCurso = tarjeta.getAttribute('data-name');
                 const categoriaCurso = tarjeta.getAttribute('data-cat');
+                const cumpleNombre = nombreCurso.includes(textoBusqueda);
+                const cumpleCategoria = (categoriaSeleccionada === 'todos' || categoriaCurso === categoriaSeleccionada.toLowerCase());
 
-                const cumpleNombre = limpiarAcentos(nombreCurso).includes(limpiarAcentos(textoBusqueda));
-                const cumpleCategoria = (categoriaSeleccionada === 'todos' || limpiarAcentos(categoriaCurso) === limpiarAcentos(categoriaSeleccionada));
-
-                if (cumpleNombre && cumpleCategoria) {
-                    tarjeta.style.display = 'flex';
-                } else {
-                    tarjeta.style.display = 'none';
-                }
+                if (cumpleNombre && cumpleCategoria) tarjeta.style.display = 'flex';
+                else tarjeta.style.display = 'none';
             });
         }
 
         function agregarAlCarrito(nombre, img) {
             let carrito = JSON.parse(localStorage.getItem('cart')) || [];
-            
-            if (carrito.some(item => item.nombre.trim().toLowerCase() === nombre.trim().toLowerCase())) {
+            if (carrito.some(item => item.nombre.toLowerCase() === nombre.toLowerCase())) {
                 alert("⚠️ Este curso ya lo tienes agregado en tu lista de selección.");
                 return;
             }
-
             carrito.push({ nombre: nombre.trim(), imagen: img });
             localStorage.setItem('cart', JSON.stringify(carrito));
             actualizarContadorUI();
-
-            alert(`✅ "${nombre}" se añadió correctamente a tu selección.`);
+            alert(`✅ "${nombre}" se agregó correctamente.`);
         }
 
         function actualizarContadorUI() {
-            const carrito = JSON.parse(localStorage.getItem('cart')) || [];
+            let carrito = JSON.parse(localStorage.getItem('cart')) || [];
             const badge = document.getElementById('cart-count');
             if(badge) badge.textContent = carrito.length;
         }
 
-        // FUNCIONES DEL CHATBOT
         function toggleChat() {
             const w = document.getElementById('chat-window');
             w.style.display = (w.style.display === 'none' || w.style.display === '') ? 'flex' : 'none';
@@ -307,7 +391,7 @@
             box.innerHTML += `<div style="background:var(--azul-primario); color:white; padding:15px; border-radius:20px; align-self:flex-end; max-width:80%; word-break: break-word;">${text}</div>`;
             
             setTimeout(() => {
-                box.innerHTML += `<div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico);">Entendido. Como estamos en 2026, te recomiendo los nuevos cursos de Tecnología y Emprendimiento Digital.</div>`;
+                box.innerHTML += `<div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico); color: #1e293b;">Entendido de forma correcta. Te recomiendo ver las opciones del área seleccionada.</div>`;
                 box.scrollTop = box.scrollHeight;
             }, 700);
             input.value = "";
@@ -315,20 +399,14 @@
 
         window.addEventListener('scroll', () => {
             const btnSubir = document.getElementById('btn-subir');
-            if (window.scrollY > 400) {
-                btnSubir.style.opacity = '1';
-                btnSubir.style.pointerEvents = 'auto';
-            } else {
-                btnSubir.style.opacity = '0';
-                btnSubir.style.pointerEvents = 'none';
-            }
+            if (window.scrollY > 400) { btnSubir.style.opacity = '1'; btnSubir.style.pointerEvents = 'auto'; }
+            else { btnSubir.style.opacity = '0'; btnSubir.style.pointerEvents = 'none'; }
         });
 
         document.addEventListener('DOMContentLoaded', cargarCursos);
     </script>
 
     <style>
-        /* Animación idéntica a index.html */
         @keyframes pulse {
             0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.4); }
             70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(0, 210, 255, 0); }
