@@ -42,7 +42,7 @@
             padding: 0 25px;
         }
 
-        /* NAVEGACIÓN MODERNA */
+        /* NAVEGACIÓN MODERNA RECOBRADA DEL INDEX */
         header {
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(15px);
@@ -125,9 +125,9 @@
 
     <div class="top-bar">
         <div class="top-bar-content">
-            <span> SISTEMA ACTUALIZADO 2026[cite: 1]</span>
+            <span> SISTEMA ACTUALIZADO 2026</span>
             <span> LA VICTORIA - ARAGUA</span>
-            <span> CONTACTO: 0424-33.60.158[cite: 1]</span>
+            <span> CONTACTO: 0424-33.60.158</span>
         </div>
     </div>
 
@@ -138,9 +138,9 @@
                 <h2 style="margin:0; color:var(--azul-primario);">BotEduCarmen</h2>
             </div>
             <nav style="display: flex; gap: 12px;">
-                <a href="index.html" class="btn-2026 btn-orange">INICIO[cite: 1]</a>
-                <a href="https://wa.me/584243360158" target="_blank" class="btn-2026 btn-green">WHATSAPP[cite: 1]</a>
-                <a href="carrito.html" class="btn-2026 btn-blue">LISTA (<span id="cart-count">0</span>)[cite: 1]</a>
+                <a href="index.html" class="btn-2026 btn-orange">INICIO</a>
+                <a href="https://wa.me/584243360158" target="_blank" class="btn-2026 btn-green">WHATSAPP</a>
+                <a href="carrito.html" class="btn-2026 btn-blue">LISTA (<span id="cart-count">0</span>)</a>
             </nav>
         </div>
     </header>
@@ -150,25 +150,30 @@
         <div class="cursos-grid" id="cursos-grid"></div>
     </div>
 
-    <!-- CHATBOT: ABAJO A LA IZQUIERDA -->
+    <!-- CHATBOT FLOTANTE (IGUAL AL INDEX): IZQUIERDA -->
     <div onclick="toggleChat()" style="position:fixed; bottom:30px; left:30px; background:linear-gradient(135deg, var(--azul-electrico), #0077ff); width:65px; height:65px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:9999; box-shadow: 0 10px 20px rgba(0,0,0,0.3);">
-        <img src="img/chatbot.png" style="width:35px;" onerror="this.style.display='none'">
+        <img src="img/chatbot.png" alt="Chatbot" style="width:35px;" onerror="this.src='img/logo.png'">
     </div>
 
-    <!-- BOTÓN SUBIR: ABAJO A LA DERECHA -->
-    <div onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="position:fixed; bottom:30px; right:30px; background:var(--azul-primario); width:55px; height:55px; border-radius:15px; display:flex; align-items:center; justify-content:center; cursor:pointer; border: 2px solid var(--azul-electrico); z-index:9999;">
+    <!-- BOTÓN SUBIR (IGUAL AL INDEX): DERECHA -->
+    <div onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="position:fixed; bottom:30px; right:30px; background:var(--azul-primario); width:55px; height:55px; border-radius:15px; display:flex; align-items:center; justify-content:center; cursor:pointer; border: 2px solid var(--azul-electrico); z-index:9999; box-shadow: var(--sombra-futurista);">
         <span style="color:var(--azul-electrico); font-size:1.5rem;">↑</span>
     </div>
 
-    <!-- VENTANA CHATBOT IZQUIERDA -->
+    <!-- VENTANA CHATBOT (COPIA EXACTA DEL INDEX) -->
     <div id="chat-window" style="display:none; position:fixed; bottom:110px; left:30px; width:350px; height:450px; background:white; border-radius:25px; box-shadow:var(--sombra-futurista); z-index:9999; flex-direction:column; overflow:hidden; border:1px solid #ddd;">
-        <div style="background:var(--azul-primario); color:white; padding:20px; font-weight:bold;">Asistente BotEduCarmen</div>
-        <div id="chat-messages" style="flex:1; padding:15px; overflow-y:auto; background:#f1f5f9; color:#333; display:flex; flex-direction:column; gap:10px;">
-            <div style="background:white; padding:10px; border-radius:15px; align-self:flex-start; border-left:4px solid var(--azul-electrico);">¡Hola! ¿En qué curso de los 25 disponibles te gustaría inscribirte?</div>
+        <div style="background:var(--azul-primario); color:white; padding:20px; font-weight:bold; display:flex; align-items:center; gap:10px;">
+            <img src="img/chatbot.png" style="width:30px; background:white; border-radius:50%;" onerror="this.src='img/logo.png'">
+            <span>Asistente BotEduCarmen</span>
         </div>
-        <div style="padding:15px; display:flex; gap:5px;">
-            <input id="user-input" type="text" placeholder="Escribe aquí..." style="flex:1; padding:10px; border-radius:10px; border:1px solid #ccc;">
-            <button onclick="sendMessage()" style="background:var(--azul-primario); color:white; border:none; padding:10px; border-radius:10px;">➤</button>
+        <div id="chat-messages" style="flex:1; padding:15px; overflow-y:auto; background:#f1f5f9; color:#333; display:flex; flex-direction:column; gap:10px; font-size: 0.9rem;">
+            <div style="background:white; padding:10px; border-radius:15px; align-self:flex-start; border-left:4px solid var(--azul-electrico);">
+                ¡Hola! Estas viendo nuestro catálogo 2026. ¿Necesitas información sobre alguna inscripción?
+            </div>
+        </div>
+        <div style="padding:15px; display:flex; gap:5px; background:white;">
+            <input id="user-input" type="text" placeholder="Escribe aquí..." style="flex:1; padding:10px; border-radius:10px; border:1px solid #ccc; outline:none; color:#333;">
+            <button onclick="sendMessage()" style="background:var(--azul-primario); color:var(--azul-electrico); border:none; width:40px; height:40px; border-radius:10px; cursor:pointer;">➤</button>
         </div>
     </div>
 
@@ -223,7 +228,9 @@
             cart.push({nombre, imagen});
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCounter();
-            alert("Curso seleccionado");
+            alert("Curso seleccionado correctamente.");
+        } else {
+            alert("Este curso ya está en tu lista.");
         }
     }
 
@@ -232,19 +239,31 @@
         document.getElementById('cart-count').innerText = cart.length;
     }
 
+    /* FUNCIONES CHATBOT (COPIA DEL INDEX) */
     function toggleChat() {
         const w = document.getElementById('chat-window');
-        w.style.display = (w.style.display === 'none') ? 'flex' : 'none';
+        w.style.display = (w.style.display === 'none' || w.style.display === '') ? 'flex' : 'none';
     }
 
     function sendMessage() {
         const input = document.getElementById('user-input');
         const box = document.getElementById('chat-messages');
-        if(!input.value.trim()) return;
-        box.innerHTML += `<div style="background:var(--azul-primario); color:white; padding:10px; border-radius:15px; align-self:flex-end;">${input.value}</div>`;
+        const text = input.value.trim();
+        if(!text) return;
+
+        box.innerHTML += `<div style="background:var(--azul-primario); color:white; padding:10px; border-radius:15px; align-self:flex-end; max-width:80%;">${text}</div>`;
         input.value = "";
         box.scrollTop = box.scrollHeight;
+
+        setTimeout(() => {
+            box.innerHTML += `<div style="background:white; padding:10px; border-radius:15px; align-self:flex-start; border-left:4px solid var(--azul-electrico); max-width:80%;">Como estamos en 2026, te informo que las inscripciones están abiertas. ¿Deseas que te guíe con la selección de cursos?</div>`;
+            box.scrollTop = box.scrollHeight;
+        }, 1000);
     }
+
+    document.getElementById('user-input').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') sendMessage();
+    });
 
     document.addEventListener('DOMContentLoaded', renderCursos);
 </script>
