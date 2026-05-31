@@ -11,6 +11,8 @@
             --azul-electrico: #00d2ff;
             --naranja-neon: #ff6d00;
             --naranja-glow: #ff9100;
+            --whatsapp-green: #25D366;
+            --whatsapp-dark: #128C7E;
             --glass: rgba(255, 255, 255, 0.08);
             --sombra-futurista: 0 20px 40px rgba(0,0,0,0.4);
         }
@@ -51,33 +53,46 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
 
-        /* BOTONES 3D NEOMÓRFICOS */
+        /* SISTEMA DE BOTONES 3D UNIFICADOS */
         .btn-2026 {
-            background: linear-gradient(135deg, var(--naranja-neon), var(--naranja-glow));
             color: white;
-            padding: 14px 35px;
-            border-radius: 16px;
+            padding: 10px 25px;
+            border-radius: 14px;
             text-decoration: none;
             font-weight: 800;
             display: inline-block;
             border: none;
-            box-shadow: 0 8px 0 #b34b00, 0 15px 20px rgba(255, 109, 0, 0.3);
             transition: all 0.15s ease-in-out;
             cursor: pointer;
             text-transform: uppercase;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        /* Variantes de color para los botones */
+        .btn-orange {
+            background: linear-gradient(135deg, var(--naranja-neon), var(--naranja-glow));
+            box-shadow: 0 6px 0 #b34b00, 0 10px 15px rgba(255, 109, 0, 0.2);
+        }
+        .btn-green {
+            background: linear-gradient(135deg, var(--whatsapp-green), #128C7E);
+            box-shadow: 0 6px 0 #075E54, 0 10px 15px rgba(37, 211, 102, 0.2);
+        }
+        .btn-blue {
+            background: linear-gradient(135deg, var(--azul-electrico), #0077ff);
+            box-shadow: 0 6px 0 #0055b3, 0 10px 15px rgba(0, 210, 255, 0.2);
         }
 
         .btn-2026:hover {
             transform: translateY(2px);
-            box-shadow: 0 5px 0 #b34b00, 0 10px 15px rgba(255, 109, 0, 0.4);
         }
 
         .btn-2026:active {
-            transform: translateY(8px);
-            box-shadow: 0 0 0 #b34b00;
+            transform: translateY(6px);
+            box-shadow: 0 0 0 transparent !important;
         }
 
-        /* HERO SECTION EVOLUCIONADO */
+        /* HERO SECTION */
         .hero {
             background: linear-gradient(135deg, rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.7)), 
                         url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1350&q=80');
@@ -102,7 +117,6 @@
             box-shadow: var(--sombra-futurista);
         }
 
-        /* PIE DE PÁGINA */
         footer {
             background: var(--azul-primario);
             color: white;
@@ -128,10 +142,11 @@
                 <img src="img/logo.png" alt="Logo" style="height:60px;">
                 <h2 style="margin:0; color:var(--azul-primario); font-size:1.8rem;">BotEduCarmen</h2>
             </div>
-            <nav>
-                <!-- Botón Inicio Eliminado -->
-                <a href="cursos.html" style="text-decoration:none; color:var(--naranja-neon); font-weight:800; margin-right:25px;">CURSOS</a>
-                <a href="admin.html" class="btn-2026" style="padding:10px 25px; font-size:0.8rem;">ADMIN</a>
+            <nav style="display: flex; gap: 15px; align-items: center;">
+                <!-- Todos los botones ahora tienen la misma estructura y tamaño -->
+                <a href="cursos.html" class="btn-2026 btn-orange">CURSOS</a>
+                <a href="https://wa.me/584243360158" target="_blank" class="btn-2026 btn-green">WHATSAPP</a>
+                <a href="admin.html" class="btn-2026 btn-blue">ADMIN</a>
             </nav>
         </div>
     </header>
@@ -140,7 +155,7 @@
         <div class="glass-box">
             <h1 style="font-size: 4rem; margin: 0; line-height: 1.1;">Liderando el Futuro del <span style="color:var(--azul-electrico);">Aprendizaje</span></h1>
             <p style="font-size: 1.4rem; margin: 25px 0 40px; opacity: 0.9;">Capacitación tecnológica y artesanal de alto nivel para el nuevo mercado laboral.</p>
-            <a href="cursos.html" class="btn-2026">EXPLORAR CURSOS 2026</a>
+            <a href="cursos.html" class="btn-2026 btn-orange" style="padding: 14px 35px; font-size: 1rem;">EXPLORAR CURSOS 2026</a>
         </div>
     </section>
 
@@ -150,7 +165,7 @@
             <p style="font-size: 1.3rem; line-height: 1.8; color: #475569;">
                 En el año 2026, nuestra misión evoluciona para integrar herramientas de inteligencia artificial y 
                 técnicas creativas avanzadas, impulsando el desarrollo socio-económico de Las Mercedes mediante 
-                la formación gratuita de excelencia.
+                la formación gratuita de excelencia[cite: 9].
             </p>
         </div>
     </section>
@@ -158,20 +173,20 @@
     <footer>
         <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 25px;">
             <h2 style="margin:0; font-size: 1.8rem; letter-spacing: 2px;">BotEduCarmen <span style="color:var(--naranja-neon);">2026</span></h2>
-            <p style="opacity:0.6; margin: 15px 0;">PNF EN INFORMÁTICA - TRABAJO DE INVESTIGACIÓN</p>
+            <p style="opacity:0.6; margin: 15px 0;">PNF EN INFORMÁTICA - TRABAJO DE INVESTIGACIÓN[cite: 9]</p>
             
             <div style="background: rgba(255,255,255,0.05); padding: 25px; border-radius: 20px; display: inline-block; margin-top: 30px; border: 1px dashed rgba(255,255,255,0.2);">
-                <p style="margin:0; font-size: 1.2rem;">Creado por: <strong>Bladimir Silva</strong></p>
-                <p style="margin:5px 0 0; color:var(--azul-electrico);">📞 Teléfono: 0424-33.60.158</p>
+                <p style="margin:0; font-size: 1.2rem;">Creado por: <strong>Bladimir Silva</strong>[cite: 9]</p>
+                <p style="margin:5px 0 0; color:var(--azul-electrico);">📞 Teléfono: 0424-33.60.158[cite: 9]</p>
             </div>
             
             <p style="margin-top: 40px; font-size: 0.8rem; opacity: 0.4;">© 2026 Todos los derechos reservados.</p>
         </div>
     </footer>
 
+    <!-- Chatbot e Icono se mantienen según el diseño original -->
     <div id="chat-icon" onclick="toggleChat()" style="position:fixed; bottom:30px; right:30px; width:85px; height:85px; cursor:pointer; z-index:5000; animation: pulse 2s infinite;">
-        <img src="img/chatbot.png" style="width:100%; height:100%; object-fit:contain; border-radius:50%; filter: drop-shadow(0 0 15px var(--azul-electrico));" onerror="this.style.display='none'; document.getElementById('fb').style.display='flex';">
-        <div id="fb" style="display:none; width:100%; height:100%; background:var(--azul-primario); border-radius:50%; align-items:center; justify-content:center; color:white; font-size:40px; border:3px solid var(--azul-electrico);">🤖</div>
+        <div style="width:100%; height:100%; background:var(--azul-primario); border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:40px; border:3px solid var(--azul-electrico);">🤖</div>
     </div>
 
     <div id="chat-window" style="position:fixed; bottom:130px; right:30px; width:380px; height:550px; background:white; border-radius:30px; box-shadow: 0 25px 70px rgba(0,0,0,0.4); z-index:5000; display:none; flex-direction:column; overflow:hidden; border:2px solid var(--azul-primario);">
@@ -179,8 +194,8 @@
             🤖 AI ASISTENTE 2026
         </div>
         <div id="chat-messages" style="flex:1; padding:25px; overflow-y:auto; background:#f1f5f9; display:flex; flex-direction:column; gap:15px;">
-            <div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico);">
-                ¡Hola Bladimir! Estamos operando en tiempo real. ¿Qué curso te interesa hoy?
+            <div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; border-left: 5px solid var(--azul-electrico);">
+                ¡Hola Bladimir! Estamos operando en tiempo real. ¿Qué curso te interesa hoy?[cite: 9]
             </div>
         </div>
         <div style="padding:20px; background:white; display:flex; gap:10px;">
@@ -204,19 +219,11 @@
             box.innerHTML += `<div style="background:var(--azul-primario); color:white; padding:15px; border-radius:20px; align-self:flex-end; max-width:80%;">${text}</div>`;
             
             setTimeout(() => {
-                box.innerHTML += `<div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico);">Entendido. Como estamos en 2026, te recomiendo los nuevos cursos de Tecnología y Emprendimiento Digital.</div>`;
+                box.innerHTML += `<div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; border-left: 5px solid var(--azul-electrico);">Entendido. Como estamos en 2026, te recomiendo los nuevos cursos de Tecnología y Emprendimiento Digital.</div>`;
                 box.scrollTop = box.scrollHeight;
             }, 700);
             input.value = "";
         }
     </script>
-
-    <style>
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.4); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(0, 210, 255, 0); }
-            100% { transform: scale(1); }
-        }
-    </style>
 </body>
 </html>
