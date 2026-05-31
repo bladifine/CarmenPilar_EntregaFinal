@@ -12,6 +12,7 @@ body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 /* NAVBAR */
@@ -47,7 +48,7 @@ body {
     gap: 10px;
 }
 
-/* BOTONES DE NAVEGACIÓN */
+/* BOTONES DE NAVEGACIÓN CORREGIDOS */
 .nav-btn {
     text-decoration: none;
     color: white;
@@ -61,13 +62,13 @@ body {
 }
 
 .btn-inicio { 
-    background: #007bff; /* Azul vibrante */
+    background: #007bff; /* Azul para Inicio */
 }
 .btn-inicio:hover { background: #0056b3; }
 
 .btn-whatsapp-nav { 
     background: #25D366; 
-    font-size: 0.8rem; /* Ligeramente más pequeño */
+    font-size: 0.8rem; /* Tamaño reducido */
 }
 .btn-whatsapp-nav:hover { background: #1da851; }
 
@@ -77,16 +78,21 @@ body {
 .btn-admin-nav:hover { background: #310d5e; }
 
 .btn-cart-nav { 
-    background: var(--glass); 
-    border: 1px solid var(--azul-electrico);
-    color: var(--azul-electrico);
+    background: var(--naranja-neon); /* Color naranja para Mi Lista */
+    box-shadow: 0 4px 0 #b34b00;
+    color: white !important;
 }
 .btn-cart-nav:hover {
-    background: rgba(0, 210, 255, 0.1);
+    background: var(--naranja-glow);
+    transform: translateY(-2px);
 }
 
-/* Globales adicionales */
-h1, h2, h3 {
-    text-transform: uppercase;
-    letter-spacing: 1px;
+/* GRID DE CURSOS */
+.courses-grid { 
+    max-width: 1200px; 
+    margin: 40px auto; 
+    padding: 0 20px; 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 30px; 
 }
