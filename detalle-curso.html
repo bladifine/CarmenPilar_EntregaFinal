@@ -16,60 +16,33 @@
             background: var(--azul-p); color: white; font-family: 'Inter', sans-serif; margin: 0;
             background-image: radial-gradient(circle at top right, rgba(0,210,255,0.1), transparent);
         }
-        
         header {
-            background: rgba(10, 25, 47, 0.9);
-            backdrop-filter: blur(15px);
-            padding: 15px 0;
-            border-bottom: 2px solid var(--electrico);
-            position: sticky; top: 0; z-index: 1000;
+            background: rgba(10, 25, 47, 0.9); backdrop-filter: blur(15px); padding: 15px 0;
+            border-bottom: 2px solid var(--electrico); position: sticky; top: 0; z-index: 1000;
         }
-
-        .nav-container { 
-            display: flex; justify-content: space-between; align-items: center; 
-            max-width: 1200px; margin: 0 auto; padding: 0 20px; 
-        }
-        
+        .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .btn-back {
             background: linear-gradient(135deg, var(--naranja), #ff9100);
             color: white; padding: 10px 25px; border-radius: 50px; text-decoration: none; 
-            font-weight: bold; font-size: 0.8rem; box-shadow: 0 4px 0 #b34b00;
-            transition: 0.2s; display: inline-block;
+            font-weight: bold; font-size: 0.8rem; box-shadow: 0 4px 0 #b34b00; transition: 0.2s;
         }
         .btn-back:hover { transform: translateY(-2px); filter: brightness(1.1); }
-        .btn-back:active { transform: translateY(2px); box-shadow: none; }
-
         .detalle-container { max-width: 1000px; margin: 50px auto; padding: 20px; }
-        .detalle-flex { 
-            display: flex; gap: 40px; background: var(--glass); padding: 40px; 
-            border-radius: 24px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); 
-        }
+        .detalle-flex { display: flex; gap: 40px; background: var(--glass); padding: 40px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.1); }
         .detalle-img { width: 45%; height: 380px; object-fit: cover; border-radius: 16px; border: 2px solid var(--electrico); }
         .detalle-info { width: 55%; display: flex; flex-direction: column; justify-content: center; }
-        
         .btn-add-detalle {
             background: var(--electrico); color: var(--azul-p); font-weight: bold; border: none;
             padding: 15px 25px; border-radius: 12px; cursor: pointer; font-size: 1rem; margin-top: 25px;
-            box-shadow: 0 4px 0 #0055b3; transition: 0.2s;
         }
-        .btn-add-detalle:hover { transform: translateY(-2px); filter: brightness(1.1); }
-        .btn-add-detalle:active { transform: translateY(2px); box-shadow: none; }
-
-        @media (max-width: 768px) {
-            .detalle-flex { flex-direction: column; }
-            .detalle-img, .detalle-info { width: 100%; }
-            .detalle-img { height: 240px; }
-        }
+        @media (max-width: 768px) { .detalle-flex { flex-direction: column; } .detalle-img, .detalle-info { width: 100%; } .detalle-img { height: 240px; } }
     </style>
 </head>
 <body>
 
     <header>
         <div class="nav-container">
-            <div style="display:flex; align-items:center; gap:10px;">
-                <img src="img/logo.png" height="50" onerror="this.src='img/logo.png'">
-                <h2 style="margin:0; font-size:1.2rem; letter-spacing: 1px;">CAE CARMEN PILAR</h2>
-            </div>
+            <h2 style="margin:0; font-size:1.2rem;">CAE CARMEN PILAR</h2>
             <a href="cursos.html" class="btn-back">⬅ VOLVER AL CATÁLOGO</a>
         </div>
     </header>
@@ -78,48 +51,55 @@
 
     <script src="script.js"></script>
     <script>
-        // Diccionario base de datos histórica con las claves estandarizadas
+        // DICCIONARIO COMPLETO Y CORREGIDO DE LAS 25 CLAVES REALES SINCRO CON TU TERMINAL
         const CURSOS_DATA = {
-            "cocina_nacional": { d: "Aprende las raíces culinarias de nuestro país, platos típicos regionales, técnicas de cocción tradicionales y manipulación higiénica de alimentos.", r: "Cédula de identidad, delantal, gorro y paño de cocina.", t: "3 meses", i: "cocina_nacional.jpg" },
-            "panaderia": { d: "Domina el comportamiento de las levaduras, masas dulces, saladas, pan campesino, panes aliñados y técnicas de horneado.", r: "Cédula de identidad, delantal, gorro y paño de cocina.", t: "3 meses", i: "panaderia.jpg" },
-            "reposteria": { d: "Elaboración profesional de tortas, bizcochos, batidos pesados, cremas de cobertura y técnicas de decoración comercial.", r: "Cédula de identidad, moldes básicos.", t: "3 meses", i: "reposteria.jpg" },
-            "lenceria": { d: "Confección y diseño de lencería para el hogar: sábanas, fundas, edredones, mantelería y cortinas decorativas.", r: "Cédula de identidad, telas asignadas para la primera fase.", t: "3 meses", i: "lenceria.jpg" },
-            "ropa_intima": { d: "Diseño, patronaje y confección de prendas íntimas femeninas y masculinas, manejo de telas elásticas y encajes.", r: "Cédula de identidad, hilos y agujas punta de bola.", t: "3 meses", i: "ropa_intima.jpg" },
-            "modisteria": { d: "Patronaje y confección avanzada de prendas de vestir femeninas, ropa casual, vestidos y adaptaciones de costura.", r: "Cédula de identidad, cinta métrica, tijeras de tela.", t: "5 meses", i: "modisteria.jpg" },
-            "corte_y_confeccion": { d: "Técnicas fundamentales de corte de textiles, uso de máquinas de coser e interpretación de patrones básicos.", r: "Cédula de identidad, tijeras de tela.", t: "4 meses", i: "corte_y_confeccion.jpg" },
             "barberia": { d: "Cortes clásicos y modernos para caballeros, diseño de barba, uso correcto de barberas y técnicas de degradado (fade).", r: "Cédula de identidad, máquinas e insumos propios de práctica.", t: "4 meses", i: "barberia.jpg" },
-            "estetica_de_unas": { d: "Manicure y pedicure básico, sistemas de uñas artificiales en acrílico, gel, decoraciones en tendencia y bioseguridad.", r: "Cédula de identidad, cortaúñas, limas.", t: "3 meses", i: "estetica_de_unas.jpg" }
+            "cocina_nacional": { d: "Aprende las raíces culinarias de nuestro país, platos típicos regionales, técnicas de cocción tradicionales y manipulación higiénica de alimentos.", r: "Cédula de identidad, delantal, gorro y paño de cocina.", t: "3 meses", i: "cocina_nacional.jpg" },
+            "cosmetologia": { d: "Estudio del cuidado de la piel sana, tratamientos faciales preventivos, uso de productos estéticos y bioseguridad aplicada.", r: "Cédula de identidad, batas e insumos higiénicos.", t: "4 meses", i: "cosmetologia.jpg" },
+            "dibujo_artistico": { d: "Técnicas fundamentales de dibujo a lápiz, carboncillo, proporciones, perspectiva, sombras y desarrollo visual creativo.", r: "Cédula de identidad, block de dibujo, lápices de diferentes graduaciones.", t: "3 meses", i: "dibujo_artistico.jpg" },
+            "dulces_criollos": { d: "Elaboración de dulces tradicionales autóctonos, almíbares, conservas y repostería artesanal local.", r: "Cédula de identidad, delantal y paño.", t: "3 meses", i: "dulces_criollos.jpg" },
+            "electricidad": { d: "Fundamentos de instalaciones eléctricas residenciales, interpretación de planos básicos y normas de seguridad.", r: "Cédula de identidad, herramientas básicas de electricista.", t: "4 meses", i: "electricidad.jpg" },
+            "electrodomesticos": { d: "Diagnóstico, mantenimiento y reparación de fallas mecánicas y eléctricas comunes en equipos del hogar.", r: "Cédula de identidad, multímetro y destornilladores.", t: "4 meses", i: "electrodomesticos.jpg" },
+            "estetica_avanzada": { d: "Tratamientos estéticos faciales y corporales de última tendencia, uso de aparatología estética básica y protocolos.", r: "Cédula de identidad, insumos de protección.", t: "4 meses", i: "estetica_avanzada.jpg" },
+            "estetica_de_unas": { d: "Manicure y pedicure básico, sistemas de uñas artificiales en acrílico, gel, decoraciones en tendencia y bioseguridad.", r: "Cédula de identidad, cortaúñas, limas.", t: "3 meses", i: "estetica_de_unas.jpg" },
+            "lenceria": { d: "Confección y diseño de lencería para el hogar: sábanas, fundas, edredones, mantelería y cortinas decorativas.", r: "Cédula de identidad, telas asignadas para la primera fase.", t: "3 meses", i: "lenceria.jpg" },
+            "manicure_pedicure": { d: "Especialización enfocada en el cuidado estructural, limpieza estética e hidratación profunda de manos y pies.", r: "Cédula de identidad, kit personal de manicura.", t: "3 meses", i: "manicure_pedicure.jpg" },
+            "manualidades": { d: "Desarrollo técnico en foami, tarjetería, arreglos decorativos para eventos y proyectos creativos polivalentes.", r: "Cédula de identidad, materiales básicos de manualista.", t: "3 meses", i: "manualidades.jpg" },
+            "masaje": { d: "Técnicas fundamentales de quiromasaje, ergonomía del masajista, anatomía básica muscular y masajes de relajación.", r: "Cédula de identidad, sábanas e insumos aromáticos.", t: "3 meses", i: "masaje.jpg" },
+            "masoterapia": { d: "Uso de masajes con fines estéticos y terapéuticos reductivos, drenaje linfático manual y reflexología aplicada.", r: "Cédula de identidad, aceites corporales y toallas.", t: "4 meses", i: "masoterapia.jpg" },
+            "modisteria": { d: "Patronaje y confección avanzada de prendas de vestir femeninas, ropa casual, vestidos y adaptaciones de costura.", r: "Cédula de identidad, cinta métrica, tijeras de tela.", t: "5 meses", i: "modisteria.jpg" },
+            "panaderia": { d: "Domina el comportamiento de las levaduras, masas dulces, saladas, pan campesino, panes aliñados y técnicas de horneado.", r: "Cédula de identidad, delantal, gorro y paño de cocina.", t: "3 meses", i: "panaderia.jpg" },
+            "peluqueria": { d: "Técnicas de corte unisex, colorimetría básica, peinados, secado, alisado estructural y cuidado capilar comercial.", r: "Cédula de identidad, tijeras de corte, secador de cabello.", t: "5 meses", i: "peluqueria.jpg" },
+            "pintura_artistica": { d: "Introducción a las técnicas de pintura sobre lienzo, uso del acrílico, acuarelas y combinación cromática aplicada.", r: "Cédula de identidad, pinceles y lienzos base.", t: "3 meses", i: "pintura_artistica.jpg" },
+            "pintura_avanzada": { d: "Técnicas complejas al óleo, realismo cromático, texturizado y composición para galerías artísticas.", r: "Cédula de identidad, óleos y pinceles avanzados.", t: "4 meses", i: "pintura_avanzada.jpg" },
+            "puntillismo_avanzado": { d: "Dominio de la técnica del puntillismo sobre soportes tridimensionales y composiciones mandálicas complejas.", r: "Cédula de identidad, punteros profesionales y acrílicos.", t: "3 meses", i: "puntillismo_avanzado.jpg" },
+            "puntillismo_basico": { d: "Introducción teórica y práctica a la pintura basada en puntos, manejo de simetrías geométricas iniciales.", r: "Cédula de identidad, herramientas de punto básicas.", t: "3 meses", i: "puntillismo_basico.jpg" },
+            "reposteria": { d: "Elaboración profesional de tortas, bizcochos, batidos pesados, cremas de cobertura y técnicas de decoración comercial.", r: "Cédula de identidad, moldes básicos.", t: "3 meses", i: "reposteria.jpg" },
+            "reposteria_y_pasteleria": { d: "Estudio avanzado de masas hojaldradas, profiteroles, mousses, tartas finas de vitrina y postres emplatados internacionales.", r: "Cédula de identidad, mangas y boquillas.", t: "4 meses", i: "reposteria_y_pasteleria.jpg" },
+            "ropa_intima": { d: "Diseño, patronaje y confección de prendas íntimas femeninas y masculinas, manejo de telas elásticas y encajes.", r: "Cédula de identidad, hilos y agujas punta de bola.", t: "3 meses", i: "ropa_intima.jpg" },
+            "rostros": { d: "Especialización artística en dibujo anatómico de rostros humanos, expresiones, ojos, sombreado realista y retrato.", r: "Cédula de identidad, carboncillos y difuminos.", t: "3 meses", i: "rostros.jpg" },
+            "tejer": { d: "Técnicas fundamentales de tejido en dos agujas y crochet, lectura de patrones gráficos y creación de prendas de lana.", r: "Cédula de identidad, agujas de tejer e hilos de práctica.", t: "3 meses", i: "tejer.jpg" }
         };
 
         function cargar() {
             const params = new URLSearchParams(window.location.search);
             const nombreCurso = params.get('curso') || '';
 
-            // MEJORA OPCIÓN A: Convertir dinámicamente "Cocina Nacional" a "cocina_nacional" antes de buscar
-            let claveLimpia = "";
-            if (typeof limpiarParaImagen === 'function') {
-                claveLimpia = limpiarParaImagen(nombreCurso);
-            } else {
-                // Alternativa de seguridad si no encuentra script.js
-                claveLimpia = nombreCurso.toLowerCase().trim()
-                    .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Quita tildes
-                    .replace(/\s+/g, "_")                           // Espacios por guiones bajos
-                    .replace(/[^\w]/g, "");                         // Quita símbolos extraños
-            }
+            // Opción A: Limpieza cruzada automática e inteligente
+            let claveLimpia = nombreCurso.toLowerCase().trim()
+                .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Quita acentos
+                .replace(/\s+/g, "_"); // Reemplaza espacios por guiones bajos
 
             const info = CURSOS_DATA[claveLimpia];
             const root = document.getElementById('detalle-root');
 
-            if(!root) {
-                console.error("Error crítico: No se encontró el contenedor HTML 'detalle-root'.");
-                return;
-            }
+            if(!root) return;
 
             if(!info) {
                 root.innerHTML = `
                     <div style="text-align:center; padding: 50px 0; width: 100%;">
                         <h2 style="color:var(--naranja);">⚠️ Especialidad formativa no encontrada</h2>
-                        <p style="opacity:0.7;">No se pudo sincronizar el contenido para "${nombreCurso}".</p>
+                        <p style="opacity:0.7;">No pudimos sincronizar los detalles para "${nombreCurso}".</p>
                         <a href="cursos.html" style="color:var(--electrico); font-weight:bold; text-decoration:none; display:inline-block; margin-top:15px;">← Volver al catálogo</a>
                     </div>`;
                 return;
@@ -131,15 +111,14 @@
                     <div class="detalle-info">
                         <span style="font-size:0.8rem; background:rgba(0,210,255,0.1); color:var(--electrico); padding:5px 12px; border-radius:50px; font-weight:bold; width:max-content; text-transform:uppercase;">FORMACIÓN CERTIFICADA</span>
                         <h1 style="font-size:2.2rem; margin:15px 0 10px 0; color:var(--electrico);">${nombreCurso}</h1>
-                        <p class="description" style="color:rgba(255,255,255,0.7); font-size:1rem; line-height:1.5; margin-bottom: 20px;">${info.d}</p>
+                        <p style="color:rgba(255,255,255,0.7); font-size:1rem; line-height:1.5; margin-bottom: 20px;">${info.d}</p>
                         
                         <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
                             <p style="margin:8px 0;">⏱️ <b>Duración del trayecto:</b> ${info.t}</p>
                             <p style="margin:8px 0;">📝 <b>Requisitos obligatorios:</b> ${info.r}</p>
                             <p style="margin:8px 0;">💰 <b>Costo académico:</b> <span style="color:#25D366; font-weight:bold;">Completamente Gratuito</span></p>
                         </div>
-
-                        <button onclick="agregar('${nombreCurso}', 'img/${info.i}')" class="btn-add-detalle">✚ SELECCIONAR ESTE CURSO</button>
+                        <button onclick="agregar('${nombreCurso}', 'img/${info.i}')" style="background:var(--electrico); color:var(--azul-p); font-weight:bold; border:none; padding:15px 25px; border-radius:12px; cursor:pointer; font-size:1rem; margin-top:25px;">✚ SELECCIONAR ESTE CURSO</button>
                     </div>
                 </div>
             `;
@@ -156,7 +135,6 @@
                 alert("⚠️ Este curso ya se encuentra dentro de tus opciones seleccionadas.");
             }
         }
-        
         document.addEventListener('DOMContentLoaded', cargar);
     </script>
 </body>

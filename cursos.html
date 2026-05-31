@@ -23,20 +23,16 @@
 
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
 
-        /* HEADER */
         header {
             background: rgba(10, 25, 47, 0.9);
             backdrop-filter: blur(15px);
             padding: 20px 0;
             border-bottom: 2px solid var(--azul-electrico);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            position: sticky; top: 0; z-index: 1000;
         }
 
         .nav-flex { display: flex; justify-content: space-between; align-items: center; }
 
-        /* GRID DE CURSOS */
         .cursos-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -60,22 +56,8 @@
             box-shadow: 0 10px 30px rgba(0, 210, 255, 0.2);
         }
 
-        /* AJUSTE DE IMAGEN */
-        .card-img-container {
-            width: 100%;
-            height: 200px;
-            overflow: hidden;
-            background: #112240;
-        }
-
-        .card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.5s;
-        }
-
-        .card:hover img { transform: scale(1.1); }
+        .card-img-container { width: 100%; height: 200px; overflow: hidden; background: #112240; }
+        .card img { width: 100%; height: 100%; object-fit: cover; }
 
         .card-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
         
@@ -101,7 +83,6 @@
             cursor: pointer;
             transition: 0.3s;
         }
-
         .btn-add:hover { filter: brightness(1.2); }
 
         .btn-details {
@@ -121,7 +102,7 @@
 
 <header>
     <div class="container nav-flex">
-        <h2 style="margin:0;">CAE <span style="color:var(--azul-electrico)">2026</span></h2>
+        <h2 style="margin:0;">CAE <span style="color:var(--azul-electrico)">CARMEN PILAR</span></h2>
         <div style="display: flex; gap: 15px;">
             <a href="index.html" style="color:white; text-decoration:none;">Inicio</a>
             <a href="carrito.html" style="color:var(--azul-electrico); text-decoration:none; font-weight:bold;">🛒 Lista (<span id="cart-count">0</span>)</a>
@@ -131,42 +112,38 @@
 
 <div class="container">
     <h1 style="text-align:center; margin: 40px 0;">Catálogo de Especialidades</h1>
-    
-    <div id="cursos-grid" class="cursos-grid">
-        </div>
+    <div id="cursos-grid" class="cursos-grid"></div>
 </div>
 
 <script>
-    // BASE DE DATOS COMPLETA CON LOS 25 CURSOS
+    // TU LISTA DE 25 CURSOS REALES SIN ERRORES DE SINTAXIS NI DE MEMORIA
     const CURSOS = [
-        // 1 a 12: Tus cursos originales
-        { nombre: "Cocina Nacional", img: "cocina_nacional.jpg", cat: "Gastronomía" },
-        { nombre: "Panadería", img: "panaderia.jpg", cat: "Gastronomía" },
-        { nombre: "Repostería", img: "reposteria.jpg", cat: "Gastronomía" },
         { nombre: "Barbería", img: "barberia.jpg", cat: "Estética" },
-        { nombre: "Peluquería", img: "peluqueria.jpg", cat: "Estética" },
-        { nombre: "Estética de Uñas", img: "estetica_de_unas.jpg", cat: "Estética" },
-        { nombre: "Modistería", img: "modisteria.jpg", cat: "Textil" },
-        { nombre: "Lencería", img: "lenceria.jpg", cat: "Textil" },
-        { nombre: "Tejido y Crochet", img: "tejer.jpg", cat: "Textil" },
-        { nombre: "Electricidad", img: "electricidad.jpg", cat: "Técnica" },
-        { nombre: "Reparación de Equipos", img: "electrodomesticos.jpg", cat: "Técnica" },
+        { nombre: "Cocina Nacional", img: "cocina_nacional.jpg", cat: "Gastronomía" },
+        { nombre: "Cosmetología", img: "cosmetologia.jpg", cat: "Estética" },
         { nombre: "Dibujo Artístico", img: "dibujo_artistico.jpg", cat: "Arte" },
-
-        // 13 a 25: Nuevos agregados para completar los 25 cursos reales del CAE
+        { nombre: "Dulces Criollos", img: "dulces_criollos.jpg", cat: "Gastronomía" },
+        { nombre: "Electricidad", img: "electricidad.jpg", cat: "Técnica" },
+        { nombre: "Electrodomésticos", img: "electrodomesticos.jpg", cat: "Técnica" },
+        { nombre: "Estética Avanzada", img: "estetica_avanzada.jpg", cat: "Estética" },
+        { nombre: "Estética de Uñas", img: "estetica_de_unas.jpg", cat: "Estética" },
+        { nombre: "Lencería", img: "lenceria.jpg", cat: "Textil" },
+        { nombre: "Manicure y Pedicure", img: "manicure_pedicure.jpg", cat: "Estética" },
+        { nombre: "Manualidades", img: "manualidades.jpg", cat: "Arte" },
+        { nombre: "Masaje", img: "masaje.jpg", cat: "Estética" },
+        { nombre: "Masoterapia", img: "masoterapia.jpg", cat: "Estética" },
+        { nombre: "Modistería", img: "modisteria.jpg", cat: "Textil" },
+        { nombre: "Panadería", img: "panaderia.jpg", cat: "Gastronomía" },
+        { nombre: "Peluquería", img: "peluqueria.jpg", cat: "Estética" },
+        { nombre: "Pintura Artística", img: "pintura_artistica.jpg", cat: "Arte" },
+        { nombre: "Pintura Avanzada", img: "pintura_avanzada.jpg", cat: "Arte" },
+        { nombre: "Puntillismo Avanzado", img: "puntillismo_avanzado.jpg", cat: "Arte" },
+        { nombre: "Puntillismo Básico", img: "puntillismo_basico.jpg", cat: "Arte" },
+        { nombre: "Repostería", img: "reposteria.jpg", cat: "Gastronomía" },
+        { nombre: "Repostería y Pastelería", img: "reposteria_y_pasteleria.jpg", cat: "Gastronomía" },
         { nombre: "Ropa Íntima", img: "ropa_intima.jpg", cat: "Textil" },
-        { nombre: "Corte y Confección", img: "corte_y_confeccion.jpg", cat: "Textil" },
-        { nombre: "Patronaje Industrial", img: "patronaje.jpg", cat: "Textil" },
-        { nombre: "Comida Internacional", img: "comida_internacional.jpg", cat: "Gastronomía" },
-        { nombre: "Bartender y Coctelería", img: "bartender.jpg", cat: "Gastronomía" },
-        { nombre: "Manipulación de Alimentos", img: "manipulacion_alimentos.jpg", cat: "Gastronomía" },
-        { nombre: "Maquillaje Profesional", img: "maquillaje.jpg", cat: "Estética" },
-        { nombre: "Masoterapia y Spa", img: "masoterapia.jpg", cat: "Estética" },
-        { nombre: "Electrónica Básica", img: "electronica.jpg", cat: "Técnica" },
-        { nombre: "Soporte de Computadoras", img: "soporte_tecnico.jpg", cat: "Técnica" },
-        { nombre: "Mecánica de Motos", img: "mecanica_motos.jpg", cat: "Técnica" },
-        { nombre: "Pintura Decorativa", img: "pintura.jpg", cat: "Arte" },
-        { nombre: "Manualidades y Foami", img: "manualidades.jpg", cat: "Arte" }
+        { nombre: "Rostros", img: "rostros.jpg", cat: "Arte" },
+        { nombre: "Tejer", img: "tejer.jpg", cat: "Textil" }
     ];
 
     function renderCursos() {
@@ -203,11 +180,11 @@
 
     function actualizarContador() {
         let carrito = JSON.parse(localStorage.getItem('cart')) || [];
-        document.getElementById('cart-count').innerText = carrito.length;
+        const el = document.getElementById('cart-count');
+        if(el) el.innerText = carrito.length;
     }
 
     document.addEventListener('DOMContentLoaded', renderCursos);
 </script>
-
 </body>
 </html>
