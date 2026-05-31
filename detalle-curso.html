@@ -21,157 +21,132 @@
             background: rgba(10, 25, 47, 0.9);
             backdrop-filter: blur(15px);
             padding: 15px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 2px solid var(--electrico);
             position: sticky; top: 0; z-index: 1000;
         }
 
-        .header-brand { display: flex; align-items: center; gap: 15px; }
-        .header-brand img { height: 50px; }
+        .nav-container { 
+            display: flex; justify-content: space-between; align-items: center; 
+            max-width: 1200px; margin: 0 auto; padding: 0 20px; 
+        }
+        
+        .btn-back {
+            background: linear-gradient(135deg, var(--naranja), #ff9100);
+            color: white; padding: 10px 25px; border-radius: 50px; text-decoration: none; 
+            font-weight: bold; font-size: 0.8rem; box-shadow: 0 4px 0 #b34b00;
+            transition: 0.2s; display: inline-block;
+        }
+        .btn-back:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        .btn-back:active { transform: translateY(2px); box-shadow: none; }
 
-        nav { display: flex; align-items: center; gap: 20px; }
+        .detalle-container { max-width: 1000px; margin: 50px auto; padding: 20px; }
+        .detalle-flex { 
+            display: flex; gap: 40px; background: var(--glass); padding: 40px; 
+            border-radius: 24px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); 
+        }
+        .detalle-img { width: 45%; height: 380px; object-fit: cover; border-radius: 16px; border: 2px solid var(--electrico); }
+        .detalle-info { width: 55%; display: flex; flex-direction: column; justify-content: center; }
+        
+        .btn-add-detalle {
+            background: var(--electrico); color: var(--azul-p); font-weight: bold; border: none;
+            padding: 15px 25px; border-radius: 12px; cursor: pointer; font-size: 1rem; margin-top: 25px;
+            box-shadow: 0 4px 0 #0055b3; transition: 0.2s;
+        }
+        .btn-add-detalle:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        .btn-add-detalle:active { transform: translateY(2px); box-shadow: none; }
 
-        /* Botón de WhatsApp integrado de forma limpia en el Header superior */
-        .btn-header-whatsapp {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #25D366;
-            color: white;
-            text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            transition: 0.3s;
+        @media (max-width: 768px) {
+            .detalle-flex { flex-direction: column; }
+            .detalle-img, .detalle-info { width: 100%; }
+            .detalle-img { height: 240px; }
         }
-        .btn-header-whatsapp:hover {
-            background: #20ba5a;
-            transform: translateY(-2px);
-        }
-        
-        .detalle-container { 
-            max-width: 1000px; margin: 40px auto; padding: 20px; 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; 
-        }
-        
-        .img-box img { 
-            width: 100%; height: 350px; object-fit: cover; border-radius: 20px; 
-            border: 2px solid var(--electrico); box-shadow: 0 0 25px rgba(0, 210, 255, 0.2); 
-        }
-        
-        .info-box { 
-            background: var(--glass); padding: 40px; border-radius: 25px; 
-            border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; justify-content: center;
-        }
-        
-        .tag { background: var(--electrico); color: var(--azul-p); padding: 6px 15px; border-radius: 20px; font-weight: 800; font-size: 0.8rem; align-self: flex-start; }
-        
-        .btn-add { 
-            background: linear-gradient(135deg, var(--naranja), #ff9100); color: white; border: none; 
-            padding: 16px; width: 100%; border-radius: 14px; font-weight: bold; cursor: pointer; 
-            margin-top: 30px; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(255, 109, 0, 0.3);
-        }
-        .btn-add:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 109, 0, 0.5); }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="container" style="display:flex; justify-content:space-between; align-items:center; max-width:1200px; margin:0 auto; padding:0 20px; width:100%; box-sizing:border-box;">
-            <div class="header-brand">
-                <a href="cursos.html" style="color:var(--electrico); text-decoration:none; font-weight:bold; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">⬅ Volver al Catálogo</a>
+        <div class="nav-container">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <img src="img/logo.png" height="50" onerror="this.src='img/logo.png'">
+                <h2 style="margin:0; font-size:1.2rem; letter-spacing: 1px;">CAE CARMEN PILAR</h2>
             </div>
-            <nav>
-                <a href="index.html" style="color:white; text-decoration:none;">Inicio</a>
-                
-                <a href="https://wa.me/584243360158?text=Hola%20Bladimir,%20estoy%20viendo%20los%20detalles%20de%20un%20curso%20y%20tengo%20preguntas." 
-                   target="_blank" class="btn-header-whatsapp">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 16 16">
-                      <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.69-4.98c-.202-.101-1.194-.588-1.378-.654-.184-.066-.317-.099-.45.099-.132.199-.512.654-.627.787-.114.133-.23.149-.43.049-.2-.1-.843-.311-1.607-.994-.594-.53-1.002-1.185-1.119-1.385-.116-.2-.012-.308.087-.407.091-.089.202-.234.302-.35.101-.117.135-.198.203-.331.066-.133.033-.25-.016-.35-.049-.1-.45-1.085-.617-1.485-.162-.395-.327-.341-.45-.347-.116-.006-.25-.006-.384-.006-.134 0-.353.05-.537.25-.184.2-.703.687-.703 1.677 0 .99.72 1.947.82 2.082.102.135 1.417 2.164 3.435 3.033.48.207.854.33 1.146.422.481.153.918.132 1.264.08.384-.057 1.194-.488 1.362-.958.168-.471.168-.875.118-.958-.05-.084-.185-.133-.386-.233z"/>
-                   </svg>
-                   WhatsApp
-                </a>
-            </nav>
+            <a href="cursos.html" class="btn-back">⬅ VOLVER AL CATÁLOGO</a>
         </div>
     </header>
 
-    <div id="contenido-detalle" class="detalle-container"></div>
+    <main class="detalle-container" id="detalle-root"></main>
 
+    <script src="script.js"></script>
     <script>
-        const params = new URLSearchParams(window.location.search);
-        const nombreCurso = params.get('curso') || "Curso Técnico";
-
-        // Diccionario completo emparejado con descripciones robustas reales de tu oferta académica
-        const CURSO_DATA = {
-            "Barbería": { d: "Aprende técnicas modernas de corte masculino, perfilado, uso correcto de navaja y diseño estructural de barba.", r: "Cédula de identidad, ser mayor de 15 años.", t: "3 meses", i: "barberia.jpg" },
-            "Estética Avanzada": { d: "Capacitación profunda en tratamientos faciales, peeling, aparatología de belleza y rejuvenecimiento cutáneo.", r: "Cédula de identidad, nociones básicas de estética.", t: "4 meses", i: "estetica_avanzada.jpg" },
-            "Masaje Corporales": { d: "Técnicas de relajación muscular, manejo del estrés corporal, anatomía básica y masajes antiestrés.", r: "Cédula de identidad, sábanas o toalla grande para prácticas.", t: "3 meses", i: "masaje.jpg" },
-            "Puntillismo Avanzado": { d: "Arte decorativo de alta precisión sobre múltiples superficies. Teoría avanzada del color y composiciones complejas.", r: "Cédula de identidad, pinturas acrílicas y punzones.", t: "3 meses", i: "puntillismo_avanzado.jpg" },
-            "Estética de Uñas": { d: "Dominio de sistemas de uñas acrílicas, gel, polygel, técnicas de limado y esmaltado semipermanente de tendencia.", r: "Cédula de identidad, kit básico de manicura.", t: "3 meses", i: "estetica_de_unas.jpg" },
-            "Masoterapia": { d: "Especialización técnica en masajes terapéuticos para el alivio de dolencias, contracturas musculares y rehabilitación preventiva.", r: "Cédula de identidad, aceite corporal.", t: "4 meses", i: "masoterapia.jpg" },
-            "Puntillismo Básico": { d: "Introducción a la técnica milenaria del puntillismo. Control de pulso, herramientas básicas y mandalas iniciales.", r: "Cédula de identidad, block de dibujo y pinturas.", t: "2 meses", i: "puntillismo_basico.jpg" },
-            "Cosmetología": { d: "Estudio técnico del cuidado e higiene de la piel sana, análisis cutáneo, productos cosméticos y mascarillas.", r: "Cédula de identidad, bata blanca.", t: "4 meses", i: "cosmetologia.jpg" },
-            "Modistería": { d: "Diseño, patronaje y confección de prendas de vestir desde cero. Manejo técnico de máquinas de coser caseras e industriales.", r: "Cédula de identidad, cinta métrica, tijeras de tela.", t: "5 meses", i: "modisteria.jpg" },
-            "Repostería": { d: "Elaboración profesional de tortas, bizcochos, batidos pesados, cremas de cobertura y técnicas de decoración comercial.", r: "Cédula de identidad, moldes básicos.", t: "3 meses", i: "reposteria.jpg" },
-            "Dibujo Artístico": { d: "Desarrollo de habilidades de dibujo a mano alzada, técnicas de sombreado, perspectiva, proporciones y naturaleza muerta.", r: "Cédula de identidad, lápices de dibujo (2B, 4B, 6B).", t: "3 meses", i: "dibujo_artistico.jpg" },
-            "Lencería": { d: "Confección y diseño de lencería para el hogar: sábanas, fundas, edredones, mantelería y cortinas decorativas.", r: "Cédula de identidad, telas asignadas para la primera fase.", t: "3 meses", i: "lenceria.jpg" },
-            "Panadería": { d: "Domina el comportamiento de las levaduras, masas dulces, saladas, pan campesino, panes aliñados y técnicas de horneado.", r: "Cédula de identidad, delantal, gorro y paño de cocina.", t: "3 meses", i: "panaderia.jpg" },
-            "Pastelería": { d: "Manejo de masas quebradas, hojaldre, mousses, tartas frías, glaseados brillantes y postres de vitrina gourmet.", r: "Cédula de identidad, manga pastelera y boquillas.", t: "3 meses", i: "reposteria_y_pasteleria.jpg" },
-            "Dulces Criollos": { d: "Rescate culinario de la dulcería tradicional de nuestra región: majarete, dulces en almíbar, jaleas y conservas.", r: "Cédula de identidad, ingredientes según cronograma.", t: "2 meses", i: "dulces_criollos.jpg" },
-            "Peluquería": { d: "Estilismo integral: lavado, secado, planchado, técnicas de corte de cabello damas, tintes básicos y peinados.", r: "Cédula de identidad, secador de cabello o herramientas disponibles.", t: "4 meses", i: "peluqueria.jpg" },
-            "Ropa Íntima": { d: "Patronaje elástico y confección especializada de ropa interior para damas, caballeros y niños utilizando materiales finos.", r: "Cédula de identidad, hilos elásticos y telas lycra.", t: "3 meses", i: "ropa_intima.jpg" },
-            "Electricidad": { d: "Fundamentos de electricidad residencial: circuitos básicos, interruptores, tableros de distribución y normas de seguridad.", r: "Cédula de identidad, alicate de electricista y destornilladores.", t: "4 meses", i: "electricidad.jpg" },
-            "Manicure y Pedicure": { d: "Cuidado estético e higiénico de manos y pies. Técnicas de limado, retiro de cutícula, masajes e hidratación.", r: "Cédula de identidad, cortaúñas y limas personales.", t: "2 meses", i: "manicure_pedicure.jpg" },
-            "Pintura Artística": { d: "Introducción a los lienzos, técnicas de óleo, acrílico, acuarela, mezcla cromática y composición de paisajes.", r: "Cédula de identidad, pinceles de cerda suave.", t: "4 meses", i: "pintura_artistica.jpg" },
-            "Rostros": { d: "Especialización en dibujo anatómico facial: ojos, nariz, boca, expresiones de edad, estructuras óseas y retrato realista.", r: "Cédula de identidad, block técnico de dibujo.", t: "3 meses", i: "rostros.jpg" },
-            "Electrodomésticos": { d: "Reparación y diagnóstico de fallas mecánicas y eléctricas comunes en licuadoras, ventiladores, microondas y planchas.", r: "Cédula de identidad, multímetro básico.", t: "4 meses", i: "electrodomesticos.jpg" },
-            "Manualidades": { d: "Creación de artículos decorativos y utilitarios empleando técnicas de reciclaje, foami, cartón rígido y masa flexible.", r: "Cédula de identidad, tijeras y silicón líquido.", t: "3 meses", i: "manualidades.jpg" },
-            "Pintura Avanzada": { d: "Técnicas realistas avanzadas sobre lienzo de gran formato. Texturizados, veladuras de óleo y desarrollo de estilo propio.", r: "Cédula de identidad, lienzos asignados para el módulo.", t: "4 meses", i: "pintura_avanzada.jpg" },
-            "Tejido y Crochet": { d: "Aprende a leer patrones, dominar puntos básicos y avanzados a crochet para confeccionar suéteres, gorros y amigurumis.", r: "Cédula de identidad, agujas de crochet y lana.", t: "3 meses", i: "tejer.jpg" }
+        // Diccionario base de datos histórica con las claves estandarizadas
+        const CURSOS_DATA = {
+            "cocina_nacional": { d: "Aprende las raíces culinarias de nuestro país, platos típicos regionales, técnicas de cocción tradicionales y manipulación higiénica de alimentos.", r: "Cédula de identidad, delantal, gorro y paño de cocina.", t: "3 meses", i: "cocina_nacional.jpg" },
+            "panaderia": { d: "Domina el comportamiento de las levaduras, masas dulces, saladas, pan campesino, panes aliñados y técnicas de horneado.", r: "Cédula de identidad, delantal, gorro y paño de cocina.", t: "3 meses", i: "panaderia.jpg" },
+            "reposteria": { d: "Elaboración profesional de tortas, bizcochos, batidos pesados, cremas de cobertura y técnicas de decoración comercial.", r: "Cédula de identidad, moldes básicos.", t: "3 meses", i: "reposteria.jpg" },
+            "lenceria": { d: "Confección y diseño de lencería para el hogar: sábanas, fundas, edredones, mantelería y cortinas decorativas.", r: "Cédula de identidad, telas asignadas para la primera fase.", t: "3 meses", i: "lenceria.jpg" },
+            "ropa_intima": { d: "Diseño, patronaje y confección de prendas íntimas femeninas y masculinas, manejo de telas elásticas y encajes.", r: "Cédula de identidad, hilos y agujas punta de bola.", t: "3 meses", i: "ropa_intima.jpg" },
+            "modisteria": { d: "Patronaje y confección avanzada de prendas de vestir femeninas, ropa casual, vestidos y adaptaciones de costura.", r: "Cédula de identidad, cinta métrica, tijeras de tela.", t: "5 meses", i: "modisteria.jpg" },
+            "corte_y_confeccion": { d: "Técnicas fundamentales de corte de textiles, uso de máquinas de coser e interpretación de patrones básicos.", r: "Cédula de identidad, tijeras de tela.", t: "4 meses", i: "corte_y_confeccion.jpg" },
+            "barberia": { d: "Cortes clásicos y modernos para caballeros, diseño de barba, uso correcto de barberas y técnicas de degradado (fade).", r: "Cédula de identidad, máquinas e insumos propios de práctica.", t: "4 meses", i: "barberia.jpg" },
+            "estetica_de_unas": { d: "Manicure y pedicure básico, sistemas de uñas artificiales en acrílico, gel, decoraciones en tendencia y bioseguridad.", r: "Cédula de identidad, cortaúñas, limas.", t: "3 meses", i: "estetica_de_unas.jpg" }
         };
 
         function cargar() {
-            const cont = document.getElementById('contenido-detalle');
-            
-            // Busca los datos del curso seleccionado. Si no existe, genera datos lógicos por defecto
-            const info = CURSO_DATA[nombreCurso] || { 
-                d: "Formación técnica profesional especializada. Capacitación práctica diseñada para la inserción en el nuevo mercado laboral 2026.", 
-                r: "Cédula de identidad, ser mayor de 15 años.", 
-                t: "3 meses", 
-                i: "logo.png" 
-            };
+            const params = new URLSearchParams(window.location.search);
+            const nombreCurso = params.get('curso') || '';
 
-            cont.innerHTML = `
-                <div class="img-box">
-                    <img src="img/${info.i}" onerror="handleFallbackImg(this, '${info.i}')">
-                </div>
-                <div class="info-box">
-                    <span class="tag">FORMACIÓN GRATUITA 2026</span>
-                    <h1 style="color:var(--electrico); font-size:2.6rem; margin:15px 0 10px;">${nombreCurso}</h1>
-                    <p style="color:rgba(255,255,255,0.85); line-height:1.7; font-size:1.1rem; margin-bottom: 25px;">${info.d}</p>
-                    <hr style="border:0; border-top:1px solid rgba(255,255,255,0.15); margin:20px 0;">
-                    <p style="font-size:1.1rem; margin: 10px 0;">🕒 <b style="color:var(--electrico);">Duración del trayecto:</b> ${info.t}</p>
-                    <p style="font-size:1.1rem; margin: 10px 0;">📝 <b style="color:var(--electrico);">Requisitos obligatorios:</b> ${info.r}</p>
-                    <button onclick="agregar('${nombreCurso}', 'img/${info.i}')" class="btn-add">✚ SELECCIONAR ESTE CURSO</button>
+            // MEJORA OPCIÓN A: Convertir dinámicamente "Cocina Nacional" a "cocina_nacional" antes de buscar
+            let claveLimpia = "";
+            if (typeof limpiarParaImagen === 'function') {
+                claveLimpia = limpiarParaImagen(nombreCurso);
+            } else {
+                // Alternativa de seguridad si no encuentra script.js
+                claveLimpia = nombreCurso.toLowerCase().trim()
+                    .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Quita tildes
+                    .replace(/\s+/g, "_")                           // Espacios por guiones bajos
+                    .replace(/[^\w]/g, "");                         // Quita símbolos extraños
+            }
+
+            const info = CURSOS_DATA[claveLimpia];
+            const root = document.getElementById('detalle-root');
+
+            if(!root) {
+                console.error("Error crítico: No se encontró el contenedor HTML 'detalle-root'.");
+                return;
+            }
+
+            if(!info) {
+                root.innerHTML = `
+                    <div style="text-align:center; padding: 50px 0; width: 100%;">
+                        <h2 style="color:var(--naranja);">⚠️ Especialidad formativa no encontrada</h2>
+                        <p style="opacity:0.7;">No se pudo sincronizar el contenido para "${nombreCurso}".</p>
+                        <a href="cursos.html" style="color:var(--electrico); font-weight:bold; text-decoration:none; display:inline-block; margin-top:15px;">← Volver al catálogo</a>
+                    </div>`;
+                return;
+            }
+
+            root.innerHTML = `
+                <div class="detalle-flex">
+                    <img src="img/${info.i}" alt="${nombreCurso}" class="detalle-img" onerror="this.src='img/logo.png'">
+                    <div class="detalle-info">
+                        <span style="font-size:0.8rem; background:rgba(0,210,255,0.1); color:var(--electrico); padding:5px 12px; border-radius:50px; font-weight:bold; width:max-content; text-transform:uppercase;">FORMACIÓN CERTIFICADA</span>
+                        <h1 style="font-size:2.2rem; margin:15px 0 10px 0; color:var(--electrico);">${nombreCurso}</h1>
+                        <p class="description" style="color:rgba(255,255,255,0.7); font-size:1rem; line-height:1.5; margin-bottom: 20px;">${info.d}</p>
+                        
+                        <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+                            <p style="margin:8px 0;">⏱️ <b>Duración del trayecto:</b> ${info.t}</p>
+                            <p style="margin:8px 0;">📝 <b>Requisitos obligatorios:</b> ${info.r}</p>
+                            <p style="margin:8px 0;">💰 <b>Costo académico:</b> <span style="color:#25D366; font-weight:bold;">Completamente Gratuito</span></p>
+                        </div>
+
+                        <button onclick="agregar('${nombreCurso}', 'img/${info.i}')" class="btn-add-detalle">✚ SELECCIONAR ESTE CURSO</button>
+                    </div>
                 </div>
             `;
         }
 
-        // Sistema alternativo de seguridad por si el servidor demora en actualizar mayúsculas locales
-        function handleFallbackImg(imgElement, originalSrc) {
-            if (originalSrc === "cosmetologia.jpg") {
-                imgElement.src = "img/Cosmetologia.jpg";
-            } else if (originalSrc === "tejer.jpg") {
-                imgElement.src = "img/Tejer.jpg";
-            } else {
-                imgElement.src = 'img/logo.png';
-            }
-        }
-
         function agregar(n, img) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            
             if(!cart.find(x => x.nombre.trim().toLowerCase() === n.trim().toLowerCase())) {
                 cart.push({nombre: n.trim(), imagen: img});
                 localStorage.setItem('cart', JSON.stringify(cart));
@@ -182,7 +157,7 @@
             }
         }
         
-        cargar();
+        document.addEventListener('DOMContentLoaded', cargar);
     </script>
 </body>
 </html>
