@@ -20,7 +20,7 @@
             min-height: 100vh;
         }
 
-        /* --- MEJORA: HEADER CON WHATSAPP ARRIBA A LA DERECHA --- */
+        /* HEADER CON WHATSAPP ARRIBA A LA DERECHA */
         header {
             padding: 20px 40px;
             display: flex;
@@ -48,7 +48,7 @@
 
         .btn-whatsapp-top:hover { transform: scale(1.05); background: #1eb954; }
 
-        /* --- CONTENEDOR CENTRAL --- */
+        /* CONTENEDOR CENTRAL */
         .main-content {
             display: flex;
             align-items: center;
@@ -102,7 +102,7 @@
 
         .btn-enviar:active { transform: translateY(4px); box-shadow: none; }
 
-        /* --- CHATBOT FLOTANTE (SOLO IZQUIERDA) --- */
+        /* CHATBOT FLOTANTE (IZQUIERDA) */
         .chatbot-trigger {
             position: fixed;
             bottom: 30px;
@@ -125,7 +125,8 @@
 <body>
 
     <header>
-        <a href="carrito_13.html" style="color: var(--azul-electrico); text-decoration: none; font-weight: bold; font-size: 0.9rem;">⬅ VOLVER</a>
+        <a href="carrito.html" style="color: var(--azul-electrico); text-decoration: none; font-weight: bold; font-size: 0.9rem;">⬅ VOLVER</a>
+        
         <a href="https://wa.me/584243360158" target="_blank" class="btn-whatsapp-top">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="18" style="filter: brightness(0) invert(1);">
             AYUDA WHATSAPP
@@ -160,12 +161,11 @@
         </div>
     </div>
 
-    <!-- BOTÓN CHATBOT (IZQUIERDA) -->
     <div class="chatbot-trigger" onclick="toggleChat()">
         <img src="img/chatbot.png" style="width:35px;" onerror="this.src='img/logo.png'">
     </div>
 
-    <script src="chatbot_9.js"></script>
+    <script src="chatbot.js"></script>
     <script>
         document.getElementById('form-registro').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -186,15 +186,12 @@
                 fecha: new Date().toLocaleDateString()
             };
 
-            // Guardar en la "Base de Datos" (Admin)[cite: 13]
             let bd = JSON.parse(localStorage.getItem('base_datos_inscritos')) || [];
             bd.push(registro);
             localStorage.setItem('base_datos_inscritos', JSON.stringify(bd));
 
-            // Limpiar Carrito
             localStorage.removeItem('cart');
 
-            // Mostrar Éxito
             document.getElementById('seccion-formulario').style.display = 'none';
             document.getElementById('mensaje-exito').style.display = 'block';
             document.getElementById('resumen-ticket').innerHTML = `
@@ -205,7 +202,6 @@
         });
 
         function toggleChat() {
-            // Esta función llama al toggleChat de tu chatbot_9.js
             if(typeof window.toggleChat === 'function') {
                 window.toggleChat();
             } else {
