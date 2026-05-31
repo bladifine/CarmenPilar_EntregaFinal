@@ -20,7 +20,7 @@
             min-height: 100vh;
         }
 
-        /* HEADER CON WHATSAPP ARRIBA A LA DERECHA */
+        /* --- HEADER CON WHATSAPP ARRIBA A LA DERECHA --- */
         header {
             padding: 20px 40px;
             display: flex;
@@ -48,7 +48,7 @@
 
         .btn-whatsapp-top:hover { transform: scale(1.05); background: #1eb954; }
 
-        /* CONTENEDOR CENTRAL */
+        /* --- CONTENEDOR CENTRAL --- */
         .main-content {
             display: flex;
             align-items: center;
@@ -100,9 +100,10 @@
             box-shadow: 0 6px 0 #b34b00;
         }
 
+        .btn-enviar:disabled { background: #555 !important; box-shadow: none; cursor: not-allowed; }
         .btn-enviar:active { transform: translateY(4px); box-shadow: none; }
 
-        /* CHATBOT FLOTANTE (IZQUIERDA) */
+        /* --- CHATBOT FLOTANTE --- */
         .chatbot-trigger {
             position: fixed;
             bottom: 30px;
@@ -126,7 +127,6 @@
 
     <header>
         <a href="carrito.html" style="color: var(--azul-electrico); text-decoration: none; font-weight: bold; font-size: 0.9rem;">⬅ VOLVER</a>
-        
         <a href="https://wa.me/584243360158" target="_blank" class="btn-whatsapp-top">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="18" style="filter: brightness(0) invert(1);">
             AYUDA WHATSAPP
@@ -149,14 +149,14 @@
                     <label>WhatsApp de Contacto</label>
                     <input type="tel" id="telefono" required placeholder="Ej. 04121234567">
                 </div>
-                <button type="submit" class="btn-enviar">CONFIRMAR INSCRIPCIÓN 🚀</button>
+                <button type="submit" id="btn-submit-form" class="btn-enviar">CONFIRMAR INSCRIPCIÓN 🚀</button>
             </form>
         </div>
 
         <div class="form-container" id="mensaje-exito">
             <div style="font-size: 4rem;">✅</div>
             <h2 style="color:#25D366;">¡REGISTRO EXITOSO!</h2>
-            <p id="resumen-ticket" style="background:rgba(255,255,255,0.1); padding:15px; border-radius:10px; margin:20px 0; font-family: monospace; line-height: 1.6;"></p>
+            <p id="resumen-ticket" style="background:rgba(255,255,255,0.1); padding:15px; border-radius:10px; margin:20px 0; font-family: monospace; line-height: 1.6; text-align: left;"></p>
             <button onclick="window.location.href='index.html'" class="btn-enviar" style="background:#1a237e; box-shadow: 0 6px 0 #0d144a;">VOLVER AL INICIO</button>
         </div>
     </div>
@@ -170,6 +170,10 @@
         document.getElementById('form-registro').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            const btnSubmit = document.getElementById('btn-submit-form');
+            btnSubmit.disabled = true;
+            btnSubmit.innerText = "PROCESANDO...";
+
             const n = document.getElementById('nombre').value;
             const c = document.getElementById('cedula').value;
             const t = document.getElementById('telefono').value;
@@ -186,19 +190,55 @@
                 fecha: new Date().toLocaleDateString()
             };
 
-            let bd = JSON.parse(localStorage.getItem('base_datos_inscritos')) || [];
-            bd.push(registro);
-            localStorage.setItem('base_datos_inscritos', JSON.stringify(bd));
+            // ================================================================
+            // LÓGICA DE DETECCIÓN AUTOMÁTICA DE TU URL DE FIREBASE 2026
+            // ================================================================
+            let projectId = "";
+            const host = window.location.hostname;
 
-            localStorage.removeItem('cart');
+            if (host.includes(".web.app") || host.includes(".firebaseapp.com")) {
+                // Si la página ya está subida a internet en Firebase, extrae el ID automáticamente
+                projectId = host.replace(".web.app", "").replace(".firebaseapp.com", "");
+            } else {
+                // SI ESTÁS HACIENDO PRUEBAS EN TU COMPUTADORA (localhost / Escritorio):
+                // Escribe aquí abajo el nombre exacto de tu proyecto de Firebase entre las comillas
+                projectId = "tu-proyecto-aquí"; 
+            }
 
-            document.getElementById('seccion-formulario').style.display = 'none';
-            document.getElementById('mensaje-exito').style.display = 'block';
-            document.getElementById('resumen-ticket').innerHTML = `
-                <b>ID:</b> ${registro.id}<br>
-                <b>ESTUDIANTE:</b> ${n}<br>
-                <b>CURSOS:</b> ${cursosNombres}
-            `;
+            // Esta es la estructura exacta que Firebase Realtime Database usa a nivel mundial:
+            const FIREBASE_URL = `https://${projectId}-default-rtdb.firebaseio.com/inscritos.json`;
+
+            // Enviar los datos directamente a la nube
+            fetch(FIREBASE_URL, {
+                method: "POST",
+                body: JSON.stringify(registro),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => {
+                if(response.ok) {
+                    localStorage.removeItem('cart');
+                    document.getElementById('seccion-formulario').style.display = 'none';
+                    document.getElementById('mensaje-exito').style.display = 'block';
+                    document.getElementById('resumen-ticket').innerHTML = `
+                        <b>ID:</b> ${registro.id}<br>
+                        <b>ESTUDIANTE:</b> ${n}<br>
+                        <b>CURSOS:</b> ${cursosNombres}<br>
+                        <b>ESTADO:</b> Guardado en Servidor Nube
+                    `;
+                } else {
+                    alert("Error en el servidor de Firebase. Verifica el ID de tu proyecto.");
+                    btnSubmit.disabled = false;
+                    btnSubmit.innerText = "CONFIRMAR INSCRIPCIÓN 🚀";
+                }
+            })
+            .catch(error => {
+                console.error("Error completo:", error);
+                alert("Error de conexión. Asegúrate de haber colocado el ID correcto de tu proyecto de Firebase.");
+                btnSubmit.disabled = false;
+                btnSubmit.innerText = "CONFIRMAR INSCRIPCIÓN 🚀";
+            });
         });
 
         function toggleChat() {
