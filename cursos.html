@@ -59,6 +59,7 @@
             transition: all 0.15s ease-in-out;
             border: none;
             cursor: pointer;
+            display: inline-block;
         }
 
         .btn-orange {
@@ -132,7 +133,7 @@
                 <h1 style="margin: 0; font-size: 1.4rem; letter-spacing: 1px;">CAE <span style="color: var(--azul-electrico)">CARMEN PILAR</span></h1>
             </div>
             <div class="nav-links">
-                <a href="index.html" class="btn-nav-226 btn-orange">Inicio</a>
+                <a href="index.html" class="btn-nav-2026 btn-orange">Inicio</a>
                 <a href="carrito.html" class="btn-nav-2026 btn-blue">🛒 Mi Lista (<span id="cart-count">0</span>)</a>
                 <a href="https://wa.me/584243360158" target="_blank" class="btn-nav-2026 btn-green">WhatsApp</a>
             </div>
@@ -190,7 +191,7 @@
             if (!grid) return;
             
             grid.innerHTML = BASE_DATOS_CURSOS.map(curso => {
-                const urlDetalle = `detalle-curso.html?curso=${encodeURIComponent(curso.n)}`;
+                const urlDetalle = `detalle-curso.html?curso=${encodeURIComponent(curso.n.trim())}`;
                 return `
                     <div class="card" data-name="${curso.n.toLowerCase()}" data-cat="${curso.c.toLowerCase()}">
                         <img src="img/${curso.i}" onerror="this.src='img/logo.png'">
