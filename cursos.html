@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Cursos | BotEduCarmen</title>
+    <title>Cursos 2026 | BotEduCarmen</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         .courses-grid { 
@@ -15,10 +15,11 @@
             border: 1px solid rgba(255,255,255,0.1); transition: 0.4s;
         }
         .course-card:hover { transform: translateY(-10px); border-color: #00d2ff; }
-        .course-img-wrapper { width: 100%; height: 200px; cursor: pointer; overflow: hidden; }
+        .course-img-wrapper { width: 100%; height: 180px; cursor: pointer; overflow: hidden; background: #000; }
         .course-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
         .course-info { padding: 20px; text-align: center; }
-        .course-info h3 { margin: 0 0 15px; font-size: 1.1rem; min-height: 50px; }
+        .course-info h3 { margin: 0 0 15px; font-size: 1rem; min-height: 45px; text-transform: uppercase; }
+        
         .btn-select {
             background: linear-gradient(135deg, #ff6d00, #ff9100);
             color: white; border: none; padding: 12px; width: 100%; border-radius: 12px;
@@ -28,13 +29,14 @@
             background: transparent; color: #00d2ff; border: 1px solid #00d2ff;
             padding: 10px; width: 100%; border-radius: 12px; cursor: pointer;
         }
+
         .float-btn {
             position: fixed; width: 60px; height: 60px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             cursor: pointer; z-index: 2000; transition: 0.3s;
         }
         .btn-ia { bottom: 30px; right: 30px; background: linear-gradient(135deg, #00d2ff, #0077ff); }
-        .btn-scroll { bottom: 30px; left: 30px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); color: white; display: none; }
+        .btn-scroll { bottom: 30px; left: 30px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); color: white; display: none; border:none; font-size: 20px; }
     </style>
 </head>
 <body>
@@ -56,42 +58,55 @@
 
     <div class="courses-grid" id="cursos-grid"></div>
 
-    <!-- MODAL DEL CHATBOT -->
+    <!-- CHATBOT -->
     <div id="chat-container" class="chat-modal" style="display: none;">
         <div class="chat-header">
-            <span>Asistente Académico</span>
-            <button onclick="toggleChat()" style="background:none; border:none; color:black; font-size:20px; cursor:pointer;">&times;</button>
+            <span>Asistente IA</span>
+            <button onclick="toggleChat()" style="background:none; border:none; cursor:pointer; font-size:20px;">&times;</button>
         </div>
         <div id="chat-messages" class="chat-body">
-            <div class="msg bot-msg">¡Hola! Soy tu asistente de CAE Carmen Pilar. ¿En qué curso estás interesado hoy?</div>
+            <div class="msg bot-msg">Hola, ¿en qué curso de la lista te gustaría inscribirte?</div>
         </div>
         <div class="chat-footer">
-            <input type="text" id="user-input" placeholder="Pregunta algo...">
+            <input type="text" id="user-input" placeholder="Escribe aquí...">
             <button onclick="sendMessage()">➤</button>
         </div>
     </div>
 
-    <!-- BOTONES FLOTANTES -->
     <div class="float-btn btn-ia" onclick="toggleChat()">
-        <img src="img/chatbot.png" width="35">
+        <img src="img/chatbot.png" width="35" onerror="this.src='img/logo.png'">
     </div>
     <button class="float-btn btn-scroll" id="scrollTop" onclick="window.scrollTo({top:0, behavior:'smooth'})">⬆</button>
 
     <script>
+        // LISTA MAPEADA EXACTAMENTE CON TU COMANDO LS
         const MIS_CURSOS = [
-            { name: "Modistería", img: "img/modisteria.jpg" }, { name: "Cocina Bilingüe", img: "img/cocina.jpg" },
-            { name: "Barbería Profesional", img: "img/barberia.jpg" }, { name: "Estética de Uñas", img: "img/estetica_de_unas.jpg" },
-            { name: "Corte y Confección", img: "img/corte_y_confeccion.jpg" }, { name: "Lencería", img: "img/lenceria.jpg" },
-            { name: "Ropa Infantil", img: "img/ropa_infantil.jpg" }, { name: "Sastrería", img: "img/sastreria.jpg" },
-            { name: "Pastelería", img: "img/pasteleria.jpg" }, { name: "Panadería Artesanal", img: "img/panaderia.jpg" },
-            { name: "Peluquería", img: "img/peluqueria.jpg" }, { name: "Maquillaje Profesional", img: "img/maquillaje.jpg" },
-            { name: "Cejas y Pestañas", img: "img/cejas.jpg" }, { name: "Masajes", img: "img/masajes.jpg" },
-            { name: "Primeros Auxilios", img: "img/primeros_auxilios.jpg" }, { name: "Reparación de Celulares", img: "img/celulares.jpg" },
-            { name: "Electrónica", img: "img/electronica.jpg" }, { name: "Informática", img: "img/informatica.jpg" },
-            { name: "Diseño Gráfico", img: "img/diseno.jpg" }, { name: "Inglés", img: "img/ingles.jpg" },
-            { name: "Contabilidad", img: "img/contabilidad.jpg" }, { name: "Asistente Administrativo", img: "img/asistente.jpg" },
-            { name: "Manualidades", img: "img/manualidades.jpg" }, { name: "Pintura sobre Tela", img: "img/pintura.jpg" },
-            { name: "Decoración", img: "img/decoracion.jpg" }
+            { name: "Barbería", img: "img/barberia.jpg" },
+            { name: "Cocina Nacional", img: "img/cocina_nacional.jpg" },
+            { name: "Cosmetología", img: "img/cosmetologia.jpg" },
+            { name: "Dibujo Artístico", img: "img/dibujo_artistico.jpg" },
+            { name: "Dulces Criollos", img: "img/dulces_criollos.jpg" },
+            { name: "Electricidad", img: "img/electricidad.jpg" },
+            { name: "Reparación de Electrodomésticos", img: "img/electrodomesticos.jpg" },
+            { name: "Estética Avanzada", img: "img/estetica_avanzada.jpg" },
+            { name: "Estética de Uñas", img: "img/estetica_de_unas.jpg" },
+            { name: "Lencería", img: "img/lenceria.jpg" },
+            { name: "Manicure y Pedicure", img: "img/manicure_pedicure.jpg" },
+            { name: "Manualidades", img: "img/manualidades.jpg" },
+            { name: "Masaje Terapéutico", img: "img/masaje.jpg" },
+            { name: "Masoterapia", img: "img/masoterapia.jpg" },
+            { name: "Modistería", img: "img/modisteria.jpg" },
+            { name: "Panadería", img: "img/panaderia.jpg" },
+            { name: "Peluquería", img: "img/peluqueria.jpg" },
+            { name: "Pintura Artística", img: "img/pintura_artistica.jpg" },
+            { name: "Pintura Avanzada", img: "img/pintura_avanzada.jpg" },
+            { name: "Puntillismo Básico", img: "img/puntillismo_basico.jpg" },
+            { name: "Puntillismo Avanzado", img: "img/puntillismo_avanzado.jpg" },
+            { name: "Repostería", img: "img/reposteria.jpg" },
+            { name: "Repostería y Pastelería", img: "img/reposteria_y_pasteleria.jpg" },
+            { name: "Ropa Íntima", img: "img/ropa_intima.jpg" },
+            { name: "Rostros", img: "img/rostros.jpg" },
+            { name: "Tejer", img: "img/tejer.jpg" }
         ];
 
         function render() {
@@ -112,7 +127,6 @@
         }
 
         function ver(n) { window.location.href = `detalle-curso.html?curso=${encodeURIComponent(n)}`; }
-
         function add(n, i) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             if(!cart.find(x => x.nombre === n)) {
@@ -121,35 +135,25 @@
                 updateCounter();
             }
         }
-
         function updateCounter() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             document.getElementById('cart-count').innerText = cart.length;
         }
-
         function toggleChat() {
             const chat = document.getElementById('chat-container');
             chat.style.display = (chat.style.display === 'none' || chat.style.display === '') ? 'flex' : 'none';
         }
-
         function sendMessage() {
             const input = document.getElementById('user-input');
             const msgs = document.getElementById('chat-messages');
             if(!input.value.trim()) return;
-
             msgs.innerHTML += `<div class="msg user-msg">${input.value}</div>`;
-            setTimeout(() => {
-                msgs.innerHTML += `<div class="msg bot-msg">Estamos procesando tu consulta sobre nuestros cursos 2026. ¡Un asesor te contactará pronto!</div>`;
-                msgs.scrollTop = msgs.scrollHeight;
-            }, 1000);
             input.value = '';
             msgs.scrollTop = msgs.scrollHeight;
         }
-
         window.onscroll = function() {
             document.getElementById('scrollTop').style.display = (window.pageYOffset > 400) ? 'flex' : 'none';
         };
-
         window.onload = render;
     </script>
 </body>
