@@ -24,7 +24,7 @@
             background-image: radial-gradient(circle at top right, rgba(0, 210, 255, 0.15), transparent);
         }
 
-        /* BARRA SUPERIOR RESTAURADA */
+        /* BARRA SUPERIOR */
         .top-bar {
             background: var(--azul-primario);
             color: var(--azul-electrico);
@@ -42,7 +42,7 @@
             padding: 0 25px;
         }
 
-        /* NAVEGACIÓN RECOBRADA */
+        /* NAVEGACIÓN MODERNA */
         header {
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(15px);
@@ -53,7 +53,7 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
 
-        /* SISTEMA DE BOTONES 3D DE TU INDEX RECOBRADO */
+        /* BOTONES 3D UNIFICADOS */
         .btn-2026 {
             color: white;
             padding: 10px 25px;
@@ -61,7 +61,6 @@
             text-decoration: none;
             font-weight: 800;
             display: inline-block;
-            border: none;
             transition: all 0.15s ease-in-out;
             cursor: pointer;
             text-transform: uppercase;
@@ -85,9 +84,8 @@
         .btn-2026:hover { transform: translateY(2px); }
         .btn-2026:active { transform: translateY(6px); box-shadow: 0 0 0 transparent !important; }
 
-        /* CATÁLOGO GRID */
+        /* GRID DE CURSOS */
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        
         .cursos-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -104,75 +102,77 @@
             flex-direction: column;
             transition: transform 0.3s, border-color 0.3s;
             backdrop-filter: blur(5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
+        .card:hover { transform: translateY(-5px); border-color: var(--azul-electrico); }
 
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--azul-electrico);
-            box-shadow: 0 15px 35px rgba(0, 210, 255, 0.2);
-        }
-
-        .card-img-container { width: 100%; height: 200px; overflow: hidden; background: #0f2b48; }
+        .card-img-container { width: 100%; height: 180px; background: #0f2b48; }
         .card img { width: 100%; height: 100%; object-fit: cover; }
-
         .card-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
 
         .badge {
             background: rgba(0, 210, 255, 0.1); color: var(--azul-electrico);
-            padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; width: fit-content; font-weight: bold;
-            text-transform: uppercase;
+            padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; width: fit-content; font-weight: bold;
         }
 
         .btn-add {
             background: linear-gradient(135deg, var(--azul-electrico), #0077ff);
             color: var(--azul-primario); border: none; padding: 12px; border-radius: 12px;
-            font-weight: bold; cursor: pointer; transition: 0.2s; width: 100%; margin-top: auto;
-            text-transform: uppercase; letter-spacing: 0.5px;
+            font-weight: bold; cursor: pointer; margin-top: auto;
         }
-        .btn-add:hover { filter: brightness(1.2); }
-
-        .btn-details {
-            display: block; text-align: center; color: var(--azul-electrico); text-decoration: none;
-            font-size: 0.85rem; font-weight: bold; margin-top: 15px; transition: color 0.2s;
-            text-transform: uppercase; letter-spacing: 0.5px;
-        }
-        .btn-details:hover { color: #fff; }
     </style>
 </head>
 <body>
 
     <div class="top-bar">
         <div class="top-bar-content">
-            <span> SISTEMA ACTUALIZADO 2026</span>
+            <span> SISTEMA ACTUALIZADO 2026[cite: 1]</span>
             <span> LA VICTORIA - ARAGUA</span>
-            <span> CONTACTO DIRECTO: 0424-33.60.158</span>
+            <span> CONTACTO: 0424-33.60.158[cite: 1]</span>
         </div>
     </div>
 
     <header>
-        <div class="container" style="display:flex; justify-content:space-between; align-items:center; max-width: 1200px; margin: 0 auto; padding: 0 10px;">
+        <div class="container" style="display:flex; justify-content:space-between; align-items:center; padding: 0 20px;">
             <div style="display:flex; align-items:center; gap:15px;">
-                <img src="img/logo.png" alt="Logo" style="height:60px;">
-                <h2 style="margin:0; color:var(--azul-primario); font-size:1.8rem;">BotEduCarmen</h2>
+                <img src="img/logo.png" alt="Logo" style="height:50px;">
+                <h2 style="margin:0; color:var(--azul-primario);">BotEduCarmen</h2>
             </div>
-            <nav style="display: flex; gap: 15px; align-items: center;">
-                <a href="index.html" class="btn-2026 btn-orange">INICIO</a>
-                <a href="https://wa.me/584243360158" target="_blank" class="btn-2026 btn-green">WHATSAPP</a>
-                <a href="carrito.html" class="btn-2026 btn-blue">LISTA (<span id="cart-count">0</span>)</a>
+            <nav style="display: flex; gap: 12px;">
+                <a href="index.html" class="btn-2026 btn-orange">INICIO[cite: 1]</a>
+                <a href="https://wa.me/584243360158" target="_blank" class="btn-2026 btn-green">WHATSAPP[cite: 1]</a>
+                <a href="carrito.html" class="btn-2026 btn-blue">LISTA (<span id="cart-count">0</span>)[cite: 1]</a>
             </nav>
         </div>
     </header>
 
     <div class="container">
-        <h1 style="text-align: center; margin-top: 40px; font-size: 2.5rem; letter-spacing: 1px;">
-            Especialidades Formativas <span style="color: var(--azul-electrico);">2026</span>
-        </h1>
+        <h1 style="text-align: center; margin-top: 30px;">Catálogo Formativo <span style="color: var(--azul-electrico);">2026</span></h1>
         <div class="cursos-grid" id="cursos-grid"></div>
     </div>
 
+    <!-- CHATBOT: ABAJO A LA IZQUIERDA -->
+    <div onclick="toggleChat()" style="position:fixed; bottom:30px; left:30px; background:linear-gradient(135deg, var(--azul-electrico), #0077ff); width:65px; height:65px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:9999; box-shadow: 0 10px 20px rgba(0,0,0,0.3);">
+        <img src="img/chatbot.png" style="width:35px;" onerror="this.style.display='none'">
+    </div>
+
+    <!-- BOTÓN SUBIR: ABAJO A LA DERECHA -->
+    <div onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="position:fixed; bottom:30px; right:30px; background:var(--azul-primario); width:55px; height:55px; border-radius:15px; display:flex; align-items:center; justify-content:center; cursor:pointer; border: 2px solid var(--azul-electrico); z-index:9999;">
+        <span style="color:var(--azul-electrico); font-size:1.5rem;">↑</span>
+    </div>
+
+    <!-- VENTANA CHATBOT IZQUIERDA -->
+    <div id="chat-window" style="display:none; position:fixed; bottom:110px; left:30px; width:350px; height:450px; background:white; border-radius:25px; box-shadow:var(--sombra-futurista); z-index:9999; flex-direction:column; overflow:hidden; border:1px solid #ddd;">
+        <div style="background:var(--azul-primario); color:white; padding:20px; font-weight:bold;">Asistente BotEduCarmen</div>
+        <div id="chat-messages" style="flex:1; padding:15px; overflow-y:auto; background:#f1f5f9; color:#333; display:flex; flex-direction:column; gap:10px;">
+            <div style="background:white; padding:10px; border-radius:15px; align-self:flex-start; border-left:4px solid var(--azul-electrico);">¡Hola! ¿En qué curso de los 25 disponibles te gustaría inscribirte?</div>
+        </div>
+        <div style="padding:15px; display:flex; gap:5px;">
+            <input id="user-input" type="text" placeholder="Escribe aquí..." style="flex:1; padding:10px; border-radius:10px; border:1px solid #ccc;">
+            <button onclick="sendMessage()" style="background:var(--azul-primario); color:white; border:none; padding:10px; border-radius:10px;">➤</button>
+        </div>
+    </div>
+
 <script>
-    // LOS 25 CURSOS REALES DE TU CARPETA IMG SIN NINGÚN ERROR
     const CURSOS = [
         { nombre: "Barbería", img: "barberia.jpg", cat: "Estética" },
         { nombre: "Cocina Nacional", img: "cocina_nacional.jpg", cat: "Gastronomía" },
@@ -204,44 +204,49 @@
 
     function renderCursos() {
         const grid = document.getElementById('cursos-grid');
-        grid.innerHTML = CURSOS.map(curso => `
+        grid.innerHTML = CURSOS.map(c => `
             <div class="card">
-                <div class="card-img-container">
-                    <img src="img/${curso.img}" alt="${curso.nombre}" onerror="this.src='img/logo.png'">
-                </div>
+                <div class="card-img-container"><img src="img/${c.img}" onerror="this.src='img/logo.png'"></div>
                 <div class="card-content">
-                    <span class="badge">${curso.cat}</span>
-                    <h3 style="margin: 15px 0 10px 0; font-size: 1.2rem; color: #fff;">${curso.nombre}</h3>
-                    <button class="btn-add" onclick="agregarAlCarrito('${curso.nombre}', 'img/${curso.img}')">
-                        SELECCIONAR CURSO
-                    </button>
-                    <a href="detalle-curso.html?curso=${encodeURIComponent(curso.nombre)}" class="btn-details">🔎 VER DETALLES</a>
+                    <span class="badge">${c.cat}</span>
+                    <h3 style="font-size:1.1rem; margin:10px 0;">${c.nombre}</h3>
+                    <button class="btn-add" onclick="addToCart('${c.nombre}', 'img/${c.img}')">SELECCIONAR</button>
                 </div>
             </div>
         `).join('');
-        actualizarContador();
+        updateCounter();
     }
 
-    function agregarAlCarrito(nombre, imagen) {
-        let carrito = JSON.parse(localStorage.getItem('cart')) || [];
-        if (carrito.some(c => c.nombre === nombre)) {
-            alert("Este curso ya está en tu lista.");
-            return;
+    function addToCart(nombre, imagen) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        if(!cart.find(i => i.nombre === nombre)) {
+            cart.push({nombre, imagen});
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCounter();
+            alert("Curso seleccionado");
         }
-        carrito.push({ nombre, imagen });
-        localStorage.setItem('cart', JSON.stringify(carrito));
-        actualizarContador();
-        alert("¡Añadido! Puedes verlo en 'Lista'.");
     }
 
-    function actualizarContador() {
-        let carrito = JSON.parse(localStorage.getItem('cart')) || [];
-        const countEl = document.getElementById('cart-count');
-        if (countEl) countEl.innerText = carrito.length;
+    function updateCounter() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        document.getElementById('cart-count').innerText = cart.length;
+    }
+
+    function toggleChat() {
+        const w = document.getElementById('chat-window');
+        w.style.display = (w.style.display === 'none') ? 'flex' : 'none';
+    }
+
+    function sendMessage() {
+        const input = document.getElementById('user-input');
+        const box = document.getElementById('chat-messages');
+        if(!input.value.trim()) return;
+        box.innerHTML += `<div style="background:var(--azul-primario); color:white; padding:10px; border-radius:15px; align-self:flex-end;">${input.value}</div>`;
+        input.value = "";
+        box.scrollTop = box.scrollHeight;
     }
 
     document.addEventListener('DOMContentLoaded', renderCursos);
 </script>
-
 </body>
 </html>
