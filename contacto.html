@@ -4,121 +4,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscripción 2026 | CAE Carmen Pilar</title>
+    <title>Inscripción 2026 | BotEduCarmen</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         :root {
             --azul-primario: #0a192f;
             --azul-electrico: #00d2ff;
             --naranja-neon: #ff6d00;
-            --naranja-glow: #ff9100;
             --glass: rgba(255, 255, 255, 0.05);
-            --sombra-futurista: 0 20px 40px rgba(0,0,0,0.5);
         }
 
         body {
             font-family: 'Inter', sans-serif;
             margin: 0; background-color: var(--azul-primario); color: white;
-            background-image: radial-gradient(circle at top right, rgba(0, 210, 255, 0.1), transparent);
             min-height: 100vh;
+        }
+
+        /* --- HEADER CON WHATSAPP ARRIBA A LA DERECHA --- */
+        .header-registro {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-whatsapp-top {
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp-top:hover {
+            transform: scale(1.05);
+            background: #1eb954;
+        }
+
+        .btn-whatsapp-top img {
+            width: 20px;
+            filter: brightness(0) invert(1);
         }
 
         /* DISEÑO DEL FORMULARIO */
         .form-container {
-            max-width: 550px; width: 90%; margin: 60px auto; background: var(--glass);
+            max-width: 500px; margin: 50px auto; background: var(--glass);
             backdrop-filter: blur(20px); border: 1px solid rgba(0, 210, 255, 0.2);
-            border-radius: 30px; padding: 40px; box-shadow: var(--sombra-futurista);
+            border-radius: 25px; padding: 35px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
         .input-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; color: var(--azul-electrico); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; }
+        label { display: block; margin-bottom: 8px; color: var(--azul-electrico); font-size: 0.8rem; text-transform: uppercase; }
         
         input {
-            width: 100%; padding: 15px; background: rgba(0, 0, 0, 0.2);
+            width: 100%; padding: 14px; background: rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px;
-            color: white; font-size: 1rem; outline: none; transition: 0.3s; box-sizing: border-box;
+            color: white; outline: none; box-sizing: border-box;
         }
-
-        input:focus { border-color: var(--azul-electrico); background: rgba(0, 0, 0, 0.4); }
 
         .btn-finalizar {
-            width: 100%; background: linear-gradient(135deg, var(--naranja-neon), var(--naranja-glow));
-            color: white; padding: 18px; border: none; border-radius: 15px;
-            font-size: 1.1rem; font-weight: 800; cursor: pointer; transition: 0.3s;
-            box-shadow: 0 6px 0 #b34b00; text-transform: uppercase;
+            width: 100%; background: var(--naranja-neon); color: white;
+            padding: 16px; border: none; border-radius: 12px;
+            font-weight: bold; cursor: pointer; text-transform: uppercase;
         }
-        .btn-finalizar:active { transform: translateY(4px); box-shadow: none; }
 
-        /* --- BOTONES FLOTANTES --- */
-        
-        /* CHATBOT A LA IZQUIERDA */
+        /* CHATBOT IZQUIERDA (Se mantiene) */
         .chatbot-trigger {
             position: fixed; bottom: 30px; left: 30px;
-            width: 65px; height: 65px; background: linear-gradient(135deg, var(--azul-electrico), #0077ff);
+            width: 60px; height: 60px; background: var(--azul-electrico);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; z-index: 9999; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            cursor: pointer; z-index: 1000;
         }
-
-        /* WHATSAPP A LA DERECHA */
-        .whatsapp-trigger {
-            position: fixed; bottom: 30px; right: 30px;
-            width: 65px; height: 65px; background: #25D366;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            text-decoration: none; z-index: 9999; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            transition: 0.3s;
-        }
-        .whatsapp-trigger:hover { transform: scale(1.1); }
     </style>
 </head>
 <body>
 
-    <header style="padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center;">
-        <a href="carrito_13.html" style="color: var(--azul-electrico); text-decoration: none; font-weight: bold;">⬅ VOLVER</a>
-        <span style="font-weight: bold; letter-spacing: 2px;">REGISTRO CAE 2026</span>
+    <header class="header-registro">
+        <a href="carrito_13.html" style="color: var(--azul-electrico); text-decoration: none;">⬅ VOLVER</a>
+        
+        <!-- BOTÓN DE WHATSAPP ARRIBA A LA DERECHA -->
+        <a href="https://wa.me/584243360158" target="_blank" class="btn-whatsapp-top">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA">
+            AYUDA WHATSAPP
+        </a>
     </header>
 
     <div class="form-container">
-        <h2 style="text-align: center; margin-bottom: 30px;">DATOS DEL <span style="color: var(--azul-electrico);">ESTUDIANTE</span></h2>
+        <h2 style="text-align: center;">REGISTRO <span style="color: var(--azul-electrico);">2026</span></h2>
         
-        <div style="background: rgba(0, 210, 255, 0.05); padding: 15px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid var(--azul-electrico);">
-            <strong>Cursos:</strong> <span id="resumen-final">Cargando selección...</span>
-        </div>
-
         <form id="form-inscripcion">
             <div class="input-group">
-                <label>Nombre y Apellido</label>
-                <input type="text" id="nombre" placeholder="Nombre completo" required>
+                <label>Nombre Completo</label>
+                <input type="text" id="nombre" placeholder="Ej: Juan Pérez" required>
             </div>
             <div class="input-group">
-                <label>Número de Cédula</label>
-                <input type="text" id="cedula" placeholder="V-12345678" required>
+                <label>Cédula de Identidad</label>
+                <input type="text" id="cedula" placeholder="V-00000000" required>
             </div>
-            <button type="submit" class="btn-finalizar">CONFIRMAR INSCRIPCIÓN 🚀</button>
+            <button type="submit" class="btn-finalizar">FINALIZAR INSCRIPCIÓN 🚀</button>
         </form>
     </div>
 
-    <!-- BOTONES ACCESIBLES -->
+    <!-- CHATBOT FLOTANTE IZQUIERDA -->
     <div class="chatbot-trigger" onclick="toggleChat()">
-        <img src="img/chatbot.png" style="width:35px;" onerror="this.src='img/logo.png'">
+        <img src="img/chatbot.png" style="width:30px;" onerror="this.src='img/logo.png'">
     </div>
 
-    <a href="https://wa.me/584243360158" target="_blank" class="whatsapp-trigger">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:35px; filter: brightness(0) invert(1);">
-    </a>
-
-    <!-- Scripts de Firebase y Chatbot (Referenciados de tus archivos) -->
+    <!-- Scripts de Firebase y Chatbot -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
     <script src="chatbot_9.js"></script>
-    
-    <script>
-        // Lógica de carga de cursos del carrito_13.html[cite: 14]
-        document.addEventListener('DOMContentLoaded', () => {
-            const carrito = JSON.parse(localStorage.getItem('cart')) || [];
-            if(carrito.length > 0) {
-                document.getElementById('resumen-final').innerText = carrito.map(c => c.nombre).join(', ');
-            }
-        });
-    </script>
 </body>
 </html>
