@@ -10,113 +10,169 @@
             --azul-primario: #0a192f;
             --azul-electrico: #00d2ff;
             --naranja-neon: #ff6d00;
+            --naranja-glow: #ff9100;
+            --whatsapp-green: #25D366;
             --glass: rgba(255, 255, 255, 0.08);
+            --sombra-futurista: 0 20px 40px rgba(0,0,0,0.4);
         }
 
         body { 
-            background: var(--azul-primario); 
-            color: white; 
-            font-family: 'Inter', sans-serif;
-            margin: 0;
+            font-family: 'Inter', 'Segoe UI', sans-serif; 
+            margin: 0; 
+            background-color: var(--azul-primario); 
+            color: white;
             background-image: radial-gradient(circle at top right, rgba(0, 210, 255, 0.15), transparent);
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-
-        header {
-            background: rgba(10, 25, 47, 0.9);
-            backdrop-filter: blur(15px);
-            padding: 20px 0;
+        /* BARRA SUPERIOR RESTAURADA */
+        .top-bar {
+            background: var(--azul-primario);
+            color: var(--azul-electrico);
+            padding: 10px 0;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            font-weight: 600;
             border-bottom: 2px solid var(--azul-electrico);
-            position: sticky; top: 0; z-index: 1000;
+        }
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
         }
 
-        .nav-flex { display: flex; justify-content: space-between; align-items: center; }
+        /* NAVEGACIÓN RECOBRADA */
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
 
+        /* SISTEMA DE BOTONES 3D DE TU INDEX RECOBRADO */
+        .btn-2026 {
+            color: white;
+            padding: 10px 25px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 800;
+            display: inline-block;
+            border: none;
+            transition: all 0.15s ease-in-out;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .btn-orange {
+            background: linear-gradient(135deg, var(--naranja-neon), var(--naranja-glow));
+            box-shadow: 0 6px 0 #b34b00, 0 10px 15px rgba(255, 109, 0, 0.2);
+        }
+        .btn-green {
+            background: linear-gradient(135deg, var(--whatsapp-green), #128C7E);
+            box-shadow: 0 6px 0 #075E54, 0 10px 15px rgba(37, 211, 102, 0.2);
+        }
+        .btn-blue {
+            background: linear-gradient(135deg, var(--azul-electrico), #0077ff);
+            box-shadow: 0 6px 0 #0055b3, 0 10px 15px rgba(0, 210, 255, 0.2);
+        }
+
+        .btn-2026:hover { transform: translateY(2px); }
+        .btn-2026:active { transform: translateY(6px); box-shadow: 0 0 0 transparent !important; }
+
+        /* CATÁLOGO GRID */
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        
         .cursos-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
+            gap: 30px;
+            margin-top: 40px;
         }
 
         .card {
             background: var(--glass);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
             overflow: hidden;
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
+            transition: transform 0.3s, border-color 0.3s;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             border-color: var(--azul-electrico);
-            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 210, 255, 0.2);
         }
 
-        .card-img-container { width: 100%; height: 200px; overflow: hidden; background: #112240; }
+        .card-img-container { width: 100%; height: 200px; overflow: hidden; background: #0f2b48; }
         .card img { width: 100%; height: 100%; object-fit: cover; }
 
         .card-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-        
+
         .badge {
-            font-size: 0.7rem;
-            background: rgba(0, 210, 255, 0.1);
-            color: var(--azul-electrico);
-            padding: 5px 12px;
-            border-radius: 50px;
-            font-weight: bold;
+            background: rgba(0, 210, 255, 0.1); color: var(--azul-electrico);
+            padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; width: fit-content; font-weight: bold;
             text-transform: uppercase;
-            width: fit-content;
         }
 
         .btn-add {
-            margin-top: 15px;
             background: linear-gradient(135deg, var(--azul-electrico), #0077ff);
-            color: var(--azul-primario);
-            border: none;
-            padding: 12px;
-            border-radius: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
+            color: var(--azul-primario); border: none; padding: 12px; border-radius: 12px;
+            font-weight: bold; cursor: pointer; transition: 0.2s; width: 100%; margin-top: auto;
+            text-transform: uppercase; letter-spacing: 0.5px;
         }
         .btn-add:hover { filter: brightness(1.2); }
 
         .btn-details {
-            display: block;
-            text-align: center;
-            color: var(--azul-electrico);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-top: 12px;
-            transition: color 0.2s;
+            display: block; text-align: center; color: var(--azul-electrico); text-decoration: none;
+            font-size: 0.85rem; font-weight: bold; margin-top: 15px; transition: color 0.2s;
+            text-transform: uppercase; letter-spacing: 0.5px;
         }
         .btn-details:hover { color: #fff; }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="container nav-flex">
-        <h2 style="margin:0;">CAE <span style="color:var(--azul-electrico)">CARMEN PILAR</span></h2>
-        <div style="display: flex; gap: 15px;">
-            <a href="index.html" style="color:white; text-decoration:none;">Inicio</a>
-            <a href="carrito.html" style="color:var(--azul-electrico); text-decoration:none; font-weight:bold;">🛒 Lista (<span id="cart-count">0</span>)</a>
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <span> SISTEMA ACTUALIZADO 2026</span>
+            <span> LA VICTORIA - ARAGUA</span>
+            <span> CONTACTO DIRECTO: 0424-33.60.158</span>
         </div>
     </div>
-</header>
 
-<div class="container">
-    <h1 style="text-align:center; margin: 40px 0;">Catálogo de Especialidades</h1>
-    <div id="cursos-grid" class="cursos-grid"></div>
-</div>
+    <header>
+        <div class="container" style="display:flex; justify-content:space-between; align-items:center; max-width: 1200px; margin: 0 auto; padding: 0 10px;">
+            <div style="display:flex; align-items:center; gap:15px;">
+                <img src="img/logo.png" alt="Logo" style="height:60px;">
+                <h2 style="margin:0; color:var(--azul-primario); font-size:1.8rem;">BotEduCarmen</h2>
+            </div>
+            <nav style="display: flex; gap: 15px; align-items: center;">
+                <a href="index.html" class="btn-2026 btn-orange">INICIO</a>
+                <a href="https://wa.me/584243360158" target="_blank" class="btn-2026 btn-green">WHATSAPP</a>
+                <a href="carrito.html" class="btn-2026 btn-blue">LISTA (<span id="cart-count">0</span>)</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 style="text-align: center; margin-top: 40px; font-size: 2.5rem; letter-spacing: 1px;">
+            Especialidades Formativas <span style="color: var(--azul-electrico);">2026</span>
+        </h1>
+        <div class="cursos-grid" id="cursos-grid"></div>
+    </div>
 
 <script>
-    // TU LISTA DE 25 CURSOS REALES SIN ERRORES DE SINTAXIS NI DE MEMORIA
+    // LOS 25 CURSOS REALES DE TU CARPETA IMG SIN NINGÚN ERROR
     const CURSOS = [
         { nombre: "Barbería", img: "barberia.jpg", cat: "Estética" },
         { nombre: "Cocina Nacional", img: "cocina_nacional.jpg", cat: "Gastronomía" },
@@ -155,7 +211,7 @@
                 </div>
                 <div class="card-content">
                     <span class="badge">${curso.cat}</span>
-                    <h3 style="margin: 15px 0 10px 0; font-size: 1.2rem;">${curso.nombre}</h3>
+                    <h3 style="margin: 15px 0 10px 0; font-size: 1.2rem; color: #fff;">${curso.nombre}</h3>
                     <button class="btn-add" onclick="agregarAlCarrito('${curso.nombre}', 'img/${curso.img}')">
                         SELECCIONAR CURSO
                     </button>
@@ -175,16 +231,17 @@
         carrito.push({ nombre, imagen });
         localStorage.setItem('cart', JSON.stringify(carrito));
         actualizarContador();
-        alert("¡Añadido! Puedes verlo en 'Mi Selección'.");
+        alert("¡Añadido! Puedes verlo en 'Lista'.");
     }
 
     function actualizarContador() {
         let carrito = JSON.parse(localStorage.getItem('cart')) || [];
-        const el = document.getElementById('cart-count');
-        if(el) el.innerText = carrito.length;
+        const countEl = document.getElementById('cart-count');
+        if (countEl) countEl.innerText = carrito.length;
     }
 
     document.addEventListener('DOMContentLoaded', renderCursos);
 </script>
+
 </body>
 </html>
