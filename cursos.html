@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cursos 2026 | CAE Carmen Pilar</title>
+    <title>Cursos 2026 | BotEduCarmen</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         :root {
@@ -17,19 +17,20 @@
         body { 
             font-family: 'Inter', sans-serif; 
             margin: 0; 
-            background-color: var(--azul-primario); 
+            background: var(--azul-primario); 
             color: white;
+            overflow-x: hidden;
         }
 
-        /* NAVBAR */
+        /* NAVBAR FUTURISTA */
         .navbar {
             background: rgba(10, 25, 47, 0.9);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
             position: sticky;
             top: 0;
-            z-index: 999;
+            z-index: 1000;
             padding: 15px 0;
-            border-bottom: 1px solid rgba(0, 210, 255, 0.2);
+            border-bottom: 1px solid rgba(0, 210, 255, 0.3);
         }
         .nav-container {
             max-width: 1200px;
@@ -46,109 +47,165 @@
             margin: 40px auto; 
             padding: 0 20px; 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
-            gap: 25px; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 30px; 
         }
         
         .course-card {
             background: var(--glass); 
-            border-radius: 20px; 
+            border-radius: 25px; 
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.1);
-            transition: 0.3s;
+            transition: all 0.4s ease;
+            position: relative;
         }
-        .course-card:hover { transform: translateY(-10px); border-color: var(--azul-electrico); }
+        .course-card:hover { 
+            transform: translateY(-15px) scale(1.02); 
+            border-color: var(--azul-electrico);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+        }
         
-        .course-img-wrapper { width: 100%; height: 160px; cursor: pointer; overflow: hidden; }
-        .course-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        .course-img-wrapper { width: 100%; height: 180px; cursor: pointer; overflow: hidden; }
+        .course-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .course-card:hover .course-img-wrapper img { transform: scale(1.1); }
 
-        .course-info { padding: 20px; }
-        .course-info h3 { margin: 0 0 10px; font-size: 1.1rem; }
+        .course-info { padding: 25px; }
+        .course-info h3 { margin: 0 0 15px; font-size: 1.2rem; color: var(--azul-electrico); }
 
         .btn-select {
             background: linear-gradient(135deg, var(--naranja-neon), var(--naranja-glow));
-            color: white; border: none; padding: 10px; width: 100%; border-radius: 10px;
-            font-weight: bold; cursor: pointer; margin-bottom: 8px;
+            color: white; border: none; padding: 12px; width: 100%; border-radius: 15px;
+            font-weight: 800; cursor: pointer; margin-bottom: 10px;
+            box-shadow: 0 4px 0 #b34b00; transition: 0.2s;
         }
+        .btn-select:active { transform: translateY(3px); box-shadow: none; }
 
         .btn-details {
-            background: rgba(0, 210, 255, 0.1);
-            color: var(--azul-electrico); border: 1px solid var(--azul-electrico);
-            padding: 10px; width: 100%; border-radius: 10px; cursor: pointer;
+            background: rgba(255, 255, 255, 0.05);
+            color: white; border: 1px solid rgba(255,255,255,0.2);
+            padding: 10px; width: 100%; border-radius: 15px; cursor: pointer;
+            transition: 0.3s;
         }
+        .btn-details:hover { background: var(--azul-electrico); color: var(--azul-primario); }
+
+        /* BOTONES FLOTANTES */
+        .float-btn {
+            position: fixed; width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 2000; box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: 0.3s;
+        }
+        .btn-whatsapp { bottom: 110px; right: 30px; background: #25D366; }
+        .btn-ia { bottom: 30px; right: 30px; background: linear-gradient(135deg, var(--azul-electrico), #0077ff); }
+        .btn-scroll { bottom: 30px; left: 30px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); display: none; }
+
+        .float-btn:hover { transform: scale(1.1) rotate(5deg); }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
         <div class="nav-container">
-            <div onclick="window.location.href='index.html'" style="cursor:pointer; font-weight:800;">CAE CARMEN PILAR</div>
-            <a href="carrito.html" style="color:white; text-decoration:none;">🛒 Carrito</a>
+            <div onclick="window.location.href='index.html'" style="cursor:pointer; display:flex; align-items:center; gap:10px;">
+                <img src="img/logo.png" width="40" alt="Logo">
+                <span style="font-weight:900; letter-spacing:1px;">BOTEDUCARMEN</span>
+            </div>
+            <div style="display:flex; gap:20px; align-items:center;">
+                <a href="index.html" style="color:white; text-decoration:none;">Inicio</a>
+                <a href="carrito.html" style="background:var(--glass); padding:8px 15px; border-radius:10px; color:white; text-decoration:none;">🛒 <span id="cart-count">0</span></a>
+            </div>
         </div>
     </nav>
 
     <div class="courses-grid" id="cursos-grid"></div>
 
+    <!-- BOTONES FLOTANTES RESTAURADOS -->
+    <a href="https://wa.me/584243360158" target="_blank" class="float-btn btn-whatsapp">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="30" style="filter: brightness(0) invert(1);">
+    </a>
+
+    <div class="float-btn btn-ia" onclick="toggleChat()">
+        <img src="img/chatbot.png" width="35" onerror="this.src='img/logo.png'">
+    </div>
+
+    <div class="float-btn btn-scroll" id="scrollTop" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+        ⬆️
+    </div>
+
     <script>
-        // LA LISTA COMPLETA DE TUS 25 CURSOS CON SUS IMÁGENES REALES
+        // LISTA DE LOS 25 CURSOS CON NOMBRES DE IMAGEN CORREGIDOS
         const MIS_CURSOS = [
-            { name: "Modistería", cat: "Costura", img: "img/modisteria.jpg" },
-            { name: "Corte y Confección", cat: "Costura", img: "img/corte_y_confeccion.jpg" },
-            { name: "Lencería Íntima", cat: "Costura", img: "img/lenceria.jpg" },
-            { name: "Ropa Infantil", cat: "Costura", img: "img/ropa_infantil.jpg" },
-            { name: "Sastrería", cat: "Costura", img: "img/sastreria.jpg" },
-            { name: "Cocina Bilingüe", cat: "Gastronomía", img: "img/cocina.jpg" },
-            { name: "Pastelería y Repostería", cat: "Gastronomía", img: "img/pasteleria.jpg" },
-            { name: "Panadería Artesanal", cat: "Gastronomía", img: "img/panaderia.jpg" },
-            { name: "Barbería Profesional", cat: "Estética", img: "img/barberia.jpg" },
-            { name: "Peluquería Básica", cat: "Estética", img: "img/peluqueria.jpg" },
-            { name: "Uñas Acrílicas", cat: "Estética", img: "img/estetica_de_unas.jpg" },
-            { name: "Maquillaje Profesional", cat: "Estética", img: "img/maquillaje.jpg" },
-            { name: "Cejas y Pestañas", cat: "Estética", img: "img/cejas.jpg" },
-            { name: "Masaje Terapéutico", cat: "Salud", img: "img/masajes.jpg" },
-            { name: "Primeros Auxilios", cat: "Salud", img: "img/primeros_auxilios.jpg" },
-            { name: "Reparación de Celulares", cat: "Tecnología", img: "img/celulares.jpg" },
-            { name: "Electrónica Básica", cat: "Tecnología", img: "img/electronica.jpg" },
-            { name: "Informática/Office", cat: "Tecnología", img: "img/informatica.jpg" },
-            { name: "Diseño Gráfico", cat: "Tecnología", img: "img/diseno.jpg" },
-            { name: "Inglés Básico", cat: "Idiomas", img: "img/ingles.jpg" },
-            { name: "Contabilidad Básica", cat: "Administración", img: "img/contabilidad.jpg" },
-            { name: "Asistente Administrativo", cat: "Administración", img: "img/asistente.jpg" },
-            { name: "Manualidades", cat: "Arte", img: "img/manualidades.jpg" },
-            { name: "Pintura sobre Tela", cat: "Arte", img: "img/pintura.jpg" },
-            { name: "Decoración de Fiestas", cat: "Arte", img: "img/decoracion.jpg" }
+            { name: "Modistería", img: "img/modisteria.jpg" },
+            { name: "Cocina Bilingüe", img: "img/cocina.jpg" },
+            { name: "Barbería Profesional", img: "img/barberia.jpg" },
+            { name: "Uñas Acrílicas", img: "img/estetica_de_unas.jpg" },
+            { name: "Corte y Confección", img: "img/corte_y_confeccion.jpg" },
+            { name: "Lencería Íntima", img: "img/lenceria.jpg" },
+            { name: "Ropa Infantil", img: "img/ropa_infantil.jpg" },
+            { name: "Sastrería", img: "img/sastreria.jpg" },
+            { name: "Pastelería", img: "img/pasteleria.jpg" },
+            { name: "Panadería", img: "img/panaderia.jpg" },
+            { name: "Peluquería", img: "img/peluqueria.jpg" },
+            { name: "Maquillaje", img: "img/maquillaje.jpg" },
+            { name: "Cejas y Pestañas", img: "img/cejas.jpg" },
+            { name: "Masajes", img: "img/masajes.jpg" },
+            { name: "Primeros Auxilios", img: "img/primeros_auxilios.jpg" },
+            { name: "Reparación de Celulares", img: "img/celulares.jpg" },
+            { name: "Electrónica Básica", img: "img/electronica.jpg" },
+            { name: "Informática/Office", img: "img/informatica.jpg" },
+            { name: "Diseño Gráfico", img: "img/diseno.jpg" },
+            { name: "Inglés Básico", img: "img/ingles.jpg" },
+            { name: "Contabilidad", img: "img/contabilidad.jpg" },
+            { name: "Asistente Administrativo", img: "img/asistente.jpg" },
+            { name: "Manualidades", img: "img/manualidades.jpg" },
+            { name: "Pintura sobre Tela", img: "img/pintura.jpg" },
+            { name: "Decoración de Fiestas", img: "img/decoracion.jpg" }
         ];
 
-        function renderCursos() {
+        function render() {
             const grid = document.getElementById('cursos-grid');
             grid.innerHTML = MIS_CURSOS.map(c => `
                 <div class="course-card">
-                    <div class="course-img-wrapper" onclick="verDetalle('${c.name}')">
+                    <div class="course-img-wrapper" onclick="ver('${c.name}')">
                         <img src="${c.img}" alt="${c.name}" onerror="this.src='img/logo.png'">
                     </div>
                     <div class="course-info">
                         <h3>${c.name}</h3>
-                        <button class="btn-select" onclick="add('${c.name}', '${c.img}')">AGREGAR</button>
-                        <button class="btn-details" onclick="verDetalle('${c.name}')">DETALLES</button>
+                        <button class="btn-select" onclick="add('${c.name}', '${c.img}')">SELECCIONAR</button>
+                        <button class="btn-details" onclick="ver('${c.name}')">VER DETALLES</button>
                     </div>
                 </div>
             `).join('');
+            updateCounter();
         }
 
-        function verDetalle(nombre) {
-            window.location.href = `detalle-curso.html?curso=${encodeURIComponent(nombre)}`;
-        }
+        function ver(n) { window.location.href = `detalle-curso.html?curso=${encodeURIComponent(n)}`; }
 
         function add(n, i) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             if(!cart.find(x => x.nombre === n)) {
                 cart.push({nombre: n, imagen: i});
                 localStorage.setItem('cart', JSON.stringify(cart));
-                alert("Agregado al carrito");
+                updateCounter();
+                alert("¡Curso añadido!");
             }
         }
 
-        window.onload = renderCursos;
+        function updateCounter() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            document.getElementById('cart-count').innerText = cart.length;
+        }
+
+        window.onscroll = function() {
+            document.getElementById('scrollTop').style.display = (window.pageYOffset > 300) ? 'flex' : 'none';
+        };
+
+        function toggleChat() {
+            // Aquí llamarías a la función de tu chatbot.js
+            alert("Iniciando Asistente IA...");
+        }
+
+        window.onload = render;
     </script>
 </body>
 </html>
