@@ -15,7 +15,7 @@ body {
     overflow-x: hidden;
 }
 
-/* NAVBAR */
+/* NAVBAR UNIFICADA */
 .navbar {
     background: rgba(10, 25, 47, 0.95);
     backdrop-filter: blur(15px);
@@ -35,20 +35,12 @@ body {
     padding: 0 20px;
 }
 
-.logo-text {
-    font-weight: 900;
-    font-size: 1.1rem;
-    color: var(--azul-electrico);
-    letter-spacing: 1px;
-}
-
 .nav-links {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-/* BOTONES DE NAVEGACIÓN CORREGIDOS */
 .nav-btn {
     text-decoration: none;
     color: white;
@@ -58,41 +50,80 @@ body {
     font-weight: 700;
     transition: 0.3s;
     text-transform: uppercase;
-    text-align: center;
 }
 
-.btn-inicio { 
-    background: #007bff; /* Azul para Inicio */
-}
-.btn-inicio:hover { background: #0056b3; }
-
-.btn-whatsapp-nav { 
-    background: #25D366; 
-    font-size: 0.8rem; /* Tamaño reducido */
-}
-.btn-whatsapp-nav:hover { background: #1da851; }
-
-.btn-admin-nav { 
-    background: #4a148c; /* Morado Admin */
-}
-.btn-admin-nav:hover { background: #310d5e; }
-
+.btn-inicio { background: #007bff; }
+.btn-whatsapp-nav { background: #25D366; font-size: 0.8rem; }
+.btn-admin-nav { background: #4a148c; }
 .btn-cart-nav { 
-    background: var(--naranja-neon); /* Color naranja para Mi Lista */
+    background: var(--naranja-neon); 
     box-shadow: 0 4px 0 #b34b00;
     color: white !important;
 }
-.btn-cart-nav:hover {
-    background: var(--naranja-glow);
-    transform: translateY(-2px);
+
+/* MODAL DEL CHATBOT (IGUAL AL INDEX) */
+.chat-modal {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 320px;
+    height: 450px;
+    background: var(--azul-primario);
+    border: 2px solid var(--azul-electrico);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    z-index: 3000;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    overflow: hidden;
 }
 
-/* GRID DE CURSOS */
-.courses-grid { 
-    max-width: 1200px; 
-    margin: 40px auto; 
-    padding: 0 20px; 
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-    gap: 30px; 
+.chat-header {
+    background: var(--azul-electrico);
+    color: var(--azul-primario);
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
 }
+
+.chat-body {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: rgba(255,255,255,0.03);
+}
+
+.chat-footer {
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.chat-footer input {
+    flex: 1;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 10px;
+    color: white;
+    outline: none;
+}
+
+.chat-footer button {
+    background: var(--azul-electrico);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* BURBUJAS */
+.msg { padding: 8px 12px; border-radius: 15px; max-width: 80%; font-size: 0.9rem; }
+.bot-msg { background: rgba(255,255,255,0.1); align-self: flex-start; }
+.user-msg { background: var(--azul-electrico); color: var(--azul-primario); align-self: flex-end; }
