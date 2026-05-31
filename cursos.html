@@ -35,24 +35,9 @@
             z-index: 1000;
         }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; }
 
-        .logo { height: 50px; }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        /* DISEÑO DE BOTÓN DE INICIO FIJO TIPO PASTILLA */
+        /* DISEÑO DE BOTÓN DE INICIO TIPO PASTILLA */
         .btn-nav-2026 {
             display: inline-flex;
             align-items: center;
@@ -70,91 +55,78 @@
             min-width: 110px;
             height: 40px;
             box-sizing: border-box;
-        }
-
-        .btn-orange {
             background: linear-gradient(135deg, var(--naranja-neon), var(--naranja-glow));
             box-shadow: 0 4px 0 #b34b00;
         }
-
-        .btn-blue {
-            background: linear-gradient(135deg, var(--azul-electrico), #0077ff);
-            box-shadow: 0 4px 0 #0055b3;
-        }
-
         .btn-nav-2026:hover { transform: translateY(-2px); filter: brightness(1.1); }
         .btn-nav-2026:active { transform: translateY(2px); box-shadow: none; }
 
-        /* CATALOGO GRID */
+        /* GRID DE CURSOS */
         .cursos-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            gap: 25px;
+            margin-top: 30px;
         }
 
         .card {
             background: var(--glass);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
             overflow: hidden;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s, border-color 0.3s;
-            backdrop-filter: blur(5px);
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
             border-color: var(--azul-electrico);
+            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.2);
         }
 
+        /* AJUSTE DE IMAGEN */
         .card-img-container {
             width: 100%;
             height: 200px;
             overflow: hidden;
-            background: #0f2b48;
+            background: #112240;
         }
 
         .card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: 0.5s;
         }
 
-        .card-content {
-            padding: 20px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
+        .card:hover img { transform: scale(1.1); }
 
+        .card-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        
         .badge {
+            font-size: 0.7rem;
             background: rgba(0, 210, 255, 0.1);
             color: var(--azul-electrico);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            width: fit-content;
+            padding: 5px 12px;
+            border-radius: 50px;
             font-weight: bold;
+            text-transform: uppercase;
+            width: fit-content;
         }
 
         .btn-add {
-            background: var(--azul-electrico);
+            margin-top: 15px;
+            background: linear-gradient(135deg, var(--azul-electrico), #0077ff);
             color: var(--azul-primario);
             border: none;
             padding: 12px;
-            border-radius: 8px;
+            border-radius: 12px;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.2s;
-            width: 100%;
-            margin-top: auto;
+            transition: 0.3s;
         }
-
-        .btn-add:hover {
-            background: #fff;
-        }
+        .btn-add:hover { filter: brightness(1.2); }
 
         .btn-details {
             display: block;
@@ -166,39 +138,65 @@
             margin-top: 12px;
             transition: color 0.2s;
         }
-        .btn-details:hover {
-            color: #fff;
-        }
+        .btn-details:hover { color: #fff; }
     </style>
 </head>
 <body>
 
 <header>
-    <nav>
-        <img src="img/logo.png" alt="Logo" class="logo" onerror="this.src='img/logo.png'">
-        <div class="nav-links">
-            <a href="index.html" class="btn-nav-2026 btn-orange">Inicio</a>
-            <a href="carrito.html" class="btn-nav-2026 btn-blue">Mi Selección (<span id="cart-count">0</span>)</a>
+    <div class="container nav-flex">
+        <h2 style="margin:0;">CAE <span style="color:var(--azul-electrico)">CARMEN PILAR</span></h2>
+        <div style="display: flex; gap: 15px; align-items: center;">
+            <a href="index.html" class="btn-nav-2026">Inicio</a>
+            <a href="carrito.html" style="color:var(--azul-electrico); text-decoration:none; font-weight:bold;">🛒 Lista (<span id="cart-count">0</span>)</a>
         </div>
-    </nav>
+    </div>
 </header>
 
 <div class="container">
-    <h2 style="text-align: center; margin-top: 20px; font-size: 2rem;">Especialidades Formativas <span style="color: var(--azul-electrico);">2026</span></h2>
-    <div class="cursos-grid" id="cursos-grid"></div>
+    <h1 style="text-align:center; margin: 40px 0;">Catálogo de Especialidades</h1>
+    
+    <div id="cursos-grid" class="cursos-grid">
+        </div>
 </div>
 
 <script>
+    // BASE DE DATOS AMPLIADA A LAS 25 ESPECIALIDADES FORMATIVAS
     const CURSOS = [
-        { nombre: "Cocina Nacional", cat: "Gastronomía", img: "cocina_nacional.jpg" },
-        { nombre: "Panadería", cat: "Gastronomía", img: "panaderia.jpg" },
-        { nombre: "Repostería", cat: "Gastronomía", img: "reposteria.jpg" },
-        { nombre: "Modistería", cat: "Textil y Diseño", img: "modisteria.jpg" },
-        { nombre: "Lencería", cat: "Textil y Diseño", img: "lenceria.jpg" },
-        { nombre: "Ropa Íntima", cat: "Textil y Diseño", img: "ropa_intima.jpg" },
-        { nombre: "Corte y Confección", cat: "Textil y Diseño", img: "corte_y_confeccion.jpg" },
-        { nombre: "Barbería", cat: "Estética", img: "barberia.jpg" },
-        { nombre: "Estética de Uñas", cat: "Estética", img: "estetica_de_unas.jpg" }
+        // Gastronomía
+        { nombre: "Cocina Nacional", img: "cocina_nacional.jpg", cat: "Gastronomía" },
+        { nombre: "Panadería", img: "panaderia.jpg", cat: "Gastronomía" },
+        { nombre: "Repostería", img: "reposteria.jpg", cat: "Gastronomía" },
+        { nombre: "Comida Internacional", img: "comida_internacional.jpg", cat: "Gastronomía" },
+        { nombre: "Bartender y Coctelería", img: "bartender.jpg", cat: "Gastronomía" },
+        
+        // Estética y Cuidado Personal
+        { nombre: "Barbería", img: "barberia.jpg", cat: "Estética" },
+        { nombre: "Peluquería", img: "peluqueria.jpg", cat: "Estética" },
+        { nombre: "Estética de Uñas", img: "estetica_de_unas.jpg", cat: "Estética" },
+        { nombre: "Maquillaje Profesional", img: "maquillaje.jpg", cat: "Estética" },
+        { nombre: "Masoterapia y Spa", img: "masoterapia.jpg", cat: "Estética" },
+        
+        // Textil y Diseño
+        { nombre: "Modistería", img: "modisteria.jpg", cat: "Textil" },
+        { nombre: "Lencería", img: "lenceria.jpg", cat: "Textil" },
+        { nombre: "Ropa Íntima", img: "ropa_intima.jpg", cat: "Textil" },
+        { nombre: "Corte y Confección", img: "corte_y_confeccion.jpg", cat: "Textil" },
+        { nombre: "Tejido y Crochet", img: "tejer.jpg", cat: "Textil" },
+        
+        // Área Técnica y Oficios
+        { nombre: "Electricidad", img: "electricidad.jpg", cat: "Técnica" },
+        { nombre: "Reparación de Equipos", img: "electrodomesticos.jpg", cat: "Técnica" },
+        { nombre: "Electrónica Básica", img: "electronica.jpg", cat: "Técnica" },
+        { nombre: "Soporte de Computadoras", img: "soporte_tecnico.jpg", cat: "Técnica" },
+        { nombre: "Mecánica de Motos", img: "mecanica_motos.jpg", cat: "Técnica" },
+        
+        // Arte, Manualidades y Negocios
+        { nombre: "Dibujo Artístico", img: "dibujo_artistico.jpg", cat: "Arte" },
+        { nombre: "Pintura Decorativa", img: "pintura.jpg", cat: "Arte" },
+        { nombre: "Fotografía Digital", img: "fotografia.jpg", cat: "Arte" },
+        { nombre: "Diseño Gráfico Básico", img: "diseno_grafico.jpg", cat: "Arte" },
+        { nombre: "Emprendimiento Digital", img: "emprendimiento.jpg", cat: "Arte" }
     ];
 
     function renderCursos() {
