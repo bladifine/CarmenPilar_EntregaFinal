@@ -10,7 +10,6 @@
             --azul-primario: #0a192f;
             --azul-electrico: #00d2ff;
             --naranja-neon: #ff6d00;
-            --naranja-glow: #ff9100;
             --glass: rgba(255, 255, 255, 0.08);
         }
 
@@ -36,30 +35,6 @@
         }
 
         .nav-flex { display: flex; justify-content: space-between; align-items: center; }
-
-        /* DISEÑO DE BOTÓN DE INICIO TIPO PASTILLA */
-        .btn-nav-2026 {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            padding: 10px 24px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            transition: 0.2s;
-            border: none;
-            cursor: pointer;
-            min-width: 110px;
-            height: 40px;
-            box-sizing: border-box;
-            background: linear-gradient(135deg, var(--naranja-neon), var(--naranja-glow));
-            box-shadow: 0 4px 0 #b34b00;
-        }
-        .btn-nav-2026:hover { transform: translateY(-2px); filter: brightness(1.1); }
-        .btn-nav-2026:active { transform: translateY(2px); box-shadow: none; }
 
         /* GRID DE CURSOS */
         .cursos-grid {
@@ -126,6 +101,7 @@
             cursor: pointer;
             transition: 0.3s;
         }
+
         .btn-add:hover { filter: brightness(1.2); }
 
         .btn-details {
@@ -145,9 +121,9 @@
 
 <header>
     <div class="container nav-flex">
-        <h2 style="margin:0;">CAE <span style="color:var(--azul-electrico)">CARMEN PILAR</span></h2>
-        <div style="display: flex; gap: 15px; align-items: center;">
-            <a href="index.html" class="btn-nav-2026">Inicio</a>
+        <h2 style="margin:0;">CAE <span style="color:var(--azul-electrico)">2026</span></h2>
+        <div style="display: flex; gap: 15px;">
+            <a href="index.html" style="color:white; text-decoration:none;">Inicio</a>
             <a href="carrito.html" style="color:var(--azul-electrico); text-decoration:none; font-weight:bold;">🛒 Lista (<span id="cart-count">0</span>)</a>
         </div>
     </div>
@@ -161,42 +137,36 @@
 </div>
 
 <script>
-    // BASE DE DATOS AMPLIADA A LAS 25 ESPECIALIDADES FORMATIVAS
+    // BASE DE DATOS COMPLETA CON LOS 25 CURSOS
     const CURSOS = [
-        // Gastronomía
+        // 1 a 12: Tus cursos originales
         { nombre: "Cocina Nacional", img: "cocina_nacional.jpg", cat: "Gastronomía" },
         { nombre: "Panadería", img: "panaderia.jpg", cat: "Gastronomía" },
         { nombre: "Repostería", img: "reposteria.jpg", cat: "Gastronomía" },
-        { nombre: "Comida Internacional", img: "comida_internacional.jpg", cat: "Gastronomía" },
-        { nombre: "Bartender y Coctelería", img: "bartender.jpg", cat: "Gastronomía" },
-        
-        // Estética y Cuidado Personal
         { nombre: "Barbería", img: "barberia.jpg", cat: "Estética" },
         { nombre: "Peluquería", img: "peluqueria.jpg", cat: "Estética" },
         { nombre: "Estética de Uñas", img: "estetica_de_unas.jpg", cat: "Estética" },
-        { nombre: "Maquillaje Profesional", img: "maquillaje.jpg", cat: "Estética" },
-        { nombre: "Masoterapia y Spa", img: "masoterapia.jpg", cat: "Estética" },
-        
-        // Textil y Diseño
         { nombre: "Modistería", img: "modisteria.jpg", cat: "Textil" },
         { nombre: "Lencería", img: "lenceria.jpg", cat: "Textil" },
-        { nombre: "Ropa Íntima", img: "ropa_intima.jpg", cat: "Textil" },
-        { nombre: "Corte y Confección", img: "corte_y_confeccion.jpg", cat: "Textil" },
         { nombre: "Tejido y Crochet", img: "tejer.jpg", cat: "Textil" },
-        
-        // Área Técnica y Oficios
         { nombre: "Electricidad", img: "electricidad.jpg", cat: "Técnica" },
         { nombre: "Reparación de Equipos", img: "electrodomesticos.jpg", cat: "Técnica" },
+        { nombre: "Dibujo Artístico", img: "dibujo_artistico.jpg", cat: "Arte" },
+
+        // 13 a 25: Nuevos agregados para completar los 25 cursos reales del CAE
+        { nombre: "Ropa Íntima", img: "ropa_intima.jpg", cat: "Textil" },
+        { nombre: "Corte y Confección", img: "corte_y_confeccion.jpg", cat: "Textil" },
+        { nombre: "Patronaje Industrial", img: "patronaje.jpg", cat: "Textil" },
+        { nombre: "Comida Internacional", img: "comida_internacional.jpg", cat: "Gastronomía" },
+        { nombre: "Bartender y Coctelería", img: "bartender.jpg", cat: "Gastronomía" },
+        { nombre: "Manipulación de Alimentos", img: "manipulacion_alimentos.jpg", cat: "Gastronomía" },
+        { nombre: "Maquillaje Profesional", img: "maquillaje.jpg", cat: "Estética" },
+        { nombre: "Masoterapia y Spa", img: "masoterapia.jpg", cat: "Estética" },
         { nombre: "Electrónica Básica", img: "electronica.jpg", cat: "Técnica" },
         { nombre: "Soporte de Computadoras", img: "soporte_tecnico.jpg", cat: "Técnica" },
         { nombre: "Mecánica de Motos", img: "mecanica_motos.jpg", cat: "Técnica" },
-        
-        // Arte, Manualidades y Negocios
-        { nombre: "Dibujo Artístico", img: "dibujo_artistico.jpg", cat: "Arte" },
         { nombre: "Pintura Decorativa", img: "pintura.jpg", cat: "Arte" },
-        { nombre: "Fotografía Digital", img: "fotografia.jpg", cat: "Arte" },
-        { nombre: "Diseño Gráfico Básico", img: "diseno_grafico.jpg", cat: "Arte" },
-        { nombre: "Emprendimiento Digital", img: "emprendimiento.jpg", cat: "Arte" }
+        { nombre: "Manualidades y Foami", img: "manualidades.jpg", cat: "Arte" }
     ];
 
     function renderCursos() {
