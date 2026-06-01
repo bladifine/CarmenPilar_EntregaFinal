@@ -190,25 +190,13 @@
                 fecha: new Date().toLocaleDateString()
             };
 
-            // ================================================================
-            // LÓGICA DE DETECCIÓN AUTOMÁTICA DE TU URL DE FIREBASE 2026
-            // ================================================================
-            let projectId = "";
-            const host = window.location.hostname;
+            // ID único e inequívoco de tu base de datos de Firebase
+            const projectId = "boteducarmen2026";
 
-            if (host.includes(".web.app") || host.includes(".firebaseapp.com")) {
-                // Si la página ya está subida a internet en Firebase, extrae el ID automáticamente
-                projectId = host.replace(".web.app", "").replace(".firebaseapp.com", "");
-            } else {
-                // SI ESTÁS HACIENDO PRUEBAS EN TU COMPUTADORA (localhost / Escritorio):
-                // Escribe aquí abajo el nombre exacto de tu proyecto de Firebase entre las comillas
-                projectId = "tu-proyecto-aquí"; 
-            }
-
-            // Esta es la estructura exacta que Firebase Realtime Database usa a nivel mundial:
+            // Enlace de destino real en tu base de datos de tiempo real de Google Firebase
             const FIREBASE_URL = `https://${projectId}-default-rtdb.firebaseio.com/inscritos.json`;
 
-            // Enviar los datos directamente a la nube
+            // Enviar los datos directamente a la nube de Firebase
             fetch(FIREBASE_URL, {
                 method: "POST",
                 body: JSON.stringify(registro),
@@ -218,24 +206,26 @@
             })
             .then(response => {
                 if(response.ok) {
+                    // Limpiar el carrito localmente tras el éxito
                     localStorage.removeItem('cart');
+                    
                     document.getElementById('seccion-formulario').style.display = 'none';
                     document.getElementById('mensaje-exito').style.display = 'block';
                     document.getElementById('resumen-ticket').innerHTML = `
-                        <b>ID:</b> ${registro.id}<br>
+                        <b>ID TICKETS:</b> ${registro.id}<br>
                         <b>ESTUDIANTE:</b> ${n}<br>
-                        <b>CURSOS:</b> ${cursosNombres}<br>
+                        <b>CURSOS SELECCIONADOS:</b> ${cursosNombres}<br>
                         <b>ESTADO:</b> Guardado en Servidor Nube
                     `;
                 } else {
-                    alert("Error en el servidor de Firebase. Verifica el ID de tu proyecto.");
+                    alert("Error en el servidor de Firebase. Verifica las reglas de tu Realtime Database.");
                     btnSubmit.disabled = false;
                     btnSubmit.innerText = "CONFIRMAR INSCRIPCIÓN 🚀";
                 }
             })
             .catch(error => {
                 console.error("Error completo:", error);
-                alert("Error de conexión. Asegúrate de haber colocado el ID correcto de tu proyecto de Firebase.");
+                alert("Error de conexión. La base de datos rechazó la petición.");
                 btnSubmit.disabled = false;
                 btnSubmit.innerText = "CONFIRMAR INSCRIPCIÓN 🚀";
             });
