@@ -1,14 +1,16 @@
-// Respuestas base del Asistente CAE sin repeticiones innecesarias
+// Respuestas directas y profesionales del CAE
 const RESPUESTAS_BOT = {
-    saludo: "¡Hola! Bienvenido al asistente virtual del CAE 'Carmen Pilar Fernández'. Estoy aquí para guiarte con los cursos, requisitos e inscripciones. ¿En qué puedo ayudarte?",
+    saludo: "¡Hola! Bienvenido al asistente virtual del CAE 'Carmen Pilar Fernández'. Estoy aquí para ayudarte con información sobre nuestros cursos, inscripciones y ubicación. ¿Qué deseas consultar?",
     
-    inscripcion: "El proceso es sencillo: selecciona tus cursos en el catálogo, agrégalos al carrito y completa el formulario con tu Nombre y Cédula. ¡Tu cupo se registra en la nube al instante!",
+    ubicacion: "Nos encontramos ubicados en la sede física del CAE 'Carmen Pilar Fernández'. ¡Te esperamos!",
     
-    cursos_general: "Nuestra oferta actual incluye especialidades en Gastronomía, Estética, Textil, Arte y Técnica. ¿Te gustaría conocer el detalle de alguna de estas áreas?",
+    horario: "Nuestros cursos se dictan de lunes a viernes en horario de oficina. Te recomendamos visitarnos para conocer los horarios específicos de cada taller.",
     
-    comida: "Para los amantes de la cocina tenemos: Cocina Nacional, Panadería, Repostería, Pastelería y Dulces Criollos.[cite: 2] Todos son ideales para iniciar tu propio emprendimiento.",
+    cursos: "Nuestra oferta incluye: \n• Gastronomía (Cocina, Panadería, Repostería) \n• Estética (Barbería, Peluquería, Uñas) \n• Textil, Arte y Técnica.[cite: 2] ¿Alguna área te interesa en especial?",
+    
+    inscripcion: "Para inscribirte: elige tus cursos en el catálogo, añádelos al carrito y completa el formulario con tu Nombre y Cédula.[cite: 2] ¡Es totalmente gratuito!",
 
-    default: "No estoy seguro de entenderte del todo. Pero puedo ayudarte a inscribirte, mostrarte la lista de cursos o darte nuestra ubicación.[cite: 2] ¿Qué prefieres saber?"
+    default: "No estoy seguro de haber entendido. Pero puedo informarte sobre los cursos, los horarios, nuestra ubicación o cómo inscribirte.[cite: 2] ¿Qué prefieres saber?"
 };
 
 function sendMessage() {
@@ -18,7 +20,7 @@ function sendMessage() {
     let msg = input.value.trim().toLowerCase();
     if (!msg) return;
 
-    // Limpieza de acentos
+    // Limpieza de acentos para mayor precisión
     msg = msg.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
     appendMessage(input.value, 'user');
@@ -27,29 +29,29 @@ function sendMessage() {
     setTimeout(() => {
         let respuesta = "";
 
-        // 1. SALUDOS
-        if (/hola|buen|saludo/.test(msg)) {
-            respuesta = RESPUESTAS_BOT.saludo;
+        // 1. UBICACIÓN (Respuesta a "donde estas")
+        if (/donde|ubica|direcc|sede|lugar/.test(msg)) {
+            respuesta = RESPUESTAS_BOT.ubicacion;
         } 
         
-        // 2. COMIDA / GASTRONOMÍA (Respuesta específica solicitada)
-        else if (/comida|cocina|panader|reposter|pastel|dulce|hambre/.test(msg)) {
-            respuesta = RESPUESTAS_BOT.comida;
+        // 2. HORARIOS (Respuesta a "que horario")
+        else if (/horario|hora|cuando|tiempo|dias/.test(msg)) {
+            respuesta = RESPUESTAS_BOT.horario;
         }
 
-        // 3. CURSOS GENERAL
-        else if (/que cursos|cuales cursos|lista|ofert|ensenan/.test(msg)) {
-            respuesta = RESPUESTAS_BOT.cursos_general;
+        // 3. CURSOS Y OFERTA
+        else if (/que curs|lista|ensenan|ofert|clases/.test(msg)) {
+            respuesta = RESPUESTAS_BOT.cursos;
         }
 
-        // 4. INSCRIPCIÓN Y PASOS
-        else if (/inscri|anot|regis|cupo|pasos|como/.test(msg)) {
+        // 4. INSCRIPCIÓN
+        else if (/inscri|anot|regis|pasos|como/.test(msg)) {
             respuesta = RESPUESTAS_BOT.inscripcion;
         }
 
-        // 5. GRATUIDAD (Pregunta trampa)
-        else if (/costo|precio|pago|gratis|cuanto/.test(msg)) {
-            respuesta = "¡Todos nuestros cursos son 100% gratuitos![cite: 2] No necesitas pagar inscripción ni mensualidades para formarte con nosotros.";
+        // 5. SALUDOS
+        else if (/hola|buen|saludo/.test(msg)) {
+            respuesta = RESPUESTAS_BOT.saludo;
         }
 
         // 6. MANEJO DE INCOHERENCIAS
@@ -58,7 +60,7 @@ function sendMessage() {
         }
 
         appendMessage(respuesta, 'bot');
-    }, 800); // 0.8 segundos de espera para fluidez
+    }, 800); 
 }
 
 function appendMessage(text, sender) {
@@ -85,13 +87,12 @@ function appendMessage(text, sender) {
     } else {
         inner.style.background = 'white';
         inner.style.color = '#1e293b';
-        inner.style.borderLeft = '5px solid #ff6d00'; // Naranja para resaltar al bot
+        inner.style.borderLeft = '5px solid #ff6d00'; 
     }
 
     inner.innerText = text;
     div.appendChild(inner);
     box.appendChild(div);
-    
     box.scrollTop = box.scrollHeight;
 }
 
