@@ -1,57 +1,87 @@
-// Respuestas base del Asistente CAE
+// Respuestas base del Asistente CAE optimizadas
 const RESPUESTAS_BOT = {
     saludo: "¡Hola! Soy el asistente virtual del CAE 'Carmen Pilar Fernández'. Estoy listo para ayudarte con información sobre nuestra historia, los pasos de inscripción, la oferta de cursos gratuitos, horarios o ubicación. ¿Qué deseas consultar?",
     
-    cursos: "Nuestra oferta académica certificada incluye las siguientes especialidades formativas:\n\n" +
-            "• 🧑‍🍳 **Gastronomía:** Cocina Nacional, Panadería, Repostería, Pastelería y Dulces Criollos.\n" +
-            "• ✂️ **Textil y Diseño:** Modistería, Lencería, Ropa Íntima, Manualidades, Tejido y Crochet.\n" +
-            "• 💅 **Estética:** Barbería, Peluquería, Estética Avanzada, Estética de Uñas, Manicure y Pedicure, Masajes y Masoterapia.\n" +
-            "• 🎨 **Arte:** Dibujo Artístico, Pintura Artística, Pintura Avanzada, Rostros, Puntillismo Básico y Avanzado.\n" +
-            "• ⚡ **Técnica:** Fundamentos de Electricidad y Reparación de Electrodomésticos.\n\n" +
-            "¿Te interesa conocer los requisitos para inscribirte en alguno?",
-            
-    inscripcion: "Para inscribirte en nuestros cursos gratuitos de este 2026, los pasos son:\n1. Revisa nuestro catálogo en línea y selecciona tus cursos favoritos.\n2. Ve a la sección 'Confirmar Inscripción' e ingresa tu Nombre, Apellido y Cédula.\n3. Presiona finalizar. ¡Tu cupo se guardará en nuestra base de datos de inmediato!",
+    // Respuesta para la trampa: "¿Esto tiene validez?"
+    certificado: "¡Absolutamente! Todos nuestros cursos están certificados y avalados, lo que te permite utilizar tu certificado para trabajar o emprender legalmente.",
     
-    requisitos: "Los requisitos generales para cualquiera de nuestras especialidades son muy sencillos:\n• Ser mayor de 15 años.\n• Copia de la Cédula de Identidad.\n• ¡Muchas ganas de aprender y emprender!",
+    // Respuesta para la trampa: "¿Necesito ser bachiller o profesional?"
+    nivel: "No necesitas títulos previos. Solo debes ser mayor de 15 años, traer tu copia de cédula y tener ganas de aprender.",
     
-    ubicación: "Nos encontramos ubicados en la sede del CAE 'Carmen Pilar Fernández'. Puedes visitarnos de lunes a viernes en horario de oficina para conocer los talleres en físico.",
+    inscripcion: "Para inscribirte este 2026: selecciona tus cursos, ve al carrito, llena tus datos (Nombre y Cédula) y dale a finalizar. ¡Tu cupo se guarda en la nube al instante!",
     
-    default: "Entendido. Recuerda que como asistente virtual del CAE 'Carmen Pilar Fernández', puedo darte detalles sobre nuestros 25 cursos gratuitos, las inscripciones 2026, los requisitos necesarios o nuestra ubicación. ¿Cómo te gustaría continuar?"
+    cursos: "Nuestra oferta incluye Gastronomía, Textil, Estética, Arte y Técnica.[cite: 2] ¿Te gustaría saber sobre alguna especialidad en particular?",
+
+    default: "No estoy seguro de entenderte, pero puedo informarte sobre nuestros cursos, los requisitos, la ubicación o cómo inscribirte.[cite: 2] ¿Qué prefieres?"
 };
 
 function sendMessage() {
     const input = document.getElementById('user-input');
-    const msg = input.value.trim().toLowerCase();
+    if (!input) return;
+
+    let msg = input.value.trim().toLowerCase();
     if (!msg) return;
 
-    // Mostrar mensaje del usuario en pantalla
+    // LIMPIEZA: Quita acentos para que 'inscripción' e 'inscripcion' funcionen igual
+    msg = msg.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
     appendMessage(input.value, 'user');
     input.value = '';
 
-    // Lógica inteligente de respuesta
     setTimeout(() => {
-        let respuesta = RESPUESTAS_BOT.default;
+        let respuesta = "";
 
-        if (msg.includes('hola') || msg.includes('buenas')) {
-            respuesta = RESPUESTAS_BOT.saludo;
-        } else if (msg.includes('curso') || msg.includes('oferta') || msg.includes('todos') || msg.includes('lista') || msg.includes('enseña')) {
-            respuesta = RESPUESTAS_BOT.cursos;
-        } else if (msg.includes('inscribir') || msg.includes('inscripcion') || msg.includes('anotarse') || msg.includes('pasos')) {
+        // TRAMPA 1: El costo (Fundamental que quede claro que es gratis)
+        if (/costo|precio|pago|pagar|cuanto|vender|comprar|gratis/.test(msg)) {
+            respuesta = "¡Importante! Todos nuestros cursos son **100% gratuitos**.[cite: 2] El CAE es una institución de formación para el pueblo y no requiere pagos de inscripción ni mensualidades.";
+        }
+        
+        // TRAMPA 2: Validez / Título
+        else if (/titulo|certificado|validez|sirve|aval|diploma/.test(msg)) {
+            respuesta = RESPUESTAS_BOT.certificado;
+        }
+
+        // TRAMPA 3: Nivel de estudios / Edad
+        else if (/estudio|bachiller|primaria|edad|viejo|joven|requisito/.test(msg)) {
+            respuesta = "Los requisitos son mínimos: ser mayor de 15 años y presentar tu copia de cédula. No importa tu nivel educativo previo.[cite: 2]";
+        }
+
+        // TRAMPA 4: ¿Quién eres? (Identidad de la IA)
+        else if (/quien eres|que eres|humano|robot|bot/.test(msg)) {
+            respuesta = "Soy el Asistente Virtual del CAE 'Carmen Pilar Fernández'. Mi misión es facilitarte el proceso de inscripción 2026 y responder tus dudas sobre los talleres.[cite: 2]";
+        }
+
+        // FLUJO NORMAL: Inscripción
+        else if (/inscri|anot|regis|cupo|pasos/.test(msg)) {
             respuesta = RESPUESTAS_BOT.inscripcion;
-        } else if (msg.includes('requisito') || msg.includes('necesito') || msg.includes('papeles')) {
-            respuesta = RESPUESTAS_BOT.requisitos;
-        } else if (msg.includes('donde') || msg.includes('ubica') || msg.includes('direccion') || msg.includes('sede')) {
-            respuesta = RESPUESTAS_BOT.ubicación;
+        }
+        
+        // FLUJO NORMAL: Lista de cursos
+        else if (/curs|ofert|clase|lista|ensenan/.test(msg)) {
+            respuesta = RESPUESTAS_BOT.cursos;
+        }
+
+        // SALUDOS
+        else if (/hola|buen|saludo/.test(msg)) {
+            respuesta = RESPUESTAS_BOT.saludo;
+        }
+
+        // MANEJO DE INCOHERENCIAS (Preguntas locas o errores)
+        else {
+            respuesta = RESPUESTAS_BOT.default;
         }
 
         appendMessage(respuesta, 'bot');
-    }, 400);
+    }, 1000); // 1 segundo de espera para que parezca que piensa
 }
 
 function appendMessage(text, sender) {
     const box = document.getElementById('chat-messages');
+    if (!box) return;
+
     const div = document.createElement('div');
     div.style.textAlign = sender === 'user' ? 'right' : 'left';
+    div.style.marginBottom = '10px';
     
     const inner = document.createElement('div');
     inner.style.display = 'inline-block';
@@ -59,8 +89,8 @@ function appendMessage(text, sender) {
     inner.style.borderRadius = sender === 'user' ? '20px 20px 0 20px' : '20px 20px 20px 0';
     inner.style.fontSize = '0.95rem';
     inner.style.maxWidth = '80%';
-    inner.style.whiteSpace = 'pre-line'; // Permite saltos de línea bonitos
-    inner.style.boxShadow = '0 4px 10px rgba(0,0,0,0.05)';
+    inner.style.whiteSpace = 'pre-line';
+    inner.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
 
     if (sender === 'user') {
         inner.style.background = '#00d2ff';
@@ -75,15 +105,19 @@ function appendMessage(text, sender) {
     inner.innerText = text;
     div.appendChild(inner);
     box.appendChild(div);
+    
+    // Scroll automático suave
     box.scrollTop = box.scrollHeight;
 }
 
 function toggleChat() {
     const chat = document.getElementById('chat-window');
-    chat.style.display = chat.style.display === 'none' ? 'flex' : 'none';
+    if (chat) {
+        chat.style.display = chat.style.display === 'none' ? 'flex' : 'none';
+    }
 }
 
-// Permitir enviar con la tecla Enter
+// Enviar con Enter
 document.getElementById('user-input')?.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') sendMessage();
 });
