@@ -2,195 +2,57 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cursos 2026 | BotEduCarmen</title>
+    <title>Mi Selección | CAE</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        .courses-grid { 
-            max-width: 1200px; margin: 40px auto; padding: 0 20px; 
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; 
-        }
-        .course-card {
-            background: rgba(255, 255, 255, 0.08); border-radius: 25px; overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1); transition: 0.4s;
-            display: flex; flex-direction: column;
-        }
-        .course-card:hover { transform: translateY(-10px); border-color: #00d2ff; }
-        
-        .course-img-wrapper { width: 100%; height: 180px; cursor: pointer; overflow: hidden; background: #000; }
-        .course-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .course-info { padding: 20px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; }
-        .course-info h3 { margin: 0 0 15px; font-size: 1rem; min-height: 45px; text-transform: uppercase; color: #fff; }
-        
-        /* BOTÓN SELECCIONAR CORREGIDO */
-        .btn-select {
-            background: linear-gradient(135deg, #ff6d00, #ff9100);
-            color: white; border: none; padding: 14px; width: 100%; border-radius: 12px;
-            font-weight: 800; cursor: pointer; margin-bottom: 10px; 
-            box-shadow: 0 4px 0 #b34b00; transition: 0.2s;
-            position: relative; z-index: 10; /* Asegura que sea cliqueable sobre la card */
-        }
-        .btn-select:hover { filter: brightness(1.1); }
-        .btn-select:active { transform: translateY(2px); box-shadow: none; }
-
-        .btn-details {
-            background: transparent; color: #00d2ff; border: 1px solid #00d2ff;
-            padding: 10px; width: 100%; border-radius: 12px; cursor: pointer; font-weight: 600;
-        }
-
-        .float-btn {
-            position: fixed; width: 60px; height: 60px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; z-index: 2000; transition: 0.3s;
-        }
-        .btn-ia { bottom: 30px; right: 30px; background: linear-gradient(135deg, #00d2ff, #0077ff); }
-        .btn-scroll { bottom: 30px; left: 30px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); color: white; display: none; border:none; font-size: 20px; }
+        .cart-container { max-width: 800px; margin: 50px auto; padding: 20px; background: white; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .cart-item { display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #eee; align-items: center; }
+        .btn-remove { color: #ff4444; cursor: pointer; font-weight: bold; border: none; background: none; }
+        .btn-final { background: #0a192f; color: #00d2ff; padding: 15px 30px; border-radius: 10px; display: block; text-align: center; margin-top: 20px; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
-
-    <nav class="navbar">
-        <div class="nav-container">
-            <div onclick="window.location.href='index.html'" style="cursor:pointer; display:flex; align-items:center; gap:10px;">
-                <img src="img/logo.png" width="30" alt="Logo">
-                <span style="font-weight:900; color:var(--azul-electrico);">BotEduCarmen</span>
-            </div>
-            <div class="nav-links">
-                <a href="index.html" class="nav-btn btn-inicio">Inicio</a>
-                <a href="https://wa.me/584243360158" target="_blank" class="nav-btn btn-whatsapp-nav">WhatsApp</a>
-                <a href="admin.html" class="nav-btn btn-admin-nav">Admin</a>
-                <a href="carrito.html" class="nav-btn btn-cart-nav" id="cart-btn-nav">MI LISTA (<span id="cart-count">0</span>)</a>
-            </div>
+    <div class="cart-container">
+        <h1>Cursos Seleccionados</h1>
+        <div id="lista-carrito">
+            <!-- Se llena dinámicamente[cite: 4] -->
         </div>
-    </nav>
-
-    <div class="courses-grid" id="cursos-grid"></div>
-
-    <!-- MODAL CHATBOT -->
-    <div id="chat-container" class="chat-modal" style="display: none;">
-        <div class="chat-header">
-            <span>Asistente Académico</span>
-            <button onclick="toggleChat()" style="background:none; border:none; color:black; font-size:22px; cursor:pointer;">&times;</button>
-        </div>
-        <div id="chat-messages" class="chat-body">
-            <div class="msg bot-msg">¡Hola! Selecciona un curso o pregúntame lo que necesites.</div>
-        </div>
-        <div class="chat-footer">
-            <input type="text" id="user-input" placeholder="Escribe tu mensaje...">
-            <button onclick="sendMessage()">➤</button>
-        </div>
+        <div id="total-info" style="margin-top: 20px; font-weight: bold;"></div>
+        <a href="contacto.html" class="btn-final">PROCEDER AL REGISTRO FINAL ➡</a>
+        <a href="cursos.html" style="display:block; text-align:center; margin-top:15px; color:#667;">+ Agregar más cursos</a>
     </div>
-
-    <div class="float-btn btn-ia" onclick="toggleChat()">
-        <img src="img/chatbot.png" width="35">
-    </div>
-    <button class="float-btn btn-scroll" id="scrollTop" onclick="window.scrollTo({top:0, behavior:'smooth'})">⬆</button>
 
     <script>
-        const MIS_CURSOS = [
-            { name: "Barbería", img: "img/barberia.jpg" },
-            { name: "Cocina Nacional", img: "img/cocina_nacional.jpg" },
-            { name: "Cosmetología", img: "img/cosmetologia.jpg" },
-            { name: "Dibujo Artístico", img: "img/dibujo_artistico.jpg" },
-            { name: "Dulces Criollos", img: "img/dulces_criollos.jpg" },
-            { name: "Electricidad", img: "img/electricidad.jpg" },
-            { name: "Electrodomésticos", img: "img/electrodomesticos.jpg" },
-            { name: "Estética Avanzada", img: "img/estetica_avanzada.jpg" },
-            { name: "Estética de Uñas", img: "img/estetica_de_unas.jpg" },
-            { name: "Lencería", img: "img/lenceria.jpg" },
-            { name: "Manicure y Pedicure", img: "img/manicure_pedicure.jpg" },
-            { name: "Manualidades", img: "img/manualidades.jpg" },
-            { name: "Masaje", img: "img/masaje.jpg" },
-            { name: "Masoterapia", img: "img/masoterapia.jpg" },
-            { name: "Modistería", img: "img/modisteria.jpg" },
-            { name: "Panadería", img: "img/panaderia.jpg" },
-            { name: "Peluquería", img: "img/peluqueria.jpg" },
-            { name: "Pintura Artística", img: "img/pintura_artistica.jpg" },
-            { name: "Pintura Avanzada", img: "img/pintura_avanzada.jpg" },
-            { name: "Puntillismo Básico", img: "img/puntillismo_basico.jpg" },
-            { name: "Puntillismo Avanzado", img: "img/puntillismo_avanzado.jpg" },
-            { name: "Repostería", img: "img/reposteria.jpg" },
-            { name: "Pastelería", img: "img/reposteria_y_pasteleria.jpg" },
-            { name: "Ropa Íntima", img: "img/ropa_intima.jpg" },
-            { name: "Rostros", img: "img/rostros.jpg" },
-            { name: "Tejer", img: "img/tejer.jpg" }
-        ];
+        function cargarCarrito() {
+            const container = document.getElementById('lista-carrito');
+            const info = document.getElementById('total-info');
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];[cite: 4]
 
-        function render() {
-            const grid = document.getElementById('cursos-grid');
-            grid.innerHTML = ''; // Limpiar antes de renderizar
-            
-            MIS_CURSOS.forEach(c => {
-                const card = document.createElement('div');
-                card.className = 'course-card';
-                card.innerHTML = `
-                    <div class="course-img-wrapper" onclick="ver('${c.name}')">
-                        <img src="${c.img}" alt="${c.name}" onerror="this.src='img/logo.png'">
-                    </div>
-                    <div class="course-info">
-                        <h3>${c.name}</h3>
-                        <button class="btn-select" onclick="addCurso('${c.name}', '${c.img}')">SELECCIONAR</button>
-                        <button class="btn-details" onclick="ver('${c.name}')">DETALLES</button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-            updateCounter();
+            if (cart.length === 0) {
+                container.innerHTML = "<p>No has seleccionado ningún curso todavía.</p>";
+                info.innerText = "";
+                return;
+            }
+
+            container.innerHTML = cart.map((item, index) => `
+                <div class="cart-item">
+                    <span><strong>${item.nombre}</strong></span>
+                    <button class="btn-remove" onclick="removeItem(${index})">Quitar</button>
+                </div>
+            `).join('');
+
+            info.innerText = `Total cursos seleccionados: ${cart.length} (Inscripción Gratuita)[cite: 9]`;
         }
 
-        function ver(n) { 
-            window.location.href = `detalle-curso.html?curso=${encodeURIComponent(n)}`; 
-        }
-
-        // FUNCIÓN GLOBAL REFORZADA
-        window.addCurso = function(nombre, imagen) {
+        function removeItem(index) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            
-            if(!cart.find(item => item.nombre === nombre)) {
-                cart.push({ nombre: nombre, imagen: imagen });
-                localStorage.setItem('cart', JSON.stringify(cart));
-                updateCounter();
-                
-                // Efecto visual en el botón de la lista
-                const navBtn = document.getElementById('cart-btn-nav');
-                navBtn.style.transform = 'scale(1.1)';
-                setTimeout(() => navBtn.style.transform = 'scale(1)', 200);
-                
-                console.log("Curso agregado:", nombre);
-            } else {
-                alert("Este curso ya está en tu lista.");
-            }
-        };
-
-        function updateCounter() {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const countSpan = document.getElementById('cart-count');
-            if(countSpan) {
-                countSpan.innerText = cart.length;
-            }
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            cargarCarrito();
         }
 
-        // Lógica del Chatbot
-        function toggleChat() {
-            const chat = document.getElementById('chat-container');
-            chat.style.display = (chat.style.display === 'none' || chat.style.display === '') ? 'flex' : 'none';
-        }
-
-        function sendMessage() {
-            const input = document.getElementById('user-input');
-            const msgs = document.getElementById('chat-messages');
-            if(!input.value.trim()) return;
-            msgs.innerHTML += `<div class="msg user-msg">${input.value}</div>`;
-            input.value = '';
-            msgs.scrollTop = msgs.scrollHeight;
-        }
-
-        window.onscroll = function() {
-            document.getElementById('scrollTop').style.display = (window.pageYOffset > 400) ? 'flex' : 'none';
-        };
-
-        window.onload = render;
+        document.addEventListener('DOMContentLoaded', cargarCarrito);
     </script>
+    <script src="chatbot.js"></script>
 </body>
 </html>
