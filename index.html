@@ -2,62 +2,43 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BotEduCarmen | CAE Carmen Pilar Fernández</title>
+    <title>BotEduCarmen 2026 | Inicio</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        :root {
-            --azul-primario: #0a192f;
-            --azul-electrico: #00d2ff;
-            --naranja-neon: #ff6d00;
-        }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #f8fafc; }
-        header { background: white; padding: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        .container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .hero { background: linear-gradient(135deg, var(--azul-primario) 0%, #1e293b 100%); height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center; color: white; }
-        .btn-2026 { padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; transition: 0.3s; margin: 0 10px; }
-        .btn-orange { background: var(--naranja-neon); color: white; }
-        .btn-blue { border: 2px solid var(--azul-electrico); color: var(--azul-electrico); }
-    </style>
 </head>
 <body>
-
     <header>
-        <div class="container">
+        <div class="container" style="display:flex; justify-content:space-between; align-items:center; padding:15px 0;">
             <div style="display:flex; align-items:center; gap:15px;">
-                <img src="img/logo.png" alt="Logo" style="height:50px;">
-                <h2 style="margin:0; color:var(--azul-primario);">BotEduCarmen</h2>
+                <img src="img/logo.png" alt="Logo" style="height:60px;">
+                <h2 style="margin:0; color:#0a192f;">BotEduCarmen</h2>
             </div>
             <nav>
-                <a href="cursos.html" class="btn-2026 btn-orange">VER CURSOS</a>
-                <a href="admin.html" class="btn-2026 btn-blue">ADMIN</a>
+                <a href="cursos.html" class="btn-naranja">EXPLORAR CURSOS</a>
+                <a href="admin.html" style="margin-left:20px; text-decoration:none; color:#0a192f; font-weight:bold;">ADMIN</a>
             </nav>
         </div>
     </header>
 
-    <section class="hero">
+    <section class="hero" style="background:linear-gradient(rgba(10,25,47,0.8), rgba(10,25,47,0.8)), url('img/hero.jpg'); height:70vh; display:flex; align-items:center; justify-content:center; text-align:center; color:white;">
         <div>
-            <h1 style="font-size: 3.5rem; margin-bottom: 20px;">Formación Gratuita 2026</h1>
-            <p style="font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto 30px;">Aprende un oficio en el CAE "Carmen Pilar Fernández" y emprende tu propio negocio[cite: 5, 9].</p>
-            <a href="cursos.html" class="btn-2026 btn-orange" style="font-size: 1.2rem; padding: 15px 40px;">¡Inscríbete Ya!</a>
+            <h1 style="font-size:3.5rem;">Formación para el Futuro</h1>
+            <p style="font-size:1.2rem; margin-bottom:30px;">Cursos gratuitos de excelencia técnica en La Victoria[cite: 17].</p>
+            <a href="cursos.html" class="btn-naranja">¡INSCRIBETE AHORA!</a>
         </div>
     </section>
 
-    <!-- CHATBOT INTERFACE -->
+    <!-- Botón Flotante Chatbot -->
     <div id="chat-icon" onclick="toggleChat()" style="position:fixed; bottom:30px; right:30px; width:80px; height:80px; cursor:pointer; z-index:5000;">
-        <img src="img/chatbot.png" style="width:100%; filter: drop-shadow(0 0 10px var(--azul-electrico));">
+        <img src="img/chatbot.png" style="width:100%; filter: drop-shadow(0 0 10px #00d2ff);">
     </div>
 
-    <div id="chat-window" style="position:fixed; bottom:120px; right:30px; width:360px; height:520px; background:white; border-radius:25px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); z-index:5000; display:none; flex-direction:column; overflow:hidden; border:1px solid #ddd;">
-        <div style="background:var(--azul-primario); color:white; padding:20px; text-align:center; font-weight:bold;">ASISTENTE VIRTUAL CAE</div>
-        <div id="chat-messages" style="flex:1; padding:20px; overflow-y:auto; background:#f8fafc; display:flex; flex-direction:column; gap:10px;">
-            <div style="background:white; padding:12px; border-radius:15px; align-self:flex-start; border-left:4px solid var(--azul-electrico); box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-                ¡Hola! Soy tu asistente. ¿En qué puedo ayudarte hoy?
-            </div>
-        </div>
-        <div style="padding:15px; background:white; display:flex; gap:10px; border-top:1px solid #eee;">
-            <input type="text" id="user-input" placeholder="Escribe tu duda aquí..." style="flex:1; padding:12px; border:1px solid #ddd; border-radius:15px; outline:none;" onkeypress="if(event.key==='Enter') sendMessage()">
-            <button onclick="sendMessage()" style="background:var(--azul-primario); color:white; border:none; width:45px; height:45px; border-radius:12px; cursor:pointer;">➤</button>
+    <!-- Ventana Chatbot -->
+    <div id="chat-window" style="position:fixed; bottom:120px; right:30px; width:350px; height:500px; background:white; border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.3); display:none; flex-direction:column; z-index:5000; overflow:hidden; border:1px solid #ddd;">
+        <div style="background:#0a192f; color:white; padding:20px; text-align:center; font-weight:bold;">🤖 ASISTENTE CAE</div>
+        <div id="chat-messages" style="flex:1; padding:20px; overflow-y:auto; background:#f8f9fa; display:flex; flex-direction:column;"></div>
+        <div style="padding:15px; border-top:1px solid #eee; display:flex; gap:10px;">
+            <input type="text" id="user-input" placeholder="Pregunta algo..." style="flex:1; padding:10px; border-radius:10px; border:1px solid #ccc; outline:none;" onkeypress="if(event.key==='Enter') sendMessage()">
+            <button onclick="sendMessage()" style="background:#0a192f; color:#00d2ff; border:none; padding:10px 15px; border-radius:10px; cursor:pointer;">➤</button>
         </div>
     </div>
 

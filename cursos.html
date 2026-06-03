@@ -2,56 +2,73 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Mi Selección | CAE</title>
+    <title>Catálogo de Cursos | BotEduCarmen</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        .cart-container { max-width: 800px; margin: 50px auto; padding: 20px; background: white; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
-        .cart-item { display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #eee; align-items: center; }
-        .btn-remove { color: #ff4444; cursor: pointer; font-weight: bold; border: none; background: none; }
-        .btn-final { background: #0a192f; color: #00d2ff; padding: 15px 30px; border-radius: 10px; display: block; text-align: center; margin-top: 20px; text-decoration: none; font-weight: bold; }
-    </style>
 </head>
 <body>
-    <div class="cart-container">
-        <h1>Cursos Seleccionados</h1>
-        <div id="lista-carrito">
-            <!-- Se llena dinámicamente[cite: 4] -->
+    <header>
+        <div class="container" style="display:flex; justify-content:space-between; align-items:center; padding:15px 0;">
+            <a href="index.html" style="text-decoration:none; color:white;">⬅ VOLVER</a>
+            <h1 style="color:#00d2ff; margin:0;">Catálogo 2026</h1>
         </div>
-        <div id="total-info" style="margin-top: 20px; font-weight: bold;"></div>
-        <a href="contacto.html" class="btn-final">PROCEDER AL REGISTRO FINAL ➡</a>
-        <a href="cursos.html" style="display:block; text-align:center; margin-top:15px; color:#667;">+ Agregar más cursos</a>
+    </header>
+
+    <div class="container">
+        <div id="grid-cursos" class="cursos-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(250px, 1fr)); gap:20px; padding:40px 0;">
+            <!-- Se carga desde script -->
+        </div>
+    </div>
+
+    <div id="cart-float" style="position:fixed; bottom:30px; left:30px; display:none;">
+        <a href="contacto.html" class="btn-confirmar" style="background:#ff6d00; color:white; padding:15px 30px; border-radius:50px; text-decoration:none; font-weight:bold; box-shadow:0 5px 15px rgba(0,0,0,0.3);">
+            🚀 CONFIRMAR (<span id="cart-count">0</span>)
+        </a>
     </div>
 
     <script>
-        function cargarCarrito() {
-            const container = document.getElementById('lista-carrito');
-            const info = document.getElementById('total-info');
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];[cite: 4]
+        const CURSOS = [
+            {n: "Barbería", i: "Barberia.jpg"}, {n: "Panadería", i: "panaderia.jpg"},
+            {n: "Estética de Uñas", i: "Estetica_de_unas.jpg"}, {n: "Modistería", i: "modisteria.jpg"},
+            {n: "Repostería", i: "reposteria.jpg"}, {n: "Corte y Costura", i: "corte.jpg"}
+            // Añade más según tu lista
+        ];
 
-            if (cart.length === 0) {
-                container.innerHTML = "<p>No has seleccionado ningún curso todavía.</p>";
-                info.innerText = "";
-                return;
-            }
-
-            container.innerHTML = cart.map((item, index) => `
-                <div class="cart-item">
-                    <span><strong>${item.nombre}</strong></span>
-                    <button class="btn-remove" onclick="removeItem(${index})">Quitar</button>
-                </div>
-            `).join('');
-
-            info.innerText = `Total cursos seleccionados: ${cart.length} (Inscripción Gratuita)[cite: 9]`;
+        function cargarCursos() {
+            const grid = document.getElementById('grid-cursos');
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            grid.innerHTML = CURSOS.map(c => {
+                const enCart = cart.find(x => x.nombre === c.n);
+                return `
+                    <div class="curso-card" style="background:white; border-radius:15px; overflow:hidden; box-shadow:0 5px 15px rgba(0,0,0,0.1); text-align:center;">
+                        <img src="img/${c.i}" style="width:100%; height:180px; object-fit:cover;" onerror="this.src='img/logo.png'">
+                        <div style="padding:20px;">
+                            <h3>${c.n}</h3>
+                            <button onclick="toggleSeleccion('${c.n}')" style="width:100%; padding:10px; border-radius:10px; border:none; cursor:pointer; font-weight:bold; background:${enCart ? '#444' : '#ff6d00'}; color:white;">
+                                ${enCart ? '✖ QUITAR' : '✚ SELECCIONAR'}
+                            </button>
+                        </div>
+                    </div>`;
+            }).join('');
+            actualizarUI();
         }
 
-        function removeItem(index) {
+        function toggleSeleccion(nombre) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            cart.splice(index, 1);
+            const idx = cart.findIndex(x => x.nombre === nombre);
+            if (idx > -1) cart.splice(idx, 1);
+            else cart.push({nombre});
             localStorage.setItem('cart', JSON.stringify(cart));
-            cargarCarrito();
+            cargarCursos();
         }
 
-        document.addEventListener('DOMContentLoaded', cargarCarrito);
+        function actualizarUI() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            document.getElementById('cart-float').style.display = cart.length > 0 ? "block" : "none";
+            document.getElementById('cart-count').innerText = cart.length;
+        }
+
+        document.addEventListener('DOMContentLoaded', cargarCursos);
     </script>
     <script src="chatbot.js"></script>
 </body>

@@ -1,13 +1,22 @@
-// CONFIGURACIÓN DE RESPUESTAS[cite: 5]
-const RESPUESTAS = {
-    saludo: "¡Hola! Bienvenido al CAE 'Carmen Pilar Fernández'. Ofrecemos formación gratuita para el emprendimiento[cite: 5, 9]. ¿Qué curso buscas?",
-    ubicacion: "Nuestra sede está en La Victoria, estado Aragua, sector Las Mercedes.",
-    horario: "Atendemos de lunes a viernes en horario de oficina. Los cursos tienen sus propios bloques horarios[cite: 5].",
-    cursos: "Tenemos más de 25 cursos: Cocina, Repostería, Peluquería, Corte y Costura, y mucho más[cite: 5, 9].",
-    inscripcion: "Para inscribirte, agrega tus cursos al carrito y luego ve a la sección de 'Mi Selección' para finalizar el registro.",
-    gratis: "¡Sí! Todos nuestros programas son totalmente gratuitos, financiados por la institución[cite: 9].",
-    default: "Lo siento, no tengo esa información exacta. Puedes preguntar sobre cursos, ubicación, horarios o inscripciones[cite: 5]."
+/**
+ * chatbot.js - Lógica de Asistente Virtual 2026
+ */
+const RESPUESTAS_BOT = {
+    saludo: "¡Hola! Bienvenido al asistente virtual del CAE 'Carmen Pilar Fernández'. Estoy aquí para ayudarte con información sobre nuestros cursos gratuitos[cite: 5, 9].",
+    ubicacion: "Nuestra sede principal está ubicada en Las Mercedes, La Victoria, estado Aragua.",
+    horario: "Los cursos se dictan de lunes a viernes en horario de oficina. Puedes consultar detalles específicos al inscribirte.",
+    cursos: "Ofrecemos formación en Gastronomía, Estética, Textil y más. Puedes ver la lista completa en nuestra sección de Cursos.",
+    inscripcion: "Para inscribirte: agrega tus cursos al carrito, ve a 'Confirmar Inscripción' y completa tus datos personales[cite: 12, 19].",
+    contacto: "Puedes comunicarte directamente con nosotros al 0424-33.60.158[cite: 17].",
+    default: "No estoy seguro de entender, pero puedo informarte sobre nuestra ubicación, horarios, cursos o cómo inscribirte[cite: 5]."
 };
+
+function toggleChat() {
+    const chat = document.getElementById('chat-window');
+    if (chat) {
+        chat.style.display = (chat.style.display === 'none' || chat.style.display === '') ? 'flex' : 'none';
+    }
+}
 
 function sendMessage() {
     const input = document.getElementById('user-input');
@@ -18,27 +27,36 @@ function sendMessage() {
     const textoUsuario = input.value.trim();
     const msg = textoUsuario.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-    // Mostrar mensaje del usuario
-    box.innerHTML += `<div style="background:var(--azul-primario); color:white; padding:12px; border-radius:15px 15px 0 15px; align-self:flex-end; max-width:80%; margin-bottom:5px;">${textoUsuario}</div>`;
+    // Mensaje del usuario
+    box.innerHTML += `
+        <div class="msg-user">
+            <span style="background:#0a192f; color:white; padding:12px; border-radius:15px; display:inline-block; margin-bottom:10px;">
+                ${textoUsuario}
+            </span>
+        </div>`;
+    
     input.value = "";
 
-    // Respuesta del Bot con retraso para realismo
+    // Respuesta inteligente del Bot
     setTimeout(() => {
-        let r = "";
-        if (/hola|buen|saludo/.test(msg)) r = RESPUESTAS.saludo;
-        else if (/donde|ubica|sede|lugar|direccion/.test(msg)) r = RESPUESTAS.ubicacion;
-        else if (/hora|cuando|dia/.test(msg)) r = RESPUESTAS.horario;
-        else if (/que curs|lista|ofert|ensenan/.test(msg)) r = RESPUESTAS.cursos;
-        else if (/inscri|anot|regis|como/.test(msg)) r = RESPUESTAS.inscripcion;
-        else if (/gratis|costo|pago|cuanto/.test(msg)) r = RESPUESTAS.gratis;
-        else r = RESPUESTAS.default;
+        let respuesta = "";
+        
+        if (/hola|buen|saludo/.test(msg)) respuesta = RESPUESTAS_BOT.saludo;
+        else if (/donde|ubica|sede|lugar/.test(msg)) respuesta = RESPUESTAS_BOT.ubicacion;
+        else if (/horario|hora|cuando|tiempo/.test(msg)) respuesta = RESPUESTAS_BOT.horario;
+        else if (/que curs|lista|ofert/.test(msg)) respuesta = RESPUESTAS_BOT.cursos;
+        else if (/inscri|anot|regis|como/.test(msg)) respuesta = RESPUESTAS_BOT.inscripcion;
+        else if (/telefono|llamar|numero|contacto/.test(msg)) respuesta = RESPUESTAS_BOT.contacto;
+        else if (/gratis|costo|pago/.test(msg)) respuesta = "¡Todos nuestros cursos son 100% gratuitos![cite: 9, 13]";
+        else respuesta = RESPUESTAS_BOT.default;
 
-        box.innerHTML += `<div style="background:white; color:#334155; padding:12px; border-radius:15px 15px 15px 0; align-self:flex-start; max-width:80%; border-left:4px solid #ff6d00; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom:5px;">${r}</div>`;
+        box.innerHTML += `
+            <div class="msg-bot" style="margin-bottom:10px;">
+                <span style="background:white; color:#333; padding:12px; border-radius:15px; border:1px solid #ddd; display:inline-block; border-left:5px solid #00d2ff;">
+                    ${respuesta}
+                </span>
+            </div>`;
+        
         box.scrollTop = box.scrollHeight;
     }, 600);
-}
-
-function toggleChat() {
-    const win = document.getElementById('chat-window');
-    win.style.display = (win.style.display === 'none' || win.style.display === '') ? 'flex' : 'none';
 }
