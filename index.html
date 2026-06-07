@@ -75,7 +75,7 @@
         }
         .btn-2026:active { transform: translateY(6px); box-shadow: 0 0 0 #b34b00; }
 
-        /* BOTÓN DE CURSOS CON COLOR OSCURO */
+        /* MEJORA: BOTÓN DE CURSOS (MENÚ SUPERIOR) */
         .btn-cursos {
             background: var(--azul-primario);
             color: white !important;
@@ -92,7 +92,7 @@
             color: var(--azul-primario) !important;
         }
 
-        /* BOTÓN DE CONSULTAR ESTATUS LLAMATIVO EN DEGRADADO AZUL */
+        /* MEJORA: BOTÓN DE CONSULTAR ESTATUS DEGRADADO AZUL ELÉCTRICO */
         .btn-estatus {
             background: linear-gradient(135deg, var(--azul-electrico), var(--azul-glow));
             color: var(--azul-primario);
@@ -165,26 +165,30 @@
         }
         #whatsapp-btn:hover { transform: scale(1.1); }
 
-        /* ESTILO CORREGIDO PARA LA BURBUJA CON LA FOTO REAL DE TU CHATBOT */
+        /* MEJORA: COMPONENTE FLOTANTE CHATBOT CON ANIMACIÓN TRIDIMENSIONAL QUE SOBRESALE */
         #chat-icon {
             position: fixed; bottom: 30px; right: 30px; width: 75px; height: 75px;
             cursor: pointer; z-index: 5000; display: flex; align-items: center; justify-content: center;
-            animation: pulse 2s infinite; transition: transform 0.2s;
+            animation: pulsarSobresalir 2.2s infinite ease-in-out;
+            transition: transform 0.2s;
         }
-        #chat-icon:hover { transform: scale(1.08); }
-        
+        #chat-icon:hover { 
+            animation-play-state: paused;
+            transform: scale(1.15); 
+        }
         #chat-icon img {
             width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
             border: 3px solid var(--azul-electrico);
-            filter: drop-shadow(0 8px 20px rgba(0, 210, 255, 0.4));
+            filter: drop-shadow(0 10px 25px rgba(0, 210, 255, 0.5));
         }
 
         footer { background: var(--azul-primario); color: white; padding: 60px 0 30px; text-align: center; border-top: 5px solid var(--naranja-neon); }
         
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            70% { transform: scale(1.04); }
-            100% { transform: scale(1); }
+        /* ANIMACIÓN QUE HACE QUE EL BOTÓN LATZCA Y CREZCA */
+        @keyframes pulsarSobresalir {
+            0% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(0, 210, 255, 0.6)); }
+            50% { transform: scale(1.12); filter: drop-shadow(0 15px 30px rgba(0, 210, 255, 0.8)); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(0, 210, 255, 0.6)); }
         }
     </style>
 </head>
@@ -268,8 +272,7 @@
         <div style="background:var(--azul-primario); color:white; padding:22px; text-align:center; font-weight:800; font-size:1.2rem; border-bottom:3px solid var(--azul-electrico);">
             🤖 AI ASISTENTE CONTEXTUAL 2026
         </div>
-        <div id="chat-messages" style="flex:1; padding:22px; overflow-y:auto; background:#f1f5f9; display:flex; flex-direction:column; gap:15px;">
-            </div>
+        <div id="chat-messages" style="flex:1; padding:22px; overflow-y:auto; background:#f1f5f9; display:flex; flex-direction:column; gap:15px;"></div>
 
         <div style="padding: 5px 20px; background: #f1f5f9; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;">
             <button class="chip-btn" onclick="document.getElementById('user-input').value='¿Cuáles son los requisitos?'; sendMessage();">📋 Requisitos</button>
