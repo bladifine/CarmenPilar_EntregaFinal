@@ -10,6 +10,7 @@
         :root {
             --azul-primario: #0a192f;
             --azul-electrico: #00d2ff;
+            --azul-glow: #00b4d8;
             --naranja-neon: #ff6d00;
             --naranja-glow: #ff9100;
             --verde-whatsapp: #25d366;
@@ -52,40 +53,64 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
 
-        /* BOTONES NEOMÓRFICOS */
+        /* BOTÓN PRINCIPAL NARANJA (ADMIN) */
         .btn-2026 {
             background: linear-gradient(135deg, var(--naranja-neon), var(--naranja-glow));
             color: white;
-            padding: 14px 35px;
-            border-radius: 16px;
+            padding: 12px 28px;
+            border-radius: 14px;
             text-decoration: none;
             font-weight: 800;
             display: inline-block;
             border: none;
-            box-shadow: 0 8px 0 #b34b00, 0 15px 20px rgba(255, 109, 0, 0.3);
+            box-shadow: 0 6px 0 #b34b00, 0 10px 15px rgba(255, 109, 0, 0.25);
             transition: all 0.15s ease-in-out;
             cursor: pointer;
             text-transform: uppercase;
+            font-size: 0.8rem;
         }
         .btn-2026:hover {
             transform: translateY(2px);
-            box-shadow: 0 5px 0 #b34b00, 0 10px 15px rgba(255, 109, 0, 0.4);
+            box-shadow: 0 4px 0 #b34b00, 0 8px 12px rgba(255, 109, 0, 0.3);
         }
-        .btn-2026:active { transform: translateY(8px); box-shadow: 0 0 0 #b34b00; }
+        .btn-2026:active { transform: translateY(6px); box-shadow: 0 0 0 #b34b00; }
 
-        .btn-secundario {
-            background: transparent;
-            color: var(--azul-primario);
-            border: 2px solid var(--azul-primario);
-            padding: 8px 16px;
+        /* BOTÓN DE CURSOS CON COLOR OSCURO */
+        .btn-cursos {
+            background: var(--azul-primario);
+            color: white !important;
+            padding: 10px 20px;
             border-radius: 12px;
             text-decoration: none;
             font-weight: 700;
             font-size: 0.85rem;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            border: 2px solid var(--azul-primario);
+        }
+        .btn-cursos:hover {
+            background: transparent;
+            color: var(--azul-primario) !important;
+        }
+
+        /* BOTÓN DE CONSULTAR ESTATUS LLAMATIVO EN DEGRADADO AZUL */
+        .btn-estatus {
+            background: linear-gradient(135deg, var(--azul-electrico), var(--azul-glow));
+            color: var(--azul-primario);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 0 #0096b7, 0 10px 15px rgba(0, 210, 255, 0.25);
+            transition: all 0.15s ease-in-out;
             cursor: pointer;
         }
-        .btn-secundario:hover { background: var(--azul-primario); color: white; }
+        .btn-estatus:hover {
+            transform: translateY(2px);
+            box-shadow: 0 4px 0 #0096b7, 0 8px 12px rgba(0, 210, 255, 0.3);
+        }
+        .btn-estatus:active { transform: translateY(6px); box-shadow: 0 0 0 #0096b7; }
 
         /* HERO SECTION */
         .hero {
@@ -111,7 +136,7 @@
             box-shadow: var(--sombra-futurista);
         }
 
-        /* MODAL DE ESTATUS REAL */
+        /* MODAL DE ESTATUS */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(10, 25, 47, 0.6); backdrop-filter: blur(8px);
@@ -131,19 +156,34 @@
         }
         .chip-btn:hover { background: var(--azul-electrico); }
 
-        /* BOTÓN FLOTANTE WHATSAPP EFECTIVO */
+        /* BOTÓN FLOTANTE WHATSAPP */
         #whatsapp-btn {
-            position: fixed; bottom: 30px; left: 30px; width: 65px; height: 65px;
+            position: fixed; bottom: 30px; left: 30px; width: 70px; height: 70px;
             background-color: var(--verde-whatsapp); border-radius: 50%; z-index: 5000;
             display: flex; align-items: center; justify-content: center; cursor: pointer;
             box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4); transition: transform 0.3s ease;
         }
         #whatsapp-btn:hover { transform: scale(1.1); }
 
+        /* ESTILO CORREGIDO PARA LA BURBUJA CON LA FOTO REAL DE TU CHATBOT */
+        #chat-icon {
+            position: fixed; bottom: 30px; right: 30px; width: 75px; height: 75px;
+            cursor: pointer; z-index: 5000; display: flex; align-items: center; justify-content: center;
+            animation: pulse 2s infinite; transition: transform 0.2s;
+        }
+        #chat-icon:hover { transform: scale(1.08); }
+        
+        #chat-icon img {
+            width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+            border: 3px solid var(--azul-electrico);
+            filter: drop-shadow(0 8px 20px rgba(0, 210, 255, 0.4));
+        }
+
         footer { background: var(--azul-primario); color: white; padding: 60px 0 30px; text-align: center; border-top: 5px solid var(--naranja-neon); }
+        
         @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.4); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(0, 210, 255, 0); }
+            0% { transform: scale(1); }
+            70% { transform: scale(1.04); }
             100% { transform: scale(1); }
         }
     </style>
@@ -161,13 +201,13 @@
     <header>
         <div class="container" style="display:flex; justify-content:space-between; align-items:center; max-width:1200px; margin:0 auto; padding:0 25px;">
             <div style="display:flex; align-items:center; gap:15px;">
-                <img src="img/logo.png" alt="Logo" style="height:60px;">
+                <img src="img/logo.png" alt="Logo" style="height:60px;" onerror="this.style.display='none'">
                 <h2 style="margin:0; color:var(--azul-primario); font-size:1.8rem;">BotEduCarmen</h2>
             </div>
             <nav style="display:flex; align-items:center; gap:15px;">
-                <a href="cursos.html" style="text-decoration:none; color:var(--azul-primario); font-weight:600;">CURSOS</a>
-                <button onclick="abrirModalEstatus()" class="btn-secundario">🔍 CONSULTAR ESTATUS</button>
-                <a href="admin.html" class="btn-2026" style="padding:10px 25px; font-size:0.8rem; box-shadow:0 4px 0 #b34b00;">ADMIN</a>
+                <a href="cursos.html" class="btn-cursos">CURSOS</a>
+                <button onclick="abrirModalEstatus()" class="btn-estatus">🔍 CONSULTAR ESTATUS</button>
+                <a href="admin.html" class="btn-2026">ADMIN</a>
             </nav>
         </div>
     </header>
@@ -179,7 +219,7 @@
             <p style="color:#64748b; font-size:0.9rem; margin-bottom:25px;">Ingresa tu Cédula de Identidad para verificar el estatus de tu validación física en el CAE.</p>
             <div style="display:flex; flex-direction:column; gap:15px;">
                 <input type="number" id="cedula-consulta" placeholder="Ej: 28123456" style="padding:15px; border:2px solid #cbd5e1; border-radius:15px; font-size:1rem; outline:none; text-align:center;">
-                <button onclick="procesarConsultaEstatus()" class="btn-2026" style="padding:12px; font-size:0.9rem; box-shadow:0 4px 0 #b34b00;">Procesar Solicitud</button>
+                <button onclick="procesarConsultaEstatus()" class="btn-2026">Procesar Solicitud</button>
             </div>
             <div id="resultado-consulta" style="margin-top:25px; font-weight:700; font-size:1rem; min-height:40px; border-radius:15px; padding:10px; display:none;"></div>
         </div>
@@ -217,11 +257,11 @@
     </footer>
 
     <div id="whatsapp-btn" onclick="abrirCanalWhatsApp()">
-        <svg width="35" height="35" viewBox="0 0 448 512" fill="white"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.2 5.7 23.6 9.2 31.6 11.8 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+        <svg width="32" height="32" viewBox="0 0 448 512" fill="white"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.2 5.7 23.6 9.2 31.6 11.8 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
     </div>
 
-    <div id="chat-icon" onclick="toggleChat()" style="position:fixed; bottom:30px; right:30px; width:85px; height:85px; cursor:pointer; z-index:5000; animation: pulse 2s infinite;">
-        <div style="width:100%; height:100%; background:var(--azul-primario); border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:40px; border:3px solid var(--azul-electrico); box-shadow:0 10px 25px rgba(0,0,0,0.3);">🤖</div>
+    <div id="chat-icon" onclick="toggleChat()">
+        <img src="img/chatbot.png" alt="Chatbot">
     </div>
 
     <div id="chat-window" style="position:fixed; bottom:130px; right:30px; width:390px; height:590px; background:white; border-radius:30px; box-shadow: 0 25px 70px rgba(0,0,0,0.4); z-index:5000; display:none; flex-direction:column; overflow:hidden; border:2px solid var(--azul-primario);">
@@ -240,9 +280,7 @@
 
         <div style="padding:15px 20px; background:white; display:flex; gap:10px; align-items:center; border-top:1px solid #e2e8f0;">
             <input type="text" id="user-input" placeholder="Pregunta algo o dicta por voz..." style="flex:1; padding:15px; border:2px solid #e2e8f0; border-radius:20px; outline:none; font-size:0.9rem;">
-            
             <button id="voice-btn" onclick="activarDictadoVoz()" style="background:#f1f5f9; border:none; width:48px; height:48px; border-radius:15px; cursor:pointer; font-size:1.3rem; transition:all 0.2s;" title="Dictar consulta por voz">🎙️</button>
-            
             <button onclick="sendMessage()" style="background:var(--azul-primario); color:var(--azul-electrico); border:none; width:48px; height:48px; border-radius:15px; cursor:pointer; font-size:1.2rem;">➤</button>
         </div>
     </div>
