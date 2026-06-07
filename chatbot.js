@@ -1,19 +1,38 @@
 /**
- * chatbot.js - Inteligencia Artificial Avanzada y Filtro Anti-Errores
+ * chatbot.js - Inteligencia Artificial Avanzada y Filtro Quirúrgico por Especialidad
  * Proyecto: BotEduCarmen 2026
  * Sede: CAE "Carmen Pilar Fernández", La Victoria, Aragua.
  */
 
-// 1. BASE DE CONOCIMIENTO DINÁMICA
+// 1. BASE DE CONOCIMIENTO DETALLADA (Separada por intenciones específicas)
 const baseConocimiento = {
     saludos: {
         keywords: ["hola", "buenos dias", "buenas tardes", "buenas noches", "que tal", "saludos", "alo", "buen dia", "epale", "hey"],
         respuesta: "¡Hola! Te doy la bienvenida al asistente virtual de **BotEduCarmen 2026**. 🤖✨ Estoy listo para guiarte en tu proceso de postulación técnica. ¿De cuál de estas áreas te gustaría recibir información precisa hoy?\n\n• **Cursos** Disponibles\n• **Requisitos** de Inscripción\n• **Ubicación** de la Sede\n• **Costos** del Periodo\n• **Horarios** de Clases"
     },
     cursos: {
-        keywords: ["curso", "clases", "estudiar", "aprender", "oferta", "catalogo", "materia", "especialidades", "talleres", "estetica", "cocina", "barberia", "uñas", "costura", "modisteria", "confeccion", "sugieres", "recomiendas", "tienes", "cuales", "lista"],
-        respuesta: "Para este periodo académico contamos exclusivamente con los siguientes programas técnicos productivos oficiales:\n\n• ✂️ **Modistería / Corte y Confección**\n• 🍳 **Cocina Bilingüe**\n• 💈 **Barbería**\n• 💅 **Estética de Uñas**\n\nTodos los programas son de modalidad presencial y prácticos. Te sugiero revisar la pestaña 'Cursos' en el menú superior para ver imágenes detalladas y agregarlos a tu carrito de postulación."
+        // Keywords generales de catálogo
+        keywords: ["curso", "clases", "estudiar", "aprender", "oferta", "catalogo", "materia", "especialidades", "talleres", "tienes", "cuales", "lista", "programa"],
+        respuesta: "Para este periodo académico contamos exclusivamente con los siguientes programas técnicos productivos oficiales:\n\n• ✂️ **Modistería / Corte y Confección**\n• 🍳 **Cocina Bilingüe**\n• 💈 **Barbería**\n• 💅 **Estética de Uñas**\n\nTodos los programas son de modalidad presencial y prácticos. Si te interesa uno en específico, puedes preguntarme directamente por él (ej: *'curso de uñas'* o *'información de barbería'*)."
     },
+    // --- RESPUESTAS QUIRÚRGICAS E INDIVIDUALES POR CURSO ---
+    curso_unas: {
+        keywords: ["uñas", "manicura", "pedicura", "sistemas", "acrylic", "acrilico", "estetica de uñas", "manicurista"],
+        respuesta: "💅 **Especialidad: Estética de Uñas**\n\nEste taller es uno de los más demandados. Aprenderás desde las técnicas de cuidado básico (manicura y pedicura) hasta la aplicación de sistemas avanzados en tendencia (gel, acrílico, esculpidas y decoración artística). Es 100% práctico y presencial en nuestra sede de Las Mercedes."
+    },
+    curso_cocina: {
+        keywords: ["cocina", "bilingue", "chef", "cocinar", "gastronomia", "comida", "artes culinarias"],
+        respuesta: "🍳 **Especialidad: Cocina Bilingüe**\n\nUn programa innovador diseñado para el mercado actual. Adquirirás destrezas técnicas culinarias nacionales e internacionales de alto nivel, combinadas con el vocabulario técnico en inglés esencial para trabajar en la industria hotelera y turística internacional."
+    },
+    curso_barberia: {
+        keywords: ["barberia", "barbero", "cortar cabello", "degradado", "fade", "barba", "estilismo masculino"],
+        respuesta: "💈 **Especialidad: Barbería Profesional**\n\nOrientado al emprendimiento rápido. El curso cubre el manejo correcto de herramientas, cortes clásicos y modernos (Fades, Taper, etc.), diseño y perfilado de barba, y técnicas de bioseguridad. Ideal para montar tu propio negocio en poco tiempo."
+    },
+    curso_modisteria: {
+        keywords: ["modisteria", "costura", "corte", "confeccion", "diseño de modas", "ropa", "coser", "maquina"],
+        respuesta: "✂️ **Especialidad: Modistería / Corte y Confección**\n\nUn oficio tradicional de gran rentabilidad. Aprenderás el uso de máquinas de coser, toma de medidas, creación de patrones desde cero, corte de textiles y confección de prendas básicas y avanzadas. No requiere experiencia previa."
+    },
+    // --- FIN SECCIÓN DE CURSOS INDIVIDUALES ---
     requisitos: {
         keywords: ["requisitos", "necesito", "documentos", "papeles", "inscribirme", "inscripcion", "edad", "cedula", "llevar", "consignacion"],
         respuesta: "Para formalizar tu registro en cualquiera de los oficios, los requisitos obligatorios son mínimos:\n\n1. **Ser mayor de 15 años de edad**.\n2. **Presentar una copia legible de tu Cédula de Identidad**.\n\nNo requieres pruebas de admisión complejas ni títulos académicos previos. Puedes procesar tu postulación en línea desde esta misma página."
@@ -67,7 +86,6 @@ function toggleChat() {
     if (chatWin.style.display === 'none' || chatWin.style.display === '') {
         chatWin.style.display = 'flex';
         
-        // Auto-inyectar saludo inicial si está vacío
         const container = document.getElementById('chat-messages');
         if (container && container.innerHTML.trim() === "") {
             container.innerHTML = `
@@ -80,7 +98,7 @@ function toggleChat() {
     }
 }
 
-// 5. PROCESADOR DE MENSAJES (Forzado y Blindado)
+// 5. PROCESADOR DE MENSAJES SEMÁNTICO POR PESO DE COINCIDENCIAS
 function sendMessage() {
     const input = document.getElementById('user-input');
     const container = document.getElementById('chat-messages');
@@ -90,7 +108,7 @@ function sendMessage() {
     const textoOriginal = input.value.trim();
     if (textoOriginal === "") return;
 
-    // Pintar el globo del usuario con el estilo exacto de tu index.html original
+    // Pintar el globo del usuario
     container.innerHTML += `
         <div style="background:var(--azul-primario); color:white; padding:15px; border-radius:20px; align-self:flex-end; max-width:80%; word-break: break-word; margin-bottom: 5px;">
             ${textoOriginal}
@@ -102,11 +120,9 @@ function sendMessage() {
     const textoLimpio = normalizarTexto(textoOriginal);
     let respuestaFinal = "";
 
-    // FILTRO 1: ¿Incoherencia o spam?
     if (esTextoIncoherente(textoLimpio)) {
         respuestaFinal = "Para ofrecerte una respuesta exacta y al punto, por favor evita introducir cadenas de caracteres aleatorias o texto sin sentido. 🧐 Realiza una pregunta clara; por ejemplo: **'¿Cuáles son los requisitos de inscripción?'**.";
     } else {
-        // FILTRO 2: Puntuación Semántica
         let mejorCategoria = null;
         let maximaPuntuacion = 0;
 
@@ -114,9 +130,14 @@ function sendMessage() {
             let puntos = 0;
             baseConocimiento[cat].keywords.forEach(keyword => {
                 if (textoLimpio.includes(keyword)) {
-                    puntos += 2;
+                    puntos += 3; // Puntuación base por coincidencia de palabra clave
                 }
             });
+
+            // Darle un pequeño empujón de prioridad a los cursos individuales si el usuario mezcla palabras
+            if (cat.startsWith("curso_") && puntos > 0) {
+                puntos += 1; 
+            }
 
             if (puntos > maximaPuntuacion) {
                 maximaPuntuacion = puntos;
@@ -124,7 +145,6 @@ function sendMessage() {
             }
         }
 
-        // FILTRO 3: Respuesta final o menú de escape
         if (maximaPuntuacion > 0 && mejorCategoria) {
             respuestaFinal = baseConocimiento[mejorCategoria].respuesta;
         } else {
@@ -156,19 +176,16 @@ function sendMessage() {
     }, 550);
 }
 
-// === EL TRUCO SECRETO PARA QUE NO SE QUEDE CALLADO ===
-// Asignamos las funciones directamente a la ventana global (window) del navegador. 
-// Esto rompe cualquier bloqueo de otros archivos .js
+// Forzar registro en el objeto Window global del navegador
 window.toggleChat = toggleChat;
 window.sendMessage = sendMessage;
 
-// Escuchador de respaldo para la tecla Enter por si acaso
 document.addEventListener("DOMContentLoaded", () => {
     const inputField = document.getElementById('user-input');
     if (inputField) {
         inputField.addEventListener("keypress", (e) => {
             if (e.key === "Enter") {
-                e.preventDefault(); // Evita que la página se recargue
+                e.preventDefault();
                 sendMessage();
             }
         });
