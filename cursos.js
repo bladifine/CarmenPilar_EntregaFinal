@@ -25,7 +25,7 @@ const MIS_CURSOS = [
     { name: "Pintura Artística", price: "Gratis", cat: "Artes", img: "img/pintura_artistica.jpg" },
     { name: "Pintura Avanzada", price: "Gratis", cat: "Artes", img: "img/pintura_avanzada.jpg" },
     { name: "Puntillismo Básico", price: "Gratis", cat: "Artes", img: "img/puntillismo_basico.jpg" },
-    { name: "Puntillismo Avanzado", price: "Gratis", cat: "Artes", img: "img/puntillismo_avanzada.jpg" },
+    { name: "Puntillismo Avanzado", price: "Gratis", cat: "Artes", img: "img/puntillismo_avanzado.jpg" }, // <-- CORREGIDO AQUÍ (.jpg exacto)
     { name: "Rostros", price: "Gratis", cat: "Artes", img: "img/rostros.jpg" },
     { name: "Manualidades", price: "Gratis", cat: "Artes", img: "img/manualidades.jpg" },
     { name: "Reparación de Electrodomésticos", price: "Gratis", cat: "Técnico", img: "img/electrodomesticos.jpg" },
