@@ -13,6 +13,7 @@
             --error-hover: #ff3333;
             --excel: #107c41;
             --excel-hover: #0e6c38;
+            --glass: rgba(255, 255, 255, 0.05);
         }
         body { 
             background: var(--bg); 
@@ -21,20 +22,59 @@
             margin: 0; 
         }
         
-        /* BARRA LATERAL IZQUIERDA */
+        /* BARRA LATERAL IZQUIERDA REFORMADA */
         .sidebar { 
             background: var(--card); 
-            width: 250px; 
+            width: 260px; 
             height: 100vh; 
             position: fixed; 
-            border-right: 1px solid rgba(0,210,255,0.2); 
-            padding: 20px; 
+            border-right: 1px solid rgba(0,210,255,0.15); 
+            padding: 30px 20px; 
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* MENÚ DE OPCIONES DE LA BARRA LATERAL */
+        .sidebar-menu {
+            margin-top: 35px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .menu-btn {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            border: none;
+            padding: 12px 15px;
+            border-radius: 10px;
+            text-align: left;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .menu-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .menu-btn.active {
+            background: rgba(0, 210, 255, 0.1);
+            color: var(--accent);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 10px 10px 0;
+            padding-left: 12px;
         }
 
         /* CONTENIDO PRINCIPAL */
         .main-content { 
-            margin-left: 250px; 
+            margin-left: 260px; 
             padding: 40px; 
             min-height: 100vh;
             box-sizing: border-box;
@@ -43,9 +83,9 @@
         /* BARRA SUPERIOR */
         .admin-top-bar {
             display: flex;
-            justify-content: flex-end; /* Empuja los botones a la derecha */
+            justify-content: flex-end; 
             align-items: center;
-            gap: 15px; /* Separación entre los botones */
+            gap: 15px; 
             width: 100%;
             margin-bottom: 30px;
             padding-bottom: 15px;
@@ -63,9 +103,6 @@
             transition: all 0.2s ease-in-out;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .btn-exportar {
@@ -77,7 +114,6 @@
         .btn-exportar:hover {
             background: var(--excel-hover);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(16, 124, 65, 0.4);
         }
 
         .btn-salir {
@@ -89,14 +125,9 @@
         .btn-salir:hover {
             background: var(--error-hover);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 77, 77, 0.4);
         }
 
-        .btn-top:active, .btn-delete:active {
-            transform: translateY(0);
-        }
-
-        /* NUEVO BOTÓN ELIMINAR REFORMADO */
+        /* BOTÓN ELIMINAR FILAS */
         .btn-delete {
             background: rgba(255, 77, 77, 0.15);
             color: var(--error);
@@ -106,9 +137,6 @@
             cursor: pointer;
             font-size: 1rem;
             transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .btn-delete:hover {
@@ -118,7 +146,7 @@
             box-shadow: 0 0 10px rgba(255, 77, 77, 0.4);
         }
 
-        /* COMPONENTES DE LA TABLA Y ESTADÍSTICAS */
+        /* TABLA Y TABLEROS */
         .glass-table { 
             width: 100%; 
             border-collapse: collapse; 
@@ -146,11 +174,20 @@
 <body>
 
     <div class="sidebar">
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 30px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
             <img src="img/logo.png" alt="Logo" style="height: 40px;" onerror="this.style.display='none'">
             <h2 style="font-size: 1.2rem; margin: 0; color: var(--accent);">BotEduCarmen</h2>
         </div>
-        <p style="font-size: 0.85rem; color: rgba(255,255,255,0.4);">Panel de Control Interno 2026</p>
+        
+        <nav class="sidebar-menu">
+            <button class="menu-btn active">📋 Lista de Postulados</button>
+            <button class="menu-btn" onclick="alert('Módulo de estadísticas en desarrollo para la siguiente actualización.')">📊 Métricas del Sistema</button>
+            <button class="menu-btn" onclick="alert('Configuraciones del bot y enlaces de Firebase protegidos.')">⚙️ Ajustes globales</button>
+        </nav>
+
+        <div style="margin-top: auto; padding-top: 20px;">
+            <p style="font-size: 0.8rem; color: rgba(255,255,255,0.3); margin: 0;">Panel de Control v2.6</p>
+        </div>
     </div>
 
     <div class="main-content">
@@ -210,7 +247,6 @@
             }
         }
 
-        // FUNCIÓN NATIVA PARA GENERAR EXCEL REAL
         function exportarExcel() {
             const bd = JSON.parse(localStorage.getItem('base_datos_inscritos')) || [];
             if(bd.length === 0) {
@@ -218,7 +254,6 @@
                 return;
             }
 
-            // Construir estructura de tabla HTML para Excel
             let htmlExcel = `
                 <table border="1">
                     <tr style="background-color: #00d2ff; color: #000; font-weight: bold;">
@@ -246,7 +281,6 @@
 
             htmlExcel += "</table>";
 
-            // Crear el archivo binario y forzar su descarga inmediata
             const blob = new Blob([htmlExcel], { type: 'application/vnd.ms-excel' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -257,7 +291,6 @@
             document.body.removeChild(a);
         }
         
-        // Ejecución automática al cargar la interfaz
         render();
     </script>
 </body>
