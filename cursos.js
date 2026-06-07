@@ -25,7 +25,7 @@ const MIS_CURSOS = [
     { name: "Pintura Artística", price: "Gratis", cat: "Artes", img: "img/pintura_artistica.jpg" },
     { name: "Pintura Avanzada", price: "Gratis", cat: "Artes", img: "img/pintura_avanzada.jpg" },
     { name: "Puntillismo Básico", price: "Gratis", cat: "Artes", img: "img/puntillismo_basico.jpg" },
-    { name: "Puntillismo Avanzado", price: "Gratis", cat: "Artes", img: "img/puntillismo_avanzado.jpg" }, // <-- CORREGIDO AQUÍ (.jpg exacto)
+    { name: "Puntillismo Avanzado", price: "Gratis", cat: "Artes", img: "img/puntillismo_avanzado.jpg" },
     { name: "Rostros", price: "Gratis", cat: "Artes", img: "img/rostros.jpg" },
     { name: "Manualidades", price: "Gratis", cat: "Artes", img: "img/manualidades.jpg" },
     { name: "Reparación de Electrodomésticos", price: "Gratis", cat: "Técnico", img: "img/electrodomesticos.jpg" },
@@ -37,18 +37,20 @@ function mostrarCursos() {
     if (!grid) return;
 
     grid.innerHTML = MIS_CURSOS.map(c => {
-        // Verificar si este curso ya está guardado en el carrito (utilizando la clave 'cart' unificada)
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         const yaSeleccionado = cart.some(item => item.nombre === c.name);
         
         const textoBtn = yaSeleccionado ? "✅ SELECCIONADO" : "SELECCIONAR CURSO";
         const claseBtn = yaSeleccionado ? "btn-primary seleccionado" : "btn-primary";
+        const urlDetalle = `detalle-curso.html?curso=${encodeURIComponent(c.name)}`;
 
         return `
             <div class="curso-card" data-name="${c.name.toLowerCase()}">
-                <div class="curso-img-box">
-                    <img src="${c.img}" alt="${c.name}" onerror="this.src='img/logo.png'">
-                </div>
+                <a href="${urlDetalle}" style="display:block; text-decoration:none;">
+                    <div class="curso-img-box" style="cursor:pointer;">
+                        <img src="${c.img}" alt="${c.name}" onerror="this.src='img/logo.png'">
+                    </div>
+                </a>
                 <div class="curso-info">
                     <span class="tag">${c.cat}</span>
                     <h3>${c.name}</h3>
@@ -57,7 +59,7 @@ function mostrarCursos() {
                         <button class="${claseBtn}" onclick="toggleSeleccion('${c.name}', '${c.img}')">
                             ${textoBtn}
                         </button>
-                        <a href="detalle-curso.html?curso=${encodeURIComponent(c.name)}" class="btn-detalles">🔎</a>
+                        <a href="${urlDetalle}" class="btn-detalles">🔎</a>
                     </div>
                 </div>
             </div>
@@ -78,13 +80,13 @@ function toggleSeleccion(nombre, imagen) {
     const index = cart.findIndex(x => x.nombre === nombre);
 
     if (index !== -1) {
-        cart.splice(index, 1); // Quitar del carrito si ya existe
+        cart.splice(index, 1);
     } else {
-        cart.push({ nombre: nombre, imagen: imagen }); // Agregar si no existe
+        cart.push({ nombre: nombre, imagen: imagen });
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
-    mostrarCursos(); // Volver a pintar para actualizar estados de los botones
+    mostrarCursos();
     actualizarUIContador();
 }
 
@@ -99,7 +101,6 @@ function actualizarUIContador() {
     }
 }
 
-// Inicialización limpia
 document.addEventListener('DOMContentLoaded', () => {
     mostrarCursos();
     actualizarUIContador();

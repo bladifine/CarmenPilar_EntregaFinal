@@ -17,68 +17,80 @@
         
         .detalle-container { max-width: 900px; margin: 40px auto; padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
         
-        .img-box img { width: 100%; border-radius: 20px; border: 2px solid var(--electrico); box-shadow: 0 0 20px rgba(0, 210, 255, 0.2); }
+        .img-box img { width: 100%; border-radius: 20px; border: 2px solid var(--electrico); box-shadow: 0 0 20px rgba(0, 210, 255, 0.2); height: 350px; object-fit: cover; }
         
-        .info-box { background: rgba(255,255,255,0.05); padding: 30px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); }
+        .info-box { background: rgba(255,255,255,0.05); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .tag { background: var(--electrico); color: var(--azul-p); padding: 5px 15px; border-radius: 50px; font-weight: bold; font-size: 0.8rem; }
         
-        .tag { background: var(--electrico); color: var(--azul-p); padding: 5px 12px; border-radius: 20px; font-weight: 800; font-size: 0.8rem; }
-        
-        .btn-add { 
-            background: linear-gradient(135deg, var(--naranja), #ff9100); color: white; border: none; 
-            padding: 15px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 20px;
-        }
+        .btn-add { background: var(--naranja); color: white; border: none; padding: 15px 25px; border-radius: 12px; font-weight: bold; width: 100%; margin-top: 20px; cursor: pointer; transition: 0.2s; }
+        .btn-add:hover { background: white; color: var(--azul-p); }
     </style>
 </head>
 <body>
+
     <div class="header-simple">
-        <a href="cursos.html" style="color:var(--electrico); text-decoration:none;">⬅ VOLVER AL CATÁLOGO</a>
+        <a href="cursos.html" style="color:var(--electrico); text-decoration:none; font-weight:bold;">← Volver al Catálogo</a>
     </div>
 
-    <div id="contenido-detalle" class="detalle-container">
+    <div class="detalle-container" id="detalle-contenido">
         </div>
 
+    <script src="cursos.js"></script>
     <script>
-        const params = new URLSearchParams(window.location.search);
-        const nombreCurso = params.get('curso');
+        function cargarDetalle() {
+            const params = new URLSearchParams(window.location.search);
+            const nombreCurso = params.get('curso');
+            const cont = document.getElementById('detalle-contenido');
 
-        const CURSO_DATA = {
-            "Barbería": { d: "Aprende técnicas modernas de corte masculino y diseño de barba.", r: "Cédula, ser mayor de 15 años.", t: "3 meses", i: "img/Barberia.jpg" },
-            "Panadería": { d: "Domina el arte de las masas, fermentación y horneado artesanal.", r: "Cédula, delantal y gorro.", t: "4 meses", i: "img/panaderia.jpg" }
-            // Agrega aquí los demás si deseas descripciones únicas
-        };
+            if (!nombreCurso || !cont) {
+                cont.innerHTML = "<h2>Curso no especificado.</h2>";
+                return;
+            }
 
-        function cargar() {
-            const cont = document.getElementById('contenido-detalle');
-            const info = CURSO_DATA[nombreCurso] || { d: "Formación técnica profesional en el área seleccionada.", r: "Cédula de identidad.", t: "Variable", i: "img/logo.png" };
+            // Buscamos el objeto del curso correspondiente en la lista de cursos.js
+            const cursoEncontrado = MIS_CURSOS.find(c => c.name.toLowerCase() === nombreCurso.toLowerCase());
+            
+            // Asignamos la imagen del catálogo, si no existe usamos la por defecto
+            const rutaImagen = cursoEncontrado ? cursoEncontrado.img : "img/logo.png";
+            const categoria = cursoEncontrado ? cursoEncontrado.cat : "Formación";
+
+            // Datos descriptivos por defecto del sistema
+            const info = {
+                d: "Formación técnica profesional avalada en el área de " + nombreCurso + ". Diseñada para capacitar de manera integral a los habitantes de la comunidad bajo estándares modernos de inserción laboral en este 2026.",
+                r: "Cédula de identidad (Original y Copia) y ser mayor de 15 años.",
+                t: "Trimestral (Clases teórico-prácticas presenciales)",
+                i: rutaImagen
+            };
 
             cont.innerHTML = `
                 <div class="img-box">
-                    <img src="${info.i}" onerror="this.src='img/logo.png'">
+                    <img src="${info.i}" alt="${nombreCurso}" onerror="this.src='img/logo.png'">
                 </div>
                 <div class="info-box">
-                    <span class="tag">CURSO 2026</span>
+                    <span class="tag">${categoria.toUpperCase()}</span>
                     <h1 style="color:var(--electrico); font-size:2.5rem; margin:10px 0;">${nombreCurso}</h1>
                     <p style="color:rgba(255,255,255,0.8); line-height:1.6;">${info.d}</p>
                     <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:20px 0;">
                     <p>🕒 <b>Duración:</b> ${info.t}</p>
                     <p>📝 <b>Requisitos:</b> ${info.r}</p>
-                    <button onclick="agregar('${nombreCurso}', '${info.i}')" class="btn-add">SELECCIONAR CURSO</button>
+                    <button onclick="agregarAlDetalle('${nombreCurso}', '${info.i}')" class="btn-add">SELECCIONAR ESTE CURSO</button>
                 </div>
             `;
         }
 
-        function agregar(n, img) {
+        function agregarAlDetalle(n, img) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            if(!cart.find(x => x.nombre === n)) {
+            if(!cart.find(x => x.nombre.toLowerCase() === n.toLowerCase())) {
                 cart.push({nombre: n, imagen: img});
                 localStorage.setItem('cart', JSON.stringify(cart));
-                alert("Curso añadido a tu selección");
-                window.location.href = "cursos.html";
+                alert("✅ ¡Excelente elección! Curso añadido a tu lista de inscripción.");
             } else {
-                alert("Ya está seleccionado");
+                alert("⚠️ Ya tienes este curso seleccionado en tu lista.");
             }
         }
-        cargar();
+
+        // Ejecutar la carga al iniciar la vista
+        document.addEventListener('DOMContentLoaded', cargarDetalle);
     </script>
 </body>
 </html>
