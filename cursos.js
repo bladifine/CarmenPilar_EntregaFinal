@@ -40,7 +40,7 @@ function mostrarCursos() {
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         const yaSeleccionado = cart.some(item => item.nombre === c.name);
         
-        const textoBtn = yaSeleccionado ? "✅ SELECCIONADO" : "SELECCIONAR CURSO";
+        const textoBtn = yaSeleccionado ? "✅ SELECCIONADO" : "SELECCIONAR";
         const claseBtn = yaSeleccionado ? "btn-primary seleccionado" : "btn-primary";
         const urlDetalle = `detalle-curso.html?curso=${encodeURIComponent(c.name)}`;
 
@@ -53,13 +53,16 @@ function mostrarCursos() {
                 </a>
                 <div class="curso-info">
                     <span class="tag">${c.cat}</span>
-                    <h3>${c.name}</h3>
+                    <h3 style="min-height: 50px; display: flex; align-items: center;">${c.name}</h3>
                     <p class="costo">Costo: <b>${c.price}</b></p>
-                    <div style="display:flex; gap:10px; margin-top:15px;">
-                        <button class="${claseBtn}" onclick="toggleSeleccion('${c.name}', '${c.img}')">
+                    
+                    <div style="display:flex; gap:10px; margin-top:20px; width:100%;">
+                        <button class="${claseBtn}" onclick="toggleSeleccion('${c.name}', '${c.img}')" style="flex: 1; padding: 12px 5px; font-size: 0.85rem; font-weight: 700; border-radius: 12px; cursor: pointer; border: none; white-space: nowrap;">
                             ${textoBtn}
                         </button>
-                        <a href="${urlDetalle}" class="btn-detalles">🔎</a>
+                        <a href="${urlDetalle}" class="btn-detalles" style="flex: 1; padding: 12px 5px; font-size: 0.85rem; font-weight: 700; border-radius: 12px; text-decoration: none; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.2); text-align: center; white-space: nowrap; box-sizing: border-box;">
+                            VER DETALLES
+                        </a>
                     </div>
                 </div>
             </div>
