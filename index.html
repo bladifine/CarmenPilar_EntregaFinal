@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BotEduCarmen 2026 | Sistema de Formación Inteligente</title>
     <link rel="stylesheet" href="styles.css">
-    
     <style>
-        /* Estilos específicos y ordenamiento visual para el Index */
         :root {
             --azul-primario: #0a192f;
             --azul-electrico: #00d2ff;
@@ -20,16 +18,15 @@
         body { 
             font-family: 'Inter', 'Segoe UI', sans-serif; 
             margin: 0; 
-            padding: 0;
-            background-color: #050a14; 
-            color: #ffffff;
+            background-color: #f8fafc; 
+            color: #1e293b;
         }
 
-        /* BARRA SUPERIOR INFORMATIVA */
+        /* BARRA SUPERIOR 2026 */
         .top-bar {
             background: var(--azul-primario);
             color: var(--azul-electrico);
-            padding: 12px 20px;
+            padding: 10px 0;
             font-size: 0.85rem;
             letter-spacing: 1px;
             font-weight: 600;
@@ -37,118 +34,7 @@
             text-align: center;
         }
 
-        /* CABECERA DE NAVEGACIÓN PRINCIPAL */
-        .main-navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 50px;
-            background: rgba(10, 25, 47, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .navbar-brand {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: #ffffff;
-            text-decoration: none;
-        }
-
-        .navbar-brand span {
-            color: var(--azul-electrico);
-        }
-
-        .navbar-menu {
-            display: flex;
-            gap: 25px;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .navbar-menu a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .navbar-menu a:hover {
-            color: var(--azul-electrico);
-        }
-
-        /* SECCIÓN HERO (BIENVENIDA) */
-        .hero-section {
-            background: radial-gradient(circle at center, rgba(0, 210, 255, 0.08), transparent), var(--azul-primario);
-            padding: 120px 20px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .hero-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero-section h1 {
-            font-size: 3.2rem;
-            margin: 0 0 20px 0;
-            font-weight: 800;
-            line-height: 1.2;
-        }
-
-        .hero-section p {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 40px;
-            line-height: 1.6;
-        }
-
-        .hero-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .btn-main {
-            background: var(--azul-electrico);
-            color: var(--azul-primario);
-            padding: 15px 35px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1rem;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 5px 15px rgba(0, 210, 255, 0.3);
-        }
-
-        .btn-main:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 210, 255, 0.5);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.03);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 15px 35px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: background 0.3s ease;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        /* VENTANA FLOTANTE DEL CHATBOT */
+        /* VENTANA FLOTANTE DEL CHAT */
         .chat-container {
             position: fixed;
             bottom: 100px;
@@ -159,15 +45,15 @@
             border: 1px solid rgba(0, 210, 255, 0.2);
             border-radius: 20px;
             box-shadow: var(--sombra-futurista);
-            display: none;
+            display: none; /* Controlado por JS dinámico */
             flex-direction: column;
             overflow: hidden;
             z-index: 9999;
         }
 
         .chat-header {
-            background: rgba(255, 255, 255, 0.03);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255,255,255,0.03);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
             padding: 15px 20px;
             display: flex;
             justify-content: space-between;
@@ -180,20 +66,20 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            background-image: radial-gradient(circle at bottom, rgba(0, 210, 255, 0.03), transparent);
+            background-image: radial-gradient(circle at bottom, rgba(0,210,255,0.03), transparent);
         }
 
         .chat-footer {
             padding: 15px;
-            background: rgba(0, 0, 0, 0.2);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(0,0,0,0.2);
+            border-top: 1px solid rgba(255,255,255,0.05);
             display: flex;
             gap: 10px;
         }
 
         .chat-footer input {
             flex: 1;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255,255,255,0.05);
             border: 1px solid rgba(0, 210, 255, 0.2);
             padding: 12px 18px;
             border-radius: 30px;
@@ -206,7 +92,7 @@
             border-color: var(--azul-electrico);
         }
 
-        /* BURBUJA DEL CHATBOT */
+        /* BOTÓN BURBUJA FLOTANTE */
         .chat-trigger {
             position: fixed;
             bottom: 30px;
@@ -236,14 +122,6 @@
             70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(255, 109, 0, 0); }
             100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 109, 0, 0); }
         }
-
-        /* RESPONSIVIDAD BÁSICA */
-        @media (max-width: 768px) {
-            .main-navbar { padding: 20px; flex-direction: column; gap: 15px; }
-            .hero-section h1 { font-size: 2.2rem; }
-            .hero-buttons { flex-direction: column; gap: 10px; padding: 0 20px; }
-            .chat-container { width: 90%; right: 5%; bottom: 90px; }
-        }
     </style>
 </head>
 <body>
@@ -252,23 +130,13 @@
         🚀 ADMISIONES ABIERTAS PERIODO ACADÉMICO 2026 - MATRÍCULA 100% GRATUITA
     </div>
 
-    <nav class="main-navbar">
-        <a href="index.html" class="navbar-brand">BotEdu<span>Carmen</span></a>
-        <ul class="navbar-menu">
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="cursos.html">Catálogo</a></li>
-            <li><a href="carrito.html">Mi Selección</a></li>
-            <li><a href="contacto.html">Inscripción</a></li>
-        </ul>
-    </nav>
-
-    <header class="hero-section">
-        <div class="hero-container">
-            <h1>Plataforma Educativa <span style="color: var(--azul-electrico);">Capifer</span></h1>
-            <p>Aprende un oficio técnico productivo con certificación oficial y validez nacional. Clases dictadas en La Victoria, Estado Aragua, Sector Las Mercedes.</p>
-            <div class="hero-buttons">
-                <a href="cursos.html" class="btn-main">Explorar Cursos Disponibles</a>
-                <a href="contacto.html" class="btn-secondary">Iniciar Inscripción Directa</a>
+    <header style="background: var(--azul-primario); color: white; padding: 100px 20px; text-align: center;">
+        <div class="container">
+            <h1 style="font-size: 3rem; margin: 0; color: white;">Plataforma Educativa <span style="color:var(--azul-electrico);">Capifer</span></h1>
+            <p style="font-size: 1.2rem; color: rgba(255,255,255,0.7); margin: 20px 0 40px;">Aprende un oficio productivo con certificación oficial en La Victoria, Aragua.</p>
+            <div style="display: flex; justify-content: center; gap: 20px;">
+                <a href="cursos.html" style="background: var(--azul-electrico); color: var(--azul-primario); padding: 15px 30px; border-radius: 30px; text-decoration: none; font-weight: bold;">Ver Catálogo de Cursos</a>
+                <a href="#saber-mas" style="background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.2); padding: 15px 30px; border-radius: 30px; text-decoration: none;">Saber Más</a>
             </div>
         </div>
     </header>
