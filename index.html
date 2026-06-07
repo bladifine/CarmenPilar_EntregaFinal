@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BotEduCarmen 2026 | Sistema de Formación Inteligente</title>
+    <link rel="icon" href="data:;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAMAAADmLwkgPOAAAA0lVBMVEUAAAD///////////8piY7IAAAAAXRSTlMAQObYZgAAAA1JREFUeNo1jGEgKwAAADgAAf6w9YgAAAAASUVORK5CYII=">
     <link rel="stylesheet" href="styles.css">
     <style>
         :root {
@@ -31,133 +32,164 @@
             letter-spacing: 1px;
             font-weight: 600;
             border-bottom: 2px solid var(--azul-electrico);
-            text-align: center;
         }
-
-        /* VENTANA FLOTANTE DEL CHAT */
-        .chat-container {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 380px;
-            height: 500px;
-            background: var(--azul-primario);
-            border: 1px solid rgba(0, 210, 255, 0.2);
-            border-radius: 20px;
-            box-shadow: var(--sombra-futurista);
-            display: none; /* Controlado por JS dinámico */
-            flex-direction: column;
-            overflow: hidden;
-            z-index: 9999;
-        }
-
-        .chat-header {
-            background: rgba(255,255,255,0.03);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            padding: 15px 20px;
+        .top-bar-content {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
         }
 
-        .chat-messages {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            background-image: radial-gradient(circle at bottom, rgba(0,210,255,0.03), transparent);
+        /* NAVEGACIÓN MODERNA */
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
 
-        .chat-footer {
-            padding: 15px;
-            background: rgba(0,0,0,0.2);
-            border-top: 1px solid rgba(255,255,255,0.05);
-            display: flex;
-            gap: 10px;
-        }
-
-        .chat-footer input {
-            flex: 1;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(0, 210, 255, 0.2);
-            padding: 12px 18px;
-            border-radius: 30px;
+        /* BOTONES 3D NEOMÓRFICOS */
+        .btn-2026 {
+            background: linear-gradient(135deg, var(--naranja-neon), var(--naranja-glow));
             color: white;
-            outline: none;
-            font-size: 0.95rem;
-        }
-
-        .chat-footer input:focus {
-            border-color: var(--azul-electrico);
-        }
-
-        /* BOTÓN BURBUJA FLOTANTE */
-        .chat-trigger {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: var(--naranja-neon);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.8rem;
+            padding: 14px 35px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 800;
+            display: inline-block;
+            border: none;
+            box-shadow: 0 8px 0 #b34b00, 0 15px 20px rgba(255, 109, 0, 0.3);
+            transition: all 0.15s ease-in-out;
             cursor: pointer;
-            box-shadow: 0 10px 25px rgba(255, 109, 0, 0.4);
-            z-index: 10000;
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
+            text-transform: uppercase;
         }
 
-        .chat-trigger:hover {
-            transform: scale(1.1);
-            background: var(--naranja-glow);
+        .btn-2026:hover {
+            transform: translateY(2px);
+            box-shadow: 0 5px 0 #b34b00, 0 10px 15px rgba(255, 109, 0, 0.4);
+        }
+
+        .btn-2026:active {
+            transform: translateY(8px);
+            box-shadow: 0 0 0 #b34b00;
+        }
+
+        /* HERO SECTION EVOLUCIONADO */
+        .hero {
+            background: linear-gradient(135deg, rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.7)), 
+                        url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 75vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            clip-path: ellipse(150% 100% at 50% 0%);
+        }
+
+        .glass-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 50px;
+            border-radius: 40px;
+            color: white;
+            text-align: center;
+            max-width: 800px;
+            box-shadow: var(--sombra-futurista);
+        }
+
+        /* PIE DE PÁGINA */
+        footer {
+            background: var(--azul-primario);
+            color: white;
+            padding: 60px 0 30px;
+            text-align: center;
+            border-top: 5px solid var(--naranja-neon);
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 109, 0, 0.4); }
-            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(255, 109, 0, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 109, 0, 0); }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.4); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(0, 210, 255, 0); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
 <body>
 
     <div class="top-bar">
-        🚀 ADMISIONES ABIERTAS PERIODO ACADÉMICO 2026 - MATRÍCULA 100% GRATUITA
+        <div class="top-bar-content">
+            <span>🚀 SISTEMA ACTUALIZADO 2026</span>
+            <span>📍 LA VICTORIA - ARAGUA</span>
+            <span>📱 CONTACTO DIRECTO: 0424-33.60.158</span>
+        </div>
     </div>
 
-    <header style="background: var(--azul-primario); color: white; padding: 100px 20px; text-align: center;">
-        <div class="container">
-            <h1 style="font-size: 3rem; margin: 0; color: white;">Plataforma Educativa <span style="color:var(--azul-electrico);">Capifer</span></h1>
-            <p style="font-size: 1.2rem; color: rgba(255,255,255,0.7); margin: 20px 0 40px;">Aprende un oficio productivo con certificación oficial en La Victoria, Aragua.</p>
-            <div style="display: flex; justify-content: center; gap: 20px;">
-                <a href="cursos.html" style="background: var(--azul-electrico); color: var(--azul-primario); padding: 15px 30px; border-radius: 30px; text-decoration: none; font-weight: bold;">Ver Catálogo de Cursos</a>
-                <a href="#saber-mas" style="background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.2); padding: 15px 30px; border-radius: 30px; text-decoration: none;">Saber Más</a>
+    <header>
+        <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="display:flex; align-items:center; gap:15px;">
+                <img src="img/logo.png" alt="Logo" style="height:60px;">
+                <h2 style="margin:0; color:var(--azul-primario); font-size:1.8rem;">BotEduCarmen</h2>
             </div>
+            <nav>
+                <a href="index.html" style="text-decoration:none; color:var(--naranja-neon); font-weight:700; margin-right:25px;">INICIO</a>
+                <a href="cursos.html" style="text-decoration:none; color:var(--azul-primario); font-weight:600; margin-right:25px;">CURSOS</a>
+                <a href="admin.html" class="btn-2026" style="padding:10px 25px; font-size:0.8rem;">ADMIN</a>
+            </nav>
         </div>
     </header>
 
-    <div class="chat-trigger" onclick="toggleChat()">🤖</div>
-
-    <div class="chat-container" id="chat-window">
-        <div class="chat-header">
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="width: 10px; height: 10px; background: #00ffcc; border-radius: 50%; display: inline-block;"></span>
-                <h3 style="margin: 0; color: white; font-size: 1rem;">Asistente Virtual 2026</h3>
-            </div>
-            <button onclick="toggleChat()" style="background: none; border: none; color: rgba(255,255,255,0.5); cursor: pointer; font-size: 1.2rem;">✕</button>
+    <section class="hero">
+        <div class="glass-box">
+            <h1 style="font-size: 4rem; margin: 0; line-height: 1.1;">Liderando el Futuro del <span style="color:var(--azul-electrico);">Aprendizaje</span></h1>
+            <p style="font-size: 1.4rem; margin: 25px 0 40px; opacity: 0.9;">Capacitación tecnológica y artesanal de alto nivel para el nuevo mercado laboral.</p>
+            <a href="cursos.html" class="btn-2026">EXPLORAR CURSOS 2026</a>
         </div>
-        
-        <div class="chat-messages" id="chat-messages">
-            </div>
+    </section>
 
-        <div class="chat-footer">
-            <input type="text" id="user-input" placeholder="Escribe tu pregunta aquí...">
-            <button onclick="sendMessage()" style="background: var(--azul-electrico); border: none; width: 45px; height: 45px; border-radius: 50%; color: var(--azul-primario); font-weight: bold; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center;">➤</button>
+    <section class="container" style="margin-top: -80px; position: relative; z-index: 10;">
+        <div style="background: white; padding: 60px; border-radius: 40px; box-shadow: var(--sombra-futurista); border-bottom: 6px solid var(--azul-electrico);">
+            <h2 style="color: var(--azul-primario); font-size: 2.5rem; margin-top: 0;">Nuestra Misión</h2>
+            <p style="font-size: 1.3rem; line-height: 1.8; color: #475569;">
+                En el año 2026, nuestra misión evoluciona para integrar herramientas de inteligencia artificial y 
+                técnicas creativas avanzadas, impulsando el desarrollo socio-económico de Las Mercedes mediante 
+                la formación gratuita de excelencia.
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <h2 style="margin:0; font-size: 1.8rem; letter-spacing: 2px;">BotEduCarmen <span style="color:var(--naranja-neon);">2026</span></h2>
+            <p style="opacity:0.6; margin: 15px 0;">PNF EN INFORMÁTICA - TRABAJO DE INVESTIGACIÓN</p>
+            
+            <div style="background: rgba(255,255,255,0.05); padding: 25px; border-radius: 20px; display: inline-block; margin-top: 30px; border: 1px dashed rgba(255,255,255,0.2);">
+                <p style="margin:0; font-size: 1.2rem;">Creado por: <strong>Bladimir Silva</strong></p>
+                <p style="margin:5px 0 0; color:var(--azul-electrico);">📞 Teléfono: 0424-33.60.158</p>
+            </div>
+            
+            <p style="margin-top: 40px; font-size: 0.8rem; opacity: 0.4;">© 2026 Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <div id="chat-icon" onclick="toggleChat()" style="position:fixed; bottom:30px; right:30px; width:85px; height:85px; cursor:pointer; z-index:5000; animation: pulse 2s infinite;">
+        <img src="img/chatbot.png" style="width:100%; height:100%; object-fit:contain; border-radius:50%; filter: drop-shadow(0 0 15px var(--azul-electrico));" onerror="this.style.display='none'; document.getElementById('fb').style.display='flex';">
+        <div id="fb" style="display:none; width:100%; height:100%; background:var(--azul-primario); border-radius:50%; align-items:center; justify-content:center; color:white; font-size:40px; border:3px solid var(--azul-electrico);">🤖</div>
+    </div>
+
+    <div id="chat-window" style="position:fixed; bottom:130px; right:30px; width:380px; height:550px; background:white; border-radius:30px; box-shadow: 0 25px 70px rgba(0,0,0,0.4); z-index:5000; display:none; flex-direction:column; overflow:hidden; border:2px solid var(--azul-primario);">
+        <div style="background:var(--azul-primario); color:white; padding:25px; text-align:center; font-weight:800; font-size:1.3rem;">
+            🤖 AI ASISTENTE 2026
+        </div>
+        <div id="chat-messages" style="flex:1; padding:25px; overflow-y:auto; background:#f1f5f9; display:flex; flex-direction:column; gap:15px;">
+            </div>
+        <div style="padding:20px; background:white; display:flex; gap:10px;">
+            <input type="text" id="user-input" placeholder="Pregunta algo..." style="flex:1; padding:15px; border:2px solid #e2e8f0; border-radius:20px; outline:none;">
+            <button onclick="sendMessage()" style="background:var(--azul-primario); color:var(--azul-electrico); border:none; width:55px; height:55px; border-radius:20px; cursor:pointer; font-size:1.5rem;">➤</button>
         </div>
     </div>
 
