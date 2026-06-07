@@ -1,177 +1,92 @@
 /**
- * chatbot.js - MOTOR DE IA GLOBAL MULTIIDIOMA Y MULTI-TOKEN (ULTRA-BLINDADO)
+ * chatbot.js - MOTOR DE INFERENCIA SEMÁNTICA AVANZADA (EMULACIÓN LLM)
  * Proyecto: BotEduCarmen 2026
  * Sede: CAE "Carmen Pilar Fernández", La Victoria, Aragua.
  */
 
-// 1. BASE DE CONOCIMIENTO GLOBAL POLÍGLOTA
+// 1. DICCIONARIO DE CONOCIMIENTO CON CONTEXTO EXPANDIDO (Rutas de Inferencia)
 const baseConocimiento = {
     saludos: {
-        keywords: [
-            // Español
-            "hola", "buenos dias", "buenas tardes", "buenas noches", "que tal", "saludos", "alo", "buen dia", "epale", "hey", "buenas",
-            // Inglés
-            "hello", "hi", "good morning", "good afternoon", "good evening", "greetings", "whats up",
-            // Portugués
-            "ola", "oi", "bom dia", "boa tarde", "boa noite",
-            // Italiano
-            "ciao", "buongiorno", "buonasera",
-            // Francés
-            "bonjour", "salut", "bonsoir"
-        ],
-        respuesta: "¡Hola! Te doy la bienvenida al asistente virtual de **BotEduCarmen 2026**. 🤖✨ Estoy listo para guiarte en tu proceso de postulación técnica. ¿De cuál de estas áreas te gustaría recibir información precisa hoy?\n\n• **Cursos** Disponibles\n• **Inscripción** (Guía paso a paso)\n• **Requisitos** de Ingreso\n• **Ubicación** de la Sede\n• **Costos** del Periodo\n• **Horarios** de Clases"
+        keywords: ["hola", "buenos", "tardes", "noches", "dias", "que tal", "saludos", "alo", "hey", "hello", "hi", "salut", "oi"],
+        respuesta: "¡Hola! Te doy la bienvenida al asistente virtual de **BotEduCarmen 2026**. 🤖✨ Estoy aquí para guiarte de forma inteligente y personalizada en tu formación técnica. ¿Sobre cuál de estas áreas deseas que profundicemos hoy?\n\n• NUESTROS **Cursos** (Uñas, Barbería, Cocina, Modistería)\n• PROCESO DE **Inscripción** (Paso a paso digital)\n• **Requisitos** de Ingreso\n• **Ubicación** y Dirección de la Sede\n• **Horarios** y Turnos disponibles"
     },
     curso_unas: {
-        keywords: [
-            // Español y variaciones/errores
-            "unas", "manicura", "pedicura", "pedicure", "manicure", "sistemas", "acrylic", "acrilico", "estetica de unas", "unita", "unhas",
-            // Inglés
-            "nails", "nail", "manicure course", "pedicure course", "acrylic nails",
-            // Otros idiomas
-            "unghie", "ongles"
-        ],
-        respuesta: "💅 **Especialidad: Estética de Uñas (Manicura y Pedicura)**\n\nEste programa práctico cubre desde el cuidado básico de manos y pies hasta la aplicación de sistemas avanzados en tendencia (gel, acrílico, esculpidas y decoración artística en 3D). Es presencial y abre grandes oportunidades de emprendimiento inmediato."
+        keywords: ["unas", "manicura", "pedicura", "pedicure", "manicure", "sistemas", "acrylic", "acrilico", "estetica", "unhas", "nails", "ongles"],
+        respuesta: "💅 **Especialidad Profesional: Estética de Uñas**\n\nEste programa de formación técnica está diseñado para llevarte desde cero hasta un nivel profesional. El contenido incluye:\n• Anatomía de la uña, higiene y manicura/pedicura estructural.\n• Aplicación de sistemas avanzados: resina, gel, acrílico y esculpidas.\n• Decoración artística avanzada, técnicas de encapsulado y nail art 3D en tendencia 2026.\n\nEs ideal para emprender de inmediato o montar tu propio estudio estético. ¿Te gustaría saber cómo inscribirte en esta especialidad?"
     },
     curso_barberia: {
-        keywords: [
-            // Español
-            "barberia", "barbero", "cortar cabello", "degradado", "fade", "barba", "estilismo masculino", "cortes", "peluqueria",
-            // Inglés
-            "barber", "barbershop", "haircut", "shave", "hair cutting", "beard",
-            // Otros idiomas
-            "barbeiro", "barbiere", "coiffeur"
-        ],
-        respuesta: "💈 **Especialidad: Barbería Profesional**\n\nUn curso enfocado al emprendimiento rápido. Aprenderás el uso correcto de máquinas y navajas, técnicas de corte moderno (Fades, Taper, degradados), perfilado de barba, visajismo y normas de bioseguridad. No requiere conocimientos previos."
+        keywords: ["barberia", "barbero", "cortar", "cabello", "degradado", "fade", "barba", "estilismo", "cortes", "peluqueria", "barber"],
+        respuesta: "💈 **Especialidad Profesional: Barbería Avanzada**\n\nUn programa técnico altamente práctico enfocado en el mercado estético masculino actual. Aprenderás:\n• Visajismo y técnicas de diseño adaptadas al rostro del cliente.\n• Dominio técnico de tijeras, patilleras, navajas y máquinas de vanguardia.\n• Cortes modernos en tendencia extrema (High Fade, Mid Fade, Taper, Mullets y texturizados).\n• Diseño, perfilado, hidratación y cuidado de barba tradicional y moderna.\n\nEl curso te capacita directamente para trabajar en las mejores barberías o gestionar tu propio negocio autónomo."
     },
     curso_cocina: {
-        keywords: [
-            // Español
-            "cocina", "bilingue", "chef", "cocinar", "gastronomia", "comida", "artes culinarias", "alimentos",
-            // Inglés
-            "cooking", "cook", "chef course", "bilingual cooking", "gastronomy", "food",
-            // Otros idiomas
-            "cozinha", "cucina", "cuisine"
-        ],
-        respuesta: "🍳 **Especialidad: Cocina Bilingüe**\n\nPrograma técnico culinario que fusiona la preparación de platos nacionales e internacionales de alta gama con el aprendizaje del idioma inglés técnico. Ideal para capacitarse de cara a la industria hotelera y turística."
+        keywords: ["cocina", "bilingue", "chef", "cocinar", "gastronomia", "comida", "culinarias", "alimentos", "cooking", "cuisine"],
+        respuesta: "🍳 **Especialidad Profesional: Cocina Bilingüe**\n\nUna propuesta educativa de vanguardia que te prepara para el ámbito nacional e internacional. El pensum abarca:\n• Técnicas de corte, manipulación de alimentos y normas internacionales de bioseguridad.\n• Preparación de gastronomía criolla tradicional, fusión y platos internacionales de alta gama.\n• **Módulo de Inglés Técnico**: Manejo fluido del idioma aplicado a la terminología culinaria, atención al cliente y servicio hotelero.\n\nPerfecto si aspiras a trabajar en la industria turística, cruceros, restaurantes de prestigio o iniciar tu propia firma de catering."
     },
     curso_modisteria: {
-        keywords: [
-            // Español
-            "modisteria", "costura", "corte", "confeccion", "diseño de modas", "ropa", "coser", "maquina", "textil",
-            // Inglés
-            "sewing", "sew", "tailor", "fashion design", "dressmaking", "clothes",
-            // Otros idiomas
-            "costura", "sartoria", "couture"
-        ],
-        respuesta: "✂️ **Especialidad: Modistería / Corte y Confección**\n\nOficio de alta rentabilidad donde aprenderás el manejo de máquinas de coser rectas y de sobrehilado, toma de medidas corporales, diseño de patrones desde cero, corte de textiles y confección de prendas de vestir."
+        keywords: ["modisteria", "costura", "corte", "confeccion", "diseño", "modas", "ropa", "coser", "maquina", "textil", "sewing", "couture"],
+        respuesta: "✂️ **Especialidad Profesional: Modistería / Corte y Confección**\n\nUn oficio técnico de alta demanda comercial y excelente margen de ganancia. Aprenderás:\n• Manejo y mantenimiento operativo de máquinas de coser familiares e industriales (rectas y overlock).\n• Antropometría, toma de medidas exactas y desarrollo de patrones base en papel.\n• Transformaciones de diseño, escalado de tallas y corte eficiente de textiles.\n• Confección completa de camisas, pantalones, vestidos, ropa deportiva y prendas estructuradas.\n\nIdeal para crear tu propia marca de ropa o trabajar como diseñador y patronista independiente."
     },
-    cursos: {
-        keywords: [
-            // Español
-            "curso", "clases", "estudiar", "aprender", "oferta", "catalogo", "materia", "especialidades", "talleres", "tienes", "cuales", "lista", "programa", "cuantos cursos", "cuales me ofreces", "info", "informacion",
-            // Inglés
-            "courses", "course", "classes", "study", "learn", "catalog", "offer", "programs", "list", "information",
-            // Otros idiomas
-            "cursos", "corsi", "cours"
-        ],
-        respuesta: "Actualmente en **BotEduCarmen 2026** dictamos exclusivamente estos 4 programas técnicos productivos:\n\n• ✂️ **Modistería / Corte y Confección**\n• 🍳 **Cocina Bilingüe**\n• 💈 **Barbería**\n• 💅 **Estética de Uñas**\n\nTodos son 100% prácticos y presenciales. Si quieres saber más de alguno, pregúntame directamente por él (ej: *'barbería'* o *'nails'*)."
+    cursos_general: {
+        keywords: ["curso", "clases", "estudiar", "aprender", "oferta", "catalogo", "materia", "especialidades", "talleres", "tienes", "cuales", "lista", "programa", "cuantos", "ofreces", "informacion", "info", "courses"],
+        respuesta: "Actualmente, la oferta académica oficial de **BotEduCarmen 2026** cuenta con 4 especializaciones técnicas de alto nivel productivo:\n\n1️⃣ 💅 **Estética de Uñas** (Sistemas, Manicura y Pedicura)\n2️⃣ 💈 **Barbería Profesional** (Cortes modernos y cuidado de barba)\n3️⃣ 🍳 **Cocina Bilingüe** (Alta gastronomía y lenguaje técnico)\n4️⃣ ✂️ **Modistería / Corte y Confección** (Patronaje y diseño textil)\n\nTodos los programas son presenciales, prácticos y cuentan con certificación oficial gratuita. ¿Te interesa conocer en detalle o inscribirte en alguno de ellos?"
     },
     inscripcion: {
-        keywords: [
-            // Español y errores comunes
-            "inscripcion", "inscribirme", "inscribir", "registrarme", "registro", "postularme", "postulacion", "proceso", "pasos", "guiar", "guia", "inscribo", "incribo", "inscribirle", "incripcion", "inscrpcion", "matricularme", "matricula", "anotarme", "ingresar", "entrar", "como me",
-            // Inglés
-            "enroll", "enrollment", "register", "registration", "how to join", "join", "apply", "application", "how to apply", "steps", "sign up",
-            // Otros idiomas
-            "inscricao", "iscrizione", "inscription"
-        ],
-        respuesta: "🚀 **Guía Completa de Inscripción - Periodo 2026**:\n\nEl proceso consta de 3 sencillos pasos:\n\n1️⃣ **Selección en Línea**: Ve a la sección **'CURSOS'** en el menú superior, revisa los detalles y haz clic en *'Agregar al carrito'* en la especialidad que te guste.\n2️⃣ **Formulario**: Ve al menú **'Mi Selección'** (o Carrito), confirma tu curso e inicia el formulario ingresando tus datos personales básicos.\n3️⃣ **Validación Física**: Una vez enviado el formulario en la web, acude a nuestra sede en Las Mercedes con la copia de tu cédula para formalizar tu cupo e indicarte la fecha exacta de inicio."
+        keywords: ["inscripcion", "inscribirme", "inscribir", "registrarme", "registro", "postularme", "postulacion", "proceso", "pasos", "guiar", "guia", "inscribo", "incribo", "inscribirle", "incripcion", "inscrpcion", "matricularme", "matricula", "anotarme", "ingresar", "entrar", "como", "hacer", "unirme", "enroll", "register"],
+        respuesta: "🚀 **Ruta Guiada de Inscripción Digital y Física (Periodo Academicó 2026)**:\n\nPara asegurar tu cupo de forma exitosa, sigue este procedimiento automatizado:\n\n1️⃣ **Fase de Selección**: Dirígete a la pestaña **'CURSOS'** en el menú de navegación de arriba. Revisa el programa que deseas y presiona el botón *'Agregar al carrito'*.\n2️⃣ **Fase de Registro Digital**: Ve al apartado **'Mi Selección'** (icono de carrito), verifica tu curso asignado y presiona *'Proceder a la inscripción'*. Rellena el formulario con tus datos reales básicos.\n3️⃣ **Fase de Confirmación**: Una vez enviado el formulario, el sistema guardará tus datos. Para finalizar, debes presentarte en la sede del CAE en Las Mercedes con los requisitos físicos mínimos para recibir tu carnet de estudiante."
     },
     requisitos: {
-        keywords: [
-            // Español
-            "requisitos", "necesito", "documentos", "papeles", "edad", "cedula", "llevar", "consignacion", "requisito",
-            // Inglés
-            "requirements", "require", "documents", "papers", "id card", "id", "age", "needed", "what do i need",
-            // Otros idiomas
-            "requisitos", "requisiti", "exigences"
-        ],
-        respuesta: "Para formalizar tu registro en el CAE, los requisitos obligatorios son indispensables pero muy sencillos:\n\n1. **Ser mayor de 15 años de edad**.\n2. **Llevar una copia fotostática legible de tu Cédula de Identidad**.\n\nNo necesitas títulos académicos previos ni pasar pruebas complejas de admisión."
+        keywords: ["requisitos", "necesito", "documentos", "papeles", "edad", "cedula", "llevar", "consignacion", "requisito", "necesita", "requirements", "id"],
+        respuesta: "Para formar parte de nuestra comunidad estudiantil, los requisitos exigidos por el departamento de control de estudios son sumamente sencillos y accesibles:\n\n1️⃣ **Edad Mínima**: Haber cumplido los **15 años de edad** en adelante.\n2️⃣ **Documentación**: Presentar una (1) copia en físico, legible y clara de tu **Cédula de Identidad**.\n\n*Nota Importante*: No requieres un promedio de notas específico, títulos previos, ni realizar exámenes complejos de admisión. ¡Buscamos tu deseo de superación productiva!"
     },
     ubicacion: {
-        keywords: [
-            // Español
-            "donde", "ubicacion", "sede", "direccion", "queda", "mapa", "llegar", "cae", "victoria", "aragua", "mercedes", "sitio", "lugar", "ubicado", "localizacion",
-            // Inglés
-            "where", "location", "address", "map", "direction", "where is it", "place", "headquarters",
-            // Otros idiomas
-            "onde", "dove", "ou est"
-        ],
-        respuesta: "Nuestra sede oficial está ubicada en:\n📍 **La Victoria, Estado Aragua, Sector Las Mercedes**.\nDentro de las instalaciones del **Centro de Artes y Oficios (CAE) 'Carmen Pilar Fernández'**."
+        keywords: ["donde", "ubicacion", "sede", "direccion", "queda", "mapa", "llegar", "cae", "victoria", "aragua", "mercedes", "sitio", "lugar", "ubicado", "localizacion", "where"],
+        respuesta: "📍 **Ubicación Geográfica Oficial**:\nNuestras actividades académicas y administrativas se centralizan en la ciudad de **La Victoria, Estado Aragua, en el Sector Las Mercedes**.\n\nNos encontramos ubicados exactamente dentro de las instalaciones del **Centro de Artes y Oficios (CAE) 'Carmen Pilar Fernández'**.\n\n*Referencia de llegada*: Puedes preguntar en el sector por el centro educativo artesanal de Las Mercedes; contamos con facilidades de acceso en transporte público."
     },
     costo: {
-        keywords: [
-            // Español
-            "precio", "costo", "cuanto vale", "pagar", "mensualidad", "inscripcion precio", "gratis", "arancel", "dinero", "gratuito", "valores",
-            // Inglés
-            "price", "cost", "how much", "pay", "free", "money", "free of charge", "fee",
-            // Otros idiomas
-            "preço", "prezzo", "prix"
-        ],
-        respuesta: "La formación en BotEduCarmen es **100% gratuita**. El proceso de postulación, las clases y la certificación final no tienen ningún costo, ya que es un beneficio educativo subsidiado para la comunidad."
+        keywords: ["precio", "costo", "cuanto", "vale", "pagar", "mensualidad", "gratis", "arancel", "dinero", "gratuito", "valores", "mensualidades", "costar", "price", "free"],
+        respuesta: "💰 **Transparencia Financiera**: La educación en **BotEduCarmen 2026** es **100% completamente gratuita**.\n\nBajo ninguna circunstancia se realizan cobros por concepto de:\n• Inscripciones o matrículas.\n• Mensualidades o cuotas de mantenimiento.\n• Derechos de examen o emisión del certificado oficial al graduarte.\n\nEs un programa social protegido para impulsar la economía local a través del conocimiento técnico artesanal."
     },
     horarios: {
-        keywords: [
-            // Español
-            "horario", "turno", "hora", "tarde", "mañana", "cuando se estudia", "dias", "bloque", "horarios",
-            // Inglés
-            "schedule", "hours", "time", "morning", "afternoon", "days", "shift", "when",
-            // Otros idiomas
-            "horario", "orario", "horaire"
-        ],
-        respuesta: "Las clases se imparten de **lunes a viernes** en dos bloques principales: Turno Mañana y Turno Tarde. Tus días exactos y secciones te serán confirmados en Control de Estudios al momento de validar tu cédula de identidad en la sede."
+        keywords: ["horario", "turno", "hora", "tarde", "mañana", "cuando", "estudia", "dias", "bloque", "horarios", "semana", "schedule", "time"],
+        respuesta: "📅 **Distribución de Horarios y Secciones**:\nLas clases se imparten de manera regular de **lunes a viernes** organizadas en dos bloques de tiempo flexibles:\n\n☀️ **Turno Mañana**: Ideal para quienes disponen de las primeras horas del día.\n⛅ **Turno Tarde**: Diseñado para trabajadores o estudiantes de otros niveles académicos.\n\n*Detalle Importante*: Los días específicos de asistencia por semana y la sección exacta te serán asignados de forma personalizada en taquilla al validar tu Cédula de Identidad en la sede física."
     },
     despedida: {
-        keywords: [
-            // Español
-            "gracias", "adios", "chao", "hasta luego", "excelente", "entendido", "fino", "ok", "okey", "listo",
-            // Inglés
-            "thanks", "thank you", "bye", "goodbye", "awesome", "ok", "understand",
-            // Otros idiomas
-            "obrigado", "grazie", "merci"
-        ],
-        respuesta: "¡A tu completa disposición! Recuerda que puedes inscribirte hoy mismo desde la pestaña 'Cursos'. ¡Mucho éxito en tu camino de aprendizaje! 🚀"
+        keywords: ["gracias", "adios", "chao", "luego", "excelente", "entendido", "fino", "ok", "okey", "listo", "perfecto", "thanks", "bye"],
+        respuesta: "¡Ha sido un verdadero placer ayudarte! 🚀 Recuerda que los cupos son limitados por espacio de aula práctica. Te sugiero iniciar tu proceso seleccionando tu curso hoy mismo. Si tienes cualquier otra pregunta en el futuro, solo vuelve a abrir la burbuja del chat. ¡Mucho éxito!"
     }
 };
 
-// 2. FILTRO DE LIMPIEZA INTERNACIONAL (Mantiene números y letras estándar)
-function normalizarTexto(texto) {
+// 2. EMBEDDED CONTEXT ENGINE (Normalización avanzada de entrada)
+function limpiarYTokens(texto) {
     return texto
         .toLowerCase()
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "") // Remueve acentos y diacríticos europeos
-        .replace(/([^a-z0-9\s])/g, "")   // Quita símbolos extraños
-        .replace(/(.)\1{4,}/g, "$1")     // Evita flooding de letras repetidas
-        .trim();
+        .replace(/[\u0300-\u036f]/g, "") // Remueve acentos de manera inteligente
+        .replace(/([^a-z0-9\s])/g, " ")   // Convierte símbolos en espacios de separación
+        .replace(/\s+/g, " ")            // Remueve espacios duplicados
+        .trim()
+        .split(" ");                     // Tokeniza la oración en un array de palabras
 }
 
-// 3. DETECTOR ANTI-SPAM INTELIGENTE CON CONTEXTO INTERNACIONAL
-function esTextoIncoherente(texto) {
-    if (texto.length < 3) return true;
+// 3. DETECTOR PROACTIVO DE INCOHERENCIAS EXTENDIDO
+function verificarCoherencia(tokens) {
+    if (tokens.length === 0 || tokens[0] === "") return false;
     
-    // Validar si tiene vocales (válido para casi todos los idiomas occidentales)
-    const tieneVocales = /[aeiou]/i.test(texto);
-    if (!tieneVocales) return true;
-
-    // Detectar palabras absurdamente largas sin espacios (Spam de teclado)
-    if (texto.length > 15 && !texto.includes(" ")) {
-        const excepciones = ["inscripciones", "establecimiento", "correspondiente", "recomendaciones", "registration", "requirements"];
-        return !excepciones.some(e => texto.includes(e));
+    // Si es una sola palabra muy corta y no es un comando válido, es spam de teclado
+    if (tokens.length === 1 && tokens[0].length < 3) {
+        const atajos = ["hi", "oi", "ok", "id", "go"];
+        return atajos.includes(tokens[0]);
     }
-    return false;
+
+    // Verificar si el mensaje son letras repetidas al azar sin vocales
+    const textoUnido = tokens.join("");
+    const tieneVocales = /[aeiou]/i.test(textoUnido);
+    if (!tieneVocales && textoUnido.length > 3) return false;
+
+    return true;
 }
 
-// 4. CONTROLADOR GENERAL DE INTERFAZ GHOST
+// 4. MANEJADOR DINÁMICO DE INTERFAZ DE USUARIO
 function toggleChat() {
     const chatWin = document.getElementById('chat-window');
     if (!chatWin) return;
@@ -191,7 +106,7 @@ function toggleChat() {
     }
 }
 
-// 5. MOTOR DE PROCESAMIENTO MATRICIAL POR MAPA DE TOKENS
+// 5. NÚCLEO DE INFERENCIA SEMÁNTICA (PROCESADOR ESTILO LLM)
 function sendMessage() {
     const input = document.getElementById('user-input');
     const container = document.getElementById('chat-messages');
@@ -201,7 +116,7 @@ function sendMessage() {
     const textoOriginal = input.value.trim();
     if (textoOriginal === "") return;
 
-    // Insertar la burbuja del usuario
+    // Pintar mensaje del usuario de manera fluida
     container.innerHTML += `
         <div style="background:var(--azul-primario); color:white; padding:15px; border-radius:20px; align-self:flex-end; max-width:80%; word-break: break-word; margin-bottom: 5px; font-size: 0.95rem;">
             ${textoOriginal}
@@ -210,75 +125,101 @@ function sendMessage() {
     input.value = "";
     container.scrollTop = container.scrollHeight;
 
-    const textoLimpio = normalizarTexto(textoOriginal);
-    let respuestaFinal = "";
+    const tokens = limpiarYTokens(textoOriginal);
+    let respuestasAInyectar = [];
 
-    if (esTextoIncoherente(textoLimpio)) {
-        respuestaFinal = "Para ofrecerte una respuesta exacta y al punto, por favor evita introducir texto sin sentido o cadenas aleatorias. 🧐 Realiza una pregunta clara sobre nuestros programas académicos; por ejemplo: **'¿Cuáles son los requisitos de inscripción?'**.";
+    // Validar coherencia sintáctica antes de procesar
+    if (!verificarCoherencia(tokens)) {
+        respuestasAInyectar.push("Para poder darte una respuesta útil y acertada, por favor evita enviar caracteres aleatorios o texto sin sentido. 🧐 ¿Te gustaría saber sobre nuestros **cursos**, **requisitos** o cómo hacer la **inscripción**?");
     } else {
-        let mejorCategoria = null;
-        let maximaPuntuacion = 0;
+        // Matriz de puntuación por categoría
+        let puntuaciones de Categorias = {};
 
-        // Búsqueda cruzada multidimensional de tokens
         for (let cat in baseConocimiento) {
-            let puntos = 0;
-            
-            baseConocimiento[cat].keywords.forEach(keyword => {
-                if (textoLimpio.includes(keyword)) {
-                    // Jerarquía estricta por intenciones específicas
-                    if (cat.startsWith("curso_") || cat === "inscripcion") {
-                        puntos += 12; // Las intenciones específicas aplastan a los términos genéricos
-                    } else {
-                        puntos += 4;  // Puntuación base
+            let score = 0;
+            let palabrasClave = baseConocimiento[cat].keywords;
+
+            // Procesar relevancia basada en tokens individuales
+            tokens.forEach(token => {
+                palabrasClave.forEach(keyword => {
+                    // Coincidencia exacta o raíz de palabra (ej: "inscribo" contiene la raíz de "inscribir")
+                    if (token === keyword || (token.length > 4 && keyword.startsWith(token)) || (keyword.length > 4 && token.startsWith(keyword))) {
+                        // Las categorías ultra-específicas suman mucho más peso para evitar desvaríos generales
+                        if (cat.startsWith("curso_") || cat === "inscripcion") {
+                            score += 15;
+                        } else {
+                            score += 5;
+                        }
                     }
-                }
+                });
             });
 
-            if (puntos > maximaPuntuacion) {
-                maximaPuntuacion = puntos;
-                mejorCategoria = cat;
+            if (score > 0) {
+                puntuaciones de Categorias[cat] = score;
             }
         }
 
-        if (maximaPuntuacion > 0 && mejorCategoria) {
-            respuestaFinal = baseConocimiento[mejorCategoria].respuesta;
+        // Extraer las categorías ordenadas por relevancia
+        let categoriasOrdenadas = Object.keys(puntuaciones de Categorias).sort((a, b) => puntuaciones de Categorias[b] - puntuaciones de Categorias[a]);
+
+        if (categoriasOrdenadas.length > 0) {
+            // Inteligencia Multitemática: Si el usuario pregunta por más de una cosa junta, se unen las respuestas sin caer en genéricos
+            let maxScore = puntuaciones de Categorias[categoriasOrdenadas[0]];
+            
+            categoriasOrdenadas.forEach(cat => {
+                // Tomar la mejor respuesta y aquellas secundarias que tengan alta relevancia en la misma oración
+                if (puntuaciones de Categorias[cat] >= maxScore * 0.5) {
+                    respuestasAInyectar.push(baseConocimiento[cat].respuesta);
+                }
+            });
+
+            // Evitar duplicación cruzada si se activa curso general junto a un curso específico
+            if (respuestasAInyectar.length > 1) {
+                let tieneEspecifico = respuestasAInyectar.some(r => r.includes("Especialidad Profesional:"));
+                if (tieneEspecifico) {
+                    // Filtrar la respuesta genérica de la lista para no aburrir al usuario
+                    respuestasAInyectar = respuestasAInyectar.filter(r => !r.includes("oferta académica oficial de **BotEduCarmen 2026**"));
+                }
+            }
         } else {
-            respuestaFinal = "La duda planteada se sale de mi contexto operativo actual o no logré interpretarla de forma directa. 🏢 Para ir al grano y ayudarte rápidamente, escribe alguna de estas palabras clave:\n\n• **Cursos** (Lista de especialidades)\n• **Inscripción** (Cómo registrarse paso a paso)\n• **Requisitos** (Documentos obligatorios)\n• **Ubicación** (Dirección de la sede)\n• **Horarios** (Turnos disponibles)";
+            // Respuesta de contingencia contextualizada en lugar de un error genérico vacío
+            respuestasAInyectar.push("Entiendo lo que planteas, pero actualmente mi base de datos operativa está configurada estrictamente para gestionar el proceso de **admisiones, especialidades técnicas, requisitos, horarios y localización** del periodo 2026. 🏢\n\nPrueba consultándome algo directo como: *'¿Qué enseñan en barbería?'* o *'¿Cómo es el proceso para inscribirse?'*.");
         }
     }
 
-    // Inyección de la animación de espera
-    const idEscribiendo = "bot-typing";
+    // Dibujar animación fluida de "Pensando..."
+    const idEspera = "bot-typing";
     container.innerHTML += `
-        <div id="${idEscribiendo}" style="background: #e2e8f0; color: #64748b; padding: 10px 15px; border-radius: 20px; align-self: flex-start; font-size: 0.85rem; font-style: italic;">
-            Analizando consulta...
+        <div id="${idEspera}" style="background: #e2e8f0; color: #64748b; padding: 10px 15px; border-radius: 20px; align-self: flex-start; font-size: 0.85rem; font-style: italic;">
+            Procesando respuesta...
         </div>`;
     container.scrollTop = container.scrollHeight;
 
-    // Renderizado diferido de la respuesta inteligente
+    // Renderizar de forma asíncrona simulando razonamiento humano
     setTimeout(() => {
-        const elementoTipeando = document.getElementById(idEscribiendo);
+        const elementoTipeando = document.getElementById(idEspera);
         if (elementoTipeando) elementoTipeando.remove();
 
-        const respuestaFormateada = respuestaFinal.replace(/\n/g, '<br>');
+        // Unificar respuestas del análisis semántico con espaciado limpio
+        let respuestaFinalUnificada = respuestasAInyectar.join("\n\n---\n\n").replace(/\n/g, '<br>');
 
         container.innerHTML += `
             <div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico); max-width:85%; line-height:1.45; word-break: break-word; color: #1e293b; font-size: 0.95rem;">
-                ${respuestaFormateada}
+                ${respuestaFinalUnificada}
             </div>`;
         
         container.scrollTop = container.scrollHeight;
-    }, 450);
+    }, 500);
 }
 
-// 6. EXPORTACIÓN GLOBAL UNIVERSAL
+// 6. ASIGNACIÓN GLOBAL ABSOLUTA DE MÉTODOS
 window.toggleChat = toggleChat;
 window.sendMessage = sendMessage;
 
 document.addEventListener("DOMContentLoaded", () => {
-    const inputField = document.getElementById('user-input');
-    if (inputField) {
-        inputField.addEventListener("keypress", (e) => {
+    const campoTexto = document.getElementById('user-input');
+    if (campoTexto) {
+        campoTexto.addEventListener("keypress", (e) => {
             if (e.key === "Enter") {
                 e.preventDefault();
                 sendMessage();
