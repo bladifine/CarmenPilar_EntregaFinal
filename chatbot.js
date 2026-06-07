@@ -4,11 +4,11 @@
  * Sede: CAE "Carmen Pilar Fernández", La Victoria, Aragua.
  */
 
-// 1. BASE DE CONOCIMIENTO DINÁMICA (Respuestas reales, institucionales y precisas)
+// 1. BASE DE CONOCIMIENTO DINÁMICA
 const baseConocimiento = {
     saludos: {
         keywords: ["hola", "buenos dias", "buenas tardes", "buenas noches", "que tal", "saludos", "alo", "buen dia", "epale", "hey"],
-        respuesta: "¡Hola! Bienvenido al asistente virtual de **BotEduCarmen 2026**. 🤖✨ Estoy listo para guiarte en tu proceso de postulación técnica. ¿De cuál de estas áreas te gustaría recibir información precisa hoy?\n\n• **Cursos** Disponibles\n• **Requisitos** de Inscripción\n• **Ubicación** de la Sede\n• **Costos** del Periodo\n• **Horarios** de Clases"
+        respuesta: "¡Hola! Te doy la bienvenida al asistente virtual de **BotEduCarmen 2026**. 🤖✨ Estoy listo para guiarte en tu proceso de postulación técnica. ¿De cuál de estas áreas te gustaría recibir información precisa hoy?\n\n• **Cursos** Disponibles\n• **Requisitos** de Inscripción\n• **Ubicación** de la Sede\n• **Costos** del Periodo\n• **Horarios** de Clases"
     },
     cursos: {
         keywords: ["curso", "clases", "estudiar", "aprender", "oferta", "catalogo", "materia", "especialidades", "talleres", "estetica", "cocina", "barberia", "uñas", "costura", "modisteria", "confeccion", "sugieres", "recomiendas", "tienes", "cuales", "lista"],
@@ -36,66 +36,51 @@ const baseConocimiento = {
     }
 };
 
-// 2. FUNCIÓN DE LIMPIEZA AVANZADA (Evita tildes, caracteres repetidos y símbolos extraños)
+// 2. FUNCIÓN DE LIMPIEZA AVANZADA
 function normalizarTexto(texto) {
     return texto
         .toLowerCase()
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "") // Remueve acentos limpiamente
-        .replace(/([^a-z0-9\s])/g, "") // Elimina símbolos raros o de interrogación repetidos
-        .replace(/(.)\1{4,}/g, "$1") // Acorta letras extendidas por error (ej: "holaaaaa" pasa a "hola")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/([^a-z0-9\s])/g, "")
+        .replace(/(.)\1{4,}/g, "$1")
         .trim();
 }
 
-// 3. DETECTOR DE INCOHERENCIAS, FLOODING O SPAM ("uyglgyilg", "asdasd", "vbnmvb")
+// 3. DETECTOR DE INCOHERENCIAS
 function esTextoIncoherente(texto) {
-    if (texto.length < 3) return true; // Criterio de longitud mínima
-    
+    if (texto.length < 3) return true;
     const tieneVocales = /[aeiou]/i.test(texto);
-    if (!tieneVocales) return true; // Frena combinaciones directas sin vocales legibles
-
-    if (texto.length > 15 && !texto.includes(" ")) { // Bloquea palabras masivas sin espacios
+    if (!tieneVocales) return true;
+    if (texto.length > 15 && !texto.includes(" ")) {
         const excepciones = ["inscripciones", "establecimiento", "correspondiente", "recomendaciones"];
         if (!excepciones.some(e => texto.includes(e))) return true;
     }
-
     return false;
 }
 
-// 4. CONTROL OPERATIVO GLOBAL DE APERTURA Y CIERRE DEL CHAT
+// 4. CONTROL OPERATIVO GLOBAL (Manejo de ventanas)
 function toggleChat() {
     const chatWin = document.getElementById('chat-window');
     if (!chatWin) return;
 
-    // Verificar si el administrador congeló el bot desde el panel
-    const botActivo = localStorage.getItem('config_bot') !== 'false';
-
-    if (!botActivo) {
-        alert("🤖 El Asistente Virtual se encuentra fuera de servicio temporalmente por mantenimiento técnico de la plataforma.");
-        chatWin.style.display = 'none';
-        return;
-    }
-
     if (chatWin.style.display === 'none' || chatWin.style.display === '') {
         chatWin.style.display = 'flex';
         
-        // Mensaje inicial limpio inyectado orgánicamente
+        // Auto-inyectar saludo inicial si está vacío
         const container = document.getElementById('chat-messages');
         if (container && container.innerHTML.trim() === "") {
             container.innerHTML = `
-                <div style="text-align:left; margin-bottom:12px;">
-                    <span style="background:rgba(255,255,255,0.08); color:white; padding:12px 15px; border-radius:15px 15px 15px 0; display:inline-block; font-size:0.95rem; border-left: 3px solid #00d2ff; max-width:85%; line-height:1.4;">
-                        ¡Hola! Te doy la bienvenida a **BotEduCarmen 2026**. 🏢✨\n\n¿En qué te puedo colaborar hoy? Puedes consultarme directamente sobre nuestros **cursos**, **requisitos**, **ubicación** o **horarios**.
-                    </span>
+                <div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico); max-width: 85%; line-height: 1.4;">
+                    ¡Hola! Te doy la bienvenida al asistente virtual de **BotEduCarmen 2026**. 🏢✨<br><br>¿En qué te puedo colaborar hoy? Puedes consultarme directamente sobre nuestros <strong>cursos</strong>, <strong>requisitos</strong>, <strong>ubicación</strong> o <strong>horarios</strong>.
                 </div>`;
-            container.innerHTML = container.innerHTML.replace(/\n/g, '<br>');
         }
     } else {
         chatWin.style.display = 'none';
     }
 }
 
-// 5. PROCESADOR DE MENSAJES DE TRIPLE FILTRO SEMÁNTICO
+// 5. PROCESADOR DE MENSAJES (Forzado y Blindado)
 function sendMessage() {
     const input = document.getElementById('user-input');
     const container = document.getElementById('chat-messages');
@@ -105,12 +90,10 @@ function sendMessage() {
     const textoOriginal = input.value.trim();
     if (textoOriginal === "") return;
 
-    // Pintar de inmediato el globo del mensaje del usuario
+    // Pintar el globo del usuario con el estilo exacto de tu index.html original
     container.innerHTML += `
-        <div style="text-align:right; margin-bottom:12px;">
-            <span style="background:#00d2ff; color:#050a14; padding:10px 15px; border-radius:15px 15px 0 15px; display:inline-block; font-size:0.95rem; font-weight:600; max-width:80%; word-break: break-word;">
-                ${textoOriginal}
-            </span>
+        <div style="background:var(--azul-primario); color:white; padding:15px; border-radius:20px; align-self:flex-end; max-width:80%; word-break: break-word; margin-bottom: 5px;">
+            ${textoOriginal}
         </div>`;
 
     input.value = "";
@@ -119,11 +102,11 @@ function sendMessage() {
     const textoLimpio = normalizarTexto(textoOriginal);
     let respuestaFinal = "";
 
-    // FILTRO CAPA 1: ¿Es texto basura, spam ilegible o cadenas trampa?
+    // FILTRO 1: ¿Incoherencia o spam?
     if (esTextoIncoherente(textoLimpio)) {
-        respuestaFinal = "Para ofrecerte una respuesta exacta y al punto, por favor evita introducir cadenas de caracteres aleatorias o texto sin sentido. 🧐 Realiza una pregunta clara sobre los programas de estudio; por ejemplo: **'¿Cuáles son los requisitos de inscripción?'**.";
+        respuestaFinal = "Para ofrecerte una respuesta exacta y al punto, por favor evita introducir cadenas de caracteres aleatorias o texto sin sentido. 🧐 Realiza una pregunta clara; por ejemplo: **'¿Cuáles son los requisitos de inscripción?'**.";
     } else {
-        // FILTRO CAPA 2: Sistema de Concurrencia Semántica (Puntuación por pesos de Keywords)
+        // FILTRO 2: Puntuación Semántica
         let mejorCategoria = null;
         let maximaPuntuacion = 0;
 
@@ -131,7 +114,7 @@ function sendMessage() {
             let puntos = 0;
             baseConocimiento[cat].keywords.forEach(keyword => {
                 if (textoLimpio.includes(keyword)) {
-                    puntos += 2; // Match exacto añade prioridad
+                    puntos += 2;
                 }
             });
 
@@ -141,25 +124,23 @@ function sendMessage() {
             }
         }
 
-        // FILTRO CAPA 3: Despliegue de respuestas o menú de contención
+        // FILTRO 3: Respuesta final o menú de escape
         if (maximaPuntuacion > 0 && mejorCategoria) {
             respuestaFinal = baseConocimiento[mejorCategoria].respuesta;
         } else {
-            respuestaFinal = "La duda planteada se sale de mi contexto operativo sobre admisiones del CAE o no logré interpretarla de forma directa. 🏢 Para ir al grano y darte la información real, escribe alguna de estas palabras:\n\n• **Cursos** (Lista de especialidades técnicas)\n• **Requisitos** (Documentación obligatoria)\n• **Ubicación** (Dirección de la sede)\n• **Horarios** (Turnos disponibles de estudio)";
+            respuestaFinal = "La duda planteada se sale de mi contexto operativo sobre admisiones o no logré interpretarla de forma directa. 🏢 Para ir al grano, escribe alguna de estas palabras:\n\n• **Cursos** (Lista de especialidades)\n• **Requisitos** (Documentación necesaria)\n• **Ubicación** (Dirección de la sede)\n• **Horarios** (Turnos disponibles)";
         }
     }
 
-    // Dibujar animación de análisis simulado
+    // Dibujar animación de "Pensando..."
     const idEscribiendo = "bot-typing";
     container.innerHTML += `
-        <div id="${idEscribiendo}" style="text-align:left; margin-bottom:12px;">
-            <span style="background:rgba(255,255,255,0.04); color:rgba(255,255,255,0.4); padding:8px 12px; border-radius:15px; display:inline-block; font-size:0.85rem; font-style:italic;">
-                Analizando consulta...
-            </span>
+        <div id="${idEscribiendo}" style="background: #e2e8f0; color: #64748b; padding: 10px 15px; border-radius: 20px; align-self: flex-start; font-size: 0.85rem; font-style: italic;">
+            Analizando consulta...
         </div>`;
     container.scrollTop = container.scrollHeight;
 
-    // Retornar respuesta procesada con retardo natural
+    // Retornar respuesta procesada
     setTimeout(() => {
         const elementoTipeando = document.getElementById(idEscribiendo);
         if (elementoTipeando) elementoTipeando.remove();
@@ -167,22 +148,27 @@ function sendMessage() {
         const respuestaFormateada = respuestaFinal.replace(/\n/g, '<br>');
 
         container.innerHTML += `
-            <div style="text-align:left; margin-bottom:12px;">
-                <span style="background:rgba(255,255,255,0.08); color:white; padding:11px 16px; border-radius:15px 15px 15px 0; display:inline-block; font-size:0.95rem; border-left: 3px solid #00d2ff; max-width:85%; line-height:1.45; word-break: break-word;">
-                    ${respuestaFormateada}
-                </span>
+            <div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico); max-width:85%; line-height:1.45; word-break: break-word;">
+                ${respuestaFormateada}
             </div>`;
         
         container.scrollTop = container.scrollHeight;
-    }, 450);
+    }, 550);
 }
 
-// Inicializar el escuchador de eventos de teclado (Tecla Enter)
+// === EL TRUCO SECRETO PARA QUE NO SE QUEDE CALLADO ===
+// Asignamos las funciones directamente a la ventana global (window) del navegador. 
+// Esto rompe cualquier bloqueo de otros archivos .js
+window.toggleChat = toggleChat;
+window.sendMessage = sendMessage;
+
+// Escuchador de respaldo para la tecla Enter por si acaso
 document.addEventListener("DOMContentLoaded", () => {
     const inputField = document.getElementById('user-input');
     if (inputField) {
         inputField.addEventListener("keypress", (e) => {
             if (e.key === "Enter") {
+                e.preventDefault(); // Evita que la página se recargue
                 sendMessage();
             }
         });
