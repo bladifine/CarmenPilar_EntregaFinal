@@ -4,7 +4,6 @@
  * Sede: CAE "Carmen Pilar Fernández", La Victoria, Aragua.
  */
 
-// 1. DICCIONARIO DE CONOCIMIENTO CON CONTEXTO EXPANDIDO (Rutas de Inferencia)
 const baseConocimiento = {
     saludos: {
         keywords: ["hola", "buenos", "tardes", "noches", "dias", "que tal", "saludos", "alo", "hey", "hello", "hi", "salut", "oi"],
@@ -32,7 +31,7 @@ const baseConocimiento = {
     },
     inscripcion: {
         keywords: ["inscripcion", "inscribirme", "inscribir", "registrarme", "registro", "postularme", "postulacion", "proceso", "pasos", "guiar", "guia", "inscribo", "incribo", "inscribirle", "incripcion", "inscrpcion", "matricularme", "matricula", "anotarme", "ingresar", "entrar", "como", "hacer", "unirme", "enroll", "register"],
-        respuesta: "🚀 **Ruta Guiada de Inscripción Digital y Física (Periodo Academicó 2026)**:\n\nPara asegurar tu cupo de forma exitosa, sigue este procedimiento automatizado:\n\n1️⃣ **Fase de Selección**: Dirígete a la pestaña **'CURSOS'** en el menú de navegación de arriba. Revisa el programa que deseas y presiona el botón *'Agregar al carrito'*.\n2️⃣ **Fase de Registro Digital**: Ve al apartado **'Mi Selección'** (icono de carrito), verifica tu curso asignado y presiona *'Proceder a la inscripción'*. Rellena el formulario con tus datos reales básicos.\n3️⃣ **Fase de Confirmación**: Una vez enviado el formulario, el sistema guardará tus datos. Para finalizar, debes presentarte en la sede del CAE en Las Mercedes con los requisitos físicos mínimos para recibir tu carnet de estudiante."
+        respuesta: "🚀 **Ruta Guiada de Inscripción Digital y Física (Periodo Académico 2026)**:\n\nPara asegurar tu cupo de forma exitosa, sigue este procedimiento automatizado:\n\n1️⃣ **Fase de Selección**: Dirígete a la pestaña **'CURSOS'** en el menú de navegación de arriba. Revisa el programa que deseas y presiona el botón *'Agregar al carrito'*.\n2️⃣ **Fase de Registro Digital**: Ve al apartado **'Mi Selección'** (icono de carrito), verifica tu curso asignado y presiona *'Proceder a la inscripción'*. Rellena el formulario con tus datos reales básicos.\n3️⃣ **Fase de Confirmación**: Una vez enviado el formulario, el sistema guardará tus datos. Para finalizar, debes presentarte en la sede del CAE en Las Mercedes con los requisitos físicos mínimos para recibir tu carnet de estudiante."
     },
     requisitos: {
         keywords: ["requisitos", "necesito", "documentos", "papeles", "edad", "cedula", "llevar", "consignacion", "requisito", "necesita", "requirements", "id"],
@@ -56,37 +55,29 @@ const baseConocimiento = {
     }
 };
 
-// 2. EMBEDDED CONTEXT ENGINE (Normalización avanzada de entrada)
 function limpiarYTokens(texto) {
     return texto
         .toLowerCase()
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "") // Remueve acentos de manera inteligente
-        .replace(/([^a-z0-9\s])/g, " ")   // Convierte símbolos en espacios de separación
-        .replace(/\s+/g, " ")            // Remueve espacios duplicados
+        .replace(/[\u0300-\u036f]/g, "") 
+        .replace(/([^a-z0-9\s])/g, " ")   
+        .replace(/\s+/g, " ")            
         .trim()
-        .split(" ");                     // Tokeniza la oración en un array de palabras
+        .split(" ");                     
 }
 
-// 3. DETECTOR PROACTIVO DE INCOHERENCIAS EXTENDIDO
 function verificarCoherencia(tokens) {
     if (tokens.length === 0 || tokens[0] === "") return false;
-    
-    // Si es una sola palabra muy corta y no es un comando válido, es spam de teclado
     if (tokens.length === 1 && tokens[0].length < 3) {
         const atajos = ["hi", "oi", "ok", "id", "go"];
         return atajos.includes(tokens[0]);
     }
-
-    // Verificar si el mensaje son letras repetidas al azar sin vocales
     const textoUnido = tokens.join("");
     const tieneVocales = /[aeiou]/i.test(textoUnido);
     if (!tieneVocales && textoUnido.length > 3) return false;
-
     return true;
 }
 
-// 4. MANEJADOR DINÁMICO DE INTERFAZ DE USUARIO
 function toggleChat() {
     const chatWin = document.getElementById('chat-window');
     if (!chatWin) return;
@@ -106,7 +97,6 @@ function toggleChat() {
     }
 }
 
-// 5. NÚCLEO DE INFERENCIA SEMÁNTICA (PROCESADOR ESTILO LLM)
 function sendMessage() {
     const input = document.getElementById('user-input');
     const container = document.getElementById('chat-messages');
@@ -116,7 +106,6 @@ function sendMessage() {
     const textoOriginal = input.value.trim();
     if (textoOriginal === "") return;
 
-    // Pintar mensaje del usuario de manera fluida
     container.innerHTML += `
         <div style="background:var(--azul-primario); color:white; padding:15px; border-radius:20px; align-self:flex-end; max-width:80%; word-break: break-word; margin-bottom: 5px; font-size: 0.95rem;">
             ${textoOriginal}
@@ -128,23 +117,18 @@ function sendMessage() {
     const tokens = limpiarYTokens(textoOriginal);
     let respuestasAInyectar = [];
 
-    // Validar coherencia sintáctica antes de procesar
     if (!verificarCoherencia(tokens)) {
         respuestasAInyectar.push("Para poder darte una respuesta útil y acertada, por favor evita enviar caracteres aleatorios o texto sin sentido. 🧐 ¿Te gustaría saber sobre nuestros **cursos**, **requisitos** o cómo hacer la **inscripción**?");
     } else {
-        // Matriz de puntuación por categoría
-        let puntuaciones de Categorias = {};
+        let puntuacionesCategorias = {};
 
         for (let cat in baseConocimiento) {
             let score = 0;
             let palabrasClave = baseConocimiento[cat].keywords;
 
-            // Procesar relevancia basada en tokens individuales
             tokens.forEach(token => {
                 palabrasClave.forEach(keyword => {
-                    // Coincidencia exacta o raíz de palabra (ej: "inscribo" contiene la raíz de "inscribir")
                     if (token === keyword || (token.length > 4 && keyword.startsWith(token)) || (keyword.length > 4 && token.startsWith(keyword))) {
-                        // Las categorías ultra-específicas suman mucho más peso para evitar desvaríos generales
                         if (cat.startsWith("curso_") || cat === "inscripcion") {
                             score += 15;
                         } else {
@@ -155,39 +139,32 @@ function sendMessage() {
             });
 
             if (score > 0) {
-                puntuaciones de Categorias[cat] = score;
+                puntuacionesCategorias[cat] = score;
             }
         }
 
-        // Extraer las categorías ordenadas por relevancia
-        let categoriasOrdenadas = Object.keys(puntuaciones de Categorias).sort((a, b) => puntuaciones de Categorias[b] - puntuaciones de Categorias[a]);
+        let categoriasOrdenadas = Object.keys(puntuacionesCategorias).sort((a, b) => puntuacionesCategorias[b] - puntuacionesCategorias[a]);
 
         if (categoriasOrdenadas.length > 0) {
-            // Inteligencia Multitemática: Si el usuario pregunta por más de una cosa junta, se unen las respuestas sin caer en genéricos
-            let maxScore = puntuaciones de Categorias[categoriasOrdenadas[0]];
+            let maxScore = puntuacionesCategorias[categoriasOrdenadas[0]];
             
             categoriasOrdenadas.forEach(cat => {
-                // Tomar la mejor respuesta y aquellas secundarias que tengan alta relevancia en la misma oración
-                if (puntuaciones de Categorias[cat] >= maxScore * 0.5) {
+                if (puntuacionesCategorias[cat] >= maxScore * 0.5) {
                     respuestasAInyectar.push(baseConocimiento[cat].respuesta);
                 }
             });
 
-            // Evitar duplicación cruzada si se activa curso general junto a un curso específico
             if (respuestasAInyectar.length > 1) {
                 let tieneEspecifico = respuestasAInyectar.some(r => r.includes("Especialidad Profesional:"));
                 if (tieneEspecifico) {
-                    // Filtrar la respuesta genérica de la lista para no aburrir al usuario
                     respuestasAInyectar = respuestasAInyectar.filter(r => !r.includes("oferta académica oficial de **BotEduCarmen 2026**"));
                 }
             }
         } else {
-            // Respuesta de contingencia contextualizada en lugar de un error genérico vacío
             respuestasAInyectar.push("Entiendo lo que planteas, pero actualmente mi base de datos operativa está configurada estrictamente para gestionar el proceso de **admisiones, especialidades técnicas, requisitos, horarios y localización** del periodo 2026. 🏢\n\nPrueba consultándome algo directo como: *'¿Qué enseñan en barbería?'* o *'¿Cómo es el proceso para inscribirse?'*.");
         }
     }
 
-    // Dibujar animación fluida de "Pensando..."
     const idEspera = "bot-typing";
     container.innerHTML += `
         <div id="${idEspera}" style="background: #e2e8f0; color: #64748b; padding: 10px 15px; border-radius: 20px; align-self: flex-start; font-size: 0.85rem; font-style: italic;">
@@ -195,12 +172,10 @@ function sendMessage() {
         </div>`;
     container.scrollTop = container.scrollHeight;
 
-    // Renderizar de forma asíncrona simulando razonamiento humano
     setTimeout(() => {
         const elementoTipeando = document.getElementById(idEspera);
         if (elementoTipeando) elementoTipeando.remove();
 
-        // Unificar respuestas del análisis semántico con espaciado limpio
         let respuestaFinalUnificada = respuestasAInyectar.join("\n\n---\n\n").replace(/\n/g, '<br>');
 
         container.innerHTML += `
@@ -212,7 +187,6 @@ function sendMessage() {
     }, 500);
 }
 
-// 6. ASIGNACIÓN GLOBAL ABSOLUTA DE MÉTODOS
 window.toggleChat = toggleChat;
 window.sendMessage = sendMessage;
 
