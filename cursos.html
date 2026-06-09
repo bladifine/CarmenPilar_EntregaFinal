@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo 2026 | BotEduCarmen</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
         :root {
             --azul-p: #0a192f;
@@ -13,11 +14,7 @@
             --verde-whatsapp: #25d366;
         }
 
-        body { 
-            background-color: var(--azul-p); color: white; 
-            font-family: 'Inter', sans-serif; margin: 0;
-            background-image: radial-gradient(circle at top right, rgba(0, 210, 255, 0.1), transparent);
-        }
+        body { background-color: var(--azul-p); color: white; font-family: 'Inter', sans-serif; margin: 0; }
 
         header {
             background: rgba(10, 25, 47, 0.9); backdrop-filter: blur(15px);
@@ -29,49 +26,30 @@
         .header-brand { display: flex; align-items: center; gap: 15px; }
         .header-brand img { height: 50px; }
 
-        /* Botón Inicio mejorado */
-        .btn-nav {
-            background: #1e293b; color: var(--electrico) !important;
-            padding: 10px 25px; border-radius: 12px; text-decoration: none;
-            font-weight: 700; border: 1px solid var(--electrico); transition: 0.3s;
-        }
-        .btn-nav:hover { background: var(--electrico); color: var(--azul-p) !important; }
+        /* Botón Inicio */
+        .btn-inicio { color: white; text-decoration: none; font-weight: bold; padding: 8px 15px; border: 1px solid white; border-radius: 8px; transition: 0.3s; }
+        .btn-inicio:hover { background: white; color: var(--azul-p); }
 
         .search-container { text-align: center; margin: 30px 0; }
-        #buscador { 
-            width: 80%; max-width: 500px; padding: 15px; border-radius: 30px; 
-            border: 1px solid var(--electrico); background: var(--glass); color: white; outline: none;
-        }
+        #buscador { width: 80%; max-width: 500px; padding: 15px; border-radius: 30px; border: 1px solid var(--electrico); background: var(--glass); color: white; outline: none; }
 
-        .cursos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; padding: 20px; }
-        
-        .curso-card {
-            background: var(--glass); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);
-            overflow: hidden; transition: 0.3s; text-align: center;
-        }
-        .curso-card:hover { transform: translateY(-5px); border-color: var(--electrico); }
+        .cursos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; padding: 20px; max-width: 1200px; margin: 0 auto; }
+        .curso-card { background: var(--glass); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; text-align: center; }
         .curso-img { width: 100%; height: 160px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .curso-info { padding: 20px; }
-
-        .btn-accion {
-            border: none; padding: 12px; border-radius: 10px; width: 100%; 
-            cursor: pointer; font-weight: bold; transition: 0.3s; text-transform: uppercase;
-        }
+        .btn-accion { border: none; padding: 12px; border-radius: 10px; width: 100%; cursor: pointer; font-weight: bold; text-transform: uppercase; }
         .btn-seleccionar { background: var(--naranja); color: white; }
-        .btn-quitar { background: #444; color: #ccc; border: 1px solid #666; }
+        .btn-quitar { background: #444; color: #ccc; }
 
-        /* Botones Flotantes */
-        #cart-float { position: fixed; bottom: 30px; left: 30px; z-index: 2000; display: none; }
-        .btn-confirmar {
-            background: white; color: var(--azul-p); text-decoration: none; padding: 15px 30px;
-            border-radius: 50px; font-weight: 800; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        
-        #back-to-top {
-            position: fixed; bottom: 30px; right: 30px; z-index: 3000;
-            background: var(--electrico); color: var(--azul-p); padding: 10px 15px;
-            border-radius: 50px; cursor: pointer; font-weight: bold;
-        }
+        /* FLOTANTES DERECHA */
+        #whatsapp-btn { position: fixed; bottom: 120px; right: 30px; width: 65px; height: 65px; background: var(--verde-whatsapp); border-radius: 50%; z-index: 5000; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 20px rgba(37,211,102,0.3); }
+        #chat-icon { position: fixed; bottom: 30px; right: 30px; width: 75px; height: 75px; cursor: pointer; z-index: 5000; }
+        #chat-icon img { width: 100%; height: 100%; border-radius: 50%; border: 2px solid var(--electrico); }
+
+        /* BOTÓN IZQUIERDA (SUBIR) */
+        #go-top { position: fixed; bottom: 30px; left: 30px; width: 50px; height: 50px; background: var(--electrico); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 5000; transition: 0.3s; }
+        #go-top:hover { transform: scale(1.1); }
+
+        #cart-float { position: fixed; bottom: 30px; left: 90px; z-index: 2000; display: none; }
     </style>
 </head>
 <body>
@@ -80,25 +58,32 @@
         <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
             <div class="header-brand">
                 <img src="img/logo.png" alt="Logo">
-                <h1 style="font-size: 1.4rem; margin:0;">BotEduCarmen <span style="color:var(--electrico)">2026</span></h1>
+                <h1 style="font-size: 1.4rem; margin:0;">BotEduCarmen</h1>
             </div>
-            <nav>
-                <a href="index.html" class="btn-nav">INICIO</a>
-            </nav>
+            <nav><a href="index.html" class="btn-inicio">INICIO</a></nav>
         </div>
     </header>
 
     <div class="search-container">
-        <input type="text" id="buscador" placeholder="🔍 ¿Qué quieres aprender hoy?" onkeyup="filtrar()">
+        <input type="text" id="buscador" placeholder="🔍 Buscar curso..." onkeyup="filtrar()">
     </div>
 
-    <div id="grid-cursos" class="cursos-grid container"></div>
+    <div id="grid-cursos" class="cursos-grid"></div>
 
     <div id="cart-float">
-        <a href="contacto.html" class="btn-confirmar">🚀 CONFIRMAR INSCRIPCIÓN (<span id="cart-count">0</span>)</a>
+        <a href="contacto.html" style="background:white; color:var(--azul-p); padding:10px 20px; border-radius:20px; text-decoration:none; font-weight:bold;">Carrito (<span id="cart-count">0</span>)</a>
     </div>
 
-    <div id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ ARRIBA</div>
+    <div id="go-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2l-10 10h6v10h8v-10h6z"/></svg>
+    </div>
+
+    <div id="whatsapp-btn" onclick="window.open('https://wa.me/584243360158', '_blank')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35">
+    </div>
+    <div id="chat-icon" onclick="window.location.href='index.html'">
+        <img src="img/chatbot.png" alt="Chat">
+    </div>
 
     <script>
         const CURSOS = [
@@ -119,46 +104,43 @@
 
         function cargarCursos() {
             const grid = document.getElementById('grid-cursos');
-            const seleccionados = JSON.parse(localStorage.getItem('cart')) || [];
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
             grid.innerHTML = CURSOS.map(c => {
-                const estaEnCart = seleccionados.find(x => x.nombre === c.n);
+                const inCart = cart.find(x => x.nombre === c.n);
                 return `
                     <div class="curso-card" data-name="${c.n.toLowerCase()}">
-                        <img src="img/${c.i}" class="curso-img" onerror="this.src='img/logo.png'">
-                        <div class="curso-info">
+                        <img src="img/${c.i}" class="curso-img">
+                        <div style="padding:15px;">
                             <h3>${c.n}</h3>
-                            <button onclick="toggleSeleccion('${c.n}', 'img/${c.i}')" class="btn-accion ${estaEnCart ? 'btn-quitar' : 'btn-seleccionar'}">
-                                ${estaEnCart ? '✖ QUITAR' : '✚ SELECCIONAR'}
+                            <button class="btn-accion ${inCart?'btn-quitar':'btn-seleccionar'}" onclick="toggle('${c.n}', 'img/${c.i}')">
+                                ${inCart?'✖ Quitar':'✚ Seleccionar'}
                             </button>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             }).join('');
         }
 
-        function toggleSeleccion(nombre, imagen) {
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const index = cart.findIndex(x => x.nombre === nombre);
-            index !== -1 ? cart.splice(index, 1) : cart.push({ nombre, imagen });
-            localStorage.setItem('cart', JSON.stringify(cart));
+        function toggle(n, i) {
+            let c = JSON.parse(localStorage.getItem('cart')) || [];
+            const idx = c.findIndex(x => x.nombre === n);
+            idx !== -1 ? c.splice(idx, 1) : c.push({nombre: n, imagen: i});
+            localStorage.setItem('cart', JSON.stringify(c));
             cargarCursos();
-            actualizarUI();
+            document.getElementById('cart-count').innerText = c.length;
+            document.getElementById('cart-float').style.display = c.length > 0 ? 'block' : 'none';
         }
 
         function filtrar() {
-            let val = document.getElementById('buscador').value.toLowerCase();
-            document.querySelectorAll('.curso-card').forEach(card => {
-                card.style.display = card.dataset.name.includes(val) ? "block" : "none";
-            });
+            let v = document.getElementById('buscador').value.toLowerCase();
+            document.querySelectorAll('.curso-card').forEach(x => x.style.display = x.dataset.name.includes(v) ? 'block' : 'none');
         }
 
-        function actualizarUI() {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            document.getElementById('cart-float').style.display = cart.length > 0 ? "block" : "none";
-            document.getElementById('cart-count').innerText = cart.length;
-        }
-
-        document.addEventListener('DOMContentLoaded', () => { cargarCursos(); actualizarUI(); });
+        document.addEventListener('DOMContentLoaded', () => { 
+            cargarCursos();
+            let c = JSON.parse(localStorage.getItem('cart')) || [];
+            document.getElementById('cart-count').innerText = c.length;
+            document.getElementById('cart-float').style.display = c.length > 0 ? 'block' : 'none';
+        });
     </script>
 </body>
 </html>
