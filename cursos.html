@@ -34,6 +34,19 @@
         .header-brand { display: flex; align-items: center; gap: 15px; }
         .header-brand img { height: 50px; }
 
+        /* Estilo para el botón de navegación similar a los botones principales */
+        .nav-btn {
+            background: var(--glass);
+            border: 1px solid var(--electrico);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+        .nav-btn:hover { background: var(--electrico); color: var(--azul-p); }
+
         .search-container { text-align: center; margin: 30px 0; }
         #buscador { 
             width: 80%; max-width: 500px; padding: 15px; 
@@ -74,13 +87,15 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 2px solid var(--electrico);
         }
 
-        /* Botón Subir */
+        /* Botón Subir mejorado: Estilo cristal, a la izquierda */
         #btn-subir {
-            position: fixed; bottom: 30px; right: 120px; z-index: 4000;
-            background: var(--electrico); color: var(--azul-p); border: none;
-            padding: 10px 20px; border-radius: 20px; cursor: pointer;
-            display: none; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            position: fixed; bottom: 30px; left: 30px; z-index: 4000;
+            background: rgba(0, 210, 255, 0.2); backdrop-filter: blur(10px);
+            color: white; border: 1px solid var(--electrico);
+            padding: 12px 20px; border-radius: 50px; cursor: pointer;
+            display: none; font-weight: bold; transition: 0.3s;
         }
+        #btn-subir:hover { background: var(--electrico); color: var(--azul-p); }
 
         /* FLOTANTES */
         #whatsapp-btn { position: fixed; bottom: 120px; right: 30px; width: 65px; height: 65px; background: var(--verde-whatsapp); border-radius: 50%; z-index: 5000; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 20px rgba(37,211,102,0.3); }
@@ -97,7 +112,7 @@
                 <h1 style="font-size: 1.4rem; margin:0;">BotEduCarmen <span style="color:var(--electrico)">2026</span></h1>
             </div>
             <nav>
-                <a href="index.html" style="color:var(--electrico); text-decoration:none; font-weight:bold; border: 1px solid var(--electrico); padding: 5px 15px; border-radius: 15px;">Inicio</a>
+                <a href="index.html" class="nav-btn">Inicio</a>
             </nav>
         </div>
     </header>
@@ -112,7 +127,7 @@
         <a href="contacto.html" class="btn-confirmar">🚀 CONFIRMAR INSCRIPCIÓN (<span id="cart-count">0</span>)</a>
     </div>
 
-    <button id="btn-subir" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆ SUBIR</button>
+    <button id="btn-subir" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆ IR ARRIBA</button>
 
     <div id="whatsapp-btn" onclick="window.open('https://wa.me/584243360158', '_blank')">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:40px;">
@@ -138,7 +153,6 @@
             {n: "Tejido y Crochet", i: "tejer.jpg"}
         ];
 
-        // Lógica del botón de subir
         window.onscroll = function() {
             const btn = document.getElementById("btn-subir");
             if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
