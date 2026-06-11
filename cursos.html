@@ -74,6 +74,14 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 2px solid var(--electrico);
         }
 
+        /* Botón Subir */
+        #btn-subir {
+            position: fixed; bottom: 30px; right: 120px; z-index: 4000;
+            background: var(--electrico); color: var(--azul-p); border: none;
+            padding: 10px 20px; border-radius: 20px; cursor: pointer;
+            display: none; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
         /* FLOTANTES */
         #whatsapp-btn { position: fixed; bottom: 120px; right: 30px; width: 65px; height: 65px; background: var(--verde-whatsapp); border-radius: 50%; z-index: 5000; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 20px rgba(37,211,102,0.3); }
         #chat-icon { position: fixed; bottom: 30px; right: 30px; width: 75px; height: 75px; cursor: pointer; z-index: 5000; animation: pulse 2s infinite; }
@@ -89,7 +97,7 @@
                 <h1 style="font-size: 1.4rem; margin:0;">BotEduCarmen <span style="color:var(--electrico)">2026</span></h1>
             </div>
             <nav>
-                <a href="index.html" style="color:white; text-decoration:none;">Inicio</a>
+                <a href="index.html" style="color:var(--electrico); text-decoration:none; font-weight:bold; border: 1px solid var(--electrico); padding: 5px 15px; border-radius: 15px;">Inicio</a>
             </nav>
         </div>
     </header>
@@ -103,6 +111,8 @@
     <div id="cart-float">
         <a href="contacto.html" class="btn-confirmar">🚀 CONFIRMAR INSCRIPCIÓN (<span id="cart-count">0</span>)</a>
     </div>
+
+    <button id="btn-subir" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆ SUBIR</button>
 
     <div id="whatsapp-btn" onclick="window.open('https://wa.me/584243360158', '_blank')">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:40px;">
@@ -127,6 +137,16 @@
             {n: "Manualidades", i: "manualidades.jpg"}, {n: "Pintura Avanzada", i: "pintura_avanzada.jpg"},
             {n: "Tejido y Crochet", i: "tejer.jpg"}
         ];
+
+        // Lógica del botón de subir
+        window.onscroll = function() {
+            const btn = document.getElementById("btn-subir");
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
 
         function cargarCursos() {
             const grid = document.getElementById('grid-cursos');
