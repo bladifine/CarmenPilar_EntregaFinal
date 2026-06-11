@@ -4,290 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BotEduCarmen 2026 | Sistema de Formación Inteligente</title>
-    <link rel="icon" href="data:;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAMAAADmLwkgPOAAAA0lVBMVEUAAAD///////////8piY7IAAAAAXRSTlMAQObYZgAAAA1JREFUeNo1jGEgKwAAADgAAf6w9YgAAAAASUVORK5CYII=">
     <link rel="stylesheet" href="styles.css">
     <style>
         :root {
             --azul-primario: #0a192f;
             --azul-electrico: #00d2ff;
-            --azul-glow: #00b4d8;
-            --naranja-neon: #ff6d00;
-            --naranja-glow: #ff9100;
-            --verde-whatsapp: #25d366;
-            --glass: rgba(255, 255, 255, 0.08);
-            --sombra-futurista: 0 20px 40px rgba(0,0,0,0.4);
         }
-
-        body { 
-            font-family: 'Inter', 'Segoe UI', sans-serif; 
-            margin: 0; 
-            background-color: #f8fafc; 
-            color: #1e293b;
-        }
-
-        /* BARRA SUPERIOR */
-        .top-bar {
-            background: var(--azul-primario);
-            color: var(--azul-electrico);
-            padding: 10px 0;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            font-weight: 600;
-            border-bottom: 2px solid var(--azul-electrico);
-        }
-        .top-bar-content {
-            display: flex;
-            justify-content: space-between;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 25px;
-        }
-
-        header {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(15px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 15px 0;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-        }
-
-        /* BOTÓN PRINCIPAL NARANJA (ADMIN) */
-        .btn-2026 {
-            background: linear-gradient(135deg, var(--naranja-neon), var(--naranja-glow));
-            color: white;
-            padding: 12px 28px;
-            border-radius: 14px;
-            text-decoration: none;
-            font-weight: 800;
-            display: inline-block;
-            border: none;
-            box-shadow: 0 6px 0 #b34b00, 0 10px 15px rgba(255, 109, 0, 0.25);
-            transition: all 0.15s ease-in-out;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-        }
-        .btn-2026:hover {
-            transform: translateY(2px);
-            box-shadow: 0 4px 0 #b34b00, 0 8px 12px rgba(255, 109, 0, 0.3);
-        }
-        .btn-2026:active { transform: translateY(6px); box-shadow: 0 0 0 #b34b00; }
-
-        /* MEJORA: BOTÓN DE CURSOS (MENÚ SUPERIOR) */
-        .btn-cursos {
-            background: var(--azul-primario);
-            color: white !important;
-            padding: 10px 20px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.85rem;
-            transition: all 0.2s ease;
-            border: 2px solid var(--azul-primario);
-        }
-        .btn-cursos:hover {
+        body { font-family: 'Inter', sans-serif; margin: 0; background-color: var(--azul-primario); color: white; text-align: center; padding-top: 100px; }
+        .btn-admin {
+            margin-top: 20px;
             background: transparent;
-            color: var(--azul-primario) !important;
-        }
-
-        /* MEJORA: BOTÓN DE CONSULTAR ESTATUS DEGRADADO AZUL ELÉCTRICO */
-        .btn-estatus {
-            background: linear-gradient(135deg, var(--azul-electrico), var(--azul-glow));
-            color: var(--azul-primario);
-            border: none;
-            padding: 12px 24px;
-            border-radius: 14px;
-            font-weight: 800;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
-            box-shadow: 0 6px 0 #0096b7, 0 10px 15px rgba(0, 210, 255, 0.25);
-            transition: all 0.15s ease-in-out;
+            border: 1px solid var(--azul-electrico);
+            color: var(--azul-electrico);
+            padding: 10px 20px;
+            border-radius: 20px;
             cursor: pointer;
+            transition: 0.3s;
         }
-        .btn-estatus:hover {
-            transform: translateY(2px);
-            box-shadow: 0 4px 0 #0096b7, 0 8px 12px rgba(0, 210, 255, 0.3);
-        }
-        .btn-estatus:active { transform: translateY(6px); box-shadow: 0 0 0 #0096b7; }
-
-        /* HERO SECTION */
-        .hero {
-            background: linear-gradient(135deg, rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.7)), 
-                        url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 75vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            clip-path: ellipse(150% 100% at 50% 0%);
-        }
-        .glass-box {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 50px;
-            border-radius: 40px;
-            color: white;
-            text-align: center;
-            max-width: 800px;
-            box-shadow: var(--sombra-futurista);
-        }
-
-        /* MODAL DE ESTATUS */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(10, 25, 47, 0.6); backdrop-filter: blur(8px);
-            z-index: 10000; display: none; align-items: center; justify-content: center;
-        }
-        .modal-content {
-            background: white; padding: 40px; border-radius: 30px; max-width: 450px; width: 90%;
-            box-shadow: var(--sombra-futurista); text-align: center; border-top: 6px solid var(--azul-electrico);
-            position: relative;
-        }
-
-        /* BOTONES RÁPIDOS CHAT */
-        .chip-btn {
-            background: white; border: 1px solid var(--azul-electrico); color: var(--azul-primario);
-            padding: 6px 12px; border-radius: 15px; font-size: 0.8rem; font-weight: 600; cursor: pointer;
-            transition: all 0.2s ease; white-space: nowrap;
-        }
-        .chip-btn:hover { background: var(--azul-electrico); }
-
-        /* BOTÓN FLOTANTE WHATSAPP */
-        #whatsapp-btn {
-            position: fixed; bottom: 30px; left: 30px; width: 70px; height: 70px;
-            background-color: var(--verde-whatsapp); border-radius: 50%; z-index: 5000;
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4); transition: transform 0.3s ease;
-        }
-        #whatsapp-btn:hover { transform: scale(1.1); }
-
-        /* MEJORA: COMPONENTE FLOTANTE CHATBOT CON ANIMACIÓN TRIDIMENSIONAL QUE SOBRESALE */
-        #chat-icon {
-            position: fixed; bottom: 30px; right: 30px; width: 75px; height: 75px;
-            cursor: pointer; z-index: 5000; display: flex; align-items: center; justify-content: center;
-            animation: pulsarSobresalir 2.2s infinite ease-in-out;
-            transition: transform 0.2s;
-        }
-        #chat-icon:hover { 
-            animation-play-state: paused;
-            transform: scale(1.15); 
-        }
-        #chat-icon img {
-            width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
-            border: 3px solid var(--azul-electrico);
-            filter: drop-shadow(0 10px 25px rgba(0, 210, 255, 0.5));
-        }
-
-        footer { background: var(--azul-primario); color: white; padding: 60px 0 30px; text-align: center; border-top: 5px solid var(--naranja-neon); }
-        
-        /* ANIMACIÓN QUE HACE QUE EL BOTÓN LATZCA Y CREZCA */
-        @keyframes pulsarSobresalir {
-            0% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(0, 210, 255, 0.6)); }
-            50% { transform: scale(1.12); filter: drop-shadow(0 15px 30px rgba(0, 210, 255, 0.8)); }
-            100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(0, 210, 255, 0.6)); }
-        }
+        .btn-admin:hover { background: var(--azul-electrico); color: var(--azul-primario); }
     </style>
 </head>
 <body>
 
-    <div class="top-bar">
-        <div class="top-bar-content">
-            <span>🚀 SISTEMA ACTUALIZADO 2026</span>
-            <span>📍 LA VICTORIA - ARAGUA</span>
-            <span>📱 CONTACTO DIRECTO: 0424-33.60.158</span>
-        </div>
-    </div>
+    <h1>Bienvenido a BotEduCarmen 2026</h1>
+    <p>Tu futuro empieza hoy.</p>
+    
+    <button class="btn-admin" onclick="verificarAdmin()">Acceso Administrativo</button>
 
-    <header>
-        <div class="container" style="display:flex; justify-content:space-between; align-items:center; max-width:1200px; margin:0 auto; padding:0 25px;">
-            <div style="display:flex; align-items:center; gap:15px;">
-                <img src="img/logo.png" alt="Logo" style="height:60px;" onerror="this.style.display='none'">
-                <h2 style="margin:0; color:var(--azul-primario); font-size:1.8rem;">BotEduCarmen</h2>
-            </div>
-            <nav style="display:flex; align-items:center; gap:15px;">
-                <a href="cursos.html" class="btn-cursos">CURSOS</a>
-                <button onclick="abrirModalEstatus()" class="btn-estatus">🔍 CONSULTAR ESTATUS</button>
-                <a href="admin.html" class="btn-2026">ADMIN</a>
-            </nav>
-        </div>
-    </header>
+    <script>
+        function verificarAdmin() {
+            // Si ya está autenticado, entrar directo
+            if (sessionStorage.getItem('admin_autenticado') === 'true') {
+                window.location.href = 'admin.html';
+                return;
+            }
 
-    <div id="estatus-modal" class="modal-overlay">
-        <div class="modal-content">
-            <button onclick="cerrarModalEstatus()" style="position:absolute; top:15px; right:20px; background:none; border:none; font-size:1.5rem; cursor:pointer; color:#94a3b8;">&times;</button>
-            <h3 style="color:var(--azul-primario); font-size:1.6rem; margin-top:10px;">Consulta de Postulación</h3>
-            <p style="color:#64748b; font-size:0.9rem; margin-bottom:25px;">Ingresa tu Cédula de Identidad para verificar el estatus de tu validación física en el CAE.</p>
-            <div style="display:flex; flex-direction:column; gap:15px;">
-                <input type="number" id="cedula-consulta" placeholder="Ej: 28123456" style="padding:15px; border:2px solid #cbd5e1; border-radius:15px; font-size:1rem; outline:none; text-align:center;">
-                <button onclick="procesarConsultaEstatus()" class="btn-2026">Procesar Solicitud</button>
-            </div>
-            <div id="resultado-consulta" style="margin-top:25px; font-weight:700; font-size:1rem; min-height:40px; border-radius:15px; padding:10px; display:none;"></div>
-        </div>
-    </div>
+            // Si no, pedir contraseña
+            const password = prompt("🔐 Ingrese la contraseña de administrador:");
 
-    <section class="hero">
-        <div class="glass-box">
-            <h1 style="font-size: 4rem; margin: 0; line-height: 1.1;">Liderando el Futuro del <span style="color:var(--azul-electrico);">Aprendizaje</span></h1>
-            <p style="font-size: 1.4rem; margin: 25px 0 40px; opacity: 0.9;">Capacitación tecnológica y artesanal de alto nivel para el nuevo mercado laboral.</p>
-            <a href="cursos.html" class="btn-2026">EXPLORAR CURSOS 2026</a>
-        </div>
-    </section>
-
-    <section class="container" style="max-width:1200px; margin:0 auto; padding:0 25px; margin-top: -80px; position: relative; z-index: 10;">
-        <div style="background: white; padding: 60px; border-radius: 40px; box-shadow: var(--sombra-futurista); border-bottom: 6px solid var(--azul-electrico);">
-            <h2 style="color: var(--azul-primario); font-size: 2.5rem; margin-top: 0;">Nuestra Misión</h2>
-            <p style="font-size: 1.3rem; line-height: 1.8; color: #475569;">
-                En el año 2026, nuestra misión evoluciona para integrar herramientas de inteligencia artificial y 
-                técnicas creativas avanzadas, impulsando el desarrollo socio-económico de Las Mercedes mediante 
-                la formación gratuita de excelencia.
-            </p>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <h2 style="margin:0; font-size: 1.8rem; letter-spacing: 2px;">BotEduCarmen <span style="color:var(--naranja-neon);">2026</span></h2>
-            <p style="opacity:0.6; margin: 15px 0;">PNF EN INFORMÁTICA - TRABAJO DE INVESTIGACIÓN</p>
-            <div style="background: rgba(255,255,255,0.05); padding: 25px; border-radius: 20px; display: inline-block; margin-top: 30px; border: 1px dashed rgba(255,255,255,0.2);">
-                <p style="margin:0; font-size: 1.2rem;">Creado por: <strong>Bladimir Silva</strong></p>
-                <p style="margin:5px 0 0; color:var(--azul-electrico);">📞 Teléfono: 0424-33.60.158</p>
-            </div>
-            <p style="margin-top: 40px; font-size: 0.8rem; opacity: 0.4;">© 2026 Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
-    <div id="whatsapp-btn" onclick="abrirCanalWhatsApp()">
-        <svg width="32" height="32" viewBox="0 0 448 512" fill="white"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.2 5.7 23.6 9.2 31.6 11.8 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
-    </div>
-
-    <div id="chat-icon" onclick="toggleChat()">
-        <img src="img/chatbot.png" alt="Chatbot">
-    </div>
-
-    <div id="chat-window" style="position:fixed; bottom:130px; right:30px; width:390px; height:590px; background:white; border-radius:30px; box-shadow: 0 25px 70px rgba(0,0,0,0.4); z-index:5000; display:none; flex-direction:column; overflow:hidden; border:2px solid var(--azul-primario);">
-        <div style="background:var(--azul-primario); color:white; padding:22px; text-align:center; font-weight:800; font-size:1.2rem; border-bottom:3px solid var(--azul-electrico);">
-            🤖 AI ASISTENTE CONTEXTUAL 2026
-        </div>
-        <div id="chat-messages" style="flex:1; padding:22px; overflow-y:auto; background:#f1f5f9; display:flex; flex-direction:column; gap:15px;"></div>
-
-        <div style="padding: 5px 20px; background: #f1f5f9; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;">
-            <button class="chip-btn" onclick="document.getElementById('user-input').value='¿Cuáles son los requisitos?'; sendMessage();">📋 Requisitos</button>
-            <button class="chip-btn" onclick="document.getElementById('user-input').value='¿Cómo me inscribo?'; sendMessage();">🚀 Inscripción</button>
-            <button class="chip-btn" onclick="document.getElementById('user-input').value='Curso de uñas'; sendMessage();">💅 Uñas</button>
-            <button class="chip-btn" onclick="document.getElementById('user-input').value='Curso de barberia'; sendMessage();">💈 Barbería</button>
-        </div>
-
-        <div style="padding:15px 20px; background:white; display:flex; gap:10px; align-items:center; border-top:1px solid #e2e8f0;">
-            <input type="text" id="user-input" placeholder="Pregunta algo o dicta por voz..." style="flex:1; padding:15px; border:2px solid #e2e8f0; border-radius:20px; outline:none; font-size:0.9rem;">
-            <button id="voice-btn" onclick="activarDictadoVoz()" style="background:#f1f5f9; border:none; width:48px; height:48px; border-radius:15px; cursor:pointer; font-size:1.3rem; transition:all 0.2s;" title="Dictar consulta por voz">🎙️</button>
-            <button onclick="sendMessage()" style="background:var(--azul-primario); color:var(--azul-electrico); border:none; width:48px; height:48px; border-radius:15px; cursor:pointer; font-size:1.2rem;">➤</button>
-        </div>
-    </div>
-
-    <script src="chatbot.js"></script>
+            // CAMBIA '1234' por tu clave real
+            if (password === "1234") { 
+                sessionStorage.setItem('admin_autenticado', 'true');
+                window.location.href = 'admin.html';
+            } else {
+                alert("❌ Contraseña incorrecta.");
+            }
+        }
+    </script>
 </body>
 </html>
