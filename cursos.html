@@ -12,6 +12,7 @@
             --naranja: #ff6d00;
             --glass: rgba(255, 255, 255, 0.05);
             --verde-whatsapp: #25d366;
+            --verde-agua: #7fffd4; /* Nuevo color */
         }
 
         body { 
@@ -34,10 +35,10 @@
         .header-brand { display: flex; align-items: center; gap: 15px; }
         .header-brand img { height: 50px; }
 
-        /* Estilo para el botón de navegación similar a los botones principales */
+        /* Estilo para el botón de navegación similar a los botones principales, pero verde agua */
         .nav-btn {
             background: var(--glass);
-            border: 1px solid var(--electrico);
+            border: 1px solid var(--verde-agua);
             color: white;
             padding: 8px 20px;
             border-radius: 30px;
@@ -45,7 +46,7 @@
             transition: 0.3s;
             font-weight: bold;
         }
-        .nav-btn:hover { background: var(--electrico); color: var(--azul-p); }
+        .nav-btn:hover { background: var(--verde-agua); color: var(--azul-p); }
 
         .search-container { text-align: center; margin: 30px 0; }
         #buscador { 
@@ -87,15 +88,17 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 2px solid var(--electrico);
         }
 
-        /* Botón Subir mejorado: Estilo cristal, a la izquierda */
+        /* Botón Subir mejorado: Estilo cristal, a la izquierda, redondo con flecha */
         #btn-subir {
             position: fixed; bottom: 30px; left: 30px; z-index: 4000;
             background: rgba(0, 210, 255, 0.2); backdrop-filter: blur(10px);
             color: white; border: 1px solid var(--electrico);
-            padding: 12px 20px; border-radius: 50px; cursor: pointer;
+            width: 50px; height: 50px; border-radius: 50%; cursor: pointer;
             display: none; font-weight: bold; transition: 0.3s;
+            display: flex; justify-content: center; align-items: center;
         }
         #btn-subir:hover { background: var(--electrico); color: var(--azul-p); }
+        #btn-subir svg { fill: white; width: 24px; height: 24px; } /* Estilo de la flecha svg */
 
         /* FLOTANTES */
         #whatsapp-btn { position: fixed; bottom: 120px; right: 30px; width: 65px; height: 65px; background: var(--verde-whatsapp); border-radius: 50%; z-index: 5000; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 20px rgba(37,211,102,0.3); }
@@ -127,7 +130,9 @@
         <a href="contacto.html" class="btn-confirmar">🚀 CONFIRMAR INSCRIPCIÓN (<span id="cart-count">0</span>)</a>
     </div>
 
-    <button id="btn-subir" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆ IR ARRIBA</button>
+    <button id="btn-subir" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+    </button>
 
     <div id="whatsapp-btn" onclick="window.open('https://wa.me/584243360158', '_blank')">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:40px;">
@@ -156,7 +161,7 @@
         window.onscroll = function() {
             const btn = document.getElementById("btn-subir");
             if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                btn.style.display = "block";
+                btn.style.display = "flex"; /* Cambiado a flex para centrar la flecha */
             } else {
                 btn.style.display = "none";
             }
