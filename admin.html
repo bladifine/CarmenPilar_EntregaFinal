@@ -4,35 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Console | BotEduCarmen</title>
-    
-    <script>
-        // SEGURIDAD: Verificar sesión al cargar
-        document.addEventListener('DOMContentLoaded', () => {
-            if (sessionStorage.getItem('admin_autenticado') !== 'true') {
-                alert("⚠️ Acceso no autorizado. Debes iniciar sesión primero.");
-                window.location.href = "index.html";
-            }
-        });
-
-        function cerrarSesion() {
-            sessionStorage.removeItem('admin_autenticado');
-            window.location.href = "index.html";
-        }
-    </script>
-
     <style>
-        body { background: #050a14; color: white; font-family: sans-serif; padding: 20px; }
-        .btn-salir { background: #ff4d4d; color: white; padding: 10px; border: none; cursor: pointer; border-radius: 5px; }
+        :root { 
+            --bg: #050a14; 
+            --card: #0a192f; 
+            --accent: #00d2ff; 
+            --error: #ff4d4d;
+            --error-hover: #ff3333;
+            --excel: #107c41;
+            --excel-hover: #0e6c38;
+            --glass: rgba(255, 255, 255, 0.05);
+            --naranja: #ff6d00;
+        }
+        body { 
+            background: var(--bg); 
+            color: white; 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; 
+        }
+        
+        /* BARRA LATERAL IZQUIERDA */
+        .sidebar { 
+            background: var(--card); 
+            width: 260px; 
+            height: 100vh; 
+            position: fixed; 
+            border-right: 1px solid rgba(0,210,255,0.15); 
+            padding: 30px 20px; 
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
     </style>
 </head>
 <body>
 
-    <h1>Panel de Administración</h1>
-    <button class="btn-salir" onclick="cerrarSesion()">Cerrar Sesión</button>
-    
-    <div id="contenido-admin">
-        <p>Bienvenido al sistema protegido.</p>
-    </div>
+    <div class="sidebar">
+        <h1>Admin Console</h1>
+        </div>
 
 </body>
 </html>
