@@ -51,7 +51,7 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
 
-        /* BOTONES 3D NEOMÓRFICOS */
+        /* BOTONES 3D NEOMÓRFICOS BASE */
         .btn-2026 {
             background: linear-gradient(135deg, var(--naranja-neon), var(--naranja-glow));
             color: white;
@@ -124,14 +124,16 @@
 
     <header>
         <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
-            <!-- La envoltura del logo ahora posee un cursor pointer semántico que invita al usuario a hacer clic para volver a inicio -->
+            <!-- Retorno a inicio mediante comportamiento de clic semántico en el logotipo principal -->
             <div onclick="window.location.href='index.html'" style="display:flex; align-items:center; gap:15px; cursor:pointer;">
                 <img src="img/logo.png" alt="Logo" style="height:60px;">
                 <h2 style="margin:0; color:var(--azul-primario); font-size:1.8rem;">BotEduCarmen</h2>
             </div>
-            <nav>
-                <!-- MODIFICACIÓN REALIZADA: SE HA SUPRIMIDO EL BOTÓN 'INICIO' REDUNDANTE -->
-                <a href="cursos.html" style="text-decoration:none; color:var(--azul-primario); font-weight:600; margin-right:25px;">CURSOS</a>
+            <nav style="display:flex; align-items:center; gap:20px;">
+                <!-- BOTÓN CURSOS ACTUALIZADO: Misma forma 3D neomórfica que ADMIN, pero con color Azul Eléctrico -->
+                <a href="cursos.html" class="btn-2026" style="padding:10px 25px; font-size:0.8rem; background: linear-gradient(135deg, #00d2ff, #0099ff); box-shadow: 0 8px 0 #0066cc, 0 15px 20px rgba(0, 210, 255, 0.3);">CURSOS</a>
+                
+                <!-- BOTÓN ADMIN ORIGINAL: Mantiene su estructura 3D neomórfica en color Naranja Neón -->
                 <a href="admin.html" class="btn-2026" style="padding:10px 25px; font-size:0.8rem;">ADMIN</a>
             </nav>
         </div>
@@ -150,7 +152,7 @@
             <h2 style="color: var(--azul-primario); font-size: 2.5rem; margin-top: 0;">Nuestra Misión</h2>
             <p style="font-size: 1.3rem; line-height: 1.8; color: #475569;">
                 En el año 2026, nuestra misión evoluciona para integrar herramientas de inteligencia artificial y 
-                técnicas creative avanzadas, impulsando el desarrollo socio-económico de Las Mercedes mediante 
+                técnicas creativas avanzadas, impulsando el desarrollo socio-económico de Las Mercedes mediante 
                 la formación gratuita de excelencia.
             </p>
         </div>
@@ -159,7 +161,7 @@
     <footer>
         <div class="container">
             <h2 style="margin:0; font-size: 1.8rem; letter-spacing: 2px;">BotEduCarmen <span style="color:var(--naranja-neon);">2026</span></h2>
-            <p style="opacity:0.6; margin: 15px 0;">PNF EN INFORMÁTA - TRABAJO DE INVESTIGACIÓN</p>
+            <p style="opacity:0.6; margin: 15px 0;">PNF EN INFORMÁTICA - TRABAJO DE INVESTIGACIÓN</p>
             
             <div style="background: rgba(255,255,255,0.05); padding: 25px; border-radius: 20px; display: inline-block; margin-top: 30px; border: 1px dashed rgba(255,255,255,0.2);">
                 <p style="margin:0; font-size: 1.2rem;">Creado por: <strong>Bladimir Silva</strong></p>
@@ -192,7 +194,7 @@
 
     <script src="chatbot.js"></script>
     <script>
-        // Conservación íntegra de la función global requerida por la interfaz inline
+        // Sincronización segura de eventos con el script externo del chatbot
         function sendMessage() {
             if (typeof window.sendMessage === 'function') {
                 window.sendMessage();
