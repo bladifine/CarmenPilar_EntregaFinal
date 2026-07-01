@@ -11,7 +11,6 @@
             --azul-electrico: #00d2ff;
             --naranja-neon: #ff6d00;
             --naranja-glow: #ff9100;
-            --glass: rgba(255, 255, 255, 0.08);
             --sombra-futurista: 0 20px 40px rgba(0,0,0,0.4);
         }
 
@@ -40,15 +39,15 @@
             padding: 0 25px;
         }
 
-        /* NAVEGACIÓN MODERNA */
+        /* ENCABEZADO ESTABLECIDO */
         header {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(15px);
+            background: #e2e8f0;
             position: sticky;
             top: 0;
             z-index: 1000;
             padding: 15px 0;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border-bottom: 2px solid rgba(10, 25, 47, 0.1);
         }
 
         /* BOTONES 3D NEOMÓRFICOS BASE */
@@ -77,7 +76,7 @@
             box-shadow: 0 0 0 #b34b00;
         }
 
-        /* HERO SECTION EVOLUCIONADO */
+        /* HERO SECTION */
         .hero {
             background: linear-gradient(135deg, rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.7)), 
                         url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1350&q=80');
@@ -124,16 +123,13 @@
 
     <header>
         <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
-            <!-- Retorno a inicio mediante comportamiento de clic semántico en el logotipo principal -->
             <div onclick="window.location.href='index.html'" style="display:flex; align-items:center; gap:15px; cursor:pointer;">
                 <img src="img/logo.png" alt="Logo" style="height:60px;">
-                <h2 style="margin:0; color:var(--azul-primario); font-size:1.8rem;">BotEduCarmen</h2>
+                <h2 style="margin:0; color:var(--azul-primario); font-size:1.8rem; font-weight: 800;">BotEduCarmen</h2>
             </div>
-            <nav style="display:flex; align-items:center; gap:20px;">
-                <!-- BOTÓN CURSOS ACTUALIZADO: Misma forma 3D neomórfica que ADMIN, pero con color Azul Eléctrico -->
+            <nav style="display:flex; align-items:center; gap:15px;">
                 <a href="cursos.html" class="btn-2026" style="padding:10px 25px; font-size:0.8rem; background: linear-gradient(135deg, #00d2ff, #0099ff); box-shadow: 0 8px 0 #0066cc, 0 15px 20px rgba(0, 210, 255, 0.3);">CURSOS</a>
-                
-                <!-- BOTÓN ADMIN ORIGINAL: Mantiene su estructura 3D neomórfica en color Naranja Neón -->
+                <a href="https://wa.me/584243360158" target="_blank" rel="noopener noreferrer" class="btn-2026" style="padding:10px 25px; font-size:0.8rem; background: linear-gradient(135deg, #25d366, #128c7e); box-shadow: 0 8px 0 #075e54, 0 15px 20px rgba(37, 211, 102, 0.3);">WHATSAPP</a>
                 <a href="admin.html" class="btn-2026" style="padding:10px 25px; font-size:0.8rem;">ADMIN</a>
             </nav>
         </div>
@@ -147,14 +143,44 @@
         </div>
     </section>
 
+    <!-- ¿PARA QUÉ ES ESTA PÁGINA? -->
     <section class="container" style="margin-top: -80px; position: relative; z-index: 10;">
         <div style="background: white; padding: 60px; border-radius: 40px; box-shadow: var(--sombra-futurista); border-bottom: 6px solid var(--azul-electrico);">
-            <h2 style="color: var(--azul-primario); font-size: 2.5rem; margin-top: 0;">Nuestra Misión</h2>
-            <p style="font-size: 1.3rem; line-height: 1.8; color: #475569;">
-                En el año 2026, nuestra misión evoluciona para integrar herramientas de inteligencia artificial y 
-                técnicas creativas avanzadas, impulsando el desarrollo socio-económico de Las Mercedes mediante 
-                la formación gratuita de excelencia.
+            <h2 style="color: var(--azul-primario); font-size: 2.5rem; margin-top: 0; text-transform: uppercase; letter-spacing: 1px;">¿Para qué sirve BotEduCarmen?</h2>
+            <p style="font-size: 1.3rem; line-height: 1.8; color: #475569; margin-bottom: 30px;">
+                Este sistema web ha sido diseñado como una **Plataforma Inteligente de Gestión de Formación**. Su propósito fundamental es automatizar, administrar y promover la oferta académica de cursos tecnológicos y artesanales, permitiendo a la comunidad postularse de forma digital mientras un Asistente Virtual con IA orienta a los estudiantes en tiempo real.
             </p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-top: 40px;">
+                <div style="background: #f8fafc; padding: 25px; border-radius: 20px; border-left: 5px solid #00d2ff;">
+                    <h4 style="margin: 0 0 10px 0; color: var(--azul-primario); font-size: 1.2rem;">Gestión de Cursos</h4>
+                    <p style="margin: 0; color: #64748b; font-size: 0.95rem;">Catálogo dinámico de formación académica adaptado a las demandas del mercado actual.</p>
+                </div>
+                <div style="background: #f8fafc; padding: 25px; border-radius: 20px; border-left: 5px solid #25d366;">
+                    <h4 style="margin: 0 0 10px 0; color: var(--azul-primario); font-size: 1.2rem;">Comunicación Directa</h4>
+                    <p style="margin: 0; color: #64748b; font-size: 0.95rem;">Integración con canales de mensajería instantánea para solventar dudas de forma personalizada.</p>
+                </div>
+                <div style="background: #f8fafc; padding: 25px; border-radius: 20px; border-left: 5px solid #ff6d00;">
+                    <h4 style="margin: 0 0 10px 0; color: var(--azul-primario); font-size: 1.2rem;">Control Administrativo</h4>
+                    <p style="margin: 0; color: #64748b; font-size: 0.95rem;">Un módulo seguro para que el administrador gestione la información y analice las solicitudes.</p>
+                </div>
+            </div>
+
+            <!-- 📊 NUEVO INDICADOR DE ESTADÍSTICAS DEL SISTEMA -->
+            <div style="margin-top: 50px; padding-top: 40px; border-top: 2px solid #e2e8f0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 30px; text-align: center;">
+                <div>
+                    <h3 style="font-size: 3rem; color: var(--naranja-neon); margin: 0; font-weight: 800;">+12</h3>
+                    <p style="color: #64748b; font-weight: 600; margin: 5px 0 0 0; text-transform: uppercase; font-size: 0.85rem;">Cursos Activos</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 3rem; color: var(--azul-primario); margin: 0; font-weight: 800;">100%</h3>
+                    <p style="color: #64748b; font-weight: 600; margin: 5px 0 0 0; text-transform: uppercase; font-size: 0.85rem;">Acceso Gratuito</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 3rem; color: var(--azul-electrico); margin: 0; font-weight: 800;">24/7</h3>
+                    <p style="color: #64748b; font-weight: 600; margin: 5px 0 0 0; text-transform: uppercase; font-size: 0.85rem;">Asistencia con IA</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -172,6 +198,7 @@
         </div>
     </footer>
 
+    <!-- INTERFAZ DEL CHATBOT -->
     <div id="chat-icon" onclick="toggleChat()" style="position:fixed; bottom:30px; right:30px; width:85px; height:85px; cursor:pointer; z-index:5000; animation: pulse 2s infinite;">
         <img src="img/chatbot.png" style="width:100%; height:100%; object-fit:contain; border-radius:50%; filter: drop-shadow(0 0 15px var(--azul-electrico));" onerror="this.style.display='none'; document.getElementById('fb').style.display='flex';">
         <div id="fb" style="display:none; width:100%; height:100%; background:var(--azul-primario); border-radius:50%; align-items:center; justify-content:center; color:white; font-size:40px; border:3px solid var(--azul-electrico);">🤖</div>
@@ -194,7 +221,6 @@
 
     <script src="chatbot.js"></script>
     <script>
-        // Sincronización segura de eventos con el script externo del chatbot
         function sendMessage() {
             if (typeof window.sendMessage === 'function') {
                 window.sendMessage();
