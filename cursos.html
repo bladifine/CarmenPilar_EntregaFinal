@@ -4,130 +4,292 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo 2026 | BotEduCarmen</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         :root {
-            --azul-p: #0a192f;
-            --electrico: #00d2ff;
-            --naranja: #ff6d00;
-            --glass: rgba(255, 255, 255, 0.05);
+            --bg-principal: #0a192f;
+            --bg-nav: #e2e8f0; /* Fondo azul grisáceo del Index */
+            --bg-card: rgba(16, 29, 56, 0.75);
+            --texto-oscuro: #0a192f; /* El color oscuro para resaltar sobre el azul grisáceo */
+            --texto-principal: #f8fafc;
+            --texto-secundario: #94a3b8;
+            --azul-electrico: #00d2ff;
+            --naranja-neon: #ff6d00;
+            --naranja-glow: #ff9100;
             --verde-whatsapp: #25d366;
-            --verde-agua: #7fffd4; /* Nuevo color */
+            --borde-cristal: rgba(0, 210, 255, 0.15);
+            --borde-cristal-hover: rgba(0, 210, 255, 0.4);
         }
 
         body { 
-            background-color: var(--azul-p); 
-            color: white; 
-            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-principal); 
+            color: var(--texto-principal); 
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             margin: 0;
-            background-image: radial-gradient(circle at top right, rgba(0, 210, 255, 0.1), transparent);
+            padding: 0;
+            min-height: 100vh;
         }
 
+        /* BARRA SUPERIOR CONSTANTE INDÉNTICA AL INDEX */
+        .top-bar {
+            background: #050c18;
+            color: var(--azul-electrico);
+            padding: 10px 0;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+            border-bottom: 2px solid var(--azul-electrico);
+            text-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
+        }
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        /* HEADER CON FONDO AZUL GRISÁCEO (#e2e8f0) REQUERIDO */
         header {
-            background: rgba(10, 25, 47, 0.9);
-            backdrop-filter: blur(15px);
+            background: var(--bg-nav);
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
             padding: 15px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            border-bottom: 2px solid var(--azul-electrico);
         }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .header-brand { display: flex; align-items: center; gap: 15px; }
-        .header-brand img { height: 50px; }
+        
+        .header-brand { display: flex; align-items: center; gap: 15px; cursor: pointer; }
+        .header-brand img { height: 55px; }
+        
+        /* Título oscuro que resalta perfectamente sobre el fondo azul grisáceo */
+        .header-brand h1 { 
+            font-size: 1.6rem; 
+            margin: 0; 
+            color: var(--texto-oscuro); 
+            font-weight: 800; 
+        }
+        .header-brand h1 span { 
+            color: #1e3a8a; 
+        }
 
-        /* Estilo para el botón de navegación similar a los botones principales, pero verde agua */
+        /* Botón de navegación neomórfico/estilizado */
         .nav-btn {
-            background: var(--glass);
-            border: 1px solid var(--verde-agua);
+            background: var(--bg-principal);
+            border: 2px solid var(--bg-principal);
             color: white;
-            padding: 8px 20px;
-            border-radius: 30px;
+            padding: 10px 24px;
+            border-radius: 12px;
             text-decoration: none;
-            transition: 0.3s;
-            font-weight: bold;
+            transition: all 0.3s ease;
+            font-weight: 700;
         }
-        .nav-btn:hover { background: var(--verde-agua); color: var(--azul-p); }
+        .nav-btn:hover { 
+            background: transparent;
+            color: var(--texto-oscuro);
+            border-color: var(--texto-oscuro);
+            transform: translateY(-2px);
+        }
 
-        .search-container { text-align: center; margin: 30px 0; }
+        /* Buscador Cyberpunk */
+        .search-container { text-align: center; margin: 40px 0 20px; }
         #buscador { 
-            width: 80%; max-width: 500px; padding: 15px; 
-            border-radius: 30px; border: 1px solid var(--electrico); 
-            background: var(--glass); color: white; outline: none;
+            width: 80%; 
+            max-width: 500px; 
+            padding: 16px 25px; 
+            border-radius: 20px; 
+            border: 2px solid var(--borde-cristal);
+            background: rgba(16, 29, 56, 0.6); 
+            color: var(--texto-principal); 
+            outline: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        #buscador:focus {
+            border-color: var(--azul-electrico);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+        }
+        #buscador::placeholder {
+            color: var(--texto-secundario);
         }
 
+        /* Grid de Cursos */
         .cursos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 25px;
-            padding: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 30px;
+            padding: 20px 20px 60px;
         }
 
+        /* Tarjeta de Curso */
         .curso-card {
-            background: var(--glass);
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 24px;
             overflow: hidden;
-            transition: 0.3s;
+            border: 1px solid var(--borde-cristal);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            box-sizing: border-box;
         }
-        .curso-card:hover { transform: translateY(-5px); border-color: var(--electrico); }
-        .curso-img { width: 100%; height: 160px; object-fit: cover; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .curso-info { padding: 20px; }
+        .curso-card:hover { 
+            transform: translateY(-8px); 
+            border-color: var(--borde-cristal-hover);
+            box-shadow: 0 12px 30px rgba(0, 210, 255, 0.15);
+        }
+        
+        .curso-img-link { display: block; border-radius: 16px; overflow: hidden; }
+        .curso-img { width: 100%; height: 170px; object-fit: cover; transition: transform 0.5s ease; }
+        .curso-card:hover .curso-img { transform: scale(1.06); }
+        
+        .curso-info { padding: 15px 5px 5px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .curso-info h3 { margin: 0 0 15px; font-size: 1.25rem; color: var(--texto-principal); font-weight: 700; transition: color 0.3s; }
+        .curso-card:hover .curso-info h3 { color: var(--azul-electrico); }
 
+        /* Botones de Acción 3D Reales */
         .btn-accion {
-            border: none; padding: 12px; border-radius: 10px; width: 100%; 
-            cursor: pointer; font-weight: bold; transition: 0.3s; text-transform: uppercase;
+            border: none; 
+            padding: 14px; 
+            border-radius: 16px; 
+            width: 100%; 
+            cursor: pointer; 
+            font-weight: 800; 
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            transition: all 0.15s ease-in-out;
         }
-        .btn-seleccionar { background: var(--naranja); color: white; box-shadow: 0 4px 15px rgba(255, 109, 0, 0.3); }
-        .btn-quitar { background: #444; color: #ccc; border: 1px solid #666; }
+        
+        .btn-seleccionar { 
+            background: linear-gradient(135deg, var(--naranja-neon), var(--naranja-glow)); 
+            color: white; 
+            box-shadow: 0 6px 0 #b34b00, 0 10px 15px rgba(255, 109, 0, 0.3); 
+        }
+        .btn-seleccionar:hover {
+            transform: translateY(2px);
+            box-shadow: 0 4px 0 #b34b00, 0 8px 10px rgba(255, 109, 0, 0.35);
+        }
+        .btn-seleccionar:active {
+            transform: translateY(6px);
+            box-shadow: 0 0 0 #b34b00;
+        }
 
-        #cart-float { position: fixed; bottom: 30px; left: 30px; z-index: 2000; display: none; }
+        .btn-quitar { 
+            background: linear-gradient(135deg, #ef4444, #dc2626); 
+            color: white; 
+            box-shadow: 0 6px 0 #991b1b, 0 10px 15px rgba(239, 68, 68, 0.3);
+        }
+        .btn-quitar:hover {
+            transform: translateY(2px);
+            box-shadow: 0 4px 0 #991b1b, 0 8px 10px rgba(239, 68, 68, 0.35);
+        }
+        .btn-quitar:active {
+            transform: translateY(6px);
+            box-shadow: 0 0 0 #991b1b;
+        }
+
+        /* Botón de Confirmación Flotante 3D */
+        #cart-float { position: fixed; bottom: 35px; left: 35px; z-index: 2000; display: none; }
         .btn-confirmar {
-            background: white; color: var(--azul-p); text-decoration: none;
-            padding: 15px 30px; border-radius: 50px; font-weight: 800;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 2px solid var(--electrico);
+            background: linear-gradient(135deg, #00d2ff, #00a8cc); 
+            color: #0a192f; 
+            text-decoration: none;
+            padding: 16px 32px; 
+            border-radius: 18px; 
+            font-weight: 800;
+            display: inline-block;
+            box-shadow: 0 6px 0 #007799, 0 12px 25px rgba(0, 210, 255, 0.4);
+            border: none;
+            transition: all 0.15s ease-in-out;
+            letter-spacing: 0.5px;
+        }
+        .btn-confirmar:hover {
+            transform: translateY(2px);
+            box-shadow: 0 4px 0 #007799, 0 8px 12px rgba(0, 210, 255, 0.45);
+        }
+        .btn-confirmar:active {
+            transform: translateY(6px);
+            box-shadow: 0 0 0 #007799;
         }
 
-        /* Botón Subir mejorado: Estilo cristal, a la izquierda, redondo con flecha */
+        /* Botón Subir Estilo Cristal Oscuro */
         #btn-subir {
-            position: fixed; bottom: 30px; left: 30px; z-index: 4000;
-            background: rgba(0, 210, 255, 0.2); backdrop-filter: blur(10px);
-            color: white; border: 1px solid var(--electrico);
-            width: 50px; height: 50px; border-radius: 50%; cursor: pointer;
-            display: none; font-weight: bold; transition: 0.3s;
-            display: flex; justify-content: center; align-items: center;
+            position: fixed; bottom: 35px; left: 35px; z-index: 1900;
+            background: rgba(16, 29, 56, 0.8);
+            border: 1px solid var(--borde-cristal);
+            width: 55px; height: 55px; border-radius: 50%; cursor: pointer;
+            display: none; transition: all 0.3s ease;
+            justify-content: center; align-items: center;
+            backdrop-filter: blur(5px);
         }
-        #btn-subir:hover { background: var(--electrico); color: var(--azul-p); }
-        #btn-subir svg { fill: white; width: 24px; height: 24px; } /* Estilo de la flecha svg */
+        #btn-subir:hover { 
+            border-color: var(--azul-electrico);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+        }
+        #btn-subir svg { fill: var(--azul-electrico); width: 26px; height: 26px; }
 
-        /* FLOTANTES */
-        #whatsapp-btn { position: fixed; bottom: 120px; right: 30px; width: 65px; height: 65px; background: var(--verde-whatsapp); border-radius: 50%; z-index: 5000; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 20px rgba(37,211,102,0.3); }
-        #chat-icon { position: fixed; bottom: 30px; right: 30px; width: 75px; height: 75px; cursor: pointer; z-index: 5000; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        /* Flotante Red Social */
+        #whatsapp-btn { 
+            position: fixed; bottom: 130px; right: 30px; width: 70px; height: 70px; 
+            background: var(--verde-whatsapp); border-radius: 50%; z-index: 4000; 
+            display: flex; align-items: center; justify-content: center; cursor: pointer; 
+            box-shadow: 0 8px 25px rgba(37,211,102,0.4); transition: transform 0.2s ease;
+        }
+
+        /* Icono de Activación del Chatbot */
+        #chat-icon { 
+            position: fixed; bottom: 30px; right: 30px; width: 75px; height: 75px; 
+            cursor: pointer; z-index: 4000; animation: pulse 2s infinite; 
+        }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+
+        /* VENTANA INTEGRADA DEL CHATBOT IDÉNTICA */
+        #chat-window {
+            position: fixed; bottom: 120px; right: 30px; width: 380px; height: 520px; 
+            background: #0f172a; border-radius: 30px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4); z-index: 5000; 
+            display: none; flex-direction: column; overflow: hidden; 
+            border: 2px solid var(--azul-electrico);
+        }
     </style>
 </head>
 <body>
 
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <span>🚀 SISTEMA ACTUALIZADO 2026</span>
+            <span>📍 LA VICTORIA - ARAGUA</span>
+            <span>📱 CONTACTO DIRECTO: 0424-33.60.158</span>
+        </div>
+    </div>
+
     <header>
         <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
-            <div class="header-brand">
-                <img src="img/logo.png" alt="Logo">
-                <h1 style="font-size: 1.4rem; margin:0;">BotEduCarmen <span style="color:var(--electrico)">2026</span></h1>
+            <div class="header-brand" onclick="window.location.href='index.html'">
+                <img src="img/logo.png" alt="Logo" onerror="this.src='img/logo.png'">
+                <h1>BotEdu<span>Carmen</span></h1>
             </div>
             <nav>
-                <a href="index.html" class="nav-btn">Inicio</a>
+                <a href="index.html" class="nav-btn">INICIO</a>
             </nav>
         </div>
     </header>
 
     <div class="search-container">
-        <input type="text" id="buscador" placeholder="🔍 ¿Qué quieres aprender hoy?" onkeyup="filtrar()">
+        <input type="text" id="buscador" placeholder="🔍 ¿Qué área o curso buscas aprender hoy?" onkeyup="filtrar()">
     </div>
 
     <div id="grid-cursos" class="cursos-grid container"></div>
 
     <div id="cart-float">
-        <a href="contacto.html" class="btn-confirmar">🚀 CONFIRMAR INSCRIPCIÓN (<span id="cart-count">0</span>)</a>
+        <a href="carrito.html" class="btn-confirmar">🚀 INSCRIPCIÓN (<span id="cart-count">0</span>)</a>
     </div>
 
     <button id="btn-subir" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
@@ -135,52 +297,86 @@
     </button>
 
     <div id="whatsapp-btn" onclick="window.open('https://wa.me/584243360158', '_blank')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:40px;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:40px;" alt="WhatsApp">
     </div>
-    <div id="chat-icon" onclick="window.location.href='index.html'">
-        <img src="img/chatbot.png" style="width:100%; height:100%; border-radius:50%; border:2px solid var(--electrico);">
+    
+    <div id="chat-icon" onclick="toggleChat()">
+        <img src="img/chatbot.png" style="width:100%; height:100%; border-radius:50%; box-shadow: 0 4px 15px rgba(0,210,255,0.4);" alt="Chatbot" onerror="this.style.display='none'; document.getElementById('fb').style.display='flex';">
+        <div id="fb" style="display:none; width:100%; height:100%; background:rgba(16,29,56,0.9); border-radius:50%; align-items:center; justify-content:center; color:var(--azul-electrico); font-size:32px; border:2px solid var(--azul-electrico);">🤖</div>
     </div>
 
+    <div id="chat-window">
+        <div style="background:rgba(5, 12, 24, 0.95); color:var(--azul-electrico); padding:22px; text-align:center; font-weight:800; font-size:1.2rem; letter-spacing: 0.5px; border-bottom: 1px solid var(--borde-cristal);">
+            🤖 BOTEDUCARMEN 2026
+        </div>
+        <div id="chat-messages" style="flex:1; padding:20px; overflow-y:auto; background:#0b1329; display:flex; flex-direction:column; gap:12px;"></div>
+        <div style="padding:15px; background:#0f172a; display:flex; gap:10px; border-top: 1px solid var(--borde-cristal);">
+            <input type="text" id="user-input" placeholder="Pregunta algo al asistente..." style="flex:1; padding:14px; border:1px solid var(--borde-cristal); background:rgba(10,25,47,0.7); color:white; border-radius:16px; outline:none; font-family: inherit;">
+            <button onclick="sendMessage()" style="background:var(--azul-electrico); color:#0a192f; border:none; width:50px; height:50px; border-radius:16px; cursor:pointer; font-weight:bold; font-size:1.2rem; display:flex; align-items:center; justify-content:center;">➤</button>
+        </div>
+    </div>
+
+    <script src="chatbot.js"></script>
     <script>
-        const CURSOS = [
-            {n: "Barbería", i: "barberia.jpg"}, {n: "Estética Avanzada", i: "estetica_avanzada.jpg"},
-            {n: "Masaje Corporales", i: "masaje.jpg"}, {n: "Puntillismo Avanzado", i: "puntillismo_avanzado.jpg"},
-            {n: "Estética de Uñas", i: "estetica_de_unas.jpg"}, {n: "Masoterapia", i: "masoterapia.jpg"},
-            {n: "Puntillismo Básico", i: "puntillismo_basico.jpg"}, {n: "Cosmetología", i: "cosmetologia.jpg"},
-            {n: "Modistería", i: "modisteria.jpg"}, {n: "Repostería", i: "reposteria.jpg"},
-            {n: "Dibujo Artístico", i: "dibujo_artistico.jpg"}, {n: "Lencería", i: "lenceria.jpg"},
-            {n: "Panadería", i: "panaderia.jpg"}, {n: "Pastelería", i: "reposteria_y_pasteleria.jpg"},
-            {n: "Dulces Criollos", i: "dulces_criollos.jpg"}, {n: "Peluquería", i: "peluqueria.jpg"},
-            {n: "Ropa Íntima", i: "ropa_intima.jpg"}, {n: "Electricidad", i: "electricidad.jpg"},
-            {n: "Manicure y Pedicure", i: "manicure_pedicure.jpg"}, {n: "Pintura Artística", i: "pintura_artistica.jpg"},
-            {n: "Rostros", i: "rostros.jpg"}, {n: "Electrodomésticos", i: "electrodomesticos.jpg"},
-            {n: "Manualidades", i: "manualidades.jpg"}, {n: "Pintura Avanzada", i: "pintura_avanzada.jpg"},
-            {n: "Tejido y Crochet", i: "tejer.jpg"}
+        const CURSOS_SISTEMA = [
+            {nombre: "Barbería", imagen: "img/barberia.jpg"}, 
+            {nombre: "Estética Avanzada", imagen: "img/estetica_avanzada.jpg"},
+            {nombre: "Masaje", imagen: "img/masaje.jpg"}, 
+            {nombre: "Puntillismo Avanzado", imagen: "img/puntillismo_avanzado.jpg"},
+            {nombre: "Estética de Uñas", imagen: "img/estetica_de_unas.jpg"}, 
+            {nombre: "Masoterapia", imagen: "img/masoterapia.jpg"},
+            {nombre: "Puntillismo Básico", imagen: "img/puntillismo_basico.jpg"}, 
+            {nombre: "Cosmetología", imagen: "img/cosmetologia.jpg"},
+            {nombre: "Modistería", imagen: "img/modisteria.jpg"}, 
+            {nombre: "Repostería", imagen: "img/reposteria.jpg"},
+            {nombre: "Dibujo Artístico", imagen: "img/dibujo_artistico.jpg"}, 
+            {nombre: "Lencería", imagen: "img/lenceria.jpg"},
+            {nombre: "Panadería", imagen: "img/panaderia.jpg"}, 
+            {nombre: "Repostería y Pastelería", imagen: "img/reposteria_y_pasteleria.jpg"},
+            {nombre: "Dulces Criollos", imagen: "img/dulces_criollos.jpg"}, 
+            {nombre: "Peluquería", imagen: "img/peluqueria.jpg"},
+            {nombre: "Ropa Íntima", imagen: "img/ropa_intima.jpg"}, 
+            {nombre: "Electricidad", imagen: "img/electricidad.jpg"},
+            {nombre: "Manicure y Pedicure", imagen: "img/manicure_pedicure.jpg"}, 
+            {nombre: "Pintura Artística", imagen: "img/pintura_artistica.jpg"},
+            {nombre: "Rostros", imagen: "img/rostros.jpg"}, 
+            {nombre: "Reparación de Electrodomésticos", imagen: "img/electrodomesticos.jpg"},
+            {nombre: "Manualidades", imagen: "img/manualidades.jpg"}, 
+            {nombre: "Pintura Avanzada", imagen: "img/pintura_avanzada.jpg"},
+            {nombre: "Tejer", imagen: "img/tejer.jpg"}
         ];
 
         window.onscroll = function() {
-            const btn = document.getElementById("btn-subir");
+            const btnSubir = document.getElementById("btn-subir");
+            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            
             if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                btn.style.display = "flex"; /* Cambiado a flex para centrar la flecha */
+                btnSubir.style.display = "flex";
+                if(cartItems.length > 0) {
+                    btnSubir.style.left = "120px";
+                } else {
+                    btnSubir.style.left = "35px";
+                }
             } else {
-                btn.style.display = "none";
+                btnSubir.style.display = "none";
             }
         };
 
         function cargarCursos() {
             const grid = document.getElementById('grid-cursos');
             const seleccionados = JSON.parse(localStorage.getItem('cart')) || [];
-            grid.innerHTML = CURSOS.map(c => {
-                const estaEnCart = seleccionados.find(x => x.nombre === c.n);
+            
+            grid.innerHTML = CURSOS_SISTEMA.map(c => {
+                const estaEnCart = seleccionados.some(x => x.nombre.toLowerCase() === c.nombre.toLowerCase());
                 return `
-                    <div class="curso-card" data-name="${c.n.toLowerCase()}">
-                        <a href="detalle-curso.html?curso=${encodeURIComponent(c.n)}">
-                            <img src="img/${c.i}" class="curso-img" onerror="this.src='img/logo.png'">
+                    <div class="curso-card" data-name="${c.nombre.toLowerCase()}">
+                        <a href="detalle-curso.html?curso=${encodeURIComponent(c.nombre)}" class="curso-img-link">
+                            <img src="${c.imagen}" class="curso-img" onerror="this.src='img/logo.png'">
                         </a>
                         <div class="curso-info">
-                            <h3>${c.n}</h3>
-                            <button onclick="toggleSeleccion('${c.n}', 'img/${c.i}')" class="btn-accion ${estaEnCart ? 'btn-quitar' : 'btn-seleccionar'}">
-                                ${estaEnCart ? '✖ QUITAR' : '✚ SELECCIONAR'}
+                            <h3>${c.nombre}</h3>
+                            <button onclick="toggleSeleccion('${c.nombre}', '${c.imagen}')" class="btn-accion ${estaEnCart ? 'btn-quitar' : 'btn-seleccionar'}">
+                                ${estaEnCart ? '✖ QUITAR SELECCIÓN' : '✚ SELECCIONAR CURSO'}
                             </button>
                         </div>
                     </div>
@@ -190,8 +386,14 @@
 
         function toggleSeleccion(nombre, imagen) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const index = cart.findIndex(x => x.nombre === nombre);
-            index !== -1 ? cart.splice(index, 1) : cart.push({ nombre, imagen });
+            const index = cart.findIndex(x => x.nombre.toLowerCase() === nombre.toLowerCase());
+            
+            if (index !== -1) {
+                cart.splice(index, 1);
+            } else {
+                cart.push({ nombre: nombre, imagen: imagen });
+            }
+            
             localStorage.setItem('cart', JSON.stringify(cart));
             cargarCursos();
             actualizarUI();
@@ -206,11 +408,25 @@
 
         function actualizarUI() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            document.getElementById('cart-float').style.display = cart.length > 0 ? "block" : "none";
+            const cartFloat = document.getElementById('cart-float');
+            const btnSubir = document.getElementById("btn-subir");
+            
+            if(cart.length > 0) {
+                cartFloat.style.display = "block";
+                if(btnSubir.style.display === "flex") {
+                    btnSubir.style.left = "120px";
+                }
+            } else {
+                cartFloat.style.display = "none";
+                btnSubir.style.left = "35px";
+            }
             document.getElementById('cart-count').innerText = cart.length;
         }
 
-        document.addEventListener('DOMContentLoaded', () => { cargarCursos(); actualizarUI(); });
+        document.addEventListener('DOMContentLoaded', () => { 
+            cargarCursos(); 
+            actualizarUI(); 
+        });
     </script>
 </body>
 </html>

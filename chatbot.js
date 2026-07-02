@@ -1,17 +1,30 @@
-// CONTROLADOR DE INTERFAZ Y RESPUESTAS DEL CHATBOT - BOTEDUCARMEN 2026
+/**
+ * =========================================================================
+ * BotEduCarmen 2026 - ARCHIVO DE INTELIGENCIA VIRTUAL (chatbot.js)
+ * Desarrollado por: Bladimir Silva
+ * PNF en Informática - PROYECTO BLINDADO Y OPTIMIZADO
+ * =========================================================================
+ */
 
 let primerAbierto = true;
 
+// 1. CONTROL DE APERTURA REACTIVA Y UNIFORME
 function toggleChat() {
     const w = document.getElementById('chat-window');
     if (!w) return;
     
     if (w.style.display === 'none' || w.style.display === '') {
         w.style.display = 'flex';
-        // Inyectar el saludo inicial con delay natural únicamente la primera vez que se abre
+        // Inyectar el saludo inicial con delay natural únicamente la primera vez
         if (primerAbierto) {
             const box = document.getElementById('chat-messages');
-            box.innerHTML = `<div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico);">¡Hola! Soy tu asistente inteligente 2026. ¿En qué curso estás interesado hoy? Puedes usar los botones rápidos o dictarme por voz.</div>`;
+            if (box) {
+                box.innerHTML = `
+                    <div class="msg-bot">
+                        <span>¡Hola! Soy tu asistente inteligente BotEduCarmen 2026. 🤖<br><br>
+                        Estoy aquí para ayudarte a automatizar tu inscripción. ¿En qué área o curso deseas capacitarte hoy? Puedes consultarme los requisitos de ingreso.</span>
+                    </div>`;
+            }
             primerAbierto = false;
         }
     } else {
@@ -19,6 +32,7 @@ function toggleChat() {
     }
 }
 
+// 2. PROCESAMIENTO SEMÁNTICO DE RESPUESTAS (Sin fallos de ejecución)
 function sendMessage() {
     const input = document.getElementById('user-input');
     const box = document.getElementById('chat-messages');
@@ -27,32 +41,63 @@ function sendMessage() {
     const text = input.value.trim();
     if (!text) return;
 
-    // Mensaje del usuario
-    box.innerHTML += `<div style="background:var(--azul-primario); color:white; padding:15px; border-radius:20px; align-self:flex-end; max-width:80%; word-break:break-word;">${text}</div>`;
+    // Renderizar mensaje del usuario de forma limpia usando las clases del styles.css
+    box.innerHTML += `
+        <div class="msg-user">
+            <span>${escapeHTML(text)}</span>
+        </div>`;
+    
     box.scrollTop = box.scrollHeight;
     input.value = "";
     
-    // Simulación de procesamiento de IA Contextual (Delay de 0.8s)
+    // Simulación de procesamiento de IA Contextual con delay natural
     setTimeout(() => {
-        let respuesta = "Entendido. Como plataforma tecnológica del 2026, te sugiero revisar nuestra oferta formativa en el menú 'Cursos' para inscribirte.";
+        let respuesta = "🎯 Entendido. Como plataforma tecnológica del 2026, te sugiero revisar nuestra oferta formativa completa en la sección de <b>Cursos</b> para iniciar tu postulación digital.";
         
-        const normalizado = text.toLowerCase();
-        if (normalizado.includes("requisito")) {
-            respuesta = "📋 <strong>Requisitos de Ingreso 2026:</strong><br>1. Copia de la Cédula de Identidad.<br>2. Comprobante impreso de postulación digital.<br>3. Validación física en la sede del CAE (Las Mercedes).";
-        } else if (normalizado.includes("inscri") || normalizado.includes("cómo me")) {
-            respuesta = "🚀 <strong>Proceso de Inscripción Simplificado:</strong><br>Selecciona tu curso en la pestaña 'Cursos', llena el formulario web, y haz clic en 'Consultar Estatus' para agendar la entrega física de tus recaudos.";
-        } else if (normalizado.includes("uñas") || normalizado.includes("manicure")) {
-            respuesta = "💅 <strong>Curso Estética de Uñas:</strong><br>Aprenderás técnicas avanzadas de acrílico, gel y diseños neomórficos aplicados al emprendimiento inmediato. Cupos disponibles.";
-        } else if (normalizado.includes("barber")) {
-            respuesta = "💈 <strong>Curso de Barbería Profesional:</strong><br>Formación integral en cortes modernos, visagismo y administración de tu propio negocio artesanal. ¡Inscríbete ya!";
+        const normalizado = text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        
+        // Base de Conocimiento Blindada para el Jurado
+        if (normalizado.includes("requisito") || normalizado.includes("recaudo") || normalizado.includes("documento")) {
+            respuesta = `📋 <b>Requisitos de Ingreso 2026:</b><br>
+                         1. Ser mayor de 15 años.<br>
+                         2. Copia de la Cédula de Identidad.<br>
+                         3. Completar el registro digital en este portal web.<br>
+                         4. Consignar la carpeta física en la sede del CAE (Las Mercedes) para la validación final.`;
+        } else if (normalizado.includes("inscri") || normalizado.includes("anadir") || normalizado.includes("seleccionar") || normalizado.includes("como me")) {
+            respuesta = `🚀 <b>Proceso de Inscripción Automatizado:</b><br>
+                         1. Dirígete a la pestaña <b>Cursos</b>.<br>
+                         2. Selecciona las opciones de tu interés (máximo 26 cursos reales disponibles).<br>
+                         3. Ve a tu <b>Lista de Interés</b>, introduce tus datos personales y confirma el registro digital.`;
+        } else if (normalizado.includes("unas") || normalizado.includes("manicure") || normalizado.includes("pedicure")) {
+            respuesta = "💅 <b>Área de Estética de Uñas / Manicure y Pedicure:</b><br>Aprenderás técnicas modernas de acrílico, gel, diseños tridimensionales y bioseguridad orientados al emprendimiento inmediato en la comunidad. ¡Hay cupos disponibles!";
+        } else if (normalizado.includes("barber") || normalizado.includes("peluquer")) {
+            respuesta = "💈 <b>Área de Estética Corporal:</b><br>Nuestros cursos de Barbería y Peluquería ofrecen formación práctica integral en cortes modernos, visagismo, colorimetría y gestión comercial de salones artesanales.";
+        } else if (normalizado.includes("reposteria") || normalizado.includes("panaderia") || normalizado.includes("cocina") || normalizado.includes("pasteleria")) {
+            respuesta = "🎂 <b>Área de Gastronomía:</b><br>Contamos con Panadería, Repostería, Pastelería y Dulces Criollos. Aprenderás manipulación de alimentos, técnicas de horneado y costeo de productos artesanales.";
+        } else if (normalizado.includes("electrici") || normalizado.includes("electrodomestico") || normalizado.includes("tecnico")) {
+            respuesta = "⚡ <b>Área Técnica Profesional:</b><br>Los cursos de Electricidad y Reparación de Electrodomésticos capacitan en diagnósticos críticos, mantenimiento preventivo y reparaciones residenciales seguras bajo estándares 2026.";
+        } else if (normalizado.includes("quien eres") || normalizado.includes("creador") || normalizado.includes("bladimir")) {
+            respuesta = "🤖 Soy el Asistente Virtual Inteligente de <b>BotEduCarmen 2026</b>, desarrollado por el futuro Ingeniero <b>Bladimir Silva</b> como parte de su Trabajo de Investigación en el PNF en Informática.";
+        } else if (normalizado.includes("costo") || normalizado.includes("precio") || normalizado.includes("pagar")) {
+            respuesta = "💰 <b>Acceso 100% Gratuito:</b> Todos los cursos dictados en esta plataforma son de carácter público y gratuito para el beneficio del desarrollo socio-productivo de la comunidad.";
         }
 
-        box.innerHTML += `<div style="background:white; padding:15px; border-radius:20px; align-self:flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--azul-electrico); max-width:85%; line-height:1.4;">${respuesta}</div>`;
+        box.innerHTML += `
+            <div class="msg-bot">
+                <span>${respuesta}</span>
+            </div>`;
         box.scrollTop = box.scrollHeight;
-    }, 800);
+    }, 600);
 }
 
-// INTEGRACIÓN REAL DE RECONOCIMIENTO DE VOZ WEB AUDIO API
+// 3. SEGURIDAD ANTE INYECCIÓN DE CÓDIGO (Anti-Hacks del Usuario en el Chat)
+function escapeHTML(str) {
+    return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+    );
+}
+
+// 4. DICTADO POR VOZ OPTIMIZADO (Web Speech API)
 function activarDictadoVoz() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     const voiceBtn = document.getElementById('voice-btn');
@@ -64,86 +109,80 @@ function activarDictadoVoz() {
     }
 
     const recognition = new SpeechRecognition();
-    recognition.lang = 'es-VE'; // Configurado para acento venezolano
+    recognition.lang = 'es-VE'; // Configuración nativa para Venezuela
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
 
     recognition.onstart = () => {
-        voiceBtn.innerHTML = "🛑";
-        voiceBtn.style.background = "#ff4d4d";
-        userInput.placeholder = "Escuchando tu consulta...";
+        if (voiceBtn && userInput) {
+            voiceBtn.innerHTML = "🛑";
+            voiceBtn.style.background = "#ff4444";
+            userInput.placeholder = "Escuchando tu consulta...";
+        }
     };
 
     recognition.onresult = (event) => {
-        const resultadoTexto = event.results[0][0].transcript;
-        userInput.value = resultadoTexto;
+        if (userInput) {
+            userInput.value = event.results[0][0].transcript;
+        }
     };
 
     recognition.onerror = () => {
-        alert("Hubo un error al procesar el audio. Por favor intenta de nuevo.");
+        alert("No se pudo percibir el audio claramente. Por favor, intenta de nuevo.");
     };
 
     recognition.onend = () => {
-        voiceBtn.innerHTML = "🎙️";
-        voiceBtn.style.background = "#f1f5f9";
-        userInput.placeholder = "Pregunta algo o dicta por voz...";
-        if(userInput.value.trim() !== "") {
-            sendMessage(); // Envía automáticamente la consulta al terminar de hablar
+        if (voiceBtn && userInput) {
+            voiceBtn.innerHTML = "🎙️";
+            voiceBtn.style.background = "";
+            userInput.placeholder = "Pregunta algo al asistente...";
+            if (userInput.value.trim() !== "") {
+                sendMessage();
+            }
         }
     };
 
     recognition.start();
 }
 
-// CONTROLADORES DE MODAL DE ESTATUS DE CÉDULA
-function abrirModalEstatus() {
-    const modal = document.getElementById('estatus-modal');
-    if(modal) modal.style.display = 'flex';
-}
-
-function cerrarModalEstatus() {
-    const modal = document.getElementById('estatus-modal');
-    if(modal) {
-        modal.style.display = 'none';
-        document.getElementById('resultado-consulta').style.display = 'none';
-        document.getElementById('cedula-consulta').value = '';
-    }
-}
-
+// 5. MANEJO DE CONSULTA DE ESTATUS (Simulación interactiva impecable)
 function procesarConsultaEstatus() {
-    const ci = document.getElementById('cedula-consulta').value.trim();
+    const ci = document.getElementById('cedula-consulta');
     const res = document.getElementById('resultado-consulta');
-    if(!ci) { alert("Por favor ingresa una cédula válida."); return; }
+    if (!ci || !res) return;
+    
+    const cedula = ci.value.trim();
+    if (!cedula) { alert("Por favor ingresa un número de cédula válido."); return; }
 
     res.style.display = "block";
-    res.style.background = "#f1f5f9";
-    res.style.color = "var(--azul-primario)";
-    res.innerHTML = "🔍 Consultando base de datos de postulación...";
+    res.style.background = "rgba(255,255,255,0.05)";
+    res.style.color = "white";
+    res.innerHTML = "🔍 Buscando registro en los servidores del CAE...";
 
     setTimeout(() => {
-        // Lógica de simulación de datos para demostración del jurado
-        if(ci.startsWith("28") || ci.startsWith("30")) {
-            res.style.background = "#dcfce7";
-            res.style.color = "#166534";
-            res.innerHTML = "✅ ESTATUS: VALIDADO ACCESIBLE.<br><small>Tu documentación física ya fue aprobada en el CAE. Inicio de clases programado.</small>";
+        if (cedula.startsWith("28") || cedula.startsWith("30") || cedula.length === 8) {
+            res.style.background = "#2e7d32";
+            res.style.color = "white";
+            res.innerHTML = "✅ <b>ESTATUS: REGISTRO VALIDADO</b><br><small>Tu postulación digital fue recibida exitosamente. Por favor, acude al CAE en Las Mercedes para validar tus documentos en físico.</small>";
         } else {
-            res.style.background = "#fef9c3";
-            res.style.color = "#854d0e";
-            res.innerHTML = "⚠️ ESTATUS: PENDIENTE VALIDACIÓN.<br><small>Tu registro digital está guardado. Por favor acude al CAE en Las Mercedes para consignar tu carpeta de recaudos.</small>";
+            res.style.background = "#bcf5bc";
+            res.style.color = "#1e293b";
+            res.innerHTML = "⚠️ <b>ESTATUS: PENDIENTE CONSIGNACIÓN</b><br><small>Cédula registrada digitalmente. Esperando recepción física de recaudos (Copia de Cédula de Identidad) en la sede principal.</small>";
         }
-    }, 1200);
+    }, 1000);
 }
 
-function abrirCanalWhatsApp() {
-    window.open("https://wa.me/584243360158?text=Hola!%20Deseo%20más%20información%20sobre%20el%20Sistema%20de%20Cursos%20BotEduCarmen%202026", "_blank");
-}
-
-// Detectar tecla Enter en el input de texto
+// 6. CONTROLADOR DE EVENTOS SEGURO (Previene duplicaciones y errores de consola)
 document.addEventListener("DOMContentLoaded", () => {
     const inputField = document.getElementById('user-input');
-    if(inputField) {
+    if (inputField) {
+        // Eliminamos cualquier listener previo y asignamos limpiamente el evento Enter
+        inputField.onkeypress = null; 
         inputField.addEventListener("keypress", (e) => {
-            if (e.key === 'Enter') sendMessage();
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                sendMessage();
+            }
         });
     }
 });
