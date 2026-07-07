@@ -2,59 +2,251 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Console | BotEduCarmen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consola de Administración | BotEduCarmen</title>
     <style>
-        :root { --bg: #050a14; --card: #0a192f; --accent: #00d2ff; }
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
-        
-        .sidebar { background: var(--card); width: 250px; height: 100vh; position: fixed; border-right: 1px solid rgba(0,210,255,0.2); padding: 20px; }
-        .main-content { margin-left: 280px; padding: 40px; }
-        
-        .glass-table { 
-            width: 100%; border-collapse: collapse; background: var(--card); 
-            border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); 
+        :root {
+            --bg-principal: #0a192f;
+            --bg-nav: #e2e8f0; 
+            --bg-card: rgba(16, 29, 56, 0.75);
+            --texto-oscuro: #0a192f;
+            --texto-principal: #f8fafc;
+            --texto-secundario: #94a3b8;
+            --azul-electrico: #00d2ff;
+            --naranja-neon: #ff6d00;
+            --naranja-glow: #ff9100;
+            --borde-cristal: rgba(0, 210, 255, 0.15);
+            --borde-cristal-hover: rgba(0, 210, 255, 0.4);
         }
-        .glass-table th { background: rgba(0,210,255,0.1); color: var(--accent); padding: 15px; text-align: left; }
-        .glass-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+        body { 
+            background-color: var(--bg-principal); 
+            color: var(--texto-principal); 
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .top-bar {
+            background: #050c18;
+            color: var(--azul-electrico);
+            padding: 10px 0;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+            border-bottom: 2px solid var(--azul-electrico);
+            text-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
+        }
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        header {
+            background: var(--bg-nav);
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            border-bottom: 2px solid var(--azul-electrico);
+        }
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-brand { display: flex; align-items: center; gap: 15px; cursor: pointer; }
+        .header-brand img { height: 55px; }
+        .header-brand h1 { font-size: 1.6rem; margin: 0; color: var(--texto-oscuro); font-weight: 800; }
+        .header-brand h1 span { color: #1e3a8a; }
+
+        .admin-layout {
+            display: flex;
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+            gap: 30px;
+        }
+
+        .sidebar {
+            width: 320px;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--borde-cristal);
+            border-radius: 24px;
+            padding: 25px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: fit-content;
+        }
+
+        .sidebar h2 { margin: 0; font-size: 1.3rem; color: var(--azul-electrico); }
         
-        .stat-mini { background: var(--card); padding: 20px; border-radius: 15px; border-left: 4px solid var(--accent); margin-bottom: 20px; }
-        .btn-out { background: transparent; color: #ff4444; border: 1px solid #ff4444; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
+        .status-card {
+            background: rgba(5, 12, 24, 0.6);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 14px;
+            padding: 15px;
+        }
+        .status-card small { color: var(--texto-secundario); display: block; font-weight: 600; font-size: 0.75rem; letter-spacing: 0.5px;}
+        .status-card p { margin: 5px 0 0; font-weight: 700; font-size: 1.1rem; }
+
+        .indicator { display: inline-block; width: 10px; height: 10px; background: #25d366; border-radius: 50%; box-shadow: 0 0 8px #25d366; margin-right: 5px; }
+
+        .btn-sidebar-opt {
+            background: rgba(0, 210, 255, 0.1);
+            border: 1px solid var(--azul-electrico);
+            color: var(--azul-electrico);
+            padding: 12px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+        .btn-sidebar-opt:hover {
+            background: var(--azul-electrico);
+            color: var(--bg-principal);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+        }
+
+        .btn-out { 
+            background: linear-gradient(135deg, #ef4444, #dc2626); 
+            color: white; 
+            border: none;
+            padding: 14px; 
+            border-radius: 16px; 
+            cursor: pointer; 
+            font-weight: 800;
+            box-shadow: 0 4px 0 #991b1b, 0 8px 10px rgba(239, 68, 68, 0.2);
+            transition: all 0.1s ease;
+            width: 100%;
+        }
+        .btn-out:hover { transform: translateY(2px); box-shadow: 0 2px 0 #991b1b; }
+
+        .main-content { flex: 1; display: flex; flex-direction: column; gap: 25px; }
+
+        .table-responsive {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--borde-cristal);
+            border-radius: 24px;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        .glass-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .glass-table th { 
+            background: rgba(5, 12, 24, 0.8); 
+            color: var(--azul-electrico); 
+            padding: 18px 15px; 
+            font-weight: 700;
+            border-bottom: 2px solid var(--borde-cristal);
+        }
+        .glass-table td { padding: 18px 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.95rem; }
+        
+        .acciones-container { display: flex; gap: 8px; }
+
+        .btn-tbl {
+            border: none; padding: 10px 14px; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 0.8rem; transition: all 0.15s;
+        }
+        .btn-pdf {
+            background: linear-gradient(135deg, #00d2ff, #00a8cc); color: #0a192f;
+            box-shadow: 0 3px 0 #007799;
+        }
+        .btn-pdf:hover { transform: translateY(1px); box-shadow: 0 2px 0 #007799; }
+        
+        .btn-del {
+            background: linear-gradient(135deg, #ef4444, #dc2626); color: white;
+            box-shadow: 0 3px 0 #991b1b;
+        }
+        .btn-del:hover { transform: translateY(1px); box-shadow: 0 2px 0 #991b1b; }
     </style>
 </head>
 <body>
     <script>
         if (sessionStorage.getItem('admin_logueado') !== 'true') {
-            let p = prompt("PASSWORD:");
-            if (p === "1234") sessionStorage.setItem('admin_logueado', 'true');
-            else window.location.href = "index.html";
+            var clave = prompt("INGRESE LA CLAVE DE ACCESO:");
+            if (clave === "1234") {
+                sessionStorage.setItem('admin_logueado', 'true');
+            } else {
+                alert("Clave incorrecta de acceso administrativo.");
+                window.location.href = "index.html";
+            }
         }
     </script>
 
-    <div class="sidebar">
-        <h2 style="color:var(--accent)">BotEdu <span style="font-weight:200">Admin</span></h2>
-        <p style="font-size:0.8rem; color:gray;">SISTEMA OPERATIVO V.2.6</p>
-        <hr style="opacity:0.1; margin:20px 0;">
-        <button onclick="cerrar()" class="btn-out">LOGOUT SYSTEM</button>
-    </div>
-
-    <div class="main-content">
-        <div class="stat-mini">
-            <small>ESTUDIANTES TOTALES</small>
-            <h2 id="count" style="margin:0">0</h2>
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <span>💻 CONSOLA DE ADMINISTRACIÓN DE MATRÍCULA</span>
+            <span>📍 CPF CARMEN PILAR FERNÁNDEZ</span>
+            <span>📅 PERÍODO ACADÉMICO: 2026</span>
         </div>
-
-        <table class="glass-table">
-            <thead>
-                <tr>
-                    <th>ESTUDIANTE</th>
-                    <th>CÉDULA</th>
-                    <th>CURSOS</th>
-                    <th>ACCIONES</th>
-                </tr>
-            </thead>
-            <tbody id="cuerpo"></tbody>
-        </table>
     </div>
+
+    <header>
+        <div class="header-container">
+            <div class="header-brand" onclick="window.location.href='index.html'">
+                <img src="img/logo.png" alt="Logo" onerror="this.src='img/logo.png'">
+                <h1>BotEdu<span>Carmen</span></h1>
+            </div>
+        </div>
+    </header>
+
+    <main class="admin-layout">
+        <section class="sidebar">
+            <h2>CONTROLES GENERALES</h2>
+            
+            <div class="status-card">
+                <small>ESTUDIANTES REGISTRADOS</small>
+                <p id="count" style="font-size: 1.8rem; color: var(--azul-electrico);">0</p>
+            </div>
+
+            <div class="status-card">
+                <small>ESTADO DE BASE DE DATOS</small>
+                <p style="font-size:0.95rem; display:flex; align-items:center;">
+                    <span class="indicator"></span> Firebase Cloud Activo
+                </p>
+            </div>
+
+            <div class="status-card">
+                <small>UBICACIÓN DEL SERVIDOR</small>
+                <p style="font-size:0.9rem; color:var(--texto-secundario);">La Victoria - Venezuela</p>
+            </div>
+
+            <button onclick="exportarExcel()" class="btn-sidebar-opt">📊 DESCARGAR MATRÍCULA COMPLETA</button>
+            
+            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.08); margin: 5px 0;">
+            
+            <button onclick="cerrar()" class="btn-out">✖ CERRAR SESIÓN DEL SISTEMA</button>
+        </section>
+
+        <section class="main-content">
+            <div class="table-responsive">
+                <table class="glass-table">
+                    <thead>
+                        <tr>
+                            <th>ESTUDIANTE / POSTULANTE</th>
+                            <th>CÉDULA</th>
+                            <th>CURSOS ASIGNADOS</th>
+                            <th>FECHA / HORA</th> <th>ACCIONES DE CONTROL</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpo"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
 
     <script>
         function cerrar() {
@@ -63,26 +255,109 @@
         }
 
         function render() {
-            const bd = JSON.parse(localStorage.getItem('base_datos_inscritos')) || [];
+            var bd = JSON.parse(localStorage.getItem('base_datos_inscritos')) || [];
             document.getElementById('count').innerText = bd.length;
-            document.getElementById('cuerpo').innerHTML = bd.map(i => `
-                <tr>
-                    <td><b>${i.nombre}</b></td>
-                    <td>${i.cedula}</td>
-                    <td style="color:var(--accent)">${i.cursos}</td>
-                    <td><button onclick="borrar('${i.id}')" style="cursor:pointer; background:none; border:none;">🗑️</button></td>
-                </tr>
-            `).join('');
+            
+            var htmlContent = "";
+            bd.forEach(function(i) {
+                // Validación por si hay registros antiguos sin fecha registrada
+                var fechaInscripcion = i.fecha ? i.fecha : "No especificada";
+
+                htmlContent += "<tr>" +
+                    "<td><b>" + i.nombre + "</b></td>" +
+                    "<td>" + i.cedula + "</td>" +
+                    "<td style='color:var(--azul-electrico)'><b>" + i.cursos + "</b></td>" +
+                    "<td style='color:var(--texto-secundario); font-size:0.85rem;'>" + fechaInscripcion + "</td>" + // MOSTRANDO LA FECHA
+                    "<td>" +
+                        "<div class='acciones-container'>" +
+                            "<button onclick=\"imprimirComprobante('" + i.id + "')\" class='btn-tbl btn-pdf'>🖨️ PDF</button> " +
+                            "<button onclick=\"borrar('" + i.id + "')\" class='btn-tbl btn-del'>🗑️ BORRAR</button>" +
+                        "</div>" +
+                    "</td>" +
+                "</tr>";
+            });
+            document.getElementById('cuerpo').innerHTML = htmlContent;
         }
 
         function borrar(id) {
-            if(confirm("¿Eliminar?")) {
-                let bd = JSON.parse(localStorage.getItem('base_datos_inscritos'));
-                bd = bd.filter(x => x.id !== id);
+            if (confirm("¿Seguro que deseas eliminar permanentemente este registro del sistema?")) {
+                var bd = JSON.parse(localStorage.getItem('base_datos_inscritos')) || [];
+                bd = bd.filter(function(x) { return x.id !== id; });
                 localStorage.setItem('base_datos_inscritos', JSON.stringify(bd));
                 render();
             }
         }
+
+        function exportarExcel() {
+            var bd = JSON.parse(localStorage.getItem('base_datos_inscritos')) || [];
+            if (bd.length === 0) { 
+                alert("No hay estudiantes registrados para exportar."); 
+                return; 
+            }
+            
+            var csvContent = "data:text/csv;charset=utf-8,ID,Nombre,Cedula,Cursos,Fecha\n";
+            bd.forEach(function(i) {
+                var f = i.fecha ? i.fecha : "N/A";
+                csvContent += '"' + i.id + '","' + i.nombre + '","' + i.cedula + '","' + i.cursos + '","' + f + '"\n';
+            });
+            
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "Matricula_BotEduCarmen_2026.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function imprimirComprobante(id) {
+            var bd = JSON.parse(localStorage.getItem('base_datos_inscritos')) || [];
+            var estudiante = bd.find(function(x) { return x.id === id; });
+            if (!estudiante) return;
+
+            var ventanaImpresion = window.open('', '_blank');
+            var fechaComp = estudiante.fecha ? estudiante.fecha : "No especificada";
+            
+            var htmlPrint = `
+                <html>
+                <head>
+                    <title>Comprobante_${estudiante.cedula}</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 40px; color: #0a192f; }
+                        .ticket-box { border: 2px dashed #00d2ff; padding: 30px; border-radius: 15px; max-width: 600px; margin: 0 auto; }
+                        .header-ticket { text-align: center; border-bottom: 2px solid #0a192f; padding-bottom: 15px; margin-bottom: 20px; }
+                        .info-row { margin: 12px 0; font-size: 1.1rem; }
+                        .info-row b { width: 140px; display: inline-block; color: #1e3a8a; }
+                    </style>
+                </head>
+                <body>
+                    <div class="ticket-box">
+                        <div class="header-ticket">
+                            <h2>BotEduCarmen 2026</h2>
+                            <p>CPF Carmen Pilar Fernández</p>
+                            <h3>COMPROBANTE DE PREINSCRIPCIÓN DIGITAL</h3>
+                        </div>
+                        <div class="info-row"><b>ID Ticket:</b> ${estudiante.id}</div>
+                        <div class="info-row"><b>Estudiante:</b> ${estudiante.nombre}</div>
+                        <div class="info-row"><b>Cédula:</b> ${estudiante.cedula}</div>
+                        <div class="info-row"><b>Cursos:</b> ${estudiante.cursos}</div>
+                        <div class="info-row"><b>Fecha Registro:</b> ${fechaComp}</div>
+                    </div>
+                    <script>
+                        window.onload = function() { 
+                            window.print(); 
+                            setTimeout(function(){ window.close(); }, 500); 
+                        }
+                    <\/script>
+                </body>
+                </html>
+            `;
+            
+            ventanaImpresion.document.write(htmlPrint);
+            ventanaImpresion.document.close();
+        }
+
+        // Ejecución inicial segura
         render();
     </script>
 </body>
