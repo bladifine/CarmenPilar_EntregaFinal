@@ -89,7 +89,26 @@
         <button onclick="window.location.href='index.html'" class="btn-enviar" style="background:#1a237e;">VOLVER AL INICIO</button>
     </div>
 
+    <!-- SDK DE COMPATIBILIDAD DE FIREBASE NATIVO -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
     <script>
+        // Configuración oficial de tu base de datos
+        const firebaseConfig = {
+            apiKey: "AIzaSyDKnVg7dwb60-oXHs2nJ9w83XFkhN128tw",
+            authDomain: "boteducarmen2026.firebaseapp.com",
+            databaseURL: "https://boteducarmen2026-default-rtdb.firebaseio.com",
+            projectId: "boteducarmen2026",
+            storageBucket: "boteducarmen2026.firebasestorage.app",
+            messagingSenderId: "345344555322",
+            appId: "1:345344555322:web:df90364298617b9314b803"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
         document.getElementById('form-registro').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -106,25 +125,27 @@
                 cedula: c,
                 telefono: t,
                 cursos: cursosNombres,
-                fecha: new Date().toLocaleDateString()
+                fecha: new Date().toLocaleString() // Guarda Fecha y Hora Completa
             };
 
-            // Guardar en la "Base de Datos" (Admin)
-            let bd = JSON.parse(localStorage.getItem('base_datos_inscritos')) || [];
-            bd.push(registro);
-            localStorage.setItem('base_datos_inscritos', JSON.stringify(bd));
+            // 🔥 Guardado directo en la nube usando el ID único generado
+            db.ref('inscritos/' + registro.id).set(registro, function(error) {
+                if (error) {
+                    alert("Error al conectar con la base de datos: " + error.message);
+                } else {
+                    // Limpiar Carrito de compras local
+                    localStorage.removeItem('cart');
 
-            // Limpiar Carrito
-            localStorage.removeItem('cart');
-
-            // Mostrar Éxito
-            document.getElementById('seccion-formulario').style.display = 'none';
-            document.getElementById('mensaje-exito').style.display = 'block';
-            document.getElementById('resumen-ticket').innerHTML = `
-                ID: ${registro.id}<br>
-                ESTUDIANTE: ${n}<br>
-                CURSOS: ${cursosNombres}
-            `;
+                    // Mostrar interfaz de Éxito
+                    document.getElementById('seccion-formulario').style.display = 'none';
+                    document.getElementById('mensaje-exito').style.display = 'block';
+                    document.getElementById('resumen-ticket').innerHTML = `
+                        ID: ${registro.id}<br>
+                        ESTUDIANTE: ${n}<br>
+                        CURSOS: ${cursosNombres}
+                    `;
+                }
+            });
         });
     </script>
 </body>

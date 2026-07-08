@@ -239,7 +239,8 @@
                             <th>ESTUDIANTE / POSTULANTE</th>
                             <th>CÉDULA</th>
                             <th>CURSOS ASIGNADOS</th>
-                            <th>FECHA / HORA</th> <th>ACCIONES DE CONTROL</th>
+                            <th>FECHA / HORA</th> 
+                            <th>ACCIONES DE CONTROL</th>
                         </tr>
                     </thead>
                     <tbody id="cuerpo"></tbody>
@@ -248,116 +249,148 @@
         </section>
     </main>
 
+    <!-- SDK DE PERSISTENCIA DE FIREBASE NATIVO -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
     <script>
+        // Configuración oficial de tu base de datos
+        const firebaseConfig = {
+            apiKey: "AIzaSyDKnVg7dwb60-oXHs2nJ9w83XFkhN128tw",
+            authDomain: "boteducarmen2026.firebaseapp.com",
+            databaseURL: "https://boteducarmen2026-default-rtdb.firebaseio.com",
+            projectId: "boteducarmen2026",
+            storageBucket: "boteducarmen2026.firebasestorage.app",
+            messagingSenderId: "345344555322",
+            appId: "1:345344555322:web:df90364298617b9314b803"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
         function cerrar() {
             sessionStorage.removeItem('admin_logueado');
             window.location.href = "index.html";
         }
 
+        // 🔥 Escucha permanente de datos en la nube (Sincronización en tiempo real)
         function render() {
-            var bd = JSON.parse(localStorage.getItem('base_datos_inscritos')) || [];
-            document.getElementById('count').innerText = bd.length;
-            
-            var htmlContent = "";
-            bd.forEach(function(i) {
-                // Validación por si hay registros antiguos sin fecha registrada
-                var fechaInscripcion = i.fecha ? i.fecha : "No especificada";
+            db.ref('inscritos').on('value', function(snapshot) {
+                var bd = [];
+                snapshot.forEach(function(childSnapshot) {
+                    bd.push(childSnapshot.val());
+                });
 
-                htmlContent += "<tr>" +
-                    "<td><b>" + i.nombre + "</b></td>" +
-                    "<td>" + i.cedula + "</td>" +
-                    "<td style='color:var(--azul-electrico)'><b>" + i.cursos + "</b></td>" +
-                    "<td style='color:var(--texto-secundario); font-size:0.85rem;'>" + fechaInscripcion + "</td>" + // MOSTRANDO LA FECHA
-                    "<td>" +
-                        "<div class='acciones-container'>" +
-                            "<button onclick=\"imprimirComprobante('" + i.id + "')\" class='btn-tbl btn-pdf'>🖨️ PDF</button> " +
-                            "<button onclick=\"borrar('" + i.id + "')\" class='btn-tbl btn-del'>🗑️ BORRAR</button>" +
-                        "</div>" +
-                    "</td>" +
-                "</tr>";
+                document.getElementById('count').innerText = bd.length;
+                
+                var htmlContent = "";
+                bd.forEach(function(i) {
+                    var fechaInscripcion = i.fecha ? i.fecha : "No especificada";
+
+                    htmlContent += "<tr>" +
+                        "<td><b>" + i.nombre + "</b></td>" +
+                        "<td>" + i.cedula + "</td>" +
+                        "<td style='color:var(--azul-electrico)'><b>" + i.cursos + "</b></td>" +
+                        "<td style='color:var(--texto-secundario); font-size:0.85rem;'>" + fechaInscripcion + "</td>" +
+                        "<td>" +
+                            "<div class='acciones-container'>" +
+                                "<button onclick=\"imprimirComprobante('" + i.id + "')\" class='btn-tbl btn-pdf'>🖨️ PDF</button> " +
+                                "<button onclick=\"borrar('" + i.id + "')\" class='btn-tbl btn-del'>🗑️ BORRAR</button>" +
+                            "</div>" +
+                        "</td>" +
+                    "</tr>";
+                });
+                document.getElementById('cuerpo').innerHTML = htmlContent;
             });
-            document.getElementById('cuerpo').innerHTML = htmlContent;
         }
 
+        // Borrado reactivo remoto
         function borrar(id) {
-            if (confirm("¿Seguro que deseas eliminar permanentemente este registro del sistema?")) {
-                var bd = JSON.parse(localStorage.getItem('base_datos_inscritos')) || [];
-                bd = bd.filter(function(x) { return x.id !== id; });
-                localStorage.setItem('base_datos_inscritos', JSON.stringify(bd));
-                render();
+            if (confirm("¿Seguro que deseas eliminar permanentemente este registro de la base de datos en la nube?")) {
+                db.ref('inscritos/' + id).remove();
             }
         }
 
+        // Descarga de matriz CSV construida en caliente desde Firebase
         function exportarExcel() {
-            var bd = JSON.parse(localStorage.getItem('base_datos_inscritos')) || [];
-            if (bd.length === 0) { 
-                alert("No hay estudiantes registrados para exportar."); 
-                return; 
-            }
-            
-            var csvContent = "data:text/csv;charset=utf-8,ID,Nombre,Cedula,Cursos,Fecha\n";
-            bd.forEach(function(i) {
-                var f = i.fecha ? i.fecha : "N/A";
-                csvContent += '"' + i.id + '","' + i.nombre + '","' + i.cedula + '","' + i.cursos + '","' + f + '"\n';
+            db.ref('inscritos').once('value').then(function(snapshot) {
+                var bd = [];
+                snapshot.forEach(function(childSnapshot) {
+                    bd.push(childSnapshot.val());
+                });
+
+                if (bd.length === 0) { 
+                    alert("No hay estudiantes registrados en Firebase para exportar."); 
+                    return; 
+                }
+                
+                var csvContent = "data:text/csv;charset=utf-8,ID,Nombre,Cedula,WhatsApp,Cursos,Fecha\n";
+                bd.forEach(function(i) {
+                    var f = i.fecha ? i.fecha : "N/A";
+                    var t = i.telefono ? i.telefono : "N/A";
+                    csvContent += '"' + i.id + '","' + i.nombre + '","' + i.cedula + '","' + t + '","' + i.cursos + '","' + f + '"\n';
+                });
+                
+                var encodedUri = encodeURI(csvContent);
+                var link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "Matricula_BotEduCarmen_2026.csv");
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
             });
-            
-            var encodedUri = encodeURI(csvContent);
-            var link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "Matricula_BotEduCarmen_2026.csv");
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
         }
 
+        // Generación asíncrona de ventanas de impresión PDF seguras mediante Backticks
         function imprimirComprobante(id) {
-            var bd = JSON.parse(localStorage.getItem('base_datos_inscritos')) || [];
-            var estudiante = bd.find(function(x) { return x.id === id; });
-            if (!estudiante) return;
+            db.ref('inscritos/' + id).once('value').then(function(snapshot) {
+                var estudiante = snapshot.val();
+                if (!estudiante) return;
 
-            var ventanaImpresion = window.open('', '_blank');
-            var fechaComp = estudiante.fecha ? estudiante.fecha : "No especificada";
-            
-            var htmlPrint = `
-                <html>
-                <head>
-                    <title>Comprobante_${estudiante.cedula}</title>
-                    <style>
-                        body { font-family: Arial, sans-serif; padding: 40px; color: #0a192f; }
-                        .ticket-box { border: 2px dashed #00d2ff; padding: 30px; border-radius: 15px; max-width: 600px; margin: 0 auto; }
-                        .header-ticket { text-align: center; border-bottom: 2px solid #0a192f; padding-bottom: 15px; margin-bottom: 20px; }
-                        .info-row { margin: 12px 0; font-size: 1.1rem; }
-                        .info-row b { width: 140px; display: inline-block; color: #1e3a8a; }
-                    </style>
-                </head>
-                <body>
-                    <div class="ticket-box">
-                        <div class="header-ticket">
-                            <h2>BotEduCarmen 2026</h2>
-                            <p>CPF Carmen Pilar Fernández</p>
-                            <h3>COMPROBANTE DE PREINSCRIPCIÓN DIGITAL</h3>
+                var ventanaImpresion = window.open('', '_blank');
+                var fechaComp = estudiante.fecha ? estudiante.fecha : "No especificada";
+                
+                var htmlPrint = `
+                    <html>
+                    <head>
+                        <title>Comprobante_\${estudiante.cedula}</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; padding: 40px; color: #0a192f; }
+                            .ticket-box { border: 2px dashed #00d2ff; padding: 30px; border-radius: 15px; max-width: 600px; margin: 0 auto; }
+                            .header-ticket { text-align: center; border-bottom: 2px solid #0a192f; padding-bottom: 15px; margin-bottom: 20px; }
+                            .info-row { margin: 12px 0; font-size: 1.1rem; }
+                            .info-row b { width: 140px; display: inline-block; color: #1e3a8a; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="ticket-box">
+                            <div class="header-ticket">
+                                <h2>BotEduCarmen 2026</h2>
+                                <p>CPF Carmen Pilar Fernández</p>
+                                <h3>COMPROBANTE DE PREINSCRIPCIÓN DIGITAL</h3>
+                            </div>
+                            <div class="info-row"><b>ID Ticket:</b> \${estudiante.id}</div>
+                            <div class="info-row"><b>Estudiante:</b> \${estudiante.nombre}</div>
+                            <div class="info-row"><b>Cédula:</b> \${estudiante.cedula}</div>
+                            <div class="info-row"><b>Cursos:</b> \${estudiante.cursos}</div>
+                            <div class="info-row"><b>Fecha Registro:</b> \${fechaComp}</div>
                         </div>
-                        <div class="info-row"><b>ID Ticket:</b> ${estudiante.id}</div>
-                        <div class="info-row"><b>Estudiante:</b> ${estudiante.nombre}</div>
-                        <div class="info-row"><b>Cédula:</b> ${estudiante.cedula}</div>
-                        <div class="info-row"><b>Cursos:</b> ${estudiante.cursos}</div>
-                        <div class="info-row"><b>Fecha Registro:</b> ${fechaComp}</div>
-                    </div>
-                    <script>
-                        window.onload = function() { 
-                            window.print(); 
-                            setTimeout(function(){ window.close(); }, 500); 
-                        }
-                    <\/script>
-                </body>
-                </html>
-            `;
-            
-            ventanaImpresion.document.write(htmlPrint);
-            ventanaImpresion.document.close();
+                        <script>
+                            window.onload = function() { 
+                                window.print(); 
+                                setTimeout(function(){ window.close(); }, 500); 
+                            }
+                        <\/script>
+                    </body>
+                    </html>
+                `;
+                
+                ventanaImpresion.document.write(htmlPrint);
+                ventanaImpresion.document.close();
+            });
         }
 
-        // Ejecución inicial segura
+        // Arranque de ciclo de renderizado continuo
         render();
     </script>
 </body>
