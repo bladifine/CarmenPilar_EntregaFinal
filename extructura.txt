@@ -1,24 +1,9 @@
 📁 proyecto/
-├── 📁 img/
-│   ├── logo.png
-│   ├── default.jpg
-│   ├── modisteria.jpg
-│   ├── ropa_intima.jpg
-│   ├── corte_y_confeccion.jpg
-│   ├── lenceria.jpg
-│   ├── cocina.jpg
-│   ├── barberia.jpg
-│   └── estetica_de_unas.jpg
-├── index.html
-├── cursos.html
-├── carrito.html
-├── contacto.html
-├── gracias.html
-├── admin.html
-├── styles.css
-├── script.js
-├── cursos.js
-├── chatbot.js
-├── server.js
-├── package.json
-└── README.md
+├── 📁 img/ (Aquí ponemos el logo.png y las imágenes de los cursos)
+├── index.html       (Pantalla de bienvenida)
+├── cursos.html      (El catálogo de 25 cursos)
+├── carrito.html     (La lista de selección de interés)
+├── contacto.html    (El formulario conectado a la nube de Firebase)
+├── admin.html       (El panel de control en tiempo real con reportes y PDF)
+├── styles.css       (Los estilos visuales cyberpunk)
+└── chatbot.js       (El motor de inteligencia virtual que vamos a mejorar)

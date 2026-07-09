@@ -1,188 +1,146 @@
 /**
- * =========================================================================
- * BotEduCarmen 2026 - ARCHIVO DE INTELIGENCIA VIRTUAL (chatbot.js)
+ * =========================================================
+ * BOTEDUCARMEN 2026 - CHATBOT INTEGRADO CON FIREBASE REAL
+ * =========================================================
  * Desarrollado por: Bladimir Silva
- * PNF en Informática - PROYECTO BLINDADO Y OPTIMIZADO
- * =========================================================================
+ * Conexión en vivo con el nodo 'inscritos' de Realtime Database.
  */
 
-let primerAbierto = true;
+// 1. Configuración oficial de tu proyecto (Extraída de tus archivos de origen)
+const firebaseConfigChatbot = {
+    apiKey: "AIzaSyDKnVg7dwb60-oXHs2nJ9w83XFkhN128tw",
+    authDomain: "boteducarmen2026.firebaseapp.com",
+    databaseURL: "https://boteducarmen2026-default-rtdb.firebaseio.com",
+    projectId: "boteducarmen2026",
+    storageBucket: "boteducarmen2026.firebasestorage.app",
+    messagingSenderId: "345344555322",
+    appId: "1:345344555322:web:df90364298617b9314b803"
+};
 
-// 1. CONTROL DE APERTURA REACTIVA Y UNIFORME
+// 2. Inicializar Firebase de forma segura para evitar duplicados si ya existe
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfigChatbot);
+}
+const chatDb = firebase.database();
+
+// Control de apertura/cierre de la ventana flotante del chat
 function toggleChat() {
-    const w = document.getElementById('chat-window');
-    if (!w) return;
+    const chatWindow = document.getElementById('chat-window');
+    if (chatWindow.style.display === 'none' || chatWindow.style.display === '') {
+        chatWindow.style.display = 'flex';
+    } else {
+        chatWindow.style.display = 'none';
+    }
+}
+
+// Bandera para saber si el bot está esperando una cédula para consultar
+let esperandoCedula = false;
+
+// Función Principal para Enviar Mensajes en la Interfaz
+async function sendMessage() {
+    const inputEl = document.getElementById('user-input');
+    const chatMessages = document.getElementById('chat-messages');
+    const txt = inputEl.value.trim();
     
-    if (w.style.display === 'none' || w.style.display === '') {
-        w.style.display = 'flex';
-        // Inyectar el saludo inicial con delay natural únicamente la primera vez
-        if (primerAbierto) {
-            const box = document.getElementById('chat-messages');
-            if (box) {
-                box.innerHTML = `
-                    <div class="msg-bot">
-                        <span>¡Hola! Soy tu asistente inteligente BotEduCarmen 2026. 🤖<br><br>
-                        Estoy aquí para ayudarte a automatizar tu inscripción. ¿En qué área o curso deseas capacitarte hoy? Puedes consultarme los requisitos de ingreso.</span>
-                    </div>`;
-            }
-            primerAbierto = false;
+    if (!txt) return;
+
+    // Dibujar el mensaje del usuario en pantalla
+    chatMessages.innerHTML += `
+        <div style="background: #0a192f; color: white; padding: 15px; border-radius: 20px; align-self: flex-end; max-width: 80%; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+            ${txt}
+        </div>
+    `;
+    
+    inputEl.value = '';
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Mostrar burbuja de carga temporal del Bot
+    const tempId = "loading-" + Date.now();
+    chatMessages.innerHTML += `
+        <div id="${tempId}" style="background: white; padding: 15px; border-radius: 20px; align-self: flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid #00d2ff;">
+            🤖 Pensando...
+        </div>
+    `;
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // --- PROCESAR LA RESPUESTA DE LA IA ---
+    let botResponse = "";
+
+    if (esperandoCedula) {
+        // Extraer solo los números de la entrada del usuario en caso de que escriban "V-26..."
+        const cedulaLimpia = txt.replace(/\D/g, "");
+        
+        if (cedulaLimpia.length < 5) {
+            botResponse = "⚠️ Por favor, introduce una cédula de identidad válida (solo números, ej: 27123456).";
+        } else {
+            // Invocar la búsqueda asíncrona real en la base de datos de Firebase
+            botResponse = await consultarEstatusEnFirebase(cedulaLimpia);
+            esperandoCedula = false; // Resetear el estado
         }
     } else {
-        w.style.display = 'none';
-    }
-}
+        // Respuestas generales del asistente de IA
+        const entradaMinuscula = txt.toLowerCase();
 
-// 2. PROCESAMIENTO SEMÁNTICO DE RESPUESTAS (Sin fallos de ejecución)
-function sendMessage() {
-    const input = document.getElementById('user-input');
-    const box = document.getElementById('chat-messages');
-    if (!input || !box) return;
-    
-    const text = input.value.trim();
-    if (!text) return;
-
-    // Renderizar mensaje del usuario de forma limpia usando las clases del styles.css
-    box.innerHTML += `
-        <div class="msg-user">
-            <span>${escapeHTML(text)}</span>
-        </div>`;
-    
-    box.scrollTop = box.scrollHeight;
-    input.value = "";
-    
-    // Simulación de procesamiento de IA Contextual con delay natural
-    setTimeout(() => {
-        let respuesta = "🎯 Entendido. Como plataforma tecnológica del 2026, te sugiero revisar nuestra oferta formativa completa en la sección de <b>Cursos</b> para iniciar tu postulación digital.";
-        
-        const normalizado = text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        
-        // Base de Conocimiento Blindada para el Jurado
-        if (normalizado.includes("requisito") || normalizado.includes("recaudo") || normalizado.includes("documento")) {
-            respuesta = `📋 <b>Requisitos de Ingreso 2026:</b><br>
-                         1. Ser mayor de 15 años.<br>
-                         2. Copia de la Cédula de Identidad.<br>
-                         3. Completar el registro digital en este portal web.<br>
-                         4. Consignar la carpeta física en la sede del CAE (Las Mercedes) para la validación final.`;
-        } else if (normalizado.includes("inscri") || normalizado.includes("anadir") || normalizado.includes("seleccionar") || normalizado.includes("como me")) {
-            respuesta = `🚀 <b>Proceso de Inscripción Automatizado:</b><br>
-                         1. Dirígete a la pestaña <b>Cursos</b>.<br>
-                         2. Selecciona las opciones de tu interés (máximo 26 cursos reales disponibles).<br>
-                         3. Ve a tu <b>Lista de Interés</b>, introduce tus datos personales y confirma el registro digital.`;
-        } else if (normalizado.includes("unas") || normalizado.includes("manicure") || normalizado.includes("pedicure")) {
-            respuesta = "💅 <b>Área de Estética de Uñas / Manicure y Pedicure:</b><br>Aprenderás técnicas modernas de acrílico, gel, diseños tridimensionales y bioseguridad orientados al emprendimiento inmediato en la comunidad. ¡Hay cupos disponibles!";
-        } else if (normalizado.includes("barber") || normalizado.includes("peluquer")) {
-            respuesta = "💈 <b>Área de Estética Corporal:</b><br>Nuestros cursos de Barbería y Peluquería ofrecen formación práctica integral en cortes modernos, visagismo, colorimetría y gestión comercial de salones artesanales.";
-        } else if (normalizado.includes("reposteria") || normalizado.includes("panaderia") || normalizado.includes("cocina") || normalizado.includes("pasteleria")) {
-            respuesta = "🎂 <b>Área de Gastronomía:</b><br>Contamos con Panadería, Repostería, Pastelería y Dulces Criollos. Aprenderás manipulación de alimentos, técnicas de horneado y costeo de productos artesanales.";
-        } else if (normalizado.includes("electrici") || normalizado.includes("electrodomestico") || normalizado.includes("tecnico")) {
-            respuesta = "⚡ <b>Área Técnica Profesional:</b><br>Los cursos de Electricidad y Reparación de Electrodomésticos capacitan en diagnósticos críticos, mantenimiento preventivo y reparaciones residenciales seguras bajo estándares 2026.";
-        } else if (normalizado.includes("quien eres") || normalizado.includes("creador") || normalizado.includes("bladimir")) {
-            respuesta = "🤖 Soy el Asistente Virtual Inteligente de <b>BotEduCarmen 2026</b>, desarrollado por el futuro Ingeniero <b>Bladimir Silva</b> como parte de su Trabajo de Investigación en el PNF en Informática.";
-        } else if (normalizado.includes("costo") || normalizado.includes("precio") || normalizado.includes("pagar")) {
-            respuesta = "💰 <b>Acceso 100% Gratuito:</b> Todos los cursos dictados en esta plataforma son de carácter público y gratuito para el beneficio del desarrollo socio-productivo de la comunidad.";
-        }
-
-        box.innerHTML += `
-            <div class="msg-bot">
-                <span>${respuesta}</span>
-            </div>`;
-        box.scrollTop = box.scrollHeight;
-    }, 600);
-}
-
-// 3. SEGURIDAD ANTE INYECCIÓN DE CÓDIGO (Anti-Hacks del Usuario en el Chat)
-function escapeHTML(str) {
-    return str.replace(/[&<>'"]/g, 
-        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-    );
-}
-
-// 4. DICTADO POR VOZ OPTIMIZADO (Web Speech API)
-function activarDictadoVoz() {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    const voiceBtn = document.getElementById('voice-btn');
-    const userInput = document.getElementById('user-input');
-
-    if (!SpeechRecognition) {
-        alert("El dictado por voz no está soportado en este navegador. Te sugerimos usar Google Chrome.");
-        return;
-    }
-
-    const recognition = new SpeechRecognition();
-    recognition.lang = 'es-VE'; // Configuración nativa para Venezuela
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
-
-    recognition.onstart = () => {
-        if (voiceBtn && userInput) {
-            voiceBtn.innerHTML = "🛑";
-            voiceBtn.style.background = "#ff4444";
-            userInput.placeholder = "Escuchando tu consulta...";
-        }
-    };
-
-    recognition.onresult = (event) => {
-        if (userInput) {
-            userInput.value = event.results[0][0].transcript;
-        }
-    };
-
-    recognition.onerror = () => {
-        alert("No se pudo percibir el audio claramente. Por favor, intenta de nuevo.");
-    };
-
-    recognition.onend = () => {
-        if (voiceBtn && userInput) {
-            voiceBtn.innerHTML = "🎙️";
-            voiceBtn.style.background = "";
-            userInput.placeholder = "Pregunta algo al asistente...";
-            if (userInput.value.trim() !== "") {
-                sendMessage();
-            }
-        }
-    };
-
-    recognition.start();
-}
-
-// 5. MANEJO DE CONSULTA DE ESTATUS (Simulación interactiva impecable)
-function procesarConsultaEstatus() {
-    const ci = document.getElementById('cedula-consulta');
-    const res = document.getElementById('resultado-consulta');
-    if (!ci || !res) return;
-    
-    const cedula = ci.value.trim();
-    if (!cedula) { alert("Por favor ingresa un número de cédula válido."); return; }
-
-    res.style.display = "block";
-    res.style.background = "rgba(255,255,255,0.05)";
-    res.style.color = "white";
-    res.innerHTML = "🔍 Buscando registro en los servidores del CAE...";
-
-    setTimeout(() => {
-        if (cedula.startsWith("28") || cedula.startsWith("30") || cedula.length === 8) {
-            res.style.background = "#2e7d32";
-            res.style.color = "white";
-            res.innerHTML = "✅ <b>ESTATUS: REGISTRO VALIDADO</b><br><small>Tu postulación digital fue recibida exitosamente. Por favor, acude al CAE en Las Mercedes para validar tus documentos en físico.</small>";
+        if (entradaMinuscula.includes('estatus') || entradaMinuscula.includes('inscrito') || entradaMinuscula.includes('revisar') || entradaMinuscula.includes('cedula') || entradaMinuscula.includes('consulta')) {
+            botResponse = "🔍 ¡Excelente! Con gusto revisaré tu estatus en el servidor de Firebase. Por favor, <b>escribe solo los números de tu Cédula de Identidad</b> para iniciar la búsqueda:";
+            esperandoCedula = true;
+        } else if (entradaMinuscula.includes('hola') || entradaMinuscula.includes('buenas')) {
+            botResponse = "👋 ¡Hola, Bladimir! Te habla el Asistente Virtual 2026. Puedo orientarte sobre los cursos o revisar en tiempo real el estatus de tu inscripción. ¿En qué te puedo ayudar hoy?";
+        } else if (entradaMinuscula.includes('curso') || entradaMinuscula.includes('oferta') || entradaMinuscula.includes('estudiar')) {
+            botResponse = "📚 Contamos con cursos tecnológicos de vanguardia y capacitación artesanal (Programación, Ofimática, Confección, etc.). Puedes ver los detalles en la pestaña superior en el botón <b>CURSOS</b>.";
         } else {
-            res.style.background = "#bcf5bc";
-            res.style.color = "#1e293b";
-            res.innerHTML = "⚠️ <b>ESTATUS: PENDIENTE CONSIGNACIÓN</b><br><small>Cédula registrada digitalmente. Esperando recepción física de recaudos (Copia de Cédula de Identidad) en la sede principal.</small>";
+            botResponse = "🤖 Entendido. Recuerda que puedes consultarme sobre la oferta de cursos o escribir la palabra <b>'Estatus'</b> para verificar si tu registro en el sistema fue procesado con éxito.";
         }
-    }, 1000);
+    }
+
+    // Remover indicador de carga y pintar la respuesta definitiva
+    document.getElementById(tempId).remove();
+    chatMessages.innerHTML += `
+        <div style="background: white; padding: 15px; border-radius: 20px; align-self: flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid #00d2ff; line-height: 1.5;">
+            ${botResponse}
+        </div>
+    `;
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-// 6. CONTROLADOR DE EVENTOS SEGURO (Previene duplicaciones y errores de consola)
-document.addEventListener("DOMContentLoaded", () => {
-    const inputField = document.getElementById('user-input');
-    if (inputField) {
-        // Eliminamos cualquier listener previo y asignamos limpiamente el evento Enter
-        inputField.onkeypress = null; 
-        inputField.addEventListener("keypress", (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                sendMessage();
-            }
-        });
-    }
-});
+/**
+ * CONSULTA ASÍNCRONA REAL A LA NUBE
+ * Recorre el nodo 'inscritos' buscando coincidencia exacta con el campo 'cedula'.
+ */
+function consultarEstatusEnFirebase(cedulaBuscada) {
+    return new Promise((resolve) => {
+        chatDb.ref('inscritos').once('value')
+            .then((snapshot) => {
+                let alumnoEncontrado = null;
+
+                // Iterar sobre todos los registros en la base de datos remota
+                snapshot.forEach((childSnapshot) => {
+                    const datos = childSnapshot.val();
+                    // Comparamos los valores de cédula limpiando posibles espacios
+                    if (String(datos.cedula).trim() === String(cedulaBuscada).trim()) {
+                        alumnoEncontrado = datos;
+                        return true; // Rompe el bucle de forEach prematuramente al encontrarlo
+                    }
+                });
+
+                if (alumnoEncontrado) {
+                    // Retorno dinámico con datos reales extraídos de Firebase
+                    resolve(`✅ <b>¡Registro Encontrado con Éxito!</b><br><br>
+                            👤 <b>Estudiante:</b> ${alumnoEncontrado.nombre}<br>
+                            🪪 <b>Cédula:</b> V-${alumnoEncontrado.cedula}<br>
+                            🎟️ <b>ID Ticket:</b> ${alumnoEncontrado.id}<br>
+                            📚 <b>Curso(s):</b> <span style="color:#00a8cc">${alumnoEncontrado.cursos || 'Asignación General'}</span><br>
+                            📅 <b>Fecha de Registro:</b> ${alumnoEncontrado.fecha || 'N/A'}<br><br>
+                            🟢 <b>Estatus Actual:</b> <span style="color:#25d366; font-weight:bold;">Preinscrito - Verificado en Nube</span>`);
+                } else {
+                    resolve(`⚠️ <b>Registro No Encontrado</b><br><br>
+                            La cédula <b>V-${cedulaBuscada}</b> no coincide con ningún estudiante registrado en nuestro período académico 2026.<br><br> 
+                            👉 Asegúrate de haber completado el formulario de inscripción correctamente.`);
+                }
+            })
+            .catch((error) => {
+                console.error("Error al consultar Firebase: ", error);
+                resolve(`💥 <b>Error de Conexión:</b> No se pudo sincronizar con la base de datos de Firebase. Detalles: ${error.message}`);
+            });
+    });
+}
