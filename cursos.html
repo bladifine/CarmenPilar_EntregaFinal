@@ -362,20 +362,25 @@
             }
         };
 
+        // 🔥 FUNCIÓN OPTIMIZADA CON FILTRADO PREVIO DE IMAGEN
         function cargarCursos() {
             const grid = document.getElementById('grid-cursos');
             const seleccionados = JSON.parse(localStorage.getItem('cart')) || [];
             
             grid.innerHTML = CURSOS_SISTEMA.map(c => {
                 const estaEnCart = seleccionados.some(x => x.nombre.toLowerCase() === c.nombre.toLowerCase());
+                
+                // Validación estricta antes de inyectar el SRC al navegador (Evita parpadeos de error)
+                const imgValida = (c.imagen && c.imagen.trim() !== "") ? c.imagen : "img/logo.png";
+                
                 return `
                     <div class="curso-card" data-name="${c.nombre.toLowerCase()}">
                         <a href="detalle-curso.html?curso=${encodeURIComponent(c.nombre)}" class="curso-img-link">
-                            <img src="${c.imagen}" class="curso-img" onerror="this.src='img/logo.png'">
+                            <img src="${imgValida}" class="curso-img" onerror="this.src='img/logo.png'">
                         </a>
                         <div class="curso-info">
                             <h3>${c.nombre}</h3>
-                            <button onclick="toggleSeleccion('${c.nombre}', '${c.imagen}')" class="btn-accion ${estaEnCart ? 'btn-quitar' : 'btn-seleccionar'}">
+                            <button onclick="toggleSeleccion('${c.nombre}', '${imgValida}')" class="btn-accion ${estaEnCart ? 'btn-quitar' : 'btn-seleccionar'}">
                                 ${estaEnCart ? '✖ QUITAR SELECCIÓN' : '✚ SELECCIONAR CURSO'}
                             </button>
                         </div>
