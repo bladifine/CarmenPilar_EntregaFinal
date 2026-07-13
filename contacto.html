@@ -25,9 +25,25 @@
             width: 90%;
             max-width: 450px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            position: relative;
         }
 
-        h2 { color: #00d2ff; text-align: center; margin-bottom: 30px; letter-spacing: 1px; }
+        /* Estilo para el botón de volver atrás */
+        .btn-atras {
+            display: inline-block;
+            color: #00d2ff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+        .btn-atras:hover {
+            color: white;
+            text-shadow: 0 0 8px rgba(0, 210, 255, 0.6);
+        }
+
+        h2 { color: #00d2ff; text-align: center; margin-bottom: 30px; letter-spacing: 1px; margin-top: 0; }
 
         .form-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; color: rgba(255,255,255,0.7); font-size: 0.9rem; }
@@ -41,6 +57,7 @@
             color: white;
             outline: none;
             transition: 0.3s;
+            box-sizing: border-box;
         }
 
         input:focus { border-color: #00d2ff; background: rgba(255,255,255,0.15); }
@@ -64,6 +81,9 @@
 <body>
 
     <div class="form-container" id="seccion-formulario">
+        <!-- BOTÓN DE VOLVER ATRÁS -->
+        <a href="carrito.html" class="btn-atras">⬅ VOLVER ATRÁS</a>
+        
         <h2>DATOS DEL ASPIRANTE</h2>
         <form id="form-registro">
             <div class="form-group">
