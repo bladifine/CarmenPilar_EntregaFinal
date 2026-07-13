@@ -7,9 +7,9 @@
     <style>
         :root {
             --bg-principal: #0a192f;
-            --bg-nav: #e2e8f0; /* Fondo azul grisáceo del Index */
+            --bg-nav: #e2e8f0; 
             --bg-card: rgba(16, 29, 56, 0.75);
-            --texto-oscuro: #0a192f; /* El color oscuro para resaltar sobre el azul grisáceo */
+            --texto-oscuro: #0a192f; 
             --texto-principal: #f8fafc;
             --texto-secundario: #94a3b8;
             --azul-electrico: #00d2ff;
@@ -48,7 +48,7 @@
             padding: 0 25px;
         }
 
-        /* HEADER CON FONDO AZUL GRISÁCEO (#e2e8f0) REQUERIDO */
+        /* HEADER CON FONDO AZUL GRISÁCEO REQUERIDO */
         header {
             background: var(--bg-nav);
             position: sticky; 
@@ -64,7 +64,6 @@
         .header-brand { display: flex; align-items: center; gap: 15px; cursor: pointer; }
         .header-brand img { height: 55px; }
         
-        /* Título oscuro que resalta perfectamente sobre el fondo azul grisáceo */
         .header-brand h1 { 
             font-size: 1.6rem; 
             margin: 0; 
@@ -75,7 +74,6 @@
             color: #1e3a8a; 
         }
 
-        /* Botón de navegación neomórfico/estilizado */
         .nav-btn {
             background: var(--bg-principal);
             border: 2px solid var(--bg-principal);
@@ -153,7 +151,6 @@
         .curso-info h3 { margin: 0 0 15px; font-size: 1.25rem; color: var(--texto-principal); font-weight: 700; transition: color 0.3s; }
         .curso-card:hover .curso-info h3 { color: var(--azul-electrico); }
 
-        /* Botones de Acción 3D Reales */
         .btn-accion {
             border: none; 
             padding: 14px; 
@@ -195,7 +192,6 @@
             box-shadow: 0 0 0 #991b1b;
         }
 
-        /* Botón de Confirmación Flotante 3D */
         #cart-float { position: fixed; bottom: 35px; left: 35px; z-index: 2000; display: none; }
         .btn-confirmar {
             background: linear-gradient(135deg, #00d2ff, #00a8cc); 
@@ -219,7 +215,6 @@
             box-shadow: 0 0 0 #007799;
         }
 
-        /* Botón Subir Estilo Cristal Oscuro */
         #btn-subir {
             position: fixed; bottom: 35px; left: 35px; z-index: 1900;
             background: rgba(16, 29, 56, 0.8);
@@ -235,7 +230,6 @@
         }
         #btn-subir svg { fill: var(--azul-electrico); width: 26px; height: 26px; }
 
-        /* Flotante Red Social */
         #whatsapp-btn { 
             position: fixed; bottom: 130px; right: 30px; width: 70px; height: 70px; 
             background: var(--verde-whatsapp); border-radius: 50%; z-index: 4000; 
@@ -243,7 +237,6 @@
             box-shadow: 0 8px 25px rgba(37,211,102,0.4); transition: transform 0.2s ease;
         }
 
-        /* Icono de Activación del Chatbot */
         #chat-icon { 
             position: fixed; bottom: 30px; right: 30px; width: 75px; height: 75px; 
             cursor: pointer; z-index: 4000; animation: pulse 2s infinite; 
@@ -312,11 +305,18 @@
         <div id="chat-messages" style="flex:1; padding:20px; overflow-y:auto; background:#0b1329; display:flex; flex-direction:column; gap:12px;"></div>
         <div style="padding:15px; background:#0f172a; display:flex; gap:10px; border-top: 1px solid var(--borde-cristal);">
             <input type="text" id="user-input" placeholder="Pregunta algo al asistente..." style="flex:1; padding:14px; border:1px solid var(--borde-cristal); background:rgba(10,25,47,0.7); color:white; border-radius:16px; outline:none; font-family: inherit;">
-            <button onclick="sendMessage()" style="background:var(--azul-electrico); color:#0a192f; border:none; width:50px; height:50px; border-radius:16px; cursor:pointer; font-weight:bold; font-size:1.2rem; display:flex; align-items:center; justify-content:center;">➤</button>
+            <!-- SE ASIGNA AQUÍ LA FUNCIÓN CORRECTA: enviarMensajeChat() -->
+            <button onclick="enviarMensajeChat()" style="background:var(--azul-electrico); color:#0a192f; border:none; width:50px; height:50px; border-radius:16px; cursor:pointer; font-weight:bold; font-size:1.2rem; display:flex; align-items:center; justify-content:center;">➤</button>
         </div>
     </div>
 
+    <!-- SE IMPORTAN LAS LIBRERÍAS DE FIREBASE OBLIGATORIAS -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    
+    <!-- CARGA DE TU SCRIPT LOGICO -->
     <script src="chatbot.js"></script>
+    
     <script>
         const CURSOS_SISTEMA = [
             {nombre: "Barbería", imagen: "img/barberia.jpg"}, 
@@ -362,15 +362,12 @@
             }
         };
 
-        // 🔥 FUNCIÓN OPTIMIZADA CON FILTRADO PREVIO DE IMAGEN
         function cargarCursos() {
             const grid = document.getElementById('grid-cursos');
             const seleccionados = JSON.parse(localStorage.getItem('cart')) || [];
             
             grid.innerHTML = CURSOS_SISTEMA.map(c => {
                 const estaEnCart = seleccionados.some(x => x.nombre.toLowerCase() === c.nombre.toLowerCase());
-                
-                // Validación estricta antes de inyectar el SRC al navegador (Evita parpadeos de error)
                 const imgValida = (c.imagen && c.imagen.trim() !== "") ? c.imagen : "img/logo.png";
                 
                 return `

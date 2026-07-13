@@ -199,7 +199,7 @@
     </footer>
 
     <!-- INTERFAZ DEL CHATBOT -->
-    <div id="chat-icon" onclick="toggleChat()" style="position:fixed; bottom:30px; right:30px; width:85px; height:85px; cursor:pointer; z-index:5000; animation: pulse 2s infinite;">
+    <div id="chat-icon" onclick="toggleChat()" style="position:fixed; bottom:30px; right:30px; width:85px; height:85px; cursor:pointer; z-index:5000;">
         <img src="img/chatbot.png" style="width:100%; height:100%; object-fit:contain; border-radius:50%; filter: drop-shadow(0 0 15px var(--azul-electrico));" onerror="this.style.display='none'; document.getElementById('fb').style.display='flex';">
         <div id="fb" style="display:none; width:100%; height:100%; background:var(--azul-primario); border-radius:50%; align-items:center; justify-content:center; color:white; font-size:40px; border:3px solid var(--azul-electrico);">🤖</div>
     </div>
@@ -214,18 +214,17 @@
             </div>
         </div>
         <div style="padding:20px; background:white; display:flex; gap:10px;">
-            <input type="text" id="user-input" placeholder="Pregunta algo..." style="flex:1; padding:15px; border:2px solid #e2e8f0; border-radius:20px; outline:none;" onkeypress="if(event.key==='Enter') sendMessage()">
-            <button onclick="sendMessage()" style="background:var(--azul-primario); color:var(--azul-electrico); border:none; width:55px; height:55px; border-radius:20px; cursor:pointer; font-size:1.5rem;">➤</button>
+            <input type="text" id="user-input" placeholder="Pregunta algo..." style="flex:1; padding:15px; border:2px solid #e2e8f0; border-radius:20px; outline:none;">
+            <!-- AQUÍ VINCULAMOS AL BOTÓN LA FUNCIÓN REAL DEL CHATBOT -->
+            <button onclick="enviarMensajeChat()" style="background:var(--azul-primario); color:var(--azul-electrico); border:none; width:55px; height:55px; border-radius:20px; cursor:pointer; font-size:1.5rem;">➤</button>
         </div>
     </div>
 
+    <!-- CARGA DE LIBRERÍAS DE FIREBASE (COMPAT) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    
+    <!-- CARGA DE TU SCRIPT LOGICO -->
     <script src="chatbot.js"></script>
-    <script>
-        function sendMessage() {
-            if (typeof window.sendMessage === 'function') {
-                window.sendMessage();
-            }
-        }
-    </script>
 </body>
 </html>

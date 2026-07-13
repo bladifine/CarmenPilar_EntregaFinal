@@ -6,7 +6,7 @@
  * Conexión en vivo con el nodo 'inscritos' de Realtime Database.
  */
 
-// 1. Configuración oficial de tu proyecto (Extraída de tus archivos de origen)
+// 1. Configuración oficial de tu proyecto
 const firebaseConfigChatbot = {
     apiKey: "AIzaSyDKnVg7dwb60-oXHs2nJ9w83XFkhN128tw",
     authDomain: "boteducarmen2026.firebaseapp.com",
@@ -26,6 +26,8 @@ const chatDb = firebase.database();
 // Control de apertura/cierre de la ventana flotante del chat
 function toggleChat() {
     const chatWindow = document.getElementById('chat-window');
+    if (!chatWindow) return;
+    
     if (chatWindow.style.display === 'none' || chatWindow.style.display === '') {
         chatWindow.style.display = 'flex';
     } else {
@@ -36,17 +38,19 @@ function toggleChat() {
 // Bandera para saber si el bot está esperando una cédula para consultar
 let esperandoCedula = false;
 
-// Función Principal para Enviar Mensajes en la Interfaz
-async function sendMessage() {
+// Función Principal para Enviar Mensajes en la Interfaz (Renombrada para evitar conflictos)
+async function enviarMensajeChat() {
     const inputEl = document.getElementById('user-input');
     const chatMessages = document.getElementById('chat-messages');
-    const txt = inputEl.value.trim();
     
+    if (!inputEl || !chatMessages) return;
+    
+    const txt = inputEl.value.trim();
     if (!txt) return;
 
     // Dibujar el mensaje del usuario en pantalla
     chatMessages.innerHTML += `
-        <div style="background: #0a192f; color: white; padding: 15px; border-radius: 20px; align-self: flex-end; max-width: 80%; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+        <div style="background: #0a192f; color: white; padding: 15px; border-radius: 20px; align-self: flex-end; max-width: 80%; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 10px;">
             ${txt}
         </div>
     `;
@@ -57,7 +61,7 @@ async function sendMessage() {
     // Mostrar burbuja de carga temporal del Bot
     const tempId = "loading-" + Date.now();
     chatMessages.innerHTML += `
-        <div id="${tempId}" style="background: white; padding: 15px; border-radius: 20px; align-self: flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid #00d2ff;">
+        <div id="${tempId}" style="background: white; padding: 15px; border-radius: 20px; align-self: flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid #00d2ff; margin-bottom: 10px;">
             🤖 Pensando...
         </div>
     `;
@@ -66,37 +70,46 @@ async function sendMessage() {
     // --- PROCESAR LA RESPUESTA DE LA IA ---
     let botResponse = "";
 
-    if (esperandoCedula) {
-        // Extraer solo los números de la entrada del usuario en caso de que escriban "V-26..."
-        const cedulaLimpia = txt.replace(/\D/g, "");
-        
-        if (cedulaLimpia.length < 5) {
-            botResponse = "⚠️ Por favor, introduce una cédula de identidad válida (solo números, ej: 27123456).";
+    try {
+        if (esperandoCedula) {
+            // Extraer solo los números de la entrada del usuario en caso de que escriban "V-26..."
+            const cedulaLimpia = txt.replace(/\D/g, "");
+            
+            if (cedulaLimpia.length < 5) {
+                botResponse = "⚠️ Por favor, introduce una cédula de identidad válida (solo números, ej: 27123456).";
+            } else {
+                // Invocar la búsqueda asíncrona real en la base de datos de Firebase
+                botResponse = await consultarEstatusEnFirebase(cedulaLimpia);
+                esperandoCedula = false; // Resetear el estado
+            }
         } else {
-            // Invocar la búsqueda asíncrona real en la base de datos de Firebase
-            botResponse = await consultarEstatusEnFirebase(cedulaLimpia);
-            esperandoCedula = false; // Resetear el estado
-        }
-    } else {
-        // Respuestas generales del asistente de IA
-        const entradaMinuscula = txt.toLowerCase();
+            // Respuestas generales del asistente de IA
+            const entradaMinuscula = txt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-        if (entradaMinuscula.includes('estatus') || entradaMinuscula.includes('inscrito') || entradaMinuscula.includes('revisar') || entradaMinuscula.includes('cedula') || entradaMinuscula.includes('consulta')) {
-            botResponse = "🔍 ¡Excelente! Con gusto revisaré tu estatus en el servidor de Firebase. Por favor, <b>escribe solo los números de tu Cédula de Identidad</b> para iniciar la búsqueda:";
-            esperandoCedula = true;
-        } else if (entradaMinuscula.includes('hola') || entradaMinuscula.includes('buenas')) {
-            botResponse = "👋 ¡Hola, Bladimir! Te habla el Asistente Virtual 2026. Puedo orientarte sobre los cursos o revisar en tiempo real el estatus de tu inscripción. ¿En qué te puedo ayudar hoy?";
-        } else if (entradaMinuscula.includes('curso') || entradaMinuscula.includes('oferta') || entradaMinuscula.includes('estudiar')) {
-            botResponse = "📚 Contamos con cursos tecnológicos de vanguardia y capacitación artesanal (Programación, Ofimática, Confección, etc.). Puedes ver los detalles en la pestaña superior en el botón <b>CURSOS</b>.";
-        } else {
-            botResponse = "🤖 Entendido. Recuerda que puedes consultarme sobre la oferta de cursos o escribir la palabra <b>'Estatus'</b> para verificar si tu registro en el sistema fue procesado con éxito.";
+            if (entradaMinuscula.includes('estatus') || entradaMinuscula.includes('extatux') || entradaMinuscula.includes('inscrito') || entradaMinuscula.includes('revisar') || entradaMinuscula.includes('cedula') || entradaMinuscula.includes('consulta')) {
+                botResponse = "🔍 ¡Excelente! Con gusto revisaré tu estatus en el servidor de Firebase. Por favor, <b>escribe solo los números de tu Cédula de Identidad</b> para iniciar la búsqueda:";
+                esperandoCedula = true;
+            } else if (entradaMinuscula.includes('hola') || entradaMinuscula.includes('buenas')) {
+                botResponse = "👋 ¡Hola, Bladimir! Te habla el Asistente Virtual 2026. Puedo orientarte sobre los cursos o revisar en tiempo real el estatus de tu inscripción. ¿En qué te puedo ayudar hoy?";
+            } else if (entradaMinuscula.includes('llamas') || entradaMinuscula.includes('nombre') || entradaMinuscula.includes('quien eres')) {
+                botResponse = "🤖 Mi nombre es <b>BotEduCarmen 2026</b>, un asistente virtual programado para agilizar la gestión informativa del CPF Carmen Pilar Fernández.";
+            } else if (entradaMinuscula.includes('curso') || entradaMinuscula.includes('oferta') || entradaMinuscula.includes('estudiar')) {
+                botResponse = "📚 Contamos con cursos tecnológicos de vanguardia y capacitación artesanal (Programación, Ofimática, Confección, etc.). Puedes ver los detalles en la pestaña superior en el botón <b>CURSOS</b>.";
+            } else {
+                botResponse = "🤖 Entendido. Recuerda que puedes consultarme sobre la oferta de cursos o escribir la palabra <b>'Estatus'</b> para verificar si tu registro en el sistema fue procesado con éxito.";
+            }
         }
+    } catch (error) {
+        botResponse = "⚠️ Ocurrió un error procesando el mensaje: " + error.message;
     }
 
-    // Remover indicador de carga y pintar la respuesta definitiva
-    document.getElementById(tempId).remove();
+    // Remover indicador de carga de forma segura
+    const loadingEl = document.getElementById(tempId);
+    if (loadingEl) loadingEl.remove();
+
+    // Pintar la respuesta definitiva
     chatMessages.innerHTML += `
-        <div style="background: white; padding: 15px; border-radius: 20px; align-self: flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid #00d2ff; line-height: 1.5;">
+        <div style="background: white; padding: 15px; border-radius: 20px; align-self: flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid #00d2ff; line-height: 1.5; margin-bottom: 10px; color: #1e293b;">
             ${botResponse}
         </div>
     `;
@@ -116,15 +129,13 @@ function consultarEstatusEnFirebase(cedulaBuscada) {
                 // Iterar sobre todos los registros en la base de datos remota
                 snapshot.forEach((childSnapshot) => {
                     const datos = childSnapshot.val();
-                    // Comparamos los valores de cédula limpiando posibles espacios
                     if (String(datos.cedula).trim() === String(cedulaBuscada).trim()) {
                         alumnoEncontrado = datos;
-                        return true; // Rompe el bucle de forEach prematuramente al encontrarlo
+                        return true; // Rompe el bucle de forEach
                     }
                 });
 
                 if (alumnoEncontrado) {
-                    // Retorno dinámico con datos reales extraídos de Firebase
                     resolve(`✅ <b>¡Registro Encontrado con Éxito!</b><br><br>
                             👤 <b>Estudiante:</b> ${alumnoEncontrado.nombre}<br>
                             🪪 <b>Cédula:</b> V-${alumnoEncontrado.cedula}<br>
@@ -144,3 +155,16 @@ function consultarEstatusEnFirebase(cedulaBuscada) {
             });
     });
 }
+
+// 4. Escuchar eventos del teclado para enviar con ENTER
+document.addEventListener("DOMContentLoaded", () => {
+    const userInput = document.getElementById('user-input');
+    if (userInput) {
+        userInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                enviarMensajeChat();
+            }
+        });
+    }
+});
