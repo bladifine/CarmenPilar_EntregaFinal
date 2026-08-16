@@ -11,7 +11,6 @@ const firebaseConfig = {
     appId: "1:345344555322:web:df90364298617b9314b803"
 };
 
-// Inicialización condicional para evitar errores de duplicación
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
@@ -49,18 +48,14 @@ async function enviarMensajeChat() {
     const mensajeTexto = inputField.value.trim();
     if (mensajeTexto === '') return;
 
-    // Agregar mensaje enviado por el usuario
     agregarBurbujaChat(mensajeTexto, 'usuario');
     inputField.value = '';
 
-    // Crear indicador visual de respuesta
     const idCargando = "bot-cargando-" + Date.now();
     agregarBurbujaChat("<em>Procesando consulta...</em>", 'bot', idCargando);
 
-    // Obtener respuesta del bot (Firebase / IA / FAQs)
     const respuesta = await procesarRespuestaBot(mensajeTexto);
 
-    // Reemplazar texto del indicador por la respuesta final
     const elemCargando = document.getElementById(idCargando);
     if (elemCargando) {
         elemCargando.innerHTML = respuesta;
@@ -102,65 +97,122 @@ function agregarBurbujaChat(texto, emisor, id = null) {
 }
 
 // ==========================================================
-// LÓGICA DE DETECCIÓN Y RESPUESTAS
+// LÓGICA DE DETECCIÓN Y RESPUESTAS DETALLADAS
 // ==========================================================
 async function procesarRespuestaBot(mensajeOriginal) {
     const mensaje = mensajeOriginal.toLowerCase();
-
-    // Detección de números de cédula (de 5 a 10 dígitos)
     const numerosEncontrados = mensajeOriginal.match(/\d{5,10}/);
 
-    // 1. Consulta de estatus de inscripción por Cédula
+    // 1. Nombre e Identidad del Bot
+    if (mensaje.includes('como te llamas') || mensaje.includes('cómo te llamas') || mensaje.includes('quien eres') || mensaje.includes('quién eres') || mensaje.includes('tu nombre')) {
+        return "¡Hola! Soy el <strong>Asistente Virtual de BotEduCarmen</strong>. Estoy diseñado para orientarte sobre toda nuestra oferta educativa, el proceso de inscripción y consultar el estatus de tu registro.";
+    }
+
+    // 2. Proceso de Inscripción desde cualquier parte de la página
+    if (mensaje.includes('como me inscribo') || mensaje.includes('cómo me inscribo') || mensaje.includes('como inscribirme') || mensaje.includes('pasos para inscribirme') || mensaje.includes('proceso de inscripcion') || mensaje.includes('proceso de inscripción')) {
+        return "📝 <strong>¿Cómo inscribirte desde cualquier sección de la página?</strong><br><br>" +
+               "1. En el menú superior, haz clic en la pestaña <strong>CURSOS</strong>.<br>" +
+               "2. Selecciona el curso que deseas realizar y presiona el botón <strong>Añadir al Carrito</strong>.<br>" +
+               "3. Ve a la pestaña <strong>CARRITO</strong> para verificar tu selección.<br>" +
+               "4. Por último, dirígete a <strong>CONTACTO</strong>, llena el formulario con tus datos y presiona enviar para completar tu registro.";
+    }
+
+    // 3. Consulta de Cursos Específicos
+    if (mensaje.includes('electricidad') || mensaje.includes('electrica')) {
+        return "⚡ <strong>Curso de Electricidad Básica y Residencial:</strong><br>" +
+               "• <strong>Duración:</strong> 6 semanas (40 horas).<br>" +
+               "• <strong>Contenido:</strong> Circuitos, tableros eléctricos, instalaciones residenciales y medidas de seguridad.<br>" +
+               "• <strong>Costo:</strong> Totalmente Gratuito.<br>" +
+               "• <strong>Modalidad:</strong> Presencial teórico-práctico.";
+    }
+
+    if (mensaje.includes('informatica') || mensaje.includes('informática') || mensaje.includes('computacion') || mensaje.includes('computación')) {
+        return "💻 <strong>Curso de Informática Básica y Ofimática:</strong><br>" +
+               "• <strong>Duración:</strong> 6 semanas (40 horas).<br>" +
+               "• <strong>Contenido:</strong> Uso de computador, procesamiento de texto, hojas de cálculo e introducción a la navegación en la web.<br>" +
+               "• <strong>Costo:</strong> Gratuito.<br>" +
+               "• <strong>Modalidad:</strong> Presencial en laboratorio.";
+    }
+
+    if (mensaje.includes('peluqueria') || mensaje.includes('peluquería') || mensaje.includes('barberia') || mensaje.includes('barbería')) {
+        return "✂️ <strong>Curso de Peluquería y Barbería:</strong><br>" +
+               "• <strong>Duración:</strong> 6 semanas (40 horas).<br>" +
+               "• <strong>Contenido:</strong> Técnicas de corte, secado, estilismo y tratamiento capilar básico.<br>" +
+               "• <strong>Costo:</strong> Gratuito.<br>" +
+               "• <strong>Modalidad:</strong> Práctica guiada.";
+    }
+
+    if (mensaje.includes('manicura') || mensaje.includes('pedicura') || mensaje.includes('uñas') || mensaje.includes('unas')) {
+        return "💅 <strong>Curso de Manicura y Pedicura Básica:</strong><br>" +
+               "• <strong>Duración:</strong> 6 semanas (40 horas).<br>" +
+               "• <strong>Contenido:</strong> Cuidado de uñas, limpieza, esmaltado y técnicas de diseño básico.<br>" +
+               "• <strong>Costo:</strong> Gratuito.<br>" +
+               "• <strong>Modalidad:</strong> Presencial práctico.";
+    }
+
+    if (mensaje.includes('reposteria') || mensaje.includes('repostería') || mensaje.includes('cocina')) {
+        return "🍰 <strong>Curso de Repostería y Panadería Básica:</strong><br>" +
+               "• <strong>Duración:</strong> 6 semanas (40 horas).<br>" +
+               "• <strong>Contenido:</strong> Preparación de masas, cubiertas, bizcochos y técnicas de decoración.<br>" +
+               "• <strong>Costo:</strong> Gratuito.<br>" +
+               "• <strong>Modalidad:</strong> Presencial en taller.";
+    }
+
+    // 4. Catálogo Completo o Pregunta General sobre Cursos / Oferta Académica
+    if (mensaje.includes('que cursos') || mensaje.includes('qué cursos') || mensaje.includes('catalogo') || mensaje.includes('catálogo') || mensaje.includes('oferta') || mensaje.includes('lista de cursos') || mensaje.includes('cursos disponibles') || mensaje.includes('cursos')) {
+        return "📚 <strong>Catálogo de Cursos Disponibles en BotEduCarmen:</strong><br><br>" +
+               "• ⚡ <strong>Electricidad Básica</strong> (Duración: 6 semanas)<br>" +
+               "• 💻 <strong>Informática Básica</strong> (Duración: 6 semanas)<br>" +
+               "• ✂️ <strong>Peluquería y Barbería</strong> (Duración: 6 semanas)<br>" +
+               "• 💅 <strong>Manicura y Pedicura</strong> (Duración: 6 semanas)<br>" +
+               "• 🍰 <strong>Repostería Básica</strong> (Duración: 6 semanas)<br><br>" +
+               "Todos los cursos son <strong>totalmente gratuitos</strong>. Puedes seleccionar cualquiera navegando a la pestaña <strong>CURSOS</strong> del menú principal.";
+    }
+
+    // 5. Duración General
+    if (mensaje.includes('dura') || mensaje.includes('duracion') || mensaje.includes('duración') || mensaje.includes('cuanto tiempo') || mensaje.includes('cuánto tiempo')) {
+        return "Todos los cursos de capacitación en la institución tienen una duración estándar de <strong>6 semanas</strong> (40 horas académicas teórico-prácticas).";
+    }
+
+    // 6. Consulta de Estatus en Firebase por Cédula
     if (mensaje.includes('estatus') || mensaje.includes('cedula') || mensaje.includes('cédula') || mensaje.includes('inscripcion') || mensaje.includes('inscripción') || numerosEncontrados) {
         if (numerosEncontrados) {
             const cedulaBuscar = numerosEncontrados[0];
             return await consultarEstatusEnFirebase(cedulaBuscar);
         } else {
-            return "Por favor, escribe tu <strong>número de cédula</strong> (por ejemplo: 12345678) para consultar tu estatus de inscripción en el sistema.";
+            return "Por favor, escribe tu <strong>número de cédula</strong> (ejemplo: 12345678) para buscar tu estatus de inscripción en la base de datos.";
         }
     }
 
-    // 2. Información detallada del sistema y la plataforma
+    // 7. Requisitos de Ingreso
     if (mensaje.includes('requisito') || mensaje.includes('necesito')) {
-        return "<strong>Requisitos para inscribirte:</strong><br>• Cédula de identidad laminada o copia.<br>• Correo electrónico activo.<br>• Número telefónico.<br>• Ganas de aprender. ¡Los cursos son totalmente gratuitos!";
+        return "📋 <strong>Requisitos de Inscripción:</strong><br>" +
+               "• Cédula de Identidad (V o E).<br>" +
+               "• Correo electrónico activo.<br>" +
+               "• Número telefónico de contacto.<br>" +
+               "• ¡No se requiere pago alguno, la educación es gratuita!";
     }
 
-    if (mensaje.includes('como me inscribo') || mensaje.includes('cómo me inscribo') || mensaje.includes('pasos') || mensaje.includes('inscribir')) {
-        return "<strong>Pasos para la inscripción:</strong><br>1. Dirígete a la pestaña <strong>CURSOS</strong>.<br>2. Selecciona los de tu interés y agrégalos al carrito.<br>3. Revisa tu lista en <strong>CARRITO</strong>.<br>4. Ve a <strong>CONTACTO</strong>, llena tus datos y envía el formulario.";
-    }
-
-    if (mensaje.includes('ubicacion') || mensaje.includes('donde') || mensaje.includes('dónde')) {
-        return "Estamos ubicados en La Victoria, Estado Aragua. Las inscripciones se gestionan completamente en línea desde este portal.";
-    }
-
-    // 3. Respuesta Inteligente Abierta para cualquier otra pregunta
+    // 8. Consulta IA Genérica Secundaria
     return await consultarIAGenerica(mensajeOriginal);
 }
 
 // ==========================================================
-// CONSULTA A FIREBASE CON BÚSQUEDA RECURSIVA (ROBUSTA)
+// CONSULTA RECURSIVA EN FIREBASE (ESTATUS)
 // ==========================================================
 async function consultarEstatusEnFirebase(cedulaBuscar) {
     try {
         const cedulaLimpia = cedulaBuscar.toString().replace(/\D/g, '');
-
-        if (!cedulaLimpia) {
-            return "Ingresa un número de cédula válido.";
-        }
+        if (!cedulaLimpia) return "Ingresa un número de cédula válido.";
 
         const snapshot = await db.ref().once('value');
         const datosRaiz = snapshot.val();
-
-        if (!datosRaiz) {
-            return "No hay datos registrados en el sistema actualmente.";
-        }
+        if (!datosRaiz) return "No hay datos registrados en el sistema actualmente.";
 
         let encontrado = null;
 
-        // Recorre de forma profunda todo el árbol JSON para hallar coincidencia
         function buscarEnObjeto(obj) {
             if (!obj || typeof obj !== 'object' || encontrado) return;
-
             const posibleCedula = obj.cedula || obj.ci || obj.documento || obj.cedula_identidad || obj.identificacion;
             
             if (posibleCedula) {
@@ -193,17 +245,16 @@ async function consultarEstatusEnFirebase(cedulaBuscar) {
                    `• <strong>Curso(s):</strong> ${cursos}<br>` +
                    `• <strong>Estatus:</strong> <span style="color:#007bff; font-weight:bold;">${estatus}</span>`;
         } else {
-            return `No se encontraron registros activos para la cédula <strong>V-${cedulaLimpia}</strong>.<br><br>Verifica el número o completa tu solicitud en el módulo de <strong>Contacto</strong>.`;
+            return `No se encontraron registros activos para la cédula <strong>V-${cedulaLimpia}</strong>.`;
         }
-
     } catch (error) {
         console.error("Error al consultar Firebase:", error);
-        return "Error al conectar con la base de datos. Inténtalo de nuevo en unos momentos.";
+        return "Error al conectar con la base de datos.";
     }
 }
 
 // ==========================================================
-// CONSULTA INTELIGENTE ABIERTA (RESPONDE CUALQUIER TEMA)
+// CONSULTA INTELIGENTE ABIERTA
 // ==========================================================
 async function consultarIAGenerica(pregunta) {
     try {
@@ -212,7 +263,7 @@ async function consultarIAGenerica(pregunta) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 messages: [
-                    { role: 'system', content: 'Eres el Asistente Virtual educativo de BotEduCarmen (La Victoria, Aragua). Responde de forma breve, amable y concisa a las dudas del usuario.' },
+                    { role: 'system', content: 'Eres el Asistente Virtual educativo de BotEduCarmen (La Victoria, Aragua). Tu nombre es Asistente Virtual de BotEduCarmen. Responde de forma amable y concisa.' },
                     { role: 'user', content: pregunta }
                 ],
                 model: 'openai'
@@ -225,6 +276,6 @@ async function consultarIAGenerica(pregunta) {
             throw new Error("Respuesta no obtenida");
         }
     } catch (err) {
-        return "Puedo orientarte con la oferta de <strong>cursos</strong>, <strong>requisitos</strong>, <strong>pasos de inscripción</strong> o consultar tu estatus ingresando tu <strong>número de cédula</strong>.";
+        return "Puedo orientarte sobre nuestros **cursos**, **duración**, **requisitos**, **proceso de inscripción** o verificar tu **estatus por cédula**.";
     }
 }
