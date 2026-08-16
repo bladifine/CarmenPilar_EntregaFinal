@@ -15,7 +15,6 @@
             --azul-electrico: #00d2ff;
             --naranja-neon: #ff6d00;
             --naranja-glow: #ff9100;
-            --verde-whatsapp: #25d366;
             --borde-cristal: rgba(0, 210, 255, 0.15);
             --borde-cristal-hover: rgba(0, 210, 255, 0.4);
         }
@@ -29,7 +28,7 @@
             min-height: 100vh;
         }
 
-        /* BARRA SUPERIOR CONSTANTE INDÉNTICA AL INDEX */
+        /* BARRA SUPERIOR CONSTANTE IDENTICA AL INDEX */
         .top-bar {
             background: #050c18;
             color: var(--azul-electrico);
@@ -59,7 +58,7 @@
             border-bottom: 2px solid var(--azul-electrico);
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
         
         .header-brand { display: flex; align-items: center; gap: 15px; cursor: pointer; }
         .header-brand img { height: 55px; }
@@ -92,11 +91,11 @@
         }
 
         /* Buscador Cyberpunk */
-        .search-container { text-align: center; margin: 40px 0 20px; }
+        .search-container { text-align: center; margin: 30px 0 20px; }
         #buscador { 
-            width: 80%; 
-            max-width: 500px; 
-            padding: 16px 25px; 
+            width: 100%; 
+            max-width: 600px; 
+            padding: 14px 25px; 
             border-radius: 20px; 
             border: 2px solid var(--borde-cristal);
             background: rgba(16, 29, 56, 0.6); 
@@ -105,6 +104,7 @@
             font-size: 1rem;
             font-weight: 500;
             transition: all 0.3s ease;
+            box-sizing: border-box;
         }
         #buscador:focus {
             border-color: var(--azul-electrico);
@@ -114,81 +114,110 @@
             color: var(--texto-secundario);
         }
 
-        /* Grid de Cursos */
-        .cursos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 30px;
-            padding: 20px 20px 60px;
+        /* LISTA HORIZONTAL MINIMALISTA Y SOBRIA */
+        .cursos-lista {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 10px 0 80px;
         }
 
-        /* Tarjeta de Curso */
+        /* Tarjeta Compacta Horizontal */
         .curso-card {
             background: var(--bg-card);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-radius: 24px;
-            overflow: hidden;
+            border-radius: 16px;
             border: 1px solid var(--borde-cristal);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-align: center;
+            transition: all 0.2s ease-in-out;
             display: flex;
-            flex-direction: column;
-            padding: 15px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            gap: 15px;
             box-sizing: border-box;
         }
         .curso-card:hover { 
-            transform: translateY(-8px); 
+            transform: translateX(4px); 
             border-color: var(--borde-cristal-hover);
-            box-shadow: 0 12px 30px rgba(0, 210, 255, 0.15);
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.15);
         }
         
-        .curso-img-link { display: block; border-radius: 16px; overflow: hidden; }
-        .curso-img { width: 100%; height: 170px; object-fit: cover; transition: transform 0.5s ease; }
-        .curso-card:hover .curso-img { transform: scale(1.06); }
-        
-        .curso-info { padding: 15px 5px 5px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .curso-info h3 { margin: 0 0 15px; font-size: 1.25rem; color: var(--texto-principal); font-weight: 700; transition: color 0.3s; }
-        .curso-card:hover .curso-info h3 { color: var(--azul-electrico); }
+        .curso-info-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+            min-width: 0;
+        }
 
+        .curso-img-link { display: flex; flex-shrink: 0; }
+        .curso-img { 
+            width: 55px; 
+            height: 55px; 
+            border-radius: 12px; 
+            object-fit: cover; 
+            border: 1px solid var(--borde-cristal);
+        }
+        
+        .curso-titulo-link {
+            text-decoration: none;
+            color: var(--texto-principal);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .curso-titulo-link h3 { 
+            margin: 0; 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            transition: color 0.2s;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .curso-card:hover .curso-titulo-link h3 { color: var(--azul-electrico); }
+
+        /* Botón Compacto a la Derecha */
         .btn-accion {
             border: none; 
-            padding: 14px; 
-            border-radius: 16px; 
-            width: 100%; 
+            padding: 10px 18px; 
+            border-radius: 12px; 
             cursor: pointer; 
             font-weight: 800; 
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             letter-spacing: 0.5px;
             transition: all 0.15s ease-in-out;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         
         .btn-seleccionar { 
             background: linear-gradient(135deg, var(--naranja-neon), var(--naranja-glow)); 
             color: white; 
-            box-shadow: 0 6px 0 #b34b00, 0 10px 15px rgba(255, 109, 0, 0.3); 
+            box-shadow: 0 4px 0 #b34b00, 0 6px 12px rgba(255, 109, 0, 0.25); 
         }
         .btn-seleccionar:hover {
             transform: translateY(2px);
-            box-shadow: 0 4px 0 #b34b00, 0 8px 10px rgba(255, 109, 0, 0.35);
+            box-shadow: 0 2px 0 #b34b00, 0 4px 8px rgba(255, 109, 0, 0.3);
         }
         .btn-seleccionar:active {
-            transform: translateY(6px);
+            transform: translateY(4px);
             box-shadow: 0 0 0 #b34b00;
         }
 
         .btn-quitar { 
             background: linear-gradient(135deg, #ef4444, #dc2626); 
             color: white; 
-            box-shadow: 0 6px 0 #991b1b, 0 10px 15px rgba(239, 68, 68, 0.3);
+            box-shadow: 0 4px 0 #991b1b, 0 6px 12px rgba(239, 68, 68, 0.25);
         }
         .btn-quitar:hover {
             transform: translateY(2px);
-            box-shadow: 0 4px 0 #991b1b, 0 8px 10px rgba(239, 68, 68, 0.35);
+            box-shadow: 0 2px 0 #991b1b, 0 4px 8px rgba(239, 68, 68, 0.3);
         }
         .btn-quitar:active {
-            transform: translateY(6px);
+            transform: translateY(4px);
             box-shadow: 0 0 0 #991b1b;
         }
 
@@ -230,13 +259,6 @@
         }
         #btn-subir svg { fill: var(--azul-electrico); width: 26px; height: 26px; }
 
-        #whatsapp-btn { 
-            position: fixed; bottom: 130px; right: 30px; width: 70px; height: 70px; 
-            background: var(--verde-whatsapp); border-radius: 50%; z-index: 4000; 
-            display: flex; align-items: center; justify-content: center; cursor: pointer; 
-            box-shadow: 0 8px 25px rgba(37,211,102,0.4); transition: transform 0.2s ease;
-        }
-
         #chat-icon { 
             position: fixed; bottom: 30px; right: 30px; width: 75px; height: 75px; 
             cursor: pointer; z-index: 4000; animation: pulse 2s infinite; 
@@ -275,11 +297,13 @@
         </div>
     </header>
 
-    <div class="search-container">
-        <input type="text" id="buscador" placeholder="🔍 ¿Qué área o curso buscas aprender hoy?" onkeyup="filtrar()">
-    </div>
+    <div class="container">
+        <div class="search-container">
+            <input type="text" id="buscador" placeholder="🔍 ¿Qué área o curso buscas aprender hoy?" onkeyup="filtrar()">
+        </div>
 
-    <div id="grid-cursos" class="cursos-grid container"></div>
+        <div id="grid-cursos" class="cursos-lista"></div>
+    </div>
 
     <div id="cart-float">
         <a href="carrito.html" class="btn-confirmar">🚀 INSCRIPCIÓN (<span id="cart-count">0</span>)</a>
@@ -288,10 +312,6 @@
     <button id="btn-subir" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
         <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
     </button>
-
-    <div id="whatsapp-btn" onclick="window.open('https://wa.me/584243360158', '_blank')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:40px;" alt="WhatsApp">
-    </div>
     
     <div id="chat-icon" onclick="toggleChat()">
         <img src="img/chatbot.png" style="width:100%; height:100%; border-radius:50%; box-shadow: 0 4px 15px rgba(0,210,255,0.4);" alt="Chatbot" onerror="this.style.display='none'; document.getElementById('fb').style.display='flex';">
@@ -305,7 +325,6 @@
         <div id="chat-messages" style="flex:1; padding:20px; overflow-y:auto; background:#0b1329; display:flex; flex-direction:column; gap:12px;"></div>
         <div style="padding:15px; background:#0f172a; display:flex; gap:10px; border-top: 1px solid var(--borde-cristal);">
             <input type="text" id="user-input" placeholder="Pregunta algo al asistente..." style="flex:1; padding:14px; border:1px solid var(--borde-cristal); background:rgba(10,25,47,0.7); color:white; border-radius:16px; outline:none; font-family: inherit;">
-            <!-- SE ASIGNA AQUÍ LA FUNCIÓN CORRECTA: enviarMensajeChat() -->
             <button onclick="enviarMensajeChat()" style="background:var(--azul-electrico); color:#0a192f; border:none; width:50px; height:50px; border-radius:16px; cursor:pointer; font-weight:bold; font-size:1.2rem; display:flex; align-items:center; justify-content:center;">➤</button>
         </div>
     </div>
@@ -372,15 +391,17 @@
                 
                 return `
                     <div class="curso-card" data-name="${c.nombre.toLowerCase()}">
-                        <a href="detalle-curso.html?curso=${encodeURIComponent(c.nombre)}" class="curso-img-link">
-                            <img src="${imgValida}" class="curso-img" onerror="this.src='img/logo.png'">
-                        </a>
-                        <div class="curso-info">
-                            <h3>${c.nombre}</h3>
-                            <button onclick="toggleSeleccion('${c.nombre}', '${imgValida}')" class="btn-accion ${estaEnCart ? 'btn-quitar' : 'btn-seleccionar'}">
-                                ${estaEnCart ? '✖ QUITAR SELECCIÓN' : '✚ SELECCIONAR CURSO'}
-                            </button>
+                        <div class="curso-info-left">
+                            <a href="detalle-curso.html?curso=${encodeURIComponent(c.nombre)}" class="curso-img-link">
+                                <img src="${imgValida}" class="curso-img" onerror="this.src='img/logo.png'">
+                            </a>
+                            <a href="detalle-curso.html?curso=${encodeURIComponent(c.nombre)}" class="curso-titulo-link">
+                                <h3>${c.nombre}</h3>
+                            </a>
                         </div>
+                        <button onclick="toggleSeleccion('${c.nombre}', '${imgValida}')" class="btn-accion ${estaEnCart ? 'btn-quitar' : 'btn-seleccionar'}">
+                            ${estaEnCart ? '✖ QUITAR SELECCIÓN' : '✚ SELECCIONAR CURSO'}
+                        </button>
                     </div>
                 `;
             }).join('');
@@ -404,7 +425,7 @@
         function filtrar() {
             let val = document.getElementById('buscador').value.toLowerCase();
             document.querySelectorAll('.curso-card').forEach(card => {
-                card.style.display = card.dataset.name.includes(val) ? "block" : "none";
+                card.style.display = card.dataset.name.includes(val) ? "flex" : "none";
             });
         }
 

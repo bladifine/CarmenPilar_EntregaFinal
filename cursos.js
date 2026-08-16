@@ -1,6 +1,6 @@
 /**
- * cursos.js - Base de Datos de Cursos Actualizada 2026
- * Mapeo exacto con los archivos reales en la carpeta /img
+ * cursos.js - Base de Datos Completa y Motor de Cursos
+ * BotEduCarmen
  */
 
 const MIS_CURSOS = [
@@ -33,7 +33,7 @@ const MIS_CURSOS = [
 ];
 
 function mostrarCursos() {
-    const grid = document.getElementById('cursos-grid');
+    const grid = document.getElementById('catalogo-container');
     if (!grid) return;
 
     grid.innerHTML = MIS_CURSOS.map(c => {
@@ -41,29 +41,21 @@ function mostrarCursos() {
         const yaSeleccionado = cart.some(item => item.nombre === c.name);
         
         const textoBtn = yaSeleccionado ? "✅ SELECCIONADO" : "SELECCIONAR";
-        const claseBtn = yaSeleccionado ? "btn-primary seleccionado" : "btn-primary";
-        const urlDetalle = `detalle-curso.html?curso=${encodeURIComponent(c.name)}`;
+        const estiloBtn = yaSeleccionado ? "background: #10b981; color: white;" : "";
 
         return `
             <div class="curso-card" data-name="${c.name.toLowerCase()}">
-                <a href="${urlDetalle}" style="display:block; text-decoration:none;">
-                    <div class="curso-img-box" style="cursor:pointer;">
-                        <img src="${c.img}" alt="${c.name}" onerror="this.src='img/logo.png'">
-                    </div>
-                </a>
+                <div class="curso-img" style="background-image: url('${c.img}'), url('img/logo.png')"></div>
                 <div class="curso-info">
-                    <span class="tag">${c.cat}</span>
-                    <h3 style="min-height: 50px; display: flex; align-items: center;">${c.name}</h3>
-                    <p class="costo">Costo: <b>${c.price}</b></p>
-                    
-                    <div style="display:flex; gap:10px; margin-top:20px; width:100%;">
-                        <button class="${claseBtn}" onclick="toggleSeleccion('${c.name}', '${c.img}')" style="flex: 1; padding: 12px 5px; font-size: 0.85rem; font-weight: 700; border-radius: 12px; cursor: pointer; border: none; white-space: nowrap;">
-                            ${textoBtn}
-                        </button>
-                        <a href="${urlDetalle}" class="btn-detalles" style="flex: 1; padding: 12px 5px; font-size: 0.85rem; font-weight: 700; border-radius: 12px; text-decoration: none; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.2); text-align: center; white-space: nowrap; box-sizing: border-box;">
-                            VER DETALLES
-                        </a>
+                    <span style="font-size: 0.8rem; font-weight:800; color: var(--azul-electrico); text-transform: uppercase;">${c.cat}</span>
+                    <h3 class="curso-titulo">${c.name}</h3>
+                    <div class="curso-meta">
+                        <span style="color:#64748b; font-weight:600; font-size:0.9rem;">Área: ${c.cat}</span>
+                        <span class="curso-costo">${c.price}</span>
                     </div>
+                    <button class="btn-add" style="${estiloBtn}" onclick="toggleSeleccion('${c.name}', '${c.img}')">
+                        ${textoBtn}
+                    </button>
                 </div>
             </div>
         `;
@@ -71,10 +63,13 @@ function mostrarCursos() {
 }
 
 function filtrarCursos() {
-    const busqueda = document.getElementById('buscador').value.toLowerCase();
+    const buscador = document.getElementById('buscador');
+    if(!buscador) return;
+    const busqueda = buscador.value.toLowerCase();
+    
     document.querySelectorAll('.curso-card').forEach(card => {
         const nombreCurso = card.dataset.name;
-        card.style.display = nombreCurso.includes(busqueda) ? "block" : "none";
+        card.style.display = nombreCurso.includes(busqueda) ? "flex" : "none";
     });
 }
 
@@ -85,7 +80,7 @@ function toggleSeleccion(nombre, imagen) {
     if (index !== -1) {
         cart.splice(index, 1);
     } else {
-        cart.push({ nombre: nombre, imagen: imagen });
+        cart.push({ nombre: nombre, costo: "Gratis", imagen: imagen });
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));

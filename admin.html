@@ -14,173 +14,122 @@
             --texto-secundario: #94a3b8;
             --azul-electrico: #00d2ff;
             --naranja-neon: #ff6d00;
-            --naranja-glow: #ff9100;
+            --verde-exito: #10b981;
             --borde-cristal: rgba(0, 210, 255, 0.15);
-            --borde-cristal-hover: rgba(0, 210, 255, 0.4);
         }
 
         body { 
             background-color: var(--bg-principal); 
             color: var(--texto-principal); 
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
+            margin: 0; padding: 0; min-height: 100vh;
         }
 
         .top-bar {
-            background: #050c18;
-            color: var(--azul-electrico);
-            padding: 10px 0;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            font-weight: 600;
-            border-bottom: 2px solid var(--azul-electrico);
-            text-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
+            background: #050c18; color: var(--azul-electrico); padding: 10px 0;
+            font-size: 0.85rem; letter-spacing: 1px; font-weight: 600;
+            border-bottom: 2px solid var(--azul-electrico); text-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
         }
-        .top-bar-content {
-            display: flex;
-            justify-content: space-between;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 25px;
-        }
+        .top-bar-content { display: flex; justify-content: space-between; max-width: 1400px; margin: 0 auto; padding: 0 25px; }
 
         header {
-            background: var(--bg-nav);
-            position: sticky; 
-            top: 0; 
-            z-index: 1000;
-            padding: 15px 0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            border-bottom: 2px solid var(--azul-electrico);
+            background: var(--bg-nav); position: sticky; top: 0; z-index: 1000; padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); border-bottom: 2px solid var(--azul-electrico);
         }
-        .header-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .header-container { max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
         .header-brand { display: flex; align-items: center; gap: 15px; cursor: pointer; }
         .header-brand img { height: 55px; }
         .header-brand h1 { font-size: 1.6rem; margin: 0; color: var(--texto-oscuro); font-weight: 800; }
         .header-brand h1 span { color: #1e3a8a; }
 
-        .admin-layout {
-            display: flex;
-            max-width: 1400px;
-            margin: 30px auto;
-            padding: 0 20px;
-            gap: 30px;
-        }
+        .admin-layout { display: flex; max-width: 1400px; margin: 30px auto; padding: 0 20px; gap: 30px; }
 
         .sidebar {
-            width: 320px;
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--borde-cristal);
-            border-radius: 24px;
-            padding: 25px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            height: fit-content;
+            width: 320px; background: var(--bg-card); backdrop-filter: blur(10px);
+            border: 1px solid var(--borde-cristal); border-radius: 24px; padding: 25px;
+            box-sizing: border-box; display: flex; flex-direction: column; gap: 18px; height: fit-content;
+        }
+        .sidebar h2 { margin: 0; font-size: 1.2rem; color: var(--azul-electrico); }
+
+        .role-badge {
+            background: rgba(0, 210, 255, 0.15); border: 1px solid var(--azul-electrico);
+            padding: 10px; border-radius: 12px; text-align: center; font-weight: 800; font-size: 0.85rem; color: var(--azul-electrico);
         }
 
-        .sidebar h2 { margin: 0; font-size: 1.3rem; color: var(--azul-electrico); }
-        
-        .status-card {
-            background: rgba(5, 12, 24, 0.6);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 14px;
-            padding: 15px;
-        }
-        .status-card small { color: var(--texto-secundario); display: block; font-weight: 600; font-size: 0.75rem; letter-spacing: 0.5px;}
+        .status-card { background: rgba(5, 12, 24, 0.6); border: 1px solid rgba(255,255,255,0.05); border-radius: 14px; padding: 15px; }
+        .status-card small { color: var(--texto-secundario); display: block; font-weight: 600; font-size: 0.75rem; }
         .status-card p { margin: 5px 0 0; font-weight: 700; font-size: 1.1rem; }
 
-        .indicator { display: inline-block; width: 10px; height: 10px; background: #25d366; border-radius: 50%; box-shadow: 0 0 8px #25d366; margin-right: 5px; }
-
         .btn-sidebar-opt {
-            background: rgba(0, 210, 255, 0.1);
-            border: 1px solid var(--azul-electrico);
-            color: var(--azul-electrico);
-            padding: 12px;
-            border-radius: 14px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.85rem;
-            transition: all 0.2s ease;
-            text-align: center;
+            background: rgba(0, 210, 255, 0.1); border: 1px solid var(--azul-electrico); color: var(--azul-electrico);
+            padding: 12px; border-radius: 14px; cursor: pointer; font-weight: 700; font-size: 0.85rem; transition: all 0.2s ease; text-align: center;
         }
-        .btn-sidebar-opt:hover {
-            background: var(--azul-electrico);
-            color: var(--bg-principal);
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
-        }
+        .btn-sidebar-opt:hover { background: var(--azul-electrico); color: var(--bg-principal); }
 
         .btn-out { 
-            background: linear-gradient(135deg, #ef4444, #dc2626); 
-            color: white; 
-            border: none;
-            padding: 14px; 
-            border-radius: 16px; 
-            cursor: pointer; 
-            font-weight: 800;
-            box-shadow: 0 4px 0 #991b1b, 0 8px 10px rgba(239, 68, 68, 0.2);
-            transition: all 0.1s ease;
-            width: 100%;
+            background: linear-gradient(135deg, #ef4444, #dc2626); color: white; border: none; padding: 14px;
+            border-radius: 16px; cursor: pointer; font-weight: 800; width: 100%; margin-top: 10px;
         }
-        .btn-out:hover { transform: translateY(2px); box-shadow: 0 2px 0 #991b1b; }
 
-        .main-content { flex: 1; display: flex; flex-direction: column; gap: 25px; }
+        .main-content { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+
+        /* PESTAÑAS DE VISTA */
+        .tabs-bar { display: flex; gap: 15px; }
+        .tab-btn {
+            background: rgba(16, 29, 56, 0.75); border: 1px solid var(--borde-cristal); color: var(--texto-secundario);
+            padding: 12px 24px; border-radius: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s;
+        }
+        .tab-btn.active { background: var(--azul-electrico); color: #0a192f; border-color: var(--azul-electrico); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
 
         .table-responsive {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--borde-cristal);
-            border-radius: 24px;
-            padding: 20px;
-            overflow-x: auto;
+            background: var(--bg-card); backdrop-filter: blur(10px); border: 1px solid var(--borde-cristal);
+            border-radius: 24px; padding: 20px; overflow-x: auto;
         }
         .glass-table { width: 100%; border-collapse: collapse; text-align: left; }
-        .glass-table th { 
-            background: rgba(5, 12, 24, 0.8); 
-            color: var(--azul-electrico); 
-            padding: 18px 15px; 
-            font-weight: 700;
-            border-bottom: 2px solid var(--borde-cristal);
-        }
-        .glass-table td { padding: 18px 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.95rem; }
-        
-        .acciones-container { display: flex; gap: 8px; }
+        .glass-table th { background: rgba(5, 12, 24, 0.8); color: var(--azul-electrico); padding: 16px 14px; font-weight: 700; border-bottom: 2px solid var(--borde-cristal); }
+        .glass-table td { padding: 16px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.95rem; }
 
-        .btn-tbl {
-            border: none; padding: 10px 14px; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 0.8rem; transition: all 0.15s;
-        }
-        .btn-pdf {
-            background: linear-gradient(135deg, #00d2ff, #00a8cc); color: #0a192f;
-            box-shadow: 0 3px 0 #007799;
-        }
-        .btn-pdf:hover { transform: translateY(1px); box-shadow: 0 2px 0 #007799; }
-        
-        .btn-del {
-            background: linear-gradient(135deg, #ef4444, #dc2626); color: white;
-            box-shadow: 0 3px 0 #991b1b;
-        }
-        .btn-del:hover { transform: translateY(1px); box-shadow: 0 2px 0 #991b1b; }
+        .acciones-container { display: flex; gap: 6px; flex-wrap: wrap; }
+        .btn-tbl { border: none; padding: 8px 12px; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 0.8rem; }
+        .btn-pdf { background: linear-gradient(135deg, #00d2ff, #00a8cc); color: #0a192f; }
+        .btn-del { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
+        .btn-info { background: rgba(0, 210, 255, 0.2); border: 1px solid var(--azul-electrico); color: var(--azul-electrico); }
+        .btn-status-ready { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+        .btn-status-pending { background: linear-gradient(135deg, #ff6d00, #ff9100); color: white; }
+
+        .status-badge { padding: 5px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; }
+        .badge-pendiente { background: rgba(255, 109, 0, 0.2); color: var(--naranja-neon); border: 1px solid var(--naranja-neon); }
+        .badge-listo { background: rgba(16, 185, 129, 0.2); color: var(--verde-exito); border: 1px solid var(--verde-exito); }
+
+        /* MODAL */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 12, 24, 0.85); z-index: 5000; align-items: center; justify-content: center; }
+        .modal-content { background: var(--bg-card); border: 2px solid var(--azul-electrico); border-radius: 24px; padding: 30px; width: 90%; max-width: 500px; color: white; }
+        .modal-row { margin: 12px 0; } .modal-row b { color: var(--texto-secundario); display: inline-block; width: 120px; }
     </style>
 </head>
 <body>
     <script>
-        if (sessionStorage.getItem('admin_logueado') !== 'true') {
-            var clave = prompt("INGRESE LA CLAVE DE ACCESO:");
-            if (clave === "1234") {
-                sessionStorage.setItem('admin_logueado', 'true');
+        // =========================================================================
+        // 🔑 CONFIGURACIÓN DE CLAVES DE ACCESO
+        // =========================================================================
+        const CLAVE_SECRETARIA = "1111"; // 👈 Clave para Secretaría
+        const CLAVE_DIRECTORA  = "2222"; // 👈 Clave para Directora
+        // =========================================================================
+
+        var rol = sessionStorage.getItem('admin_rol');
+        if (!rol) {
+            var clave = prompt("INGRESE SU CLAVE DE ACCESO:");
+            if (clave === CLAVE_SECRETARIA) {
+                sessionStorage.setItem('admin_rol', 'secretaria');
+                rol = 'secretaria';
+            } else if (clave === CLAVE_DIRECTORA) {
+                sessionStorage.setItem('admin_rol', 'directora');
+                rol = 'directora';
             } else {
-                alert("Clave incorrecta de acceso administrativo.");
+                alert("Clave incorrecta de acceso.");
                 window.location.href = "index.html";
             }
         }
@@ -188,7 +137,7 @@
 
     <div class="top-bar">
         <div class="top-bar-content">
-            <span>💻 CONSOLA DE ADMINISTRACIÓN DE MATRÍCULA</span>
+            <span>💻 CONSOLA DE ADMINISTRACIÓN</span>
             <span>📍 CPF CARMEN PILAR FERNÁNDEZ</span>
             <span>📅 PERÍODO ACADÉMICO: 2026</span>
         </div>
@@ -205,56 +154,77 @@
 
     <main class="admin-layout">
         <section class="sidebar">
-            <h2>CONTROLES GENERALES</h2>
-            
+            <h2>SESIÓN ACTIVA</h2>
+            <div class="role-badge" id="rolDisplay">CARGANDO...</div>
+
             <div class="status-card">
-                <small>ESTUDIANTES REGISTRADOS</small>
+                <small>TOTAL REGISTRADOS</small>
                 <p id="count" style="font-size: 1.8rem; color: var(--azul-electrico);">0</p>
             </div>
 
-            <div class="status-card">
-                <small>ESTADO DE BASE DE DATOS</small>
-                <p style="font-size:0.95rem; display:flex; align-items:center;">
-                    <span class="indicator"></span> Firebase Cloud Activo
-                </p>
-            </div>
-
-            <div class="status-card">
-                <small>UBICACIÓN DEL SERVIDOR</small>
-                <p style="font-size:0.9rem; color:var(--texto-secundario);">La Victoria - Venezuela</p>
-            </div>
-
-            <button onclick="exportarExcel()" class="btn-sidebar-opt">📊 DESCARGAR MATRÍCULA COMPLETA</button>
+            <!-- Botón exclusivo para Directora -->
+            <button id="btnExportar" onclick="exportarExcel()" class="btn-sidebar-opt" style="display:none;">📊 DESCARGAR MATRÍCULA (EXCEL)</button>
             
-            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.08); margin: 5px 0;">
-            
-            <button onclick="cerrar()" class="btn-out">✖ CERRAR SESIÓN DEL SISTEMA</button>
+            <button onclick="cerrar()" class="btn-out">✖ CERRAR SESIÓN</button>
         </section>
 
         <section class="main-content">
-            <div class="table-responsive">
-                <table class="glass-table">
-                    <thead>
-                        <tr>
-                            <th>ESTUDIANTE / POSTULANTE</th>
-                            <th>CÉDULA</th>
-                            <th>CURSOS ASIGNADOS</th>
-                            <th>FECHA / HORA</th> 
-                            <th>ACCIONES DE CONTROL</th>
-                        </tr>
-                    </thead>
-                    <tbody id="cuerpo"></tbody>
-                </table>
+            <!-- NAVEGACIÓN DE PESTAÑAS -->
+            <div class="tabs-bar">
+                <button class="tab-btn active" onclick="cambiarPestana('tab-estudiantes', this)">📋 Lista de Estudiantes</button>
+                <button class="tab-btn" onclick="cambiarPestana('tab-resumen', this)">📊 Resumen de Cursos</button>
+            </div>
+
+            <!-- PESTAÑA 1: LISTA -->
+            <div id="tab-estudiantes" class="tab-content active">
+                <div class="table-responsive">
+                    <table class="glass-table">
+                        <thead>
+                            <tr>
+                                <th>ESTUDIANTE</th>
+                                <th>CÉDULA</th>
+                                <th>CURSOS</th>
+                                <th>ESTADO</th>
+                                <th>ACCIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpo"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PESTAÑA 2: RESUMEN -->
+            <div id="tab-resumen" class="tab-content">
+                <div class="table-responsive">
+                    <h3>📈 Conteo de Estudiantes por Cursos</h3>
+                    <div id="resumenCursosBox" style="padding: 10px; font-size:1.1rem; color:var(--texto-principal);">
+                        Cargando información...
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
-    <!-- SDK DE PERSISTENCIA DE FIREBASE NATIVO -->
+    <!-- MODAL DE DETALLES -->
+    <div id="modalDetalles" class="modal">
+        <div class="modal-content">
+            <h3 style="color:var(--azul-electrico); margin-top:0;">👁️ Detalles del Estudiante</h3>
+            <div class="modal-row"><b>ID Registro:</b> <span id="m-id"></span></div>
+            <div class="modal-row"><b>Nombre:</b> <span id="m-nombre"></span></div>
+            <div class="modal-row"><b>Cédula:</b> <span id="m-cedula"></span></div>
+            <div class="modal-row"><b>Teléfono:</b> <span id="m-telefono"></span></div>
+            <div class="modal-row"><b>Cursos:</b> <span id="m-cursos"></span></div>
+            <div class="modal-row"><b>Fecha Reg:</b> <span id="m-fecha"></span></div>
+            <div class="modal-row"><b>Estado:</b> <span id="m-estado"></span></div>
+            <button onclick="cerrarModal()" class="btn-tbl btn-pdf" style="width:100%; margin-top:20px; padding:12px;">CERRAR</button>
+        </div>
+    </div>
+
+    <!-- FIREBASE SERVICES -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
     <script>
-        // Configuración oficial de tu base de datos
         const firebaseConfig = {
             apiKey: "AIzaSyDKnVg7dwb60-oXHs2nJ9w83XFkhN128tw",
             authDomain: "boteducarmen2026.firebaseapp.com",
@@ -267,73 +237,161 @@
 
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
+        const userRol = sessionStorage.getItem('admin_rol');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const display = document.getElementById('rolDisplay');
+            if (userRol === 'directora') {
+                display.innerText = "👑 MODO DIRECTORA (ACCESO TOTAL)";
+                display.style.borderColor = "#ff6d00";
+                display.style.color = "#ff6d00";
+                document.getElementById('btnExportar').style.display = 'block';
+            } else {
+                display.innerText = "📋 MODO SECRETARÍA (LECTURA Y PDF)";
+            }
+        });
 
         function cerrar() {
-            sessionStorage.removeItem('admin_logueado');
+            sessionStorage.removeItem('admin_rol');
             window.location.href = "index.html";
         }
 
-        // 🔥 Escucha permanente de datos en la nube (Sincronización en tiempo real)
+        function cambiarPestana(tabId, elem) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            elem.classList.add('active');
+        }
+
         function render() {
             db.ref('inscritos').on('value', function(snapshot) {
                 var bd = [];
+                var resumenCursos = {};
+
                 snapshot.forEach(function(childSnapshot) {
-                    bd.push(childSnapshot.val());
+                    var item = childSnapshot.val();
+                    // 🎯 FORZAMOS A USAR LA CLAVE REAL DE FIREBASE (Key Única)
+                    item._fbKey = childSnapshot.key;
+                    bd.push(item);
+
+                    if (item.cursos) {
+                        var lista = item.cursos.split(',');
+                        lista.forEach(c => {
+                            var nombreCurso = c.trim();
+                            if(nombreCurso) {
+                                resumenCursos[nombreCurso] = (resumenCursos[nombreCurso] || 0) + 1;
+                            }
+                        });
+                    }
                 });
 
                 document.getElementById('count').innerText = bd.length;
                 
                 var htmlContent = "";
                 bd.forEach(function(i) {
-                    var fechaInscripcion = i.fecha ? i.fecha : "No especificada";
+                    var estadoActual = i.estado ? i.estado : "Pendiente";
+                    var badgeClass = estadoActual === "Listo" ? "badge-listo" : "badge-pendiente";
+
+                    var acciones = `<button onclick="verDetalles('${i._fbKey}')" class="btn-tbl btn-info">👁️</button> `;
+                    acciones += `<button onclick="imprimirComprobante('${i._fbKey}')" class="btn-tbl btn-pdf">🖨️ PDF</button> `;
+
+                    if (userRol === 'directora') {
+                        var btnEstado = estadoActual === "Listo" 
+                            ? `<button onclick="cambiarEstado('${i._fbKey}', 'Pendiente')" class="btn-tbl btn-status-pending">⏳</button>`
+                            : `<button onclick="cambiarEstado('${i._fbKey}', 'Listo')" class="btn-tbl btn-status-ready">✅</button>`;
+                        
+                        acciones += btnEstado + ` <button onclick="borrar('${i._fbKey}')" class="btn-tbl btn-del">🗑️</button>`;
+                    }
 
                     htmlContent += "<tr>" +
-                        "<td><b>" + i.nombre + "</b></td>" +
-                        "<td>" + i.cedula + "</td>" +
-                        "<td style='color:var(--azul-electrico)'><b>" + i.cursos + "</b></td>" +
-                        "<td style='color:var(--texto-secundario); font-size:0.85rem;'>" + fechaInscripcion + "</td>" +
-                        "<td>" +
-                            "<div class='acciones-container'>" +
-                                "<button onclick=\"imprimirComprobante('" + i.id + "')\" class='btn-tbl btn-pdf'>🖨️ PDF</button> " +
-                                "<button onclick=\"borrar('" + i.id + "')\" class='btn-tbl btn-del'>🗑️ BORRAR</button>" +
-                            "</div>" +
-                        "</td>" +
+                        "<td><b>" + (i.nombre || 'Sin nombre') + "</b></td>" +
+                        "<td>" + (i.cedula || 'N/A') + "</td>" +
+                        "<td style='color:var(--azul-electrico)'>" + (i.cursos || 'N/A') + "</td>" +
+                        "<td><span class='status-badge " + badgeClass + "'>" + estadoActual + "</span></td>" +
+                        "<td><div class='acciones-container'>" + acciones + "</div></td>" +
                     "</tr>";
                 });
                 document.getElementById('cuerpo').innerHTML = htmlContent;
+
+                var resumenHtml = "<ul>";
+                for (var curso in resumenCursos) {
+                    resumenHtml += `<li style="margin-bottom:10px;"><strong>${curso}:</strong> ${resumenCursos[curso]} estudiante(s)</li>`;
+                }
+                resumenHtml += "</ul>";
+                document.getElementById('resumenCursosBox').innerHTML = resumenHtml;
             });
         }
 
-        // Borrado reactivo remoto
-        function borrar(id) {
-            if (confirm("¿Seguro que deseas eliminar permanentemente este registro de la base de datos en la nube?")) {
-                db.ref('inscritos/' + id).remove();
+        function cambiarEstado(key, nuevoEstado) {
+            if (userRol !== 'directora') return;
+            db.ref('inscritos/' + key).update({ estado: nuevoEstado });
+        }
+
+        function borrar(key) {
+            if (userRol !== 'directora') return;
+            if (confirm("¿Seguro que deseas eliminar este registro permanentemente de Firebase?")) {
+                db.ref('inscritos/' + key).remove().then(() => {
+                    alert("Registro eliminado con éxito.");
+                }).catch((error) => {
+                    alert("Error al eliminar: " + error.message);
+                });
             }
         }
 
-        // Descarga de matriz CSV construida en caliente desde Firebase
+        function verDetalles(key) {
+            db.ref('inscritos/' + key).once('value').then(function(snapshot) {
+                var i = snapshot.val();
+                if (!i) return;
+
+                document.getElementById('m-id').innerText = i.id || snapshot.key || 'N/A';
+                document.getElementById('m-nombre').innerText = i.nombre || 'N/A';
+                document.getElementById('m-cedula').innerText = i.cedula || 'N/A';
+                document.getElementById('m-telefono').innerText = i.telefono || i.whatsapp || 'N/A';
+                document.getElementById('m-cursos').innerText = i.cursos || 'N/A';
+                document.getElementById('m-fecha').innerText = i.fecha || 'N/A';
+                document.getElementById('m-estado').innerText = i.estado || 'Pendiente';
+
+                document.getElementById('modalDetalles').style.display = 'flex';
+            });
+        }
+
+        function cerrarModal() {
+            document.getElementById('modalDetalles').style.display = 'none';
+        }
+
         function exportarExcel() {
+            if (userRol !== 'directora') return;
             db.ref('inscritos').once('value').then(function(snapshot) {
                 var bd = [];
-                snapshot.forEach(function(childSnapshot) {
-                    bd.push(childSnapshot.val());
+                snapshot.forEach(function(childSnapshot) { 
+                    var val = childSnapshot.val();
+                    if(!val.id) val.id = childSnapshot.key;
+                    bd.push(val); 
+                });
+                
+                if (bd.length === 0) return alert("No hay datos en Firebase para descargar.");
+
+                var csvLines = [];
+                csvLines.push("ID,Nombre,Cedula,Telefono,Cursos,Fecha,Estado");
+
+                bd.forEach(function(i) {
+                    var id = (i.id || '').replace(/"/g, '""');
+                    var nombre = (i.nombre || '').replace(/"/g, '""');
+                    var cedula = (i.cedula || '').replace(/"/g, '""');
+                    var t = (i.telefono || i.whatsapp || 'N/A').replace(/"/g, '""');
+                    var cursos = (i.cursos || '').replace(/"/g, '""');
+                    var fecha = (i.fecha || 'N/A').replace(/"/g, '""');
+                    var estado = (i.estado || 'Pendiente').replace(/"/g, '""');
+
+                    csvLines.push(`"${id}","${nombre}","${cedula}","${t}","${cursos}","${fecha}","${estado}"`);
                 });
 
-                if (bd.length === 0) { 
-                    alert("No hay estudiantes registrados en Firebase para exportar."); 
-                    return; 
-                }
-                
-                var csvContent = "data:text/csv;charset=utf-8,ID,Nombre,Cedula,WhatsApp,Cursos,Fecha\n";
-                bd.forEach(function(i) {
-                    var f = i.fecha ? i.fecha : "N/A";
-                    var t = i.telefono ? i.telefono : "N/A";
-                    csvContent += '"' + i.id + '","' + i.nombre + '","' + i.cedula + '","' + t + '","' + i.cursos + '","' + f + '"\n';
-                });
-                
-                var encodedUri = encodeURI(csvContent);
+                var csvContent = "\uFEFF" + csvLines.join("\n");
+                var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
                 var link = document.createElement("a");
-                link.setAttribute("href", encodedUri);
+                var url = URL.createObjectURL(blob);
+                
+                link.setAttribute("href", url);
                 link.setAttribute("download", "Matricula_BotEduCarmen_2026.csv");
                 document.body.appendChild(link);
                 link.click();
@@ -341,19 +399,16 @@
             });
         }
 
-        // Generación asíncrona de ventanas de impresión PDF seguras mediante Backticks
-        function imprimirComprobante(id) {
-            db.ref('inscritos/' + id).once('value').then(function(snapshot) {
+        function imprimirComprobante(key) {
+            db.ref('inscritos/' + key).once('value').then(function(snapshot) {
                 var estudiante = snapshot.val();
                 if (!estudiante) return;
 
                 var ventanaImpresion = window.open('', '_blank');
-                var fechaComp = estudiante.fecha ? estudiante.fecha : "No especificada";
-                
                 var htmlPrint = `
                     <html>
                     <head>
-                        <title>Comprobante_\${estudiante.cedula}</title>
+                        <title>Comprobante_${estudiante.cedula || 'Doc'}</title>
                         <style>
                             body { font-family: Arial, sans-serif; padding: 40px; color: #0a192f; }
                             .ticket-box { border: 2px dashed #00d2ff; padding: 30px; border-radius: 15px; max-width: 600px; margin: 0 auto; }
@@ -369,28 +424,23 @@
                                 <p>CPF Carmen Pilar Fernández</p>
                                 <h3>COMPROBANTE DE PREINSCRIPCIÓN DIGITAL</h3>
                             </div>
-                            <div class="info-row"><b>ID Ticket:</b> \${estudiante.id}</div>
-                            <div class="info-row"><b>Estudiante:</b> \${estudiante.nombre}</div>
-                            <div class="info-row"><b>Cédula:</b> \${estudiante.cedula}</div>
-                            <div class="info-row"><b>Cursos:</b> \${estudiante.cursos}</div>
-                            <div class="info-row"><b>Fecha Registro:</b> \${fechaComp}</div>
+                            <div class="info-row"><b>ID Ticket:</b> ${estudiante.id || snapshot.key}</div>
+                            <div class="info-row"><b>Estudiante:</b> ${estudiante.nombre || 'N/A'}</div>
+                            <div class="info-row"><b>Cédula:</b> ${estudiante.cedula || 'N/A'}</div>
+                            <div class="info-row"><b>Cursos:</b> ${estudiante.cursos || 'N/A'}</div>
+                            <div class="info-row"><b>Estado:</b> ${estudiante.estado || 'Pendiente'}</div>
                         </div>
                         <script>
-                            window.onload = function() { 
-                                window.print(); 
-                                setTimeout(function(){ window.close(); }, 500); 
-                            }
+                            window.onload = function() { window.print(); setTimeout(function(){ window.close(); }, 500); }
                         <\/script>
                     </body>
                     </html>
                 `;
-                
                 ventanaImpresion.document.write(htmlPrint);
                 ventanaImpresion.document.close();
             });
         }
 
-        // Arranque de ciclo de renderizado continuo
         render();
     </script>
 </body>

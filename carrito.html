@@ -2,79 +2,199 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Mi Selección | BotEduCarmen</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos Seleccionados | BotEduCarmen</title>
     <style>
         :root {
-            --azul-primario: #0a192f;
+            --bg-principal: #0a192f;
+            --bg-nav: #e2e8f0; 
+            --bg-card: rgba(16, 29, 56, 0.75);
+            --texto-oscuro: #0a192f; 
+            --texto-principal: #f8fafc;
+            --texto-secundario: #94a3b8;
             --azul-electrico: #00d2ff;
             --naranja-neon: #ff6d00;
-            --glass: rgba(255, 255, 255, 0.05);
-            --verde-whatsapp: #25d366;
+            --naranja-glow: #ff9100;
             --borde-cristal: rgba(0, 210, 255, 0.15);
+            --borde-cristal-hover: rgba(0, 210, 255, 0.4);
         }
 
         body { 
-            background: var(--azul-primario); 
-            color: white; 
-            font-family: 'Inter', sans-serif;
-            background-image: radial-gradient(circle at bottom left, rgba(0, 210, 255, 0.1), transparent);
+            background-color: var(--bg-principal); 
+            color: var(--texto-principal); 
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
             min-height: 100vh;
         }
 
+        /* BARRA SUPERIOR CONSTANTE IDENTICA */
+        .top-bar {
+            background: #050c18;
+            color: var(--azul-electrico);
+            padding: 10px 0;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+            border-bottom: 2px solid var(--azul-electrico);
+            text-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
+        }
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        /* HEADER CON FONDO AZUL GRISÁCEO */
         header {
-            background: rgba(10, 25, 47, 0.8);
+            background: var(--bg-nav);
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            border-bottom: 2px solid var(--azul-electrico);
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        .header-brand { display: flex; align-items: center; gap: 15px; cursor: pointer; }
+        .header-brand img { height: 55px; }
+        
+        .header-brand h1 { 
+            font-size: 1.6rem; 
+            margin: 0; 
+            color: var(--texto-oscuro); 
+            font-weight: 800; 
+        }
+        .header-brand h1 span { 
+            color: #1e3a8a; 
+        }
+
+        .nav-btn {
+            background: var(--bg-principal);
+            border: 2px solid var(--bg-principal);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 700;
+        }
+        .nav-btn:hover { 
+            background: transparent;
+            color: var(--texto-oscuro);
+            border-color: var(--texto-oscuro);
+            transform: translateY(-2px);
+        }
+
+        /* TÍTULO SECCIÓN */
+        .cart-title {
+            text-align: center;
+            margin: 40px 0 20px;
+            font-size: 1.8rem;
+            color: var(--azul-electrico);
+            font-weight: 800;
+        }
+
+        /* GRID DE SELECCIONADOS */
+        .cart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px 20px 40px;
+        }
+
+        .cart-card {
+            background: var(--bg-card);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid var(--borde-cristal);
             padding: 20px;
             display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .cart-container { max-width: 800px; margin: 40px auto; padding: 20px; }
-
-        .cart-item {
-            background: var(--glass);
-            border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            margin-bottom: 15px;
-            padding: 15px;
-            display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            border-radius: 15px;
-            transition: 0.3s;
-        }
-
-        .cart-item:hover { border-color: var(--azul-electrico); }
-
-        .cart-item img { width: 100px; height: 60px; object-fit: cover; border-radius: 8px; border: 1px solid var(--azul-electrico); }
-
-        .btn-eliminar { background: #ff4444; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 8px; font-weight: bold; }
-
-        .btn-finalizar {
-            display: block;
-            background: linear-gradient(135deg, var(--naranja-neon), #ff9100);
-            color: white;
             text-align: center;
-            padding: 18px;
-            border-radius: 15px;
-            text-decoration: none;
-            font-weight: bold;
+        }
+
+        .cart-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 15px;
+        }
+
+        .cart-card h3 {
+            margin: 0 0 15px;
+            color: var(--texto-principal);
             font-size: 1.2rem;
-            margin-top: 30px;
-            box-shadow: 0 10px 20px rgba(255, 109, 0, 0.3);
         }
 
-        /* ELEMENTOS FLOTANTES DE WHATSAPP Y CHATBOT (ABAJO A LA DERECHA) */
-        #whatsapp-btn { 
-            position: fixed; bottom: 130px; right: 30px; width: 70px; height: 70px; 
-            background: var(--verde-whatsapp); border-radius: 50%; z-index: 4000; 
-            display: flex; align-items: center; justify-content: center; cursor: pointer; 
-            box-shadow: 0 8px 25px rgba(37,211,102,0.4); transition: transform 0.2s ease;
+        .btn-quitar-cart {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 4px 0 #991b1b;
+            transition: all 0.15s;
         }
-        #whatsapp-btn:hover { transform: scale(1.05); }
+        .btn-quitar-cart:hover {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #991b1b;
+        }
 
+        /* ACCIONES INFERIORES */
+        .cart-actions {
+            text-align: center;
+            padding: 30px 20px 80px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-continuar {
+            background: linear-gradient(135deg, var(--naranja-neon), var(--naranja-glow));
+            color: white;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 18px;
+            font-weight: 800;
+            box-shadow: 0 6px 0 #b34b00;
+            transition: all 0.15s;
+        }
+        .btn-continuar:hover { transform: translateY(2px); }
+
+        .btn-formulario {
+            background: linear-gradient(135deg, #00d2ff, #00a8cc);
+            color: #0a192f;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 18px;
+            font-weight: 800;
+            box-shadow: 0 6px 0 #007799;
+            transition: all 0.15s;
+        }
+        .btn-formulario:hover { transform: translateY(2px); }
+
+        .empty-msg {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--texto-secundario);
+            margin: 50px 0;
+            width: 100%;
+        }
+
+        /* CHATBOT INTEGRADO */
         #chat-icon { 
             position: fixed; bottom: 30px; right: 30px; width: 75px; height: 75px; 
             cursor: pointer; z-index: 4000; animation: pulse 2s infinite; 
@@ -91,32 +211,44 @@
     </style>
 </head>
 <body>
+
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <span>🚀 SISTEMA ACTUALIZADO 2026</span>
+            <span>📍 LA VICTORIA - ARAGUA</span>
+            <span>📱 CONTACTO DIRECTO: 0424-33.60.158</span>
+        </div>
+    </div>
+
     <header>
-        <a href="cursos.html" style="color: var(--azul-electrico); text-decoration: none; font-weight: bold;">⬅ VOLVER AL CATÁLOGO</a>
-        <div style="font-weight: bold; letter-spacing: 2px;">MI LISTA DE INTERÉS</div>
+        <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="header-brand" onclick="window.location.href='index.html'">
+                <img src="img/logo.png" alt="Logo" onerror="this.src='img/logo.png'">
+                <h1>BotEdu<span>Carmen</span></h1>
+            </div>
+            <nav>
+                <a href="cursos.html" class="nav-btn">VOLVER A CURSOS</a>
+            </nav>
+        </div>
     </header>
 
-    <main class="cart-container">
-        <div id="lista-carrito"></div>
+    <div class="container">
+        <h2 class="cart-title">🎓 Cursos Seleccionados para Inscripción</h2>
+        
+        <div id="cart-container" class="cart-grid"></div>
 
-        <div id="acciones-carrito" style="display:none;">
-            <a href="contacto.html" class="btn-finalizar">CONTINUAR A DATOS PERSONALES ➡</a>
-            <button onclick="vaciarTodo()" style="background:none; border:none; color:rgba(255,255,255,0.5); width:100%; margin-top:20px; cursor:pointer;">Vaciar lista completa</button>
+        <div class="cart-actions" id="cart-actions-box">
+            <a href="cursos.html" class="btn-continuar">➕ AGREGAR MÁS CURSOS</a>
+            <a href="contacto.html" class="btn-formulario">📝 IR AL FORMULARIO DE POSTULACIÓN</a>
         </div>
-    </main>
-
-    <!-- BOTÓN DE WHATSAPP FLOTANTE -->
-    <div id="whatsapp-btn" onclick="window.open('https://wa.me/584243360158', '_blank')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:40px;" alt="WhatsApp">
     </div>
-    
-    <!-- ICONO DE APERTURA DEL CHATBOT -->
+
+    <!-- CHATBOT -->
     <div id="chat-icon" onclick="toggleChat()">
         <img src="img/chatbot.png" style="width:100%; height:100%; border-radius:50%; box-shadow: 0 4px 15px rgba(0,210,255,0.4);" alt="Chatbot" onerror="this.style.display='none'; document.getElementById('fb').style.display='flex';">
         <div id="fb" style="display:none; width:100%; height:100%; background:rgba(16,29,56,0.9); border-radius:50%; align-items:center; justify-content:center; color:var(--azul-electrico); font-size:32px; border:2px solid var(--azul-electrico);">🤖</div>
     </div>
 
-    <!-- VENTANA DEL CHATBOT -->
     <div id="chat-window">
         <div style="background:rgba(5, 12, 24, 0.95); color:var(--azul-electrico); padding:22px; text-align:center; font-weight:800; font-size:1.2rem; letter-spacing: 0.5px; border-bottom: 1px solid var(--borde-cristal);">
             🤖 BOTEDUCARMEN 2026
@@ -128,54 +260,43 @@
         </div>
     </div>
 
-    <!-- LIBRERÍAS DE FIREBASE COMPAT -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
-    
-    <!-- LÓGICA DEL CHATBOT INTEGRADA -->
     <script src="chatbot.js"></script>
 
     <script>
-        function renderCarrito() {
-            const contenedor = document.getElementById('lista-carrito');
-            const acciones = document.getElementById('acciones-carrito');
-            let carrito = JSON.parse(localStorage.getItem('cart')) || [];
+        function renderizarCarrito() {
+            const container = document.getElementById('cart-container');
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-            if(carrito.length === 0) {
-                contenedor.innerHTML = `<div style="text-align:center; padding:50px;">
-                    <h2 style="color:var(--azul-electrico)">Tu lista está vacía</h2>
-                    <p>Parece que aún no has seleccionado cursos para este 2026.</p>
-                </div>`;
-                acciones.style.display = 'none';
+            if (cart.length === 0) {
+                container.innerHTML = `<div class="empty-msg">No has seleccionado ningún curso aún.<br><br><a href="cursos.html" class="btn-continuar">Ver Catálogo de Cursos</a></div>`;
+                document.getElementById('cart-actions-box').style.display = 'none';
                 return;
             }
 
-            acciones.style.display = 'block';
-            contenedor.innerHTML = carrito.map((item, index) => `
-                <div class="cart-item">
-                    <div style="display: flex; align-items: center; gap: 20px;">
-                        <img src="${item.imagen}" onerror="this.src='img/logo.png'">
-                        <h3>${item.nombre}</h3>
+            document.getElementById('cart-actions-box').style.display = 'flex';
+
+            container.innerHTML = cart.map((c, index) => {
+                const img = c.imagen || 'img/logo.png';
+                return `
+                    <div class="cart-card">
+                        <img src="${img}" onerror="this.src='img/logo.png'">
+                        <h3>${c.nombre}</h3>
+                        <button class="btn-quitar-cart" onclick="eliminarDelCarrito(${index})">✖ ELIMINAR</button>
                     </div>
-                    <button class="btn-eliminar" onclick="eliminarCurso(${index})">QUITAR</button>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
-        function eliminarCurso(index) {
-            let carrito = JSON.parse(localStorage.getItem('cart'));
-            carrito.splice(index, 1);
-            localStorage.setItem('cart', JSON.stringify(carrito));
-            renderCarrito();
+        function eliminarDelCarrito(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderizarCarrito();
         }
 
-        function vaciarTodo() {
-            if(confirm("¿Borrar toda la selección?")) {
-                localStorage.setItem('cart', '[]');
-                renderCarrito();
-            }
-        }
-        document.addEventListener('DOMContentLoaded', renderCarrito);
+        document.addEventListener('DOMContentLoaded', renderizarCarrito);
     </script>
 </body>
 </html>

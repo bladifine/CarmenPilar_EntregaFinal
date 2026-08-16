@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Proyecto BotEduCarmen (Firebase)</title>
+    <style>
+        :root {
+            --primary-color: #00d2ff; /* Azul eléctrico */
+            --secondary-color: #3b82f6; /* Azul secundario */
+            --accent-color: #ff6d00; /* Naranja neón */
+            --bg-color: #0a192f; /* Azul primario profundo */
+            --card-bg: #112240; /* Fondo de tarjetas */
+            --text-color: #f8fafc; /* Texto claro */
+            --text-light: #94a3b8; /* Texto secundario */
+            --border-color: rgba(0, 210, 255, 0.2); /* Borde neón sutil */
+            --code-bg: #020c1b; /* Fondo para código */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* CONFIGURACIÓN A PANTALLA COMPLETA TOTAL */
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-color);
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 40px 60px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow-y: auto;
+            background-color: var(--bg-color);
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 10;
+        }
+
+        .slide-title-page {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .slide-title-page h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+            line-height: 1.2;
+            font-weight: 800;
+        }
+
+        .slide-title-page h2 {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 35px;
+            max-width: 900px;
+        }
+
+        .logos-header-container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 0 40px;
+        }
+
+        /* LOGOS - Relleno completo */
+        .logo-box {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #112240;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        .logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .institution-header {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #f1f5f9;
+            font-weight: 800;
+            line-height: 1.5;
+        }
+
+        .authors-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+            border-top: 2px solid var(--border-color);
+            padding-top: 20px;
+            width: 80%;
+            text-align: left;
+        }
+
+        .author-item p, .tutor-item p {
+            font-size: 1.05rem;
+            color: var(--text-color);
+        }
+        .author-item strong, .tutor-item strong {
+            color: var(--primary-color);
+        }
+
+        .slide-header {
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .slide-header h2 {
+            font-size: 2.2rem;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .slide-header .chapter {
+            font-size: 1rem;
+            text-transform: uppercase;
+            background-color: rgba(0, 210, 255, 0.1);
+            color: var(--primary-color);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            border: 1px solid var(--primary-color);
+        }
+
+        .slide-content {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            flex: 1;
+        }
+
+        .content-with-image {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 30px;
+            align-items: stretch;
+        }
+
+        /* CONTENEDOR DE FOTOS A PANTALLA COMPLETA */
+        .slide-image-container {
+            background-color: #112240;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 0;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            min-height: 380px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            display: flex;
+        }
+
+        .slide-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 22px;
+            border-radius: 14px;
+            border-left: 5px solid var(--primary-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 1rem;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #1e3a8a;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #0b192c;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            color: var(--primary-color);
+            padding: 16px;
+            border-radius: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+            overflow-x: auto;
+            margin-top: 5px;
+            max-height: 350px;
+            border: 1px solid var(--border-color);
+        }
+
+        .controls {
+            position: absolute;
+            bottom: 25px;
+            right: 40px;
+            display: flex;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .control-btn {
+            background: linear-gradient(135deg, var(--accent-color), #ff9100);
+            color: white;
+            border: none;
+            padding: 12px 26px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(255, 109, 0, 0.3);
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 109, 0, 0.5);
+        }
+
+        .control-btn:disabled {
+            background: #233554;
+            color: #64748b;
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-bar-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background-color: #112240;
+            z-index: 100;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--primary-color);
+            box-shadow: 0 0 10px var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .slide-counter {
+            position: absolute;
+            bottom: 30px;
+            left: 40px;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            z-index: 100;
+            font-weight: 600;
+        }
+
+        .slide-thanks-page {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: var(--bg-color);
+        }
+
+        .slide-thanks-page h2 {
+            font-size: 3.8rem;
+            color: #ffffff;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .slide-thanks-page p {
+            font-size: 1.6rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="presentation-container" id="presentation">
+        
+        <!-- DIAPOSITIVA 1: PORTADA -->
+        <div class="slide slide-title-page active">
+            <div class="logos-header-container">
+                <div class="logo-box">
+                    <img src="img/logo_mision_sucre.png" alt="Logo Misión Sucre">
+                </div>
+                <div class="institution-header">
+                    República Bolivariana de Venezuela<br>
+                    Universidad Politécnica Territorial del Estado Aragua "Federico Brito Figueroa"<br>
+                    Programa Nacional de Formación en Informática
+                </div>
+                <div class="logo-box">
+                    <img src="img/logo_upt_aragua.png" alt="Logo UPT Aragua">
+                </div>
+            </div>
+            
+            <h1>Portal con Base de Datos y Asistente Virtual para la Gestión y Difusión de Cursos</h1>
+            <h2>Institución "Carmen Pilar Fernández" (BotEduCarmen con Firebase)</h2>
+            
+            <div class="authors-box">
+                <div class="author-item">
+                    <p><strong>Autor:</strong></p>
+                    <p>Br. Bladimir Silva</p>
+                </div>
+                <div class="tutor-item">
+                    <p><strong>Tutor:</strong> Ing. Jorge Acosta</p>
+                    <p><strong>Fecha:</strong> Julio, 2026</p>
+                    <p><strong>Ubicación:</strong> La Victoria, Edo. Aragua</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 2: INTRODUCCIÓN Y REALIDAD -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Introducción</h2>
+                <span class="chapter">Origen</span>
+            </div>
+            <div class="slide-content content-with-image">
+                <div>
+                    <p style="font-style: italic; font-size: 1.2rem; color: #94a3b8; margin-bottom: 20px;">
+                        "Este proyecto nace de ese silencio incómodo entre la pregunta ciudadana recurrente y la respuesta manual rezagada..."
+                    </p>
+                    <div class="card">
+                        <h3>La Realidad Cotidiana</h3>
+                        <p>Múltiples ciudadanos acuden semanalmente con interrogantes idénticas: <em>¿Cuándo empieza el curso?, ¿Cuáles son los requisitos?</em> El personal administrativo repite incansablemente las mismas respuestas, generando fatiga operativa.</p>
+                    </div>
+                    <div class="card" style="border-left-color: var(--accent-color);">
+                        <h3>El Enfoque Humano</h3>
+                        <p><strong>BotEduCarmen</strong> no busca reemplazar al ser humano, sino devolverle tiempo valioso para ejecutar labores de orientación y acompañamiento pedagógico directo.</p>
+                    </div>
+                </div>
+                <div class="slide-image-container">
+                    <img src="img/slide_introduccion.jpg" alt="Persona con fatiga laboral frente a la computadora">
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 3: DIAGNÓSTICO DEL PROBLEMA -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Diagnóstico del Problema</h2>
+            </div>
+            <div class="slide-content content-with-image">
+                <div>
+                    <div class="card">
+                        <h3>Problemas Críticos Identificados</h3>
+                        <ul>
+                            <li><strong>Falta de información sistematizada:</strong> Inexistencia de repositorios y bases de datos centralizadas.</li>
+                            <li><strong>Comunicación ineficaz:</strong> Dependencia estricta de carteleras físicas tradicionales.</li>
+                            <li><strong>Paradigma Socio-Crítico:</strong> Se empodera a los actores comunitarios para co-construir soluciones a su realidad mediante la informática.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="slide-image-container">
+                    <img src="img/slide_diagnostico.jpg" alt="Diagnóstico Comunitario">
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 4: JUSTIFICACIÓN DEL PROYECTO -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Justificación</h2>             
+            </div>
+            <div class="slide-content content-with-image">
+                <div>
+                    <div class="grid-2">
+                        <div class="card">
+                            <h3>Pilar Humano y Social</h3>
+                            <p>Libera al personal de tareas mecánicas y democratiza el acceso libre a la información sin requerir traslados costosos.</p>
+                        </div>
+                        <div class="card" style="border-left-color: #f59e0b;">
+                            <h3>Pilar Técnico</h3>
+                            <p>El uso de la nube con <strong>Firebase</strong> reduce costes de infraestructura local y asegura alta disponibilidad 24/7 sin caídas por cortes eléctricos locales.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-image-container">
+                    <img src="img/slide_justificacion.jpg" alt="Justificación e Impacto">
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 5: MARCO TEÓRICO -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Marco Teórico (Tecnología Cloud)</h2>                
+            </div>
+            <div class="slide-content content-with-image">
+                <div>
+                    <div class="card">
+                        <h3>Bases de Datos NoSQL (Firestore)</h3>
+                        <p>Almacenamiento orientado a documentos JSON flexibles. Permite lecturas ultrarrápidas y sincronización en tiempo real para las consultas dinámicas del asistente.</p>
+                    </div>
+                    <div class="card" style="border-left-color: #06b6d4;">
+                        <h3>Asistentes Virtuales en la Nube</h3>
+                        <p>Herramientas capaces de simular interacción inmediata. Al integrarse con el SDK de Firebase, consultan colecciones instantáneamente.</p>
+                    </div>
+                </div>
+                <div class="slide-image-container">
+                    <img src="img/pexels-brett-sayles-3803517.jpg" alt="Arquitectura Cloud">
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 6: PROPUESTA Y REQUERIMIENTOS -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Arquitectura y Especificaciones</h2>                
+            </div>
+            <div class="slide-content content-with-image">
+                <div>
+                    <div class="card" style="background-color: #0b192c;">
+                        <p><strong>Objetivo:</strong> Implementar BotEduCarmen mediante una arquitectura Serverless basada en la plataforma <strong>Google Firebase</strong> para optimizar la difusión del catálogo.</p>
+                    </div>
+                    <div class="grid-2" style="margin-top:10px;">
+                        <div class="card">
+                            <h3>Entradas</h3>
+                            <p>Consultas en lenguaje natural e inscripciones estructuradas de alumnos.</p>
+                        </div>
+                        <div class="card" style="border-left-color: #ec4899;">
+                            <h3>Salidas</h3>
+                            <p>Respuestas inmediatas en el chat y reportes en tiempo real desde Firestore.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-image-container">
+                    <img src="img/slide_arquitectura.jpg" alt="Entradas y Salidas">
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 7: DISEÑO DE LA BASE DE DATOS -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Diseño de Datos NoSQL (Estructura de Colecciones)</h2>              
+            </div>
+            <div class="slide-content content-with-image">
+                <div>
+                    <p>Esquema de documentos JSON flexibles dentro de Cloud Firestore:</p>
+                    <pre><code>// Colección: "cursos"
+{
+  "id": "CURSO_01",
+  "nombre": "Informática Básica",
+  "duracion": "6 semanas",
+  "costo": 150.00,
+  "fecha_inicio": "2026-09-01"
+}
+
+// Colección: "usuarios"
+{
+  "uid": "USER_ABC123",
+  "nombre": "Bladimir Silva",
+  "correo": "bladimir@email.com",
+  "rol": "estudiante"
+}</code></pre>
+                </div>
+                <div class="slide-image-container">
+                    <img src="img/slide_database.jpg" alt="Estructura Firestore">
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 8: CONEXIÓN DEL SISTEMA CON FIREBASE -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Script de Conexión e Inicialización (firebase.js)</h2>
+                <span class="chapter">Código Fuente</span>
+            </div>
+            <div class="slide-content content-with-image">
+                <div>
+                    <p>Inicialización segura del backend del asistente virtual utilizando el SDK de Firebase:</p>
+                    <pre><code>import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA1...",
+  authDomain: "boteducarmen.firebaseapp.com",
+  projectId: "boteducarmen",
+  storageBucket: "boteducarmen.appspot.com",
+  messagingSenderId: "12345678",
+  appId: "1:1234:web:abcd"
+};
+
+// Inicializar la aplicación y base de datos Cloud Firestore
+const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);</code></pre>
+                </div>
+                <div class="slide-image-container">
+                    <img src="img/slide_conexion.jpg" alt="Código Firebase">
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 9: GUÍA DE INSTALACIÓN Y DESPLIEGUE -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Despliegue en Firebase Hosting</h2>               
+            </div>
+            <div class="slide-content content-with-image">
+                <div>
+                    <div class="card" style="border-left-color: #f59e0b;">
+                        <h3>Pasos para Producción Cloud</h3>
+                        <ol>
+                            <li>Instalar herramientas de consola globales: <br><code>npm install -g firebase-tools</code></li>
+                            <li>Autenticar sesión: <code>firebase login</code></li>
+                            <li>Vincular el directorio local al proyecto: <code>firebase init</code></li>
+                            <li>Desplegar el portal y el bot a la nube de manera pública: <br><code>firebase deploy</code></li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="slide-image-container">
+                    <img src="img/slide_instalacion.jpg" alt="Firebase CLI">
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 10: CRONOGRAMA DE TRABAJO -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Cronograma de Despliegue y Pruebas Cloud</h2>
+                <span class="chapter">Planificación</span>
+            </div>
+            <div class="slide-content content-with-image">
+                <div style="max-height: 480px; overflow-y: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nº</th>
+                                <th>Actividad Ejecutada</th>
+                                <th>Fecha Inicio</th>
+                                <th>Fecha Fin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Creación de la Consola de Firebase y Configuración</td>
+                                <td>01/07/2026</td>
+                                <td>02/07/2026</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Estructuración de Colecciones NoSQL Firestore</td>
+                                <td>03/07/2026</td>
+                                <td>04/07/2026</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Pruebas funcionales de consultas del Chatbot en la nube</td>
+                                <td>05/07/2026</td>
+                                <td>06/07/2026</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Despliegue de producción vía `firebase deploy`</td>
+                                <td>07/07/2026</td>
+                                <td>08/07/2026</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="slide-image-container">
+                    <img src="img/slide_cronograma.jpg" alt="Cronograma">
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 11: CONCLUSIÓN Y RECOMENDACIONES -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Conclusiones y Recomendaciones</h2>                
+            </div>
+            <div class="slide-content content-with-image">
+                <div>
+                    <div class="card" style="border-left-color: #10b981;">
+                        <h3>Conclusiones</h3>
+                        <p>La adopción de Firebase garantiza una infraestructura resiliente ante cortes eléctricos o de hardware locales, asegurando continuidad informativa óptima.</p>
+                    </div>
+                    <div class="card" style="border-left-color: #2563eb;">
+                        <h3>Recomendaciones</h3>
+                        <p>Monitorear la cuota gratuita (Spark Plan) de Firebase y capacitar al personal directivo en el uso intuitivo de la interfaz web de la Consola Firestore.</p>
+                    </div>
+                </div>
+                <div class="slide-image-container">
+                    <img src="img/slide_conclusiones.jpg" alt="Conclusiones finales">
+                </div>
+            </div>
+        </div>
+
+        <!-- NUEVA DIAPOSITIVA 12: POBLACIÓN Y MUESTRA -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Población y Muestra</h2>
+                <span class="chapter">Metodología</span>
+            </div>
+            <div class="slide-content content-with-image">
+                <div>
+                    <div class="card">
+                        <h3>Población Objeto de Estudio</h3>
+                        <p>Conformada por la totalidad de la comunidad educativa y usuarios potenciales de la Institución "Carmen Pilar Fernández" (aproximadamente <strong>350 personas</strong> entre estudiantes, personal administrativo y vecinos de la zona).</p>
+                    </div>
+                    <div class="card" style="border-left-color: #ec4899;">
+                        <h3>Muestra Seleccionada</h3>
+                        <p>Muestreo intencional no probabilístico compuesto por <strong>45 usuarios clave</strong> (30 aspirantes/estudiantes y 15 trabajadores administrativos), utilizado para la recolección de requerimientos y validación de la interfaz.</p>
+                    </div>
+                </div>
+                <div class="slide-image-container">
+                    <img src="img/slide_poblacion.jpg" alt="Población y Muestra">
+                </div>
+            </div>
+        </div>
+
+        <!-- NUEVA DIAPOSITIVA 13: DEFINICIÓN DE VARIABLES / MATRIZ -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Definición y Operacionalización de Variables</h2>
+                <span class="chapter">Metodología</span>
+            </div>
+            <div class="slide-content content-with-image">
+                <div style="max-height: 480px; overflow-y: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Variable</th>
+                                <th>Dimensiones</th>
+                                <th>Indicadores</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Difusión de Cursos (V. Independiente)</strong></td>
+                                <td>Disponibilidad y Alcance</td>
+                                <td>
+                                    * Tiempos de respuesta.<br>
+                                    * Acceso 24/7 vía Hosting.<br>
+                                    * Claridad de requisitos.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Asistente Virtual e Interacción (V. Dependiente)</strong></td>
+                                <td>Usabilidad y Eficiencia</td>
+                                <td>
+                                    * Precisión de respuestas Bot.<br>
+                                    * Consultas resueltas en Firestore.<br>
+                                    * Tasa de satisfacción del usuario.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="slide-image-container">
+                    <img src="img/slide_variables.jpg" alt="Matriz de Variables">
+                </div>
+            </div>
+        </div>
+
+        <!-- NUEVA DIAPOSITIVA 14: POBLACIÓN BENEFICIARIA -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Población Beneficiaria</h2>
+                <span class="chapter">Impacto</span>
+            </div>
+            <div class="slide-content content-with-image">
+                <div>
+                    <div class="grid-2">
+                        <div class="card">
+                            <h3>Beneficiarios Directos</h3>
+                            <ul>
+                                <li><strong>Estudiantes y Aspirantes:</strong> Acceso inmediato a la oferta académica, horarios y requisitos sin desplazamientos.</li>
+                                <li><strong>Personal Administrativo:</strong> Reducción sustancial en la carga operativa de responder preguntas repetitivas.</li>
+                            </ul>
+                        </div>
+                        <div class="card" style="border-left-color: #10b981;">
+                            <h3>Beneficiarios Indirectos</h3>
+                            <ul>
+                                <li><strong>Comunidad Local:</strong> Mayor transparencia y vinculación con la oferta formativa institucional.</li>
+                                <li><strong>Institución "Carmen Pilar Fernández":</strong> Modernización de su imagen tecnológica institucional.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-image-container">
+                    <img src="img/slide_beneficiarios.jpg" alt="Población Beneficiaria">
+                </div>
+            </div>
+        </div>
+
+        <!-- NUEVA DIAPOSITIVA 15: VIABILIDAD DEL PROYECTO -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Viabilidad del Proyecto</h2>
+                <span class="chapter">Factibilidad</span>
+            </div>
+            <div class="slide-content content-with-image">
+                <div>
+                    <div class="card">
+                        <h3>Viabilidad Técnica y Operativa</h3>
+                        <p>Aprovecha la infraestructura Serverless de <strong>Google Firebase</strong>, eliminando gastos de servidores físicos y requiriendo únicamente conexiones web estándar para la administración.</p>
+                    </div>
+                    <div class="card" style="border-left-color: #f59e0b;">
+                        <h3>Viabilidad Económica y Social</h3>
+                        <p>Desarrollado bajo el plan gratuito (Spark Plan) de Firebase, resultando en un costo de licenciamiento cero ($0) y un alto beneficio comunitario de democratización informativa.</p>
+                    </div>
+                </div>
+                <div class="slide-image-container">
+                    <img src="img/slide_viabilidad.jpg" alt="Viabilidad del Proyecto">
+                </div>
+            </div>
+        </div>
+
+        <!-- NUEVA DIAPOSITIVA 16: APORTES SOCIALES E IMPACTO COMUNITARIO -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Aportes Sociales e Impacto Comunitario</h2>
+                <span class="chapter">Transformación</span>
+            </div>
+            <div class="slide-content content-with-image">
+                <div>
+                    <div class="card" style="border-left-color: #8b5cf6;">
+                        <h3>Soberanía Tecnológica y Apropiación</h3>
+                        <ul>
+                            <li><strong>Democratización de la Información:</strong> Elimina las barreras de horario permitiendo consultar el catálogo a cualquier hora.</li>
+                            <li><strong>Inclusión Digital:</strong> Simplifica el canal de interacción haciéndolo accesible para personas de diversos niveles informáticos.</li>
+                            <li><strong>Alineación con el PNFI:</strong> Pone la tecnología al servicio directo de las necesidades reales de las comunidades locales.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="slide-image-container">
+                    <img src="img/slide_aportes.jpg" alt="Impacto Comunitario">
+                </div>
+            </div>
+        </div>
+
+        <!-- NUEVA DIAPOSITIVA 17: RECOMENDACIONES PARA EL USO DEL BOT Y DASHBOARD -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Recomendaciones para el Bot y Dashboard</h2>
+                <span class="chapter">Buenas Prácticas</span>
+            </div>
+            <div class="slide-content content-with-image">
+                <div>
+                    <div class="card" style="border-left-color: #06b6d4;">
+                        <h3>Uso y Mantenimiento de la Plataforma</h3>
+                        <ul>
+                            <li><strong>Actualización Continua:</strong> Mantener al día la colección <code>cursos</code> en Firestore para evitar que el bot entregue información obsoleta.</li>
+                            <li><strong>Revisión de Métricas:</strong> Consultar periódicamente los logs en la consola Firebase para identificar dudas no resueltas e incorporar nuevas respuestas.</li>
+                            <li><strong>Respaldo Periódico:</strong> Exportar periódicamente las colecciones NoSQL de la base de datos como medida preventiva.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="slide-image-container">
+                    <img src="img/slide_recomendaciones_bot.jpg" alt="Uso del Bot y Dashboard">
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAPOSITIVA 18: PÁGINA DE GRACIAS -->
+        <div class="slide slide-thanks-page">
+            <h2>¡Muchas Gracias!</h2>
+            <p>Por su Atención durante la Defensa de Proyecto</p>
+        </div>
+
+        <!-- CONTROLS AND PROGRESS -->
+        <div class="slide-counter"><span id="current-slide-num">1</span> / <span id="total-slides-num">18</span></div>
+        
+        <div class="controls">
+            <button class="control-btn" id="prev-btn" disabled>&larr; Anterior</button>
+            <button class="control-btn" id="next-btn">Siguiente &rarr;</button>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const currentSlideNum = document.getElementById('current-slide-num');
+        const totalSlidesNum = document.getElementById('total-slides-num');
+        const progressBar = document.getElementById('progress-bar');
+        const presentationElem = document.getElementById('presentation');
+
+        let currentSlideIndex = 0;
+        totalSlidesNum.textContent = slides.length;
+
+        function updateSlidePosition() {
+            slides.forEach((slide, index) => {
+                if (index === currentSlideIndex) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+
+            currentSlideNum.textContent = currentSlideIndex + 1;
+            
+            const progressPercent = ((currentSlideIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+
+            prevBtn.disabled = currentSlideIndex === 0;
+            nextBtn.disabled = currentSlideIndex === slides.length - 1;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSlideIndex < slides.length - 1) {
+                currentSlideIndex++;
+                updateSlidePosition();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                updateSlidePosition();
+            }
+        });
+
+        // NAVEGACIÓN Y MODO PANTALLA COMPLETA CON TECLADO
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                if (currentSlideIndex < slides.length - 1) {
+                    currentSlideIndex++;
+                    updateSlidePosition();
+                }
+            } else if (e.key === 'ArrowLeft') {
+                if (currentSlideIndex > 0) {
+                    currentSlideIndex--;
+                    updateSlidePosition();
+                }
+            } else if (e.key === 'f' || e.key === 'F') {
+                // Presiona la tecla F para entrar o salir de pantalla completa
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen();
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    }
+                }
+            }
+        });
+
+        updateSlidePosition();
+    </script>
+</body>
+</html>
